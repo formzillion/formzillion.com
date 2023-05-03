@@ -5,7 +5,7 @@ export const invitationEmail = ({
   teamId,
   token,
 }: any) => {
-  const url = `http://localhost:3000/registerinvite?token=${token}&to=${toEmail}&team_id=${teamId}`;
+  const url = `http://localhost:3000/register-invite?token=${token}&to=${toEmail}&team_id=${teamId}`;
 
   return `<!DOCTYPE html>
 <html>
