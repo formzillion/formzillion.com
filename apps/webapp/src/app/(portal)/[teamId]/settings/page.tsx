@@ -6,6 +6,8 @@ import LeaveTeam from "./LeaveTeam";
 import DeleteTeam from "./DeleteTeam";
 import prisma from "@/lib/prisma";
 
+const settingSections = [TeamName, TeamUrl, LeaveTeam];
+
 const TeamsPage = async ({ params }: any) => {
   const { teamId: teamSlug } = params;
   if (teamSlug === "dashboard") {
@@ -17,10 +19,14 @@ const TeamsPage = async ({ params }: any) => {
 
   const serializedTeams = JSON.stringify(teams);
   return (
-    <div className=" mt-6">
-      <TeamName teamSlug={serializedTeams} />
-      <TeamUrl teamSlug={serializedTeams} />
-      <LeaveTeam teamSlug={serializedTeams} />
+    <div className="space-y-4">
+      {settingSections.map((Section, idx: number) => (
+        <div className="space-y-5 w-full">
+          <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
+            <Section key={idx} teamSlug={serializedTeams} />
+          </div>
+        </div>
+      ))}
       <DeleteTeam teamSlug={serializedTeams} />
     </div>
   );
