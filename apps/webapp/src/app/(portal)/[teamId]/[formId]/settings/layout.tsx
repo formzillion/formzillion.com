@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import Sidebar from "./sidebar";
 
 export default async function FormSettingsLayout({ children }: any) {
   return (
