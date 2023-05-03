@@ -1,14 +1,21 @@
 import sendgrid from "@sendgrid/mail";
 import { Resend } from "resend";
 
+type emailTypes = {
+  toEmail: string;
+  subject: string;
+  html: string;
+  provider: string;
+};
 export async function sendEmail({
   toEmail,
   subject,
   html,
   provider = "sendgrid",
-}: any) {
-  const from = "sandeep@formzillion.com";
+}: emailTypes) {
   try {
+    const { FROM_EMAIL }: any = process.env;
+    const from = FROM_EMAIL;
     if (provider === "sendgrid") {
       const { SENDGRID_API_KEY }: any = process.env;
       sendgrid.setApiKey(SENDGRID_API_KEY);
