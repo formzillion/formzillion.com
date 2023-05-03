@@ -42,16 +42,19 @@ If you encounter any issues with Webhooks workflow, such as not sending the payl
 
 ```
 {
-  "formId": "aPzw9XXX",
-  "formName": "Product X Survey",
-  "submittedAt": "2023-05-03T05:30:35.200Z",
-  "submissionId": "clh79f7ls0001jXXXXXXXXXX",
-  "submittedValues": {
-    "name": "Javier Einarsson",
-    "email": "javier01@example.com",
-    "message": "But the attitude of faith is to let go, and become open to truth, whatever it might turn out to be."
-  },
-  "ipOrigin": "237.84.2.178",
-  "countryOrigin": "US",
+  eventType: "formSubmission",
+  eventData:  {
+    "formId": "aPzw9XXX",
+    "formName": "Product X Survey",
+    "submittedAt": "2023-05-03T05:30:35.200Z",
+    "submissionId": "clh79f7ls0001jXXXXXXXXXX",
+    "submittedValues": {
+      "name": "Javier Einarsson",
+      "email": "javier01@example.com",
+      "message": "But the attitude of faith is to let go, and become open to truth, whatever it might turn out to be."
+    },
+    "ipOrigin": "237.84.2.178",
+    "countryOrigin": "US",
+  }
 }
 ```

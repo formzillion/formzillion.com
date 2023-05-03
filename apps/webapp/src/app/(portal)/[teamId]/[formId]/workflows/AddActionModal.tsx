@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { isEmpty } from "lodash";
+import { get, isEmpty, startCase } from "lodash";
 
 import {
   Dialog,
@@ -23,6 +23,13 @@ interface IAddActionModal {
   refreshGrid: () => void;
 }
 
+const availableActionsMap: any = {
+  mailerlite: ["addSubscriber"],
+  sendgrid: ["sendWelcomeEmail", "sendThankyouEmail"],
+  slack: ["sendNotification"],
+  webhooks: ["postToWebhookEnpoint"],
+};
+
 const AddActionModal = ({
   workflowId,
   teamSlug,
@@ -35,12 +42,14 @@ const AddActionModal = ({
   const [appSlug, setAppSlug] = useState("");
   const [teamId, setTeamId] = useState("");
   const [actionSetup, setActionSetup] = useState({
-    workflowId: workflowId,
-    type: "action",
     appId: "",
     connectionId: "",
-    template: {},
+    actionSlug: "",
   });
+
+  const availableActions = availableActionsMap[appSlug];
+  const isConnectionsExists = !isEmpty(connectionList);
+  const isAppsExists = !isEmpty(appsList);
 
   const getAppsList = useCallback(async () => {
     const apps = await getApps();
@@ -53,7 +62,7 @@ const AddActionModal = ({
       teamSlug,
     });
 
-    setTeamId(connections[0]?.teamId);
+    setTeamId(get(connections, "0.teamId", ""));
     setconnectionList(connections);
   }, [actionSetup.appId, teamSlug]);
 
@@ -81,10 +90,18 @@ const AddActionModal = ({
 
   const handleAddAction = async () => {
     setLoading(true);
+    const actionSlug = actionSetup.actionSlug || get(availableActions, "0", "");
+    const appId = actionSetup.appId || get(appsList, "0.id", "");
+    const connectionId = actionSetup.connectionId || get(connectionList, "0.id", "");
     const actionResp = await addTask({
-      ...actionSetup,
+      workflowId,
       teamId,
-      name: `${appSlug}Action`,
+      type: "action",
+      appId,
+      actionSlug,
+      connectionId,
+      name: `${appSlug}_${actionSlug}`,
+      template: {},
     });
     if (actionResp.success) {
       showSuccessToast("Action added successfully");
@@ -117,9 +134,10 @@ const AddActionModal = ({
               id="appId"
               name="appId"
               className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+              defaultValue={actionSetup.appId}
               onClick={(e: any) => handleOnSelect(e)}
             >
-              {!isEmpty(appsList) &&
+              {isAppsExists &&
                 appsList.map((app: any) => {
                   return (
                     <option key={app.id} value={app.id}>
@@ -129,7 +147,7 @@ const AddActionModal = ({
                 })}
             </select>
           </div>
-          {!isEmpty(connectionList) && (
+          {isConnectionsExists && (
             <div className="space-y-4 py-2 pb-4">
               <label
                 htmlFor="connectionId"
@@ -141,12 +159,38 @@ const AddActionModal = ({
                 id="connectionId"
                 name="connectionId"
                 className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+                defaultValue={actionSetup.connectionId}
                 onClick={(e: any) => handleOnSelect(e)}
               >
                 {connectionList.map((conn: any) => {
                   return (
                     <option key={conn.id} value={conn.id}>
                       {conn.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          )}
+          {isConnectionsExists && !isEmpty(availableActions) && (
+            <div className="space-y-4 py-2 pb-4">
+              <label
+                htmlFor="actionSlug"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Select Action
+              </label>
+              <select
+                id="actionSlug"
+                name="actionSlug"
+                className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+                defaultValue={actionSetup.actionSlug}
+                onClick={(e: any) => handleOnSelect(e)}
+              >
+                {availableActions.map((action: any) => {
+                  return (
+                    <option key={action} value={action}>
+                      {startCase(action)}
                     </option>
                   );
                 })}

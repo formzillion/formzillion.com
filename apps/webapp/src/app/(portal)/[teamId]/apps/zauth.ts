@@ -38,12 +38,27 @@ const composeGoogleAuthUrl = (options: any) => {
   return baseUrl + "?" + serialize(qp);
 };
 
+const composeMailchimpAuthUrl = (options: any) => {
+  const baseUrl = "https://login.mailchimp.com/oauth2/authorize";
+  const qp = {
+    access_type: "offline",
+    prompt: "consent",
+    response_type: "code",
+    client_id: process.env.NEXT_PUBLIC_MAILCHIMP_CLIENT_ID || "",
+    redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/integrations/mailchimp-callback`,
+    state: JSON.stringify({ email: options?.email, teamSlug: options?.teamId }),
+  };
+  return baseUrl + "?" + serialize(qp);
+};
+
 const getAuthUrl = (provider: string, options: any) => {
   let authUrl = "";
   if (provider === "slack") {
     authUrl = composeSlackAuthUrl(options);
   } else if (provider === "google_sheets") {
     authUrl = composeGoogleAuthUrl(options);
+  } else if (provider === "mailchimp") {
+    authUrl = composeMailchimpAuthUrl(options);
   }
   return authUrl;
 };
