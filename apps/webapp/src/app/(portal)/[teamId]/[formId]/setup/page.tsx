@@ -67,7 +67,7 @@ export default async function Page({ params }: PageProps) {
         <select
           id="template"
           name="template"
-          className="block w-full pl-3 rounded-md shadow-sm pr-10 py-2 border-gray-300 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 transition duration-150 ease-in-out"
+          className="block w-full pl-3 rounded-md shadow-sm pr-10 py-2 border-gray-300 dark:border-none dark:bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 transition duration-150 ease-in-out"
         >
           <option value="Contact form">Contact form</option>
           <option value="Survey form">Survey form</option>

@@ -28,7 +28,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       {...props}
       ref={ref}
       className={classNames(
-        "block w-full rounded-sm border dark:bg-gray-900 dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-800 sm:text-sm dark:text-gray-200",
+        "block w-full rounded-sm border  dark:bg-gray-900 dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-100 focus:border-gray-400 sm:text-sm dark:text-gray-200",
         props.className
       )}
     />
@@ -386,7 +386,7 @@ export const SelectField = forwardRef<HTMLSelectElement, SelectFieldProps>(
             placeholder={placeholder}
             defaultValue={defaultValue}
             className={classNames(
-              "block w-full rounded-sm border dark:bg-gray-900 dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-orange-500 focus:outline-none focus:ring-orange-500 sm:text-sm dark:text-gray-200",
+              "block w-full rounded-sm border dark:bg-gray-900 dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm  focus:outline-none  sm:text-sm dark:text-gray-200 focus:ring-gray-100 focus:border-gray-400",
               props.className
             )}
             ref={ref}
