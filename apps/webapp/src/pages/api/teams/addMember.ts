@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
+import { sendEmail } from "@/lib/sendEmail";
+import { invitationEmail } from "./invitationEmail";
+import getUserSession from "../userSession/getUserSession";
+import { getToken } from "@/utils/tokenService";
 
 export default async function handler(
   req: NextApiRequest,
@@ -7,6 +11,9 @@ export default async function handler(
 ) {
   try {
     const { emailsToInvite, teamSlug, role } = req.body;
+    const { currentUser } = await getUserSession(req, res);
+    const { email: currentUserEmail, fullName } = currentUser;
+
     const emails = emailsToInvite.includes(",")
       ? emailsToInvite.split(",")
       : [emailsToInvite];
@@ -49,6 +56,24 @@ export default async function handler(
         teamId: updatedTeam.id,
       })),
     });
+
+    if (newEmails) {
+      for (const email of newEmails) {
+        const token = await getToken({ length: 36, email });
+        await sendEmail({
+          provider: "sendgrid",
+          toEmail: email,
+          subject: "Team Invitation",
+          html: invitationEmail({
+            inviterEmail: currentUserEmail,
+            inviterName: fullName,
+            toEmail: email,
+            teamId: updatedTeam.id,
+            token,
+          }),
+        });
+      }
+    }
     res.status(201).json({ success: true, data: updatedTeam });
   } catch (error: any) {
     console.log(error);

@@ -228,6 +228,16 @@ model invoices {
   @@map("invoice")
 }
 
+model tokens {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  isUsed    Boolean  @default(false)
+  isActive  Boolean  @default(true)
+  email     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+}
+
 enum membershipRole {
   MEMBER
   ADMIN

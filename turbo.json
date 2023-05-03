@@ -34,7 +34,8 @@
         "NEXT_PUBLIC_GOOGLE_CLIENT_ID",
         "SLACK_CLIENT_ID",
         "NEXT_PUBLIC_MAILCHIMP_CLIENT_ID",
-        "NEXT_PUBLIC_MAILCHIMP_CLIENT_SECRET_ID"
+        "NEXT_PUBLIC_MAILCHIMP_CLIENT_SECRET_ID",
+        "FROM_EMAIL"
       ]
     },
     "db:generate": {
