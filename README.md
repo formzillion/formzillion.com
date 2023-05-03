@@ -19,12 +19,12 @@ Formzillion is a SaSS platform for building faster marketing activities for deve
 13. Vercel - Hosting
 14. TurboRepo - Mono repository administration
 
-## Formzillion
+## Local Setup
 
 1. Clone the code from the zs-website repository
 
 ```
-git clone https://github.com/leado/formzillion.git
+git clone https://github.com/formzillion/formzillion.com.git
 ```
 
 2. Install node modules using pnpm in the root folder

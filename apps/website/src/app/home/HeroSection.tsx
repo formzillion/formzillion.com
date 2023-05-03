@@ -41,17 +41,6 @@ export default function HeroSection() {
             </div>
           </div>
           <div className="hidden md:block lg:w-1/2">
-            <Image
-              alt="Hero"
-              src="https://www.wyzebulb.com/_next/static/media/home-banner.31227da8.svg"
-              width="1014"
-              height="770"
-              decoding="async"
-              data-nimg="1"
-              className=" h-[90%] w-[90%]"
-              loading="lazy"
-              style={{ color: "transparent" }}
-            />
           </div>
         </div>
       </div>
