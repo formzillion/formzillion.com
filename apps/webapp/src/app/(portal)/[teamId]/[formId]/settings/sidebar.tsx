@@ -24,7 +24,7 @@ export default function Sidebar() {
 
   return (
     <nav aria-label="Sidebar" className="w-40">
-      <ul role="list" className="-mx-2 space-y-1 w-40">
+      <ul role="list" className="space-y-1 w-40">
         {navigation.map((item) => (
           <li key={item.name} className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900">
             <Link
