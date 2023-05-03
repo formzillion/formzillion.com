@@ -1,0 +1,26 @@
+{
+  "name": "docs",
+  "version": "0.0.1",
+  "description": "Formzillion docs",
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@codesandbox/sandpack-react": "^2.6.1",
+    "@codesandbox/sandpack-themes": "^2.0.21",
+    "@vercel/analytics": "^1.0.0",
+    "next": "13.3.0",
+    "next-themes": "^0.2.1",
+    "nextra": "^2.3.0",
+    "nextra-theme-docs": "^2.2.20",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.10",
+    "@types/react": "18.2.0",
+    "typescript": "^4.9.3"
+  }
+}

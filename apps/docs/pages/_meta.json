@@ -1,0 +1,17 @@
+{
+  "index": "Introduction",
+  "setup": "",
+  "features": "",
+  "integrations": "",
+  "platforms": "",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "contact": {
+    "title": "Contact ↗",
+    "type": "page",
+    "href": "https://github.com/formzillion",
+    "newWindow": true
+  }
+}

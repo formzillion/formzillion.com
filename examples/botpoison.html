@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormZillion - Botpoison Form Submit Example</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@botpoison/browser" async></script>
+  </head>
+  <body>
+    <div class="mx-auto flex h-[100vh] max-w-7xl items-center justify-center">
+      <div class="w-[400px] border border-gray-100 p-10 shadow">
+        <div class="flex justify-center">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4fnpNNntpKUgom0-lB7s5TDs61_ys7Lk2NA&usqp=CAU"
+            alt="email"
+            class="h-20 w-20"
+          />
+        </div>
+        <h1 class="text-center text-3xl text-gray-700">Subscribe</h1>
+        <h4 class="text-center text-xl text-gray-500">To our Newsletters</h4>
+        <form
+          id="form"
+          class="my-6"
+          action="https://formzillion.com/f/your-form-id"
+          data-botpoison-public-key="your-botpoison-public-key"
+          method="POST"
+        >
+          <label
+            class="mb-2 block text-sm font-bold text-gray-500"
+            for="username"
+          >
+            Email
+          </label>
+          <input
+            class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
+            id="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+            name="email"
+          />
+          <div class="w-full">
+            <button
+              id="button"
+              class="w-full rounded bg-orange-500 px-4 py-2 font-bold text-white"
+              type="submit"
+            >
+              Subscribe
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

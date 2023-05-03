@@ -1,0 +1,82 @@
+# Forms Using Axios
+
+Axios is a popular, lightweight, promise-based HTTP client library that can be used in both the browser and node.js environments for making HTTP requests. It's commonly used for this purpose. Additionally, if you want to submit your forms, you can use Axios with Formzillion.
+
+## Simple Axios Setup
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AJAX with Axios</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js" async></script>
+  </head>
+  <body>
+    <script>
+      axios
+        .post('https://formzillion.com//f/your-form-id', {
+          message: 'Hello, World',
+        })
+        .then(function (response) {
+          console.log(response)
+        })
+        .catch(function (response) {
+          console.error(response)
+        })
+    </script>
+  </body>
+</html>
+```
+
+### Example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormZillion - Axios Example</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <form id="form" action="">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <button type="submit">Send</button>
+    </form>
+    <script>
+      var form = document.getElementById('form')
+      form.addEventListener('submit', formSubmit)
+
+      function formSubmit(e) {
+        e.preventDefault()
+
+        const formData = new FormData()
+        formData.append(
+          'name',
+          document.querySelector('input[name="name"]').value
+        )
+        formData.append(
+          'email',
+          document.querySelector('input[name="email"]').value
+        )
+
+        axios({
+          method: 'post',
+          url: 'https://formzillion.com//f/your-form-id',
+          data: formData,
+        })
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error))
+      }
+    </script>
+  </body>
+</html>
+```
+
+## Axios with reCaptcha v2
+
+## Axios with reCaptcha v3

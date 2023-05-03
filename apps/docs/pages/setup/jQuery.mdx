@@ -1,0 +1,53 @@
+# Forms Using jQuery
+
+To submit form data as JSON, begin by creating a new form in your dashboard. Then, use an AJAX library in your HTML form code to accomplish this task.
+
+For instance, you can use the jQuery library, as shown in the following example (opens new window). Simply copy and paste the example code below anywhere in your HTML form code, before the `</body>` tag:
+
+```js
+$('#ajaxForm').submit(function (e) {
+  e.preventDefault()
+  var action = $(this).attr('action')
+  $.ajax({
+    type: 'POST',
+    url: action,
+    crossDomain: true,
+    data: new FormData(this),
+    dataType: 'json',
+    processData: false,
+    contentType: false,
+    headers: {
+      Accept: 'application/json',
+    },
+  })
+    .done(function () {
+      $('.success').addClass('is-active')
+    })
+    .fail(function () {
+      alert('An error occurred! Please try again later.')
+    })
+})
+```
+
+To receive responses in JSON format, ensure that you include "dataType: 'json'" in your code. This will set the Accept HTTP header to "application/json".
+
+To associate your form with the JQuery AJAX Setup, assign the "ajaxForm" ID to your HTML form using the following code:
+
+```html
+<form
+  id="ajaxForm"
+  action="https://formzillion.com//f/your-form-id"
+  method="POST"
+>
+  <input type="text" name="name" id="name" />
+  <input type="email" name="email" id="email" />
+  <input type="text" name="message" />
+  <button type="submit">Send</button>
+</form>
+```
+
+After following these steps, your AJAX form will be fully functional and capable of submitting form data to Formzillion via jQuery AJAX.
+
+## jQuery with reCaptcha v2
+
+## jQuery with reCaptcha v3

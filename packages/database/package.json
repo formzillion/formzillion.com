@@ -1,0 +1,18 @@
+{
+  "name": "database",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "types": "index.d.ts",
+  "scripts": {
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push --skip-generate"
+  },
+  "dependencies": {
+    "@prisma/client": "latest",
+    "zod": "^3.21.4",
+    "zod-prisma": "^0.5.4"
+  },
+  "devDependencies": {
+    "prisma": "latest"
+  }
+}

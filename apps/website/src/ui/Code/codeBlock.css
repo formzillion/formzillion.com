@@ -1,0 +1,3 @@
+.codeBlock pre {
+  @apply scroll-m-1 overflow-x-scroll scrollbar-thin scrollbar-track-rounded-full scrollbar-thumb-rounded-md scrollbar-h-[1px] scrollbar-thumb-gray-700
+}

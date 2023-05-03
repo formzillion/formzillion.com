@@ -1,0 +1,235 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id                String        @id @default(cuid())
+  email             String?       @unique
+  createdAt         DateTime      @default(now()) @map("created_at")
+  updatedAt         DateTime?     @updatedAt @map("updated_at")
+  billingAddress    Json?         @map("billing_address")
+  billingCustomerId String?       @map("billing_customer_id")
+  features          Json?
+  firstName         String?       @map("first_name")
+  formCount         Int?          @map("form_count")
+  fullName          String?       @map("full_name")
+  kind              String?
+  lastName          String?       @map("last_name")
+  planId            String?       @map("plan_id")
+  planName          String?       @map("plan_name")
+  registeredOn      DateTime      @default(now()) @map("registered_on")
+  verified          Boolean       @default(false)
+  avatar            String?
+  language          String?
+  timezone          String?
+  title             String?
+  connections       connections[]
+  memberships       memberships[]
+  workflows         workflows[]
+  teams             teams[]       @relation("teamsTousers")
+
+  @@map("users")
+}
+
+model form_submissions {
+  id        String   @id @default(cuid())
+  ip        String   @default("")
+  country   String   @default("")
+  status    String   @default("created")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  fields    Json?
+  formId    String?  @map("form_id")
+  isSpam    Boolean?
+  form      forms?   @relation(fields: [formId], references: [id])
+
+  @@map("form_submissions")
+}
+
+model forms {
+  id                  String             @id @default(nanoid(8))
+  name                String
+  status              String             @default("created")
+  createdAt           DateTime           @default(now()) @map("created_at")
+  updatedAt           DateTime           @updatedAt @map("updated_at")
+  fields              Json?
+  sendToEmail         String[]           @map("send_to_email")
+  emailNotifications  Boolean            @default(true)
+  formEnabled         Boolean            @default(true)
+  submissionArchive   Boolean            @default(false)
+  redirectUrl         String?
+  redirectData        Json?
+  email               String?            @map("email")
+  teamId              String             @map("team_id")
+  workflowId          Int?
+  spamConfig          Json?
+  spamProvider        String?
+  customHoneypot      String?
+  customSpamWords     String[]
+  submissions         form_submissions[]
+  team                teams              @relation(fields: [teamId], references: [id])
+  workflows           workflows[]
+  autoResponder       Boolean            @default(false)
+  autoResponderConfig Json?
+
+  @@map("forms")
+}
+
+model projects {
+  id        String   @id @default(cuid())
+  name      String?
+  status    String   @default("active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("projects")
+}
+
+model teams {
+  id                String             @id @default(cuid())
+  name              String
+  status            String             @default("")
+  createdAt         DateTime           @default(now()) @map("created_at")
+  updatedAt         DateTime           @updatedAt @map("updated_at")
+  slug              String             @unique
+  appIconLogo       String?
+  appLogo           String?
+  bio               String?
+  brandColor        String             @default("#292929")
+  darkBrandColor    String             @default("#fafafa")
+  hideBranding      Boolean            @default(false)
+  metadata          Json?
+  theme             String?
+  billingCustomerId String?            @unique @map("billing_customer_id")
+  planId            String?            @map("plan_id")
+  planName          String?            @map("plan_name")
+  connections       connections[]
+  forms             forms[]
+  members           memberships[]
+  teamInvitations   team_invitations[]
+  workflows         workflows[]
+  users             users[]            @relation("teamsTousers")
+
+  @@map("teams")
+}
+
+model memberships {
+  teamId               String
+  userId               String
+  accepted             Boolean        @default(false)
+  role                 membershipRole
+  disableImpersonation Boolean        @default(false)
+  team                 teams          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user                 users          @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, teamId])
+  @@index([teamId])
+  @@index([userId])
+}
+
+model team_invitations {
+  id        String   @id @default(cuid())
+  email     String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  teamId    String?  @map("team_id")
+  team      teams?   @relation(fields: [teamId], references: [id])
+
+  @@map("team_invitations")
+}
+
+model connections {
+  id        String   @id @default(cuid())
+  email     String?
+  status    String   @default("pending")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  userId    String   @map("user_id")
+  teamId    String?  @map("team_id")
+  apiKeys   Json
+  name      String   @default("")
+  appId     String?
+  appSlug   String
+  app       apps?    @relation(fields: [appId], references: [id])
+  team      teams?   @relation(fields: [teamId], references: [id])
+  user      users    @relation(fields: [userId], references: [id])
+  tasks     tasks[]
+
+  @@map("connections")
+}
+
+model apps {
+  id          String        @id @default(cuid())
+  name        String
+  status      String        @default("in_active")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+  appConfig   Json
+  slug        String        @unique
+  connections connections[]
+  tasks       tasks[]
+
+  @@map("apps")
+}
+
+model workflows {
+  name      String   @default("Default workflow")
+  status    String   @default("active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  formId    String   @map("form_id")
+  teamId    String?  @map("team_id")
+  userId    String?  @map("user_id")
+  id        Int      @id @default(autoincrement())
+  tasks     tasks[]
+  form      forms    @relation(fields: [formId], references: [id], onDelete: Cascade)
+  team      teams?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user      users?   @relation(fields: [userId], references: [id])
+
+  @@map("workflows")
+}
+
+model tasks {
+  id           Int         @id @default(autoincrement())
+  type         String      @default("action")
+  template     Json?
+  appId        String      @map("app_id")
+  workflowId   Int         @map("workflow_id")
+  connectionId String      @map("connection_id")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  name         String?
+  slug         String?
+  status       String      @default("active")
+  app          apps        @relation(fields: [appId], references: [id])
+  connection   connections @relation(fields: [connectionId], references: [id], onDelete: Cascade)
+  workflow     workflows   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+
+  @@map("tasks")
+}
+
+model invoices {
+  id                Int         @id @default(autoincrement())
+  stripeInvoiceId   String      @map("stripe_invoice_id")
+  billingCustomerId String      @map("billing_customer_id")
+  status            String      @map("status")
+  planId            String      @map("plan_id")
+  planName          String?     @map("plan_name")
+  periodEndDate     String      @map("period_end_date")
+  periodStartDate   String?     @map("period_start_date")
+  totalAmount       String?     @map("total_amount")
+
+  @@map("invoice")
+}
+
+enum membershipRole {
+  MEMBER
+  ADMIN
+  OWNER
+}

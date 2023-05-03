@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FormZillion - Axios Example</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <form id="form" action="">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="email" name="email" placeholder="Email" />
+      <button type="submit">Send</button>
+    </form>
+    <script>
+      var form = document.getElementById("form");
+      form.addEventListener("submit", formSubmit);
+
+      function formSubmit(e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append(
+          "name",
+          document.querySelector('input[name="name"]').value
+        );
+        formData.append(
+          "email",
+          document.querySelector('input[name="email"]').value
+        );
+
+        axios({
+          method: "post",
+          url: "https://formzillion.com/f/vtMm5bc",
+          data: formData,
+        })
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error));
+      }
+    </script>
+  </body>
+</html>

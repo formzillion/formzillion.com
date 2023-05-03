@@ -1,0 +1,108 @@
+import React from "react";
+
+export default function CustomizeSection() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 items-center rounded-md p-4 sm:p-8 md:p-12">
+      <div className="hidden md:block">
+        <img
+          src="screenshots/submission-feedback.png"
+          alt="Submission feedback"
+          aria-label="Submission feedback"
+          className="border rounded-md shadow-md"
+        />
+      </div>
+      <div className="max-w-lg p-1 sm:p-2 md:p-4">
+        <h3 className="text-2xl text-gray-900 font-semibold mb-3 md:mb-6">
+          Customize
+        </h3>
+        <div className="text-lg text-gray-700">
+          <div className="flex py-2">
+            <div className="text-gray-300 pr-2">•</div>
+            <div>
+              <a
+                className="link"
+                href="https://docs.formzillion.io/customization/redirection.html"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Customize
+              </a>
+              the redirect url, success page, error page, email template and
+              more
+            </div>
+          </div>
+          <div className="flex py-2">
+            <div className="text-gray-300 pr-2">•</div>
+            <div>Out-of-the-box modern design</div>
+          </div>
+          <div className="flex py-2">
+            <div className="text-gray-300 pr-2">•</div>
+            <div>
+              Translations: English, Russian, Spanish, Portuguese, French,
+              Italian, German and Dutch, with more coming soon
+            </div>
+          </div>
+          <div className="flex py-2">
+            <div className="text-gray-300 pr-2">•</div>
+            <div>
+              Spam protection support:{" "}
+              <a className="link" href="/features/botpoison/">
+                Botpoison
+              </a>
+              ,{" "}
+              <a className="link" href="/features/recaptcha/">
+                reCAPTCHA
+              </a>
+              ,{" "}
+              <a className="link" href="/features/hcaptcha/">
+                hCaptcha
+              </a>
+              ,{" "}
+              <a className="link" href="/features/turnstile/">
+                Turnstile
+              </a>{" "}
+              &amp; Akismet
+            </div>
+          </div>
+          <div className="hidden md:flex items-center mt-8">
+            <div className="text-center">
+              <img
+                src="brands/botpoison.svg"
+                alt="Botpoison"
+                className="rounded w-16 p-2 "
+              />
+              <div className="text-sm font-semibold">Botpoison</div>
+            </div>
+            <div className="mr-12"></div>
+            <div className="text-center">
+              <img
+                src="brands/recaptcha.svg"
+                alt="reCAPTCHA"
+                className="rounded w-16 p-2 "
+              />
+              <div className="text-sm font-semibold">reCAPTCHA</div>
+            </div>
+            <div className="mr-12"></div>
+            <div className="text-center">
+              <img
+                src="brands/hcaptcha.svg"
+                alt="hCaptcha"
+                className="rounded w-16 p-2 "
+              />
+              <div className="text-sm font-semibold">hCaptcha</div>
+            </div>
+            <div className="mr-12"></div>
+            <div className="text-center">
+              <img
+                src="brands/akismet.png"
+                alt="Akismet"
+                className="rounded w-16 p-2 "
+              />
+              <div className="text-sm font-semibold">Akismet</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,79 @@
+import React, { Suspense } from "react";
+import {
+  BuildingOfficeIcon,
+  CreditCardIcon,
+  UserIcon,
+  UsersIcon,
+} from "@heroicons/react/20/solid";
+
+import { Tab } from "./Tab";
+
+import { useGetFormDetail } from "./useGetFormDetail";
+import FzLoader from "@/components/FzLoader";
+
+const tabs = [
+  { name: "Submissions", path: "/", icon: UserIcon, targetSegment: null },
+  {
+    name: "Reports",
+    path: "reports",
+    icon: UserIcon,
+    targetSegment: "reports",
+  },
+  {
+    name: "Setup",
+    path: "setup",
+    icon: BuildingOfficeIcon,
+    targetSegment: "setup",
+  },
+  {
+    name: "Workflows",
+    path: "workflows",
+    icon: CreditCardIcon,
+    targetSegment: "workflows",
+  },
+  {
+    name: "Settings",
+    path: "settings",
+    icon: UsersIcon,
+    targetSegment: "settings",
+  },
+];
+
+interface FormDetailPageProps {
+  children: any;
+  params: {
+    formId: string;
+    teamId: string;
+  };
+}
+
+export default async function FormDetailLayout({
+  children,
+  params,
+}: FormDetailPageProps) {
+  const formId = params.formId;
+  const teamId = params.teamId;
+  const formDetail = (await useGetFormDetail(formId)) || [];
+
+  return (
+    <div className="hidden sm:block">
+      <div className="border-b border-gray-200 dark:border-gray-800">
+        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+          {tabs.map((tab, idx) => (
+            <Tab
+              name={tab?.name}
+              targetSegment={tab?.targetSegment}
+              href={`/${teamId}/${formId}/${tab.path}`}
+              key={idx}
+            />
+          ))}
+        </nav>
+      </div>
+      <Suspense fallback={<FzLoader />}>
+        <div className="rounded p-4 mx-auto max-w-7xl">
+          {React.cloneElement(children, { formDetail: formDetail })}
+        </div>
+      </Suspense>
+    </div>
+  );
+}

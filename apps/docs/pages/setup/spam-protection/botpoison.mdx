@@ -1,0 +1,38 @@
+# Botpoison
+
+Botpoison, an easy-to-use and invisible anti-spam solution, seamlessly integrates with Formzillion.
+
+## Getting started
+
+1. Go to [Botpoison](https://botpoison.com/dashboard/configurations/).
+2. Create a new configuration.
+3. Integrate the _public key_ on your website [instructions](https://botpoison.com/documentation/getting-started/html/).
+4. Copy the _secret key_.
+5. Open Formzillion.
+6. In your form's settings, Enable Spam Protection, select Botpoison under Spam Protection..
+7. Paste the secret key into the Botpoison secret key field.
+
+Your form is now protected by Botpoison.
+
+If you wish to discontinue using Botpoison, simply switch your Spam Protection setting to "None".
+
+## Example
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/@botpoison/browser" async></script>
+  </head>
+  <body>
+    <form
+      method="POST"
+      action="https://www.formzillion.com/f/your-form-id"
+      data-botpoison-public-key="your-botpoison-public-key"
+      target="_blank">
+      <input name="email" placeholder="Enter your Email"></input>
+      <button type="submit">Send</button>
+    </form>
+  </body>
+</html>
+```

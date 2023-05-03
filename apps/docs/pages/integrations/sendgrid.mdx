@@ -1,0 +1,33 @@
+# Sendgrid
+
+SendGrid delivers your transactional and marketing emails. By using sendgrid, you can send emails to the person who submitted the form.
+
+## Setting up Sendgrid Integration
+
+To add the new workflow action for form submissions to send the emails to your form submitters, follow these steps:
+
+1.  Make sure you have an account on sendgrid if not please visit [Sendgrid](https://signup.sendgrid.com/) and sign up.
+2.  Create the API Key by following the sendrid guide [Create Sendgrid API Keys](https://docs.sendgrid.com/ui/account-and-settings/api-keys).
+3.  Log in to your dashboard and navigate to the “**Apps**” Tab.
+4.  Click on Sendgrid “**Connect**”. This will bring an window for you to add the name of the connection and Sendgrid API Key
+5.  Please enter the “**Connection Name**” and “**API Key**” and click “**Add**”
+6.  Now navigate to the “**Forms**” tab and select the form for which you want to set up Sendgrid emails workflow.
+7.  Under the selected form page navigate to the “**Workflows**” Tab
+8.  Under the workflows click on the “**Actions**” and select “**Add action**” this will bring up a new window.
+9.  Here select the App as “**Sendrid**” and Connection which was connected previously.
+10. After Selecting all the options click on “**Add**” and test the sendgrid workflow action by submitting a test form on your website and verifying the email received on the submitted email inbox.
+
+## Toggling the Sendgrid Workflow
+
+Once you have added the sendgrid action to the form’s workflow, you can toggle the workflow action by:
+
+1.  Navigate to the the “**Workflow**” tab under the selected form
+2.  Just click on the toggle switch on the slack action to pause or resume the workflow.
+
+## Troubleshooting Sendgrid Workflow.
+
+If you encounter any issues with sendgrid workflow, such as not sending the email to the form submitter, you can troubleshoot the issue by:
+
+- Verify the Sendgrid API Key has the “**Full Access**” permission to send the emails.
+- Reconnecting the Sendgrid connection by clicking the reconnect button under the “Apps” tab and entering the “**Connection Name**” and “**API Key**”.
+- Test the workflow by submitting the test submission on the form.

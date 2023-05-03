@@ -1,0 +1,48 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "pipeline": {
+    "dev": {
+      "dependsOn": ["^db:generate"],
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["^build", "^db:generate"],
+      "outputs": ["dist/**", ".next/**"],
+      "env": [
+        "STRIPE_SECRET_KEY",
+        "STRIPE_WEBHOOK_SECRET",
+        "STRIPE_PAYMENT_DESCRIPTION",
+        "SENDGRID_API_KEY",
+        "NEXTAUTH_SECRET",
+        "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+        "RESEND_API_KEY",
+        "NODE_ENV",
+        "VERCEL_ENV",
+        "LOCAL_AUTH_URL",
+        "API_URL",
+        "NEXT_PUBLIC_APP_URL",
+        "NEXT_PUBLIC_SENTRY_DSN",
+        "SENTRY_DSN",
+        "WB_WEBHOOK_URL",
+        "NEXT_PUBLIC_DEBUG",
+        "SLACK_SECRET_ID",
+        "SLACK_CLIENT_SECRET_ID",
+        "NEXT_PUBLIC_SLACK_CLIENT_ID",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET_ID",
+        "NEXT_PUBLIC_GOOGLE_CLIENT_ID",
+        "SLACK_CLIENT_ID"
+      ]
+    },
+    "db:generate": {
+      "cache": false
+    },
+    "db:push": {
+      "cache": false
+    },
+    "lint": {
+      "outputs": []
+    }
+  }
+}

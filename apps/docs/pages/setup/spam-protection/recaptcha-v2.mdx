@@ -1,0 +1,108 @@
+# reCAPTCHA v2
+
+Google reCAPTCHA is the one of the best solutions to prevent web spams. There are two versions of Google reCAPTCHA and
+we support both clickable (v2) and invisible reCAPTCHA (v3).
+
+Here are the steps tp integrate Google reCaptcha v2 to your form endpoint.
+
+## Setting up reCAPTCHA v2
+
+![image](https://developers.google.com/static/recaptcha/images/newCaptchaAnchor.gif)
+
+### Step 1 - Get API Keys
+
+First, you need to grab an **API key** from Google reCAPTCHA console [clicking here](https://www.google.com/recaptcha/about/), you can login with your Google Account.
+
+After you login to Google reCAPTCHA Concole, create a new site. Select reCAPTCHA v2 and add your domains.
+
+![image](https://passwordprotectwp.com/wp-content/uploads/2021/01/ppwp-free-integrations-recaptcha-v2-checkbox.png)
+
+Afer adding your website and clicking the "Submit" button, Google will create API Keys for you.
+
+![image](https://is.docs.wso2.com/en/6.0.0/assets/img/fragments/copy-key.png)
+
+### Step 2- Add reCAPTCHA Library
+
+There are 2 keys generated for you Site Key and Secret Key. For this step, we will be using the Site Key.
+
+Add reCAPTCHA library into your `<head/>` tags.
+
+```js copy
+<script src="https://www.google.com/recaptcha/api.js"> </script>
+```
+
+### Step 3 - Add Hidden Element
+
+Add hidden reCAPTCHA `<input/>` into your form.
+
+```html copy
+<div class="g-recaptcha" data-sitekey="YOUR reCAPTCHA SITE KEY"></div>
+```
+
+### Step 4 - Insert Token to our Hidden Element
+
+This step is where we use the "Secret Key". In order to add your Secret Key.
+
+In your form settings, select the Google reCAPTCHA v2 under Spam Protection Paste the Secret Key into the reCAPTCHA v2
+secret key field
+
+your form is now protected by reCAPTCHA.
+
+To stop using reCAPTCHA, change your Spam Protection to none.
+
+### Example
+
+```html copy
+<html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FormZillion - Spam Filter</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
+</head>
+<body>
+  <form action="http://localhost:3000/f/clgme12ac000ct4xs5k1oon1p" method="post">
+    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      <h1 class="text-3xl text-center font-bold">Formzillion HTML Form Example</h1>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleInputEmail1">Email address</label>
+        <input
+          class=" justify-center align-center shadow appearance-none border rounded w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" required="" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleInputName">Name</label>
+        <input
+          class="shadow appearance-none border rounded  w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="exampleInputName" type="text" name="name" placeholder="Enter your name" required="" />
+      </div>
+      <div class="mb-4">
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleFormControlSelect1">Favourite
+          Platform</label>
+        <div class="relative">
+          <select
+            class="block appearance-none  w-[50%] border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="exampleFormControlSelect1" name="platform" required="">
+            <option>Google reCAPTCHA V3</option>
+            <option>Google reCAPTCHA V3</option>
+            <option>Akismet</option>
+          </select>
+        </div>
+      </div>
+      <div class="g-recaptcha" data-sitekey="6LdfJJglAAAAAFDJWKQqis8f8_6L_XDVsLN_fDAx" data-callback="enableBtn"></div>
+    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit" id="submit-btn" disabled>Send</button>
+    <script>
+      function enableBtn() {
+        document.getElementById("submit-btn").disabled = false;
+      }
+      document.getElementById("submit-btn").disabled = true;
+    </script>
+  </form>
+</body>
+
+</html>
+```

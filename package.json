@@ -1,0 +1,34 @@
+{
+  "name": "formzillion",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "predev": "rm -rf apps/webapp/.next && rm -rf apps/docs/.next && rm -rf apps/website/.next",
+    "prebuild": "rm -rf apps/webapp/.next && rm -rf apps/docs/.next && rm -rf apps/website/.next",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "changeset:add": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:release": "pnpm run build && changeset publish",
+    "changeset:next": "changeset pre enter next",
+    "changeset:normal": "changeset pre exit"
+  },
+  "dependencies": {
+    "@changesets/cli": "^2.26.1"
+  },
+  "devDependencies": {
+    "eslint-config-custom": "workspace:0.0.0",
+    "prettier": "latest",
+    "turbo": "^1.9.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "packageManager": "pnpm@7.17.0"
+}

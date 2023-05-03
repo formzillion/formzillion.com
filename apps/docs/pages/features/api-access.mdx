@@ -1,0 +1,47 @@
+# API Access
+
+The API Access feature in Formzillion allows you to programmatically access and manage your form submissions and settings using a REST API. By using the API, you can integrate your form data with other applications and services, automate workflows, and perform custom data analysis.
+
+## Getting Started
+
+To get started with the API Access feature, follow these steps:
+
+1. Log in to your Formzillion account.
+2. Click on the "API Access" tab in the navigation bar.
+3. Generate an API key by clicking on the "Generate API Key" button.
+4. Copy the API key and use it to authenticate your API requests.
+
+## API Endpoints
+
+The Formzillion API provides endpoints for managing forms, submissions, and settings. Here are some examples of API endpoints that you can use:
+
+- `/api/v1/forms`: Returns a list of forms.
+- `/api/v1/forms/{form_id}`: Returns details about a specific form.
+- `/api/v1/submissions`: Returns a list of submissions for all forms.
+- `/api/v1/submissions/{submission_id}`: Returns details about a specific submission.
+- `/api/v1/settings`: Returns global settings for your Formzillion account.
+
+For a full list of API endpoints, refer to the Formzillion API documentation.
+
+## Authentication
+
+To authenticate your API requests, you must include your API key in the request headers. Here's an example of how to include your API key:
+
+```
+Authorization: Bearer YOUR_API_KEY
+```
+
+Replace `YOUR_API_KEY` with your actual API key.
+
+## Rate Limiting
+
+To prevent abuse of the Formzillion API, we limit the number of API requests that you can make in a given time period. By default, you can make up to 1000 requests per hour. If you need a higher rate limit, please contact Formzillion support.
+
+## Troubleshooting
+
+If you're experiencing issues with the API Access feature, here are some troubleshooting guidelines:
+
+1. Check your API key to make sure that it's valid and has the necessary permissions.
+2. Verify that you're using the correct API endpoint and HTTP method for your request.
+3. Check the response from the API for error messages and codes.
+4. If you're still having issues, contact Formzillion support for assistance.
