@@ -105,7 +105,7 @@ export default function AutoResponders({ formDetail }: any) {
   };
 
   return (
-    <>
+    <div className="p-4 px-6 divide-y divide-gray-300">
       <Header title={"Autoresponders"} />
       <SwitchGroup
         label="Autoresponders Enabled"
@@ -150,6 +150,6 @@ export default function AutoResponders({ formDetail }: any) {
           </form>
         </div>
       )}
-    </>
+    </div>
   );
 }

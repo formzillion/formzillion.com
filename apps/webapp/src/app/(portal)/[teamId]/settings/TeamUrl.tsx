@@ -1,17 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/ui/Card/SCard";
-import updateTeam from "@/app/fetch/teams/updateTeam";
-import Button from "@/ui/Buttons";
-import { Input } from "@/ui/Input/SimpleInput";
 import { useRouter } from "next/navigation";
+
+import { Input } from "@/ui/Input/SimpleInput";
+import Header from "@/ui/Header";
+import updateTeam from "@/app/fetch/teams/updateTeam";
+import Heading from "./Heading";
+import CardFooter from "@/ui/CardFooter";
 
 const TeamUrl = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
@@ -33,50 +28,41 @@ const TeamUrl = ({ teamSlug }: any) => {
   };
 
   return (
-    <div className="flex-1 p-4">
-      <Card>
-        <CardHeader>
-          <CardTitle>Team URL</CardTitle>
-          <CardDescription className="text-gray-600">
-            {`This is your team’s URL namespace on formzillion. Within it,
-          your team can inspect their projects, check out any recent
-          activity, or configure settings to their liking.`}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center">
+    <>
+      <div className="p-4 px-6 divide-y divide-gray-300 ">
+        <Header title={"Team URL"} />
+        <div className="pt-4">
+          <Heading
+            description="This is your team’s URL namespace on formzillion. Within it,
+              your team can inspect their projects, check out any recent
+              activity, or configure settings to their liking."
+          />
+          <div className="flex items-center justify-between my-3">
             <Input
               type="text"
               placeholder={parsedTeam.slug}
-              className="border px-3 py-2 w-[15%] dark:bg-black dark:border-gray-800"
+              className="border px-3 py-2 w-[20%] dark:bg-black dark:border-gray-800"
               value={`formzillion.com/`}
               onChange={(e) => setUrl(e.target.value)}
               disabled
             />
             <Input
               type="text"
-              className="border px-3 py-2 w-[30%] dark:bg-black dark:border-gray-800"
+              className="border px-3 py-2 dark:bg-black dark:border-gray-800"
               defaultValue={parsedTeam.slug}
               onChange={(e) => setUrl(e.target.value)}
+              maxLength={10}
             />
           </div>
-        </CardContent>
-        <CardFooter className="flex justify-between items-center">
-          <p className="text-gray-500 text-sm">
-            Please use 32 characters at maximum.
-          </p>
-          <Button
-            loading={loading}
-            onClick={() => {
-              handleSlugChange();
-            }}
-            className="flex justify-end rounded-none"
-          >
-            Save
-          </Button>
-        </CardFooter>
-      </Card>
-    </div>
+        </div>
+      </div>
+      <CardFooter
+        title={"Please use 36 characters at maximum."}
+        btnText={"Save"}
+        onClick={handleSlugChange}
+        loading={loading}
+      />
+    </>
   );
 };
 
