@@ -5,7 +5,7 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Button from "@/ui/Buttons";
 
 interface FooterProps {
-  title: string;
+  title?: string;
   urlText?: string;
   url?: string;
   btnText?: string;
