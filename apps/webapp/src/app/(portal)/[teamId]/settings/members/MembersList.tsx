@@ -65,7 +65,7 @@ const MembersList = ({ teams, currentUserEmail }: any) => {
       {!isEmpty(parsedMembers) && (
         <div className="space-y-5">
           <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
-            <div className="p-4 px-6 divide-y divide-gray-300">
+            <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
               <Header title={"Team Members"} />
               <div>
                 {parsedMembers?.map((team: any, idx: number) => (

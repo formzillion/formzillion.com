@@ -11,6 +11,7 @@ import updateAutoResponder from "@/app/fetch/forms/updateAutoResponders";
 import Header from "@/ui/Header";
 import SwitchGroup from "./SwitchGroup";
 import FzLoader from "@/components/FzLoader";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 const availableTemplates = ["thankYou", "welcome"];
 
@@ -103,29 +104,25 @@ export default function AutoResponders({ formDetail }: any) {
     setLoading(false);
     showSuccessToast("Auto responder updated");
   };
-
   return (
-    <div className="p-4 px-6 divide-y divide-gray-300">
-      <Header title={"Autoresponders"} />
-      <SwitchGroup
-        label="Autoresponders Enabled"
-        description="To set up an autoresponder, you can enable this button."
-        checked={autoResponder}
-        onChange={(value: boolean) => handleDisableAutoResponder(value)}
-      />
-      {loading && <FzLoader />}
-      {autoResponder && (
-        <div>
-          <SwitchGroup
-            label="Use Template"
-            description="Predefined templates are available you can use in your autoresponder."
-            checked={isTempleteEnable}
-            onChange={(value: boolean) => setIsTempleteEnable(value)}
-          />
-          <form
-            className="text-gray-800 rounded space-y-4 "
-            onSubmit={handleConfigUpdate}
-          >
+    <>
+      <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
+        <Header title={"Autoresponders"} />
+        <SwitchGroup
+          label="Autoresponders Enabled"
+          description="To set up an autoresponder, you can enable this button."
+          checked={autoResponder}
+          onChange={(value: boolean) => handleDisableAutoResponder(value)}
+        />
+        {loading && <FzLoader />}
+        {autoResponder && (
+          <div>
+            <SwitchGroup
+              label="Use Template"
+              description="Predefined templates are available you can use in your autoresponder."
+              checked={isTempleteEnable}
+              onChange={(value: boolean) => setIsTempleteEnable(value)}
+            />
             {isTempleteEnable ? (
               <SelectTemplete
                 selectedTemplate={selectedTemplate}
@@ -137,19 +134,33 @@ export default function AutoResponders({ formDetail }: any) {
                 templetes
               </div>
             )}
-            <div className="flex justify-end mt-2">
-              <Button
-                type="submit"
-                color="secondary"
-                className="w-[80px] rounded-none"
-                loading={loading}
-              >
-                Save
-              </Button>
-            </div>
-          </form>
-        </div>
-      )}
-    </div>
+          </div>
+        )}
+      </div>
+
+      <div className="h-12 px-6 bg-slate-50 dark:bg-black flex justify-between items-center">
+        <p className="text-sm text-gray-700 dark:text-gray-400">
+          Learn more about{" "}
+          <a
+            className="underline hover:text-gray-700 dark:hover:text-gray-300"
+            href={"https://docs.formzillion.com/features/autoresponders"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Autoresponders
+            <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
+          </a>
+        </p>
+        {autoResponder === true && (
+          <Button
+            loading={loading}
+            onClick={handleConfigUpdate}
+            className="flex justify-end rounded-none min-w-[80px] h-[30px]"
+          >
+            Save
+          </Button>
+        )}
+      </div>
+    </>
   );
 }

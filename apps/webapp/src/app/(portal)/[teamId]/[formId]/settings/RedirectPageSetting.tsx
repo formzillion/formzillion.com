@@ -1,11 +1,11 @@
-"use client"
+"use client";
 import { useState } from "react";
 import { isEmpty } from "lodash";
 
-import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
+import CardFooter from "@/ui/CardFooter";
 
 const RedirectPageSetting = ({ formDetail }: any) => {
   let previousSelectedValue;
@@ -62,9 +62,9 @@ const RedirectPageSetting = ({ formDetail }: any) => {
 
   return (
     <>
-      <Header title={"Redirects"} />
-      <div className="text-gray-500 py-4">
-        <form onSubmit={handleSubmit} className=" ">
+      <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
+        <Header title={"Redirects"} />
+        <div className="text-gray-500 py-4">
           <div className="divide-y divide-gray-300 dark:divide-gray-800 space-y-2">
             <div className="py-4 flex">
               <input
@@ -219,17 +219,16 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               </label>
             </div>
           </div>
-          <div className="flex justify-end">
-            <Button
-              type="submit"
-              className="w-[80px] rounded-none"
-              loading={loading}
-            >
-              Save
-            </Button>
-          </div>
-        </form>
+        </div>
       </div>
+      <CardFooter
+        title={"Learn more about"}
+        urlText="Redirects"
+        url="https://docs.formzillion.com/features/redirects"
+        btnText={"Save"}
+        onClick={handleSubmit}
+        loading={loading}
+      />
     </>
   );
 };

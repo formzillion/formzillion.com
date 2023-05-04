@@ -12,7 +12,7 @@ const LeaveTeam = ({ teamSlug }: any) => {
   return (
     <div className="space-y-5 w-full">
       <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-[#DC8787] dark:divide-gray-800">
-        <div className="p-4 px-6 divide-y divide-gray-300">
+        <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
           <Header title={"Leave Team"} />
           <div className="py-4">
             <Heading

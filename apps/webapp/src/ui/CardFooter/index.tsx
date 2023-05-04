@@ -37,7 +37,7 @@ export default function CardFooter(props: FooterProps) {
           onClick={onClick}
           className="flex justify-end rounded-none min-w-[80px] h-[30px]"
         >
-          Save
+          {btnText}
         </Button>
       )}
     </div>

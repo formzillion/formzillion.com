@@ -27,7 +27,7 @@ const AddMember = ({ teamSlug }: any) => {
   return (
     <div className="space-y-5">
       <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
-        <div className="p-4 px-6 divide-y divide-gray-300">
+        <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
           <Header title={"Add Members"} />
           <div className="py-4">
             <Heading description="Invite your team members to join the team" />
