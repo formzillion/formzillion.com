@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 import Header from "@/ui/Header";
-import DeleteTeamModel from "./DeleteTeamModel";
+import DeleteTeamModal from "./DeleteTeamModal";
 import Heading from "./Heading";
 
 const DeleteTeam = ({ teamSlug }: any) => {
@@ -31,7 +31,7 @@ const DeleteTeam = ({ teamSlug }: any) => {
         </div>
       </div>
       {showModal && (
-        <DeleteTeamModel
+        <DeleteTeamModal
           closeModal={() => {
             setShowModal(false);
           }}

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 import Header from "@/ui/Header";
-import LeaveTeamModel from "./LeaveTeamModel";
+import LeaveTeamModal from "./LeaveTeamModal";
 import Heading from "./Heading";
 
 const LeaveTeam = ({ teamSlug }: any) => {
@@ -29,7 +29,7 @@ const LeaveTeam = ({ teamSlug }: any) => {
             </div>
           </div>
           {showModal && (
-            <LeaveTeamModel
+            <LeaveTeamModal
               closeModal={() => {
                 setShowModal(false);
               }}

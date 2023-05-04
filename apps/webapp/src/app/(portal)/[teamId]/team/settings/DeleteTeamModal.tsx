@@ -13,7 +13,7 @@ import Button from "@/ui/Buttons";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
 
-export default function DeleteTeamModel({ closeModal, teamSlug }: any) {
+export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
   const router = useRouter();
   const onClickDeleteTeam = () => {
     updateTeam({

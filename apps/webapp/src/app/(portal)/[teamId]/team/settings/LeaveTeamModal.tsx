@@ -13,7 +13,7 @@ import Button from "@/ui/Buttons";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
 
-export default function LeaveTeamModel({ closeModal, teamSlug }: any) {
+export default function LeaveTeamModal({ closeModal, teamSlug }: any) {
   const router = useRouter();
   const [loading, setLoading] = useState<any>(false);
 
