@@ -3,9 +3,10 @@ import React, { useState } from "react";
 
 import { Label } from "@/ui/fields";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import Button from "@/ui/Buttons";
 import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
+import CardFooter from "@/ui/CardFooter";
+import Heading from "../../settings/Heading";
 
 export default function SpamFilter({ formDetail }: any) {
   const { spamProvider = "none", spamConfig = {} } = formDetail || {};
@@ -18,7 +19,9 @@ export default function SpamFilter({ formDetail }: any) {
   }
 
   const [loading, setLoading] = useState(false);
-  const [selectedSpamFilter, setSelectedSpamFilter] = useState(spamProvider || "none");
+  const [selectedSpamFilter, setSelectedSpamFilter] = useState(
+    spamProvider || "none"
+  );
 
   const [formValues, setFormValues] = useState<any>(secretKey);
 
@@ -67,19 +70,14 @@ export default function SpamFilter({ formDetail }: any) {
 
   return (
     <>
-      <Header title={"Spam Filtering"} />
-      <form
-        onSubmit={handleSubmit}
-        className="py-4 text-gray-800 rounded space-y-4"
-      >
+      <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
+        <Header title={"Spam Filtering"} />
         <div>
-          <Label htmlFor="spamFilter" className="mt-2 ">
-            <b className="text-sm font-medium text-gray-900 dark:text-white">
-              Spam Provider
-            </b>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Filter your submissions for spam using the chosen provider.
-            </p>
+          <Label htmlFor="spamFilter" className="mt-4 ">
+            <Heading
+              title="Spam Provider"
+              description="Filter your submissions for spam using the chosen provider."
+            />
           </Label>
           <select
             className="mt-2 appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
@@ -99,7 +97,7 @@ export default function SpamFilter({ formDetail }: any) {
 
         {selectedSpamFilter !== "none" && (
           <div>
-            <Label className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
+            <Label className="mt-4 text-sm font-medium text-gray-900 dark:text-white">
               Secret Key
             </Label>
             <div className="mt-1">
@@ -114,17 +112,15 @@ export default function SpamFilter({ formDetail }: any) {
             </div>
           </div>
         )}
-        <div className="flex justify-end mt-2">
-          <Button
-            type="submit"
-            color="secondary"
-            className="w-[80px] rounded-none"
-            loading={loading}
-          >
-            Save
-          </Button>
-        </div>
-      </form>
+      </div>
+      <CardFooter
+        title={"Learn more about"}
+        urlText="Spam Filtering"
+        url="https://docs.formzillion.com/setup/spam-protection"
+        btnText={"Save"}
+        onClick={handleSubmit}
+        loading={loading}
+      />
     </>
   );
 }

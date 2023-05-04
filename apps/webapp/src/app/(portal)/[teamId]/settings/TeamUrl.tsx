@@ -29,7 +29,7 @@ const TeamUrl = ({ teamSlug }: any) => {
 
   return (
     <>
-      <div className="p-4 px-6 divide-y divide-gray-300 ">
+      <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
         <Header title={"Team URL"} />
         <div className="pt-4">
           <Heading

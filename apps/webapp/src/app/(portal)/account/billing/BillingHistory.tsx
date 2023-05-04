@@ -79,7 +79,7 @@ export default function BillingHistory({ account, loading }: any) {
   return (
     <div className="space-y-5">
       <div className="bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 ">
-        <div className="p-4 px-6 divide-y divide-gray-300">
+        <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
           <Header title={"Billing history"} />
           <div className="pt-4">
             <Heading description="View your previos billing" />
