@@ -92,6 +92,7 @@ model projects {
 
 model teams {
   id                String             @id @default(cuid())
+  type              String?            @default("default")
   name              String
   status            String             @default("")
   createdAt         DateTime           @default(now()) @map("created_at")
@@ -215,15 +216,15 @@ model tasks {
 }
 
 model invoices {
-  id                Int         @id @default(autoincrement())
-  stripeInvoiceId   String      @map("stripe_invoice_id")
-  billingCustomerId String      @map("billing_customer_id")
-  status            String      @map("status")
-  planId            String      @map("plan_id")
-  planName          String?     @map("plan_name")
-  periodEndDate     String      @map("period_end_date")
-  periodStartDate   String?     @map("period_start_date")
-  totalAmount       String?     @map("total_amount")
+  id                Int     @id @default(autoincrement())
+  stripeInvoiceId   String  @map("stripe_invoice_id")
+  billingCustomerId String  @map("billing_customer_id")
+  status            String  @map("status")
+  planId            String  @map("plan_id")
+  planName          String? @map("plan_name")
+  periodEndDate     String  @map("period_end_date")
+  periodStartDate   String? @map("period_start_date")
+  totalAmount       String? @map("total_amount")
 
   @@map("invoice")
 }

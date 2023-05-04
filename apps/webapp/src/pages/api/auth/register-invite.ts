@@ -57,6 +57,7 @@ export default async function handler(
         teams: {
           create: {
             name: email.split("@")[0],
+            type: "personal",
             slug: kebabCase(splittedEmail),
             billingCustomerId: customerId,
             planName,
