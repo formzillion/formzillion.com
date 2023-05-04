@@ -2,9 +2,9 @@
   "slack": "",
   "sendgrid": "",
   "webhooks": "",
-  "mailchimp": "",
   "mailerlite": "",
   "airtable": "",
   "freshdesk": "",
+  "mailchimp": "",
   "typeform": ""
 }

@@ -11,12 +11,12 @@ export default async function handler(
       return;
     }
 
-    const { emails, formId } = req.body;
+    const { emails, formId } = req.body || {};
 
     // Removing the white spcaes and filtering the valid emails
     const sendToEmail = emails
-      .trim()
       .split(",")
+      .map((e: string) => e.trim())
       .filter((e: string) => e !== "");
 
     const response = await prisma.forms.update({
