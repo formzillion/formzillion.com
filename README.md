@@ -1,6 +1,6 @@
 # Formzillion
 
-Formzillion is a SaSS platform for building faster marketing activities for developers.
+Formzillion is an open-source low-code platform for building faster form-based features for developers.
 
 ## Technologies Used
 
