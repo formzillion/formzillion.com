@@ -40,6 +40,7 @@ export default async function handler(
           appId,
           connectionId,
           slug: actionSlug,
+          status: "active",
         },
       });
     } else {
