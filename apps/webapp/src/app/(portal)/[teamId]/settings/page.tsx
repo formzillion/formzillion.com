@@ -1,4 +1,3 @@
-import Sidebar from "@/ui/Sidebar";
 import React from "react";
 import TeamName from "./TeamName";
 import TeamUrl from "./TeamUrl";

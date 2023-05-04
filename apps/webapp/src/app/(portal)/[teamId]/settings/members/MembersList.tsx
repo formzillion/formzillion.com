@@ -94,7 +94,7 @@ const MembersList = ({ teams, currentUserEmail }: any) => {
 
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                              <Button variant="black" className="px-2 py-1">
+                              <Button  className="px-2 py-1">
                                 <span className="sr-only">Actions</span>
                                 <EllipsisVerticalIcon className="h-5 w-5" />
                               </Button>

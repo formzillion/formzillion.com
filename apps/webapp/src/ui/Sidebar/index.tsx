@@ -13,13 +13,18 @@ export default function Sidebar() {
     { name: "Members", href: `/${pathname}/settings/members` },
     { name: "Billing", href: `/${pathname}/settings/billing` },
     { name: "Invoices", href: `/${pathname}/settings/invoices` },
+    { name: "Teams", href: `/${pathname}/settings/teams` },
+    { name: "Tokens", href: `/${pathname}/settings/tokens` },
   ];
 
   return (
     <nav className="w-40" aria-label="Sidebar">
       <ul role="list" className="space-y-1 w-40">
         {navigation.map((item) => (
-          <li key={item.name} className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900">
+          <li
+            key={item.name}
+            className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900"
+          >
             <Link
               href={item.href}
               className={classNames(
