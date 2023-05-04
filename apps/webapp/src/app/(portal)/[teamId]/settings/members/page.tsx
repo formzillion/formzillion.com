@@ -16,7 +16,7 @@ const MembersPage = async ({ params }: any) => {
   const userEmail = JSON.stringify(currentuser);
   const serializedTeams = JSON.stringify(teams);
   return (
-    <div className="w-full mt-6">
+    <div className="w-full space-y-4">
       <AddMember teamSlug={teamSlug} />
       <MembersList teams={serializedTeams} currentUserEmail={userEmail} />
     </div>

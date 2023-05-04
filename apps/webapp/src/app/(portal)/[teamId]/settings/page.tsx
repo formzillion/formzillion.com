@@ -6,7 +6,7 @@ import LeaveTeam from "./LeaveTeam";
 import DeleteTeam from "./DeleteTeam";
 import prisma from "@/lib/prisma";
 
-const settingSections = [TeamName, TeamUrl, LeaveTeam];
+const settingSections = [TeamName, TeamUrl];
 
 const TeamsPage = async ({ params }: any) => {
   const { teamId: teamSlug } = params;
@@ -27,6 +27,7 @@ const TeamsPage = async ({ params }: any) => {
           </div>
         </div>
       ))}
+      <LeaveTeam teamSlug={serializedTeams} />
       <DeleteTeam teamSlug={serializedTeams} />
     </div>
   );

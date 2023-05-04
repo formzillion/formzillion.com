@@ -14,7 +14,6 @@ export default async function Page({ params }: any) {
 
   return (
     <div className="w-full space-y-5 ">
-      <div className="p-4"></div>
       {!isEmpty(account) && (
         <Billing userDetails={account} teamSlug={teamSlug} />
       )}
