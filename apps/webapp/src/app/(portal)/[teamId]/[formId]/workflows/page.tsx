@@ -94,7 +94,7 @@ const TaskCard = ({ details, handleActionOnClick }: any) => {
   return (
     <div className="my-2 py-2 px-4 border-2 dark:border-gray-800 flex flex-row items-center space-x-4 w-full">
       {imageSrc && (
-        <Image src={imageSrc} alt="formzillionLogo" className="h-10 w-12" />
+        <Image src={imageSrc} alt={appSlug} className="h-10 w-12" />
       )}
       <div className="flex items-center justify-between py-4 w-full">
         <div className="flex flex-row justify-between w-full">
