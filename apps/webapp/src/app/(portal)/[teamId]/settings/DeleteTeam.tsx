@@ -10,7 +10,7 @@ const DeleteTeam = ({ teamSlug }: any) => {
   const [showModal, setShowModal] = useState<any>(false);
   return (
     <div className="space-y-5 w-full">
-      <div className="divide-y divide-gray-300 border border-red-400 shadow dark:divide-gray-800 bg-white  dark:bg-black  dark:border-gray-700">
+      <div className="divide-y divide-gray-300 border border-red-400 shadow dark:divide-gray-800 bg-white  dark:bg-black  dark:border-[#EF0A0A]">
         <div className="p-4 px-6 divide-y divide-gray-300">
           <Header title={"Delete Team"} />
           <div className="py-4">
