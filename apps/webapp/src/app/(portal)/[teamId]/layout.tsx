@@ -3,30 +3,7 @@ import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { getUserDetail } from "@/utils/getUserDetail";
 import PrimaryNav from "./PrimaryNav";
-
-const tabs = [
-  { name: "Forms", path: `/`, targetSegment: null },
-  {
-    name: "Apps",
-    path: "apps",
-    targetSegment: "apps",
-  },
-  {
-    name: "Usage",
-    path: "usage",
-    targetSegment: "usage",
-  },
-  {
-    name: "Activity",
-    path: "activity",
-    targetSegment: "activity",
-  },
-  {
-    name: "Settings",
-    path: "settings",
-    targetSegment: "settings",
-  },
-];
+import { get } from "lodash";
 
 export default async function TeamLayout({ children, params }: any) {
   const { teamId: finalTeamId }: any = params;
@@ -45,6 +22,32 @@ export default async function TeamLayout({ children, params }: any) {
   if (!teamIds?.includes(finalTeamId)) {
     notFound();
   }
+
+  const team = user.teams.filter((team: any) => team.slug === finalTeamId);
+  const teamType = get(team, "0.type", "");
+  const tabs = [
+    { name: "Forms", path: `/`, targetSegment: null },
+    {
+      name: "Apps",
+      path: "apps",
+      targetSegment: "apps",
+    },
+    {
+      name: "Usage",
+      path: "usage",
+      targetSegment: "usage",
+    },
+    {
+      name: "Activity",
+      path: "activity",
+      targetSegment: "activity",
+    },
+    {
+      name: "Settings",
+      path: teamType === "personal" ? `settings` : `team/settings`,
+      targetSegment: "settings",
+    },
+  ];
   // if (finalTeamId === "dashboard") {
   //   redirect(`/${teamIds[0]}`);
   // }
