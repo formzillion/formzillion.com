@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { get } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { showErrorToast } from "@/ui/Toast/Toast";
@@ -14,7 +15,7 @@ export default async function handler(
     const supabase = createServerSupabaseClient({ req, res });
     // Check if we have a session
     const { data } = await supabase.auth.getSession();
-    const email = data?.session?.user?.email;
+    const email = get(data, "session.user.email", "");
 
     const user: any = await prisma.users.findFirst({
       where: { email },
@@ -28,11 +29,18 @@ export default async function handler(
       },
     });
 
-    const emails = sendToEmail.includes(",")
-      ? sendToEmail.split(",")
-      : [sendToEmail];
+    const emails = sendToEmail
+      .split(",")
+      .map((e: string) => e.trim())
+      .filter((e: string) => e !== "");
 
-    const teamId = user?.teams[0]?.id;
+    const teamId = get(user, "teams.0.id", "");
+
+    if (teamId === "") {
+      showErrorToast("Team not found");
+      return res.status(404).end();
+    }
+
     const form = await prisma.forms.create({
       data: {
         name,

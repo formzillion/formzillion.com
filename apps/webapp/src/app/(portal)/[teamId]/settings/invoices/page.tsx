@@ -14,7 +14,7 @@ export default async function Page({ params }: any) {
   });
 
   return (
-    <div className="w-full p-4 mt-6">
+    <div className="w-full">
       {!isEmpty(account) && <Invoice userDetails={account} />}
     </div>
   );
