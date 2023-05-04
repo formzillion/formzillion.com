@@ -94,9 +94,9 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
         ]
       : [];
 
-  const [selectedTeam, setSelectedTeam] = useState(() => {
+  const [selectedTeam, setSelectedTeam] = useState<any>(() => {
     return {
-      label: startCase(teamSlug?.split("-")[0]),
+      label: teamSlug,
       value: teamSlug,
       planName: "",
     };
@@ -135,7 +135,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center max-w-[200px]">
       <div className="flex items-center dark:text-white text-gray-800">
         <Avatar className="mr-2 h-5 w-5">
           <AvatarImage
@@ -145,7 +145,11 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
           <AvatarFallback>SC</AvatarFallback>
         </Avatar>
         <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/${selectedTeam.value}`}>
-          {selectedTeam.label}{" "}
+          {selectedTeam?.label?.length >= 20 ? (
+            <div className="w-[150px] truncate">{selectedTeam.label}</div>
+          ) : (
+            <div>{selectedTeam.label}</div>
+          )}{" "}
           {!isEmpty(selectedTeam.planName) && (
             <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full ml-2">
               {selectedTeam.planName}
