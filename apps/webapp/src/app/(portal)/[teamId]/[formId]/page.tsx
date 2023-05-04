@@ -1,7 +1,6 @@
 import { PageProps } from "@/types/PageProps";
 import prisma from "@/lib/prisma";
 import ClientWrapper from "./ClientWrapper";
-import Pagination from "@/ui/Pagination";
 import FormSubmissions from "@/app/(portal)/[teamId]/[formId]/FormSubmissions";
 
 export default async function Page({ params }: PageProps) {
@@ -23,8 +22,8 @@ export default async function Page({ params }: PageProps) {
         <FormSubmissions
           formId={formId}
           formSubmissions={serializedFormSubmissions}
+          TotalPages={TotalPages}
         />
-        <Pagination TotalPages={TotalPages} />
       </ClientWrapper>
     </>
   );

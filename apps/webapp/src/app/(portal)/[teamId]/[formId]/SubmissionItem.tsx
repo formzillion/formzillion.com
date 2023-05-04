@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { startCase } from "lodash";
-
 import { getTimeAgo } from "@/utils/timeAgo";
 
-export default function SubmissionItem({ submission, isChecked }: any) {
+
+export default function SubmissionItem({ submission, isChecked, setCheckedIds }: any) {
   const [change, setChange] = useState(false);
   const {
     fields = {},
@@ -11,10 +10,12 @@ export default function SubmissionItem({ submission, isChecked }: any) {
     createdAt,
     ip,
     isSpam = false,
+    id,
   } = submission || {};
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setChange(e.target.checked);
+    setCheckedIds(id);
   };
 
   return (
@@ -28,11 +29,10 @@ export default function SubmissionItem({ submission, isChecked }: any) {
               name="submission"
               value=""
               checked={change || isChecked}
-              onChange={handleChange}
+              onChange={(id) => handleChange(id)}
             />
           </div>
           <div className="space-y-2">
-
             {/* getting 2 times formsubmission data */}
             {/* {Object.keys(fields).map((key, idx) => {
               return (
