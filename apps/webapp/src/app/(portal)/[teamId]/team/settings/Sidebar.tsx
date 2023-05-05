@@ -8,10 +8,10 @@ export default function Sidebar() {
   const path = usePathname();
   const pathname = path?.split("/")[1];
   const navigation = [
-    { name: "General", href: `/${pathname}/teams/settings` },
-    { name: "Teams", href: `/${pathname}/teams/settings/members` },
-    { name: "Billing", href: `/${pathname}/teams/settings/billing` },
-    { name: "Invoices", href: `/${pathname}/teams/settings/invoices` },
+    { name: "General", href: `/${pathname}/team/settings` },
+    { name: "Members", href: `/${pathname}/team/settings/members` },
+    { name: "Billing", href: `/${pathname}/team/settings/billing` },
+    { name: "Invoices", href: `/${pathname}/team/settings/invoices` },
   ];
 
   return (
