@@ -145,15 +145,13 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
           <AvatarFallback></AvatarFallback>
         </Avatar>
         <Link href={`${process.env.NEXT_PUBLIC_APP_URL}/${selectedTeam.value}`}>
-          {selectedTeam?.label?.length >= 20 ? (
+          {selectedTeam?.label?.length >= 10 ? (
             <div className="w-[150px] truncate text-base">
               {startCase(selectedTeam.label)}
             </div>
           ) : (
-            <div className="text-base">
-              {startCase(selectedTeam.label)}
-            </div>
-          )}{" "}
+            <div className="text-base">{startCase(selectedTeam.label)}</div>
+          )}
           {!isEmpty(selectedTeam.planName) && (
             <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full ml-2">
               {selectedTeam.planName}

@@ -11,6 +11,8 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.com",
   },
+  docsRepositoryBase:
+    "https://github.com/formzillion/formzillion.com/blob/main/apps/docs",
   useNextSeoProps() {
     return {
       titleTemplate: "%s – Formzillion",
@@ -44,7 +46,7 @@ const config: DocsThemeConfig = {
           sizes="any"
           href={"/favicon.ico"}
         />
-        <meta property="og:url" content={url} />
+        {/*<meta property="og:url" content={url} />
         <meta
           property="og:title"
           content={frontMatter.title || "Formzillion"}
@@ -54,7 +56,7 @@ const config: DocsThemeConfig = {
           content={
             frontMatter.description || "Instant backend for all your forms"
           }
-        />
+        />*/}
       </>
     );
   },
