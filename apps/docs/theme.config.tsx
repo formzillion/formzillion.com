@@ -1,11 +1,12 @@
 import React from "react";
-import { DocsThemeConfig } from "nextra-theme-docs";
+import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 import AppLogo from "./components/AppLogo";
+import { useRouter } from "next/router";
 
 const config: DocsThemeConfig = {
   logo: <AppLogo />,
   project: {
-    link: "https://github.com/formzillion",
+    link: "https://github.com/formzillion/formzillion.com",
   },
   chat: {
     link: "https://discord.com",
@@ -15,6 +16,7 @@ const config: DocsThemeConfig = {
       titleTemplate: "%s – Formzillion",
     };
   },
+  primaryHue: 31,
   sidebar: {
     titleComponent({ title, type }) {
       if (type === "separator") {
@@ -25,9 +27,35 @@ const config: DocsThemeConfig = {
     defaultMenuCollapseLevel: 2,
     toggleButton: true,
   },
-  head: function Head() {
+  head: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { asPath, defaultLocale, locale } = useRouter();
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const { frontMatter } = useConfig();
+    const url =
+      "https://docs.formzillion.com" +
+      (defaultLocale === locale ? asPath : `/${locale}${asPath}`);
+
     return (
-      <link rel="icon" type="image/x-icon" sizes="any" href={`favicon.ico`} />
+      <>
+        <link
+          rel="icon"
+          type="image/x-icon"
+          sizes="any"
+          href={"/favicon.ico"}
+        />
+        <meta property="og:url" content={url} />
+        <meta
+          property="og:title"
+          content={frontMatter.title || "Formzillion"}
+        />
+        <meta
+          property="og:description"
+          content={
+            frontMatter.description || "Instant backend for all your forms"
+          }
+        />
+      </>
     );
   },
   footer: {
