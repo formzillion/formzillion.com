@@ -3,11 +3,11 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 
-import AppLogo from "@/ui/AppLogo";
 import TeamSwitcher from "@/components/TeamSwitcher";
 import UserDropdown from "./UserDropdown";
 import { ModeToggle } from "./ModeToggle";
 import FormId from "../FormId";
+import AppLogo from "@/ui/AppLogo";
 
 export function BreadcrumbSeparator() {
   return (
@@ -19,17 +19,17 @@ export function BreadcrumbSeparator() {
 
 export default function Navbar({ teams, user }: any) {
   return (
-    <div className="dark:bg-black px-2 py-3">
+    <div className="dark:bg-black mx-auto sm:px-6 py-3 relative hidden sm:block">
       {/* Static Navbar for desktop */}
-      <div className="hidden lg:flex lg:items-center lg:justify-between">
-        <div className="flex flex-row items-center space-x-6">
+      <div className="flex items-center justify-between">
+        <div className="flex flex-row items-center space-x-2 sm:space-x-6 ml-1 sm:ml-0">
           <AppLogo />
           <BreadcrumbSeparator />
           {/*Team Logo Section*/}
           <TeamSwitcher teams={teams} />
           <FormId />
         </div>
-        <div className="flex items-center space-x-2 mr-4">
+        <div className="sm:flex items-center space-x-2 mr-0 hidden">
           <div className="dark:text-gray-200 text-base space-x-4 flex items-center">
             <a
               href="https://docs.formzillion.com"

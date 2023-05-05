@@ -19,7 +19,7 @@ export default function FormContainer(props: FormLayoutProps) {
         <div className="mt-5 text-center text-base text-gray-500 font-[Satoshi]">
           <p>{subtitle}</p>
         </div>
-        <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-lg font-[Satoshi] py-8 px-4 sm:px-10">
+        <div className="sm:mx-auto sm:w-full sm:max-w-lg font-[Satoshi] py-8 px-4 sm:px-10">
           {props.children}
         </div>
       </div>
