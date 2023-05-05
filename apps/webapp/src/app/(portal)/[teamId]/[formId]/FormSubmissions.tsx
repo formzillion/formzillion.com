@@ -44,9 +44,9 @@ export default function FormsOverviewPage({
 
   const filteredData = submissions.filter((obj: any) => {
     if (filterType === "name") {
-      return obj.fields.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {
-      return obj.fields.email.toLowerCase().includes(searchTerm.toLowerCase());
+      return obj.fields.email?.toLowerCase().includes(searchTerm.toLowerCase());
     } else {
       return false;
     }
