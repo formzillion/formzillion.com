@@ -26,9 +26,8 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className="space-y-4">
-      <div className="dark:text-gray-300">
+      <div className="dark:text-gray-300 text-sm sm:text-base">
         <p>
-          {" "}
           1. Make sure all your form elements have a{" "}
           <strong className="font-bold">name</strong> attribute.
         </p>
@@ -44,7 +43,7 @@ export default async function Page({ params }: PageProps) {
         lang="html"
       />
 
-      <div className="bg-orange-100 dark:bg-gray-900 dark:text-gray-300 rounded-md px-4 py-3">
+      <div className="bg-orange-100 dark:bg-gray-900 dark:text-gray-300 rounded-md px-4 py-3 text-sm sm:text-base">
         Looking more advanced usecases? Check out our
         <a
           href="https://docs.formzillion.com"
@@ -67,7 +66,7 @@ export default async function Page({ params }: PageProps) {
         <select
           id="template"
           name="template"
-          className="block w-full pl-3 rounded-md shadow-sm pr-10 py-2 border-gray-300 dark:border-none dark:bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 transition duration-150 ease-in-out"
+          className="block w-full pl-3 rounded-md shadow-sm pr-10 py-2 border-gray-300 dark:border-none dark:bg-gray-800 placeholder-gray-400 focus:outline-none focus:ring focus:ring-indigo-500 focus:border-indigo-300 dark:focus:ring-gray-700 transition duration-150 ease-in-out"
         >
           <option value="Contact form">Contact form</option>
           <option value="Survey form">Survey form</option>

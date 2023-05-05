@@ -6,7 +6,7 @@ export default function Page({ params }: PageProps) {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-4">
         <FormSummary
           formId={formId}
           type="daily"
