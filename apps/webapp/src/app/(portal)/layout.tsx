@@ -1,11 +1,11 @@
-import { Metadata } from "next";
 import { Suspense } from "react";
-import Navbar from "./shared/Navbar";
-import { getUserDetail } from "@/utils/getUserDetail";
-import prisma from "@/lib/prisma";
+import { Metadata } from "next";
 import { isEmpty } from "lodash";
-import { redirect } from "next/navigation";
+
+import { getUserDetail } from "@/utils/getUserDetail";
 import FzLoader from "@/components/FzLoader";
+import Navbar from "./shared/Navbar";
+import DisclosureNav from "./shared/DisclosureNav";
 
 interface IProps {
   children: React.ReactNode;
@@ -28,6 +28,7 @@ export default async function PortalLayout({ children }: IProps) {
       {!isEmpty(user?.teams) && (
         <div className="min-h-screen bg-white font-[Satoshi] dark:bg-black">
           <Navbar teams={serializedTeams} user={user} />
+          <DisclosureNav teams={serializedTeams} user={user} />
           <Suspense fallback={<FzLoader />}>
             <div className="flex flex-col">
               <main className="flex-1">{children}</main>
