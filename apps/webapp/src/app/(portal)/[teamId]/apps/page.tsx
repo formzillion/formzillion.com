@@ -38,16 +38,6 @@ const integrations = [
     isAvailable: true,
   },
   {
-    name: "Mailchimp",
-    formattedName: "mailchimp",
-    slug: "mailchimp",
-    icon: "/brands/mailchimp.png",
-    description: "Add customers who submitted this form to a Mailchimp list.",
-    status: "not_connected",
-    authType: "api_key",
-    isAvailable: false,
-  },
-  {
     name: "Mailerlite",
     formattedName: "mailerlite",
     slug: "mailerlite",
@@ -56,7 +46,7 @@ const integrations = [
       "Automatically add the form submission data to mailerlite marketing platform.",
     status: "not_connected",
     authType: "api_key",
-    isAvailable: false,
+    isAvailable: true,
   },
   {
     name: "Airtable",
@@ -77,6 +67,16 @@ const integrations = [
       "Automatically collect the customer related data from form submission and send it to Freshdesk.",
     status: "not_connected",
     authType: "api_key",
+    isAvailable: false,
+  },
+  {
+    name: "Mailchimp",
+    formattedName: "mailchimp",
+    slug: "mailchimp",
+    icon: "/brands/mailchimp.png",
+    description: "Add customers who submitted this form to a Mailchimp list.",
+    status: "not_connected",
+    authType: "oauth",
     isAvailable: false,
   },
   {

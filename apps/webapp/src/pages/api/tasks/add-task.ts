@@ -5,7 +5,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { workflowId, type, appId, connectionId, name, template } = req.body;
+  const {
+    workflowId,
+    type,
+    appId,
+    connectionId,
+    name,
+    template,
+    actionSlug = "",
+  } = req.body;
 
   try {
     const actionExits = await prisma.tasks.findFirst({
@@ -14,6 +22,7 @@ export default async function handler(
         type,
         connectionId,
         workflowId,
+        ...(actionSlug && { slug: actionSlug }),
       },
     });
 
@@ -30,6 +39,8 @@ export default async function handler(
           type,
           appId,
           connectionId,
+          slug: actionSlug,
+          status: "active",
         },
       });
     } else {
@@ -42,6 +53,7 @@ export default async function handler(
           connectionId,
           template,
           status: "active",
+          slug: actionSlug,
         },
       });
     }

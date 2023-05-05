@@ -3,12 +3,16 @@ import { kebabCase } from "lodash";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
 import { createBillingUserAndSubscription } from "../auth/register";
+import { sendEmail } from "@/lib/sendEmail";
+import { invitationEmail } from "./invitationEmail";
+import { getToken } from "@/utils/tokenService";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { currentUser } = await getUserSession(req, res);
+  const { currentUser = {} } = await getUserSession(req, res);
+  const { currentUserEmail, fullName } = currentUser;
   const { name, emailsToInvite } = JSON.parse(req.body);
   const emails = emailsToInvite.includes(",")
     ? emailsToInvite.split(",")
@@ -75,6 +79,25 @@ export default async function handler(
         teamId: team.id,
       })),
     });
+
+    if (!newEmails) {
+      for (const email of newEmails) {
+        const token = await getToken({ length: 36, email });
+        await sendEmail({
+          provider: "sendgrid",
+          toEmail: email,
+          subject: "Team Invitation",
+          html: invitationEmail({
+            inviterEmail: currentUserEmail,
+            inviterName: fullName,
+            toEmail: email,
+            teamId: team.id,
+            token,
+          }),
+        });
+      }
+    }
+
     res.status(201).json({ success: true, data: team });
   } catch (error: any) {
     console.log(error);

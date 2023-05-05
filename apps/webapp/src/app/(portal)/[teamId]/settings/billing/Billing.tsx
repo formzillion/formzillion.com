@@ -1,8 +1,10 @@
 import React from "react";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
+
 import Button from "@/ui/Buttons";
-import { Card, CardDescription, CardTitle } from "@/ui/Card/SCard";
+import Header from "@/ui/Header";
 import Subscription from "./Subscription";
+import Heading from "../Heading";
 
 interface BillingProps {
   userDetails: any;
@@ -15,30 +17,29 @@ export default function Billing(props: BillingProps) {
   const customerId = userDetails?.billingCustomerId;
   const { planId } = userDetails;
   const billingSessionLink = `/api/stripe/customer-portal-section?customerId=${customerId}&redirectUrl=${redirectUrl}`;
+  
   return (
     <>
       <Subscription customerId={customerId} planId={planId} />
-      <div>
-        <div className={"flex flex-col sm:flex-row mb-10"}>
-          <Card className="flex justify-between p-4 py-10">
-            <div>
-              <CardTitle className="mb-3">
-                Manage and view your billing information.
-              </CardTitle>
-              <CardDescription>
-                View and edit your billing details, as well as cancel your
-                subscription.
-              </CardDescription>
+      <div className="space-y-5">
+        <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
+          <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
+            <Header title={"Manage and view your billing information."} />
+            <div className="flex justify-between items-center pt-4">
+              <Heading
+                description="View and edit your billing details, as well as cancel your
+                subscription."
+              />
+              <div>
+                <a href={billingSessionLink} target="_blank" rel="noreferrer">
+                  <Button>
+                    Billing Portal &nbsp;
+                    <ArrowTopRightOnSquareIcon className="w-4 text-white" />
+                  </Button>
+                </a>
+              </div>
             </div>
-            <div className=" pt-3 sm:ml-auto sm:pt-0 sm:pl-3">
-              <a href={billingSessionLink} target="_blank" rel="noreferrer">
-                <Button>
-                  Billing Portal &nbsp;
-                  <ArrowTopRightOnSquareIcon className="w-4 text-white" />
-                </Button>
-              </a>
-            </div>
-          </Card>
+          </div>
         </div>
       </div>
     </>

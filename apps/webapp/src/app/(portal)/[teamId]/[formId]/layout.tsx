@@ -70,7 +70,7 @@ export default async function FormDetailLayout({
         </nav>
       </div>
       <Suspense fallback={<FzLoader />}>
-        <div className="rounded p-4 mx-auto max-w-7xl">
+        <div className="rounded p-4 mx-auto max-w-6xl">
           {React.cloneElement(children, { formDetail: formDetail })}
         </div>
       </Suspense>

@@ -6,19 +6,30 @@ import {
   PlusIcon,
   ChevronDownIcon,
 } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 
 import { PageProps } from "@/types/PageProps";
 import MenuCard from "@/components/MenuCard";
 import { MenuItemProps } from "@/components/MenuCard/MenuItem";
+import FzLoader from "@/components/FzLoader";
 
 import getWorkflow from "@/app/fetch/workflows/getWorkflow";
 import updateStatus from "@/app/fetch/tasks/updateStatus";
 import getTasks from "@/app/fetch/tasks/getTasks";
-import getFormSubmissionCount from "@/app/fetch/formSubmissions/getFormSubmissionCount";
 
-import SwitchGroup from "../settings/SwitchGroup";
 import AddActionModal from "./AddActionModal";
-import FzLoader from "@/components/FzLoader";
+import * as appImages from "./appImages";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/ui/DropdownMenu";
+import { Button } from "@/ui/Buttons/SButton";
+
+const imageSrcMap: any = appImages;
 
 interface IWorkflow {
   id?: number;
@@ -41,6 +52,84 @@ interface ITask {
   createdAt?: string;
   updatedAt?: string;
 }
+
+// TODO: Make this a Common Component once all the required sections has implemented
+const ActionMenu = ({
+  title,
+  menuItems,
+}: {
+  title?: string;
+  menuItems: MenuItemProps[];
+}) => {
+  return (
+    <div>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant={"withText"} className="px-2 py-1 min-w-max">
+            <div className={`${title && "ml-2"}`}>{title}</div>
+            <EllipsisHorizontalIcon className="mx-2 h-5 w-5" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          {menuItems.map((item, idx) => (
+            <div key={item.text}>
+              <DropdownMenuItem onSelect={item.onClick}>
+                {item.text}
+              </DropdownMenuItem>
+              {idx !== 0 && <DropdownMenuSeparator />}
+            </div>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+};
+
+const TaskCard = ({ details, handleActionOnClick }: any) => {
+  const { name, type } = details;
+  const [appSlug, actionName] = name?.split("_") || ["", ""];
+  const isAction = type === "action";
+  const imageSrc = imageSrcMap[appSlug];
+
+  return (
+    <div className="my-2 py-2 px-4 border-2 dark:border-gray-800 flex flex-row items-center space-x-4 w-full">
+      {imageSrc && <Image src={imageSrc} alt={appSlug} className="h-10 w-12" />}
+      <div className="flex items-center justify-between py-4 w-full">
+        <div className="flex flex-row justify-between w-full">
+          <div>
+            <section
+              id="appSlug"
+              className="text-sm font-medium text-gray-900 dark:text-white"
+            >
+              {startCase(appSlug)}
+            </section>
+            <section
+              id="actionName"
+              className="text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-1"
+            >
+              {startCase(actionName)}
+              <div className={`text-xs uppercase ml-1`}>
+                ({isAction ? "action" : "trigger"})
+              </div>
+            </section>
+          </div>
+          <section>
+            {appSlug !== "formzillion" && (
+              <ActionMenu
+                menuItems={[
+                  {
+                    text: "Delete",
+                    onClick: () => handleActionOnClick(details),
+                  },
+                ]}
+              />
+            )}
+          </section>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Workflows = ({ params }: PageProps) => {
   const { formId, teamId: teamSlug } = params;
@@ -72,13 +161,11 @@ const Workflows = ({ params }: PageProps) => {
     getWorkflowAndTasks();
   }, [getWorkflowAndTasks, refreshGrid]);
 
-  const { status = "in-active", name = "My form" } = details || {};
-
-  const handleActionOnClick = async (value: boolean, task: ITask) => {
+  const handleActionOnClick = async (task: ITask) => {
     setLoading(true);
     await updateStatus({
       taskId: task.id,
-      status: value ? "active" : "inActive",
+      status: task.status === "active" ? "inActive" : "active",
     });
     handleRefreshGrid();
     setLoading(false);
@@ -91,7 +178,6 @@ const Workflows = ({ params }: PageProps) => {
       onClick: toggleAddActionModal,
     },
   ];
-
 
   return (
     <div>
@@ -109,32 +195,24 @@ const Workflows = ({ params }: PageProps) => {
       </h4>
       {!isEmpty(details) && (
         <div>
-          <div className="my-2 py-2 px-4 border-2 dark:border-gray-800">
-            <SwitchGroup
-              label={"When new form submission is received"}
-              checked={status === "active" ? true : false}
-              description="Perform the below actions when new form submission is received."
-              onChange={() => console.log("")}
-              showSwitch={false}
-            />
-          </div>
+          <TaskCard
+            details={{
+              name: "formzillion_newFormSubmission",
+              status: "active",
+              type: "trigger",
+            }}
+          />
           {!isEmpty(tasks) &&
             tasks.map((task: any) => {
-              const actionName = startCase(task.name);
               return (
                 <div key={task?.id}>
                   <div className="flex justify-center">
                     <ArrowDownIcon className="h-8 w-8" />
                   </div>
-                  <div className="my-2 py-2 px-4 border-2 dark:border-gray-800 border-gray-200 rounded">
-                    <SwitchGroup
-                      key={`action_${task.id}`}
-                      label={actionName}
-                      checked={task.status === "active" ? true : false}
-                      description={`Will perform ${actionName} when new form submission is received.`}
-                      onChange={(e: any) => handleActionOnClick(e, task)}
-                    />
-                  </div>
+                  <TaskCard
+                    details={task}
+                    handleActionOnClick={handleActionOnClick}
+                  />
                 </div>
               );
             })}

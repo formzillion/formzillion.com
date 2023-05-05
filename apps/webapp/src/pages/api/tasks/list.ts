@@ -9,6 +9,7 @@ export default async function handler(
   const tasks = await prisma.tasks.findMany({
     where: {
       workflowId: reqBody.workflowId,
+      status: reqBody.status,
     },
     orderBy: {
       createdAt: "asc",

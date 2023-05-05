@@ -50,7 +50,7 @@ export default function SettingsForm({ formDetail, formSubmissions }: any) {
 
   return (
     <div className="space-y-5 w-full">
-      <div className="divide-y divide-gray-300 p-4 px-6 bg-white pt-4 shadow dark:bg-black border border-gray-300 dark:border-gray-700">
+      <div className="divide-y divide-gray-300 dark:divide-gray-700 p-4 px-6 bg-white pt-4 shadow dark:bg-black border border-gray-300 dark:border-gray-700">
         <Header title={"General"} />
         <div className="py-4">
           <div>
@@ -100,7 +100,7 @@ export default function SettingsForm({ formDetail, formSubmissions }: any) {
           </ul>
         </div>
       </div>
-      <div className="divide-y divide-gray-300 border border-red-400 shadow dark:divide-gray-800 bg-white  dark:bg-black  dark:border-gray-700 p-4 px-6">
+      <div className="divide-y divide-gray-300 border border-red-400 dark:border-red-600 shadow dark:divide-gray-700 bg-white  dark:bg-black p-4 px-6">
         <DeleteForm formDetail={formDetail} formSubmissions={formSubmissions}/>
       </div>
     </div>

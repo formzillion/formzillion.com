@@ -11,11 +11,10 @@ export default async function handler(
   }
 
   const reqBody = JSON.parse(req.body);
-  const {  formId,isSpam } = reqBody;
-
+  const {  id,isSpam } = reqBody;
   const response = await prisma.form_submissions.updateMany({
     where: {
-      formId: formId,
+      id: id,
     },
     data: {
       isSpam: isSpam,

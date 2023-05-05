@@ -1,11 +1,13 @@
 "use client";
 import React, { useState } from "react";
 
-import Button from "@/ui/Buttons";
 import { Label } from "@/ui/fields";
 import { Input } from "@/ui/Input/SimpleInput";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import Header from "@/ui/Header";
+import CardFooter from "@/ui/CardFooter";
+import Heading from "../../settings/Heading";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
 export default function CustomSpam({ formDetail }: any) {
   const { customHoneypot, customSpamWords } = formDetail;
@@ -42,14 +44,26 @@ export default function CustomSpam({ formDetail }: any) {
   };
   return (
     <>
-      <Header title={"Custom Spam Filtering "} />
-      <form
-        onSubmit={updateCustomSpam}
-        className="py-4 text-gray-800 rounded space-y-4"
-      >
+      <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
+        <Header title={"Custom Spam Filtering "} />
         <div>
-          <Label className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-            Custom Honeypot
+          <Label
+            htmlFor="customHoneypot"
+            className="mt-4 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            <b className="text-sm font-medium text-gray-900 dark:text-white">
+              Custom Honeypot
+              <a
+                className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                href={
+                  "https://docs.formzillion.com/setup/spam-protection/honeypot"
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
+              </a>
+            </b>
           </Label>
           <Input
             name="customHoneypot"
@@ -59,10 +73,12 @@ export default function CustomSpam({ formDetail }: any) {
             value={honeypot}
             onChange={(e: any) => setHoneypot(e.target.value)}
           />
-        </div>
-        <div>
-          <Label className="mt-2 text-sm font-medium text-gray-900 dark:text-white">
-            Custom Spam Words (comma-separated)
+
+          <Label
+            htmlFor="spamWords"
+            className="mt-4 text-sm font-medium text-gray-900 dark:text-white"
+          >
+            <Heading title="Custom Spam Words (comma-separated)" />
           </Label>
           <Input
             name="spamWords"
@@ -74,17 +90,15 @@ export default function CustomSpam({ formDetail }: any) {
             onChange={(e: any) => setSpamWords(e.target.value)}
           />
         </div>
-        <div className="flex justify-end mt-2">
-          <Button
-            type="submit"
-            color="secondary"
-            className="w-[80px] rounded-none"
-            loading={loading}
-          >
-            Save
-          </Button>
-        </div>
-      </form>
+      </div>
+      <CardFooter
+        title={"Learn more about"}
+        urlText="Custom Spam Words"
+        url="https://docs.formzillion.com/setup/spam-protection/custom-spam-words"
+        btnText={"Save"}
+        onClick={updateCustomSpam}
+        loading={loading}
+      />
     </>
   );
 }

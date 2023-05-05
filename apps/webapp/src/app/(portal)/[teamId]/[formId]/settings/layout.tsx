@@ -1,8 +1,8 @@
-import Sidebar from "./sidebar";
+import Sidebar from "./Sidebar";
 
 export default async function FormSettingsLayout({ children }: any) {
   return (
-    <div className="flex mx-auto max-w-6xl mt-8 space-x-8">
+    <div className="flex mt-8 space-x-8">
       <Sidebar />
       {children}
     </div>
