@@ -10,6 +10,11 @@ const config: DocsThemeConfig = {
   chat: {
     link: "https://discord.com",
   },
+  useNextSeoProps() {
+    return {
+      titleTemplate: "%s – Formzillion",
+    };
+  },
   sidebar: {
     titleComponent({ title, type }) {
       if (type === "separator") {
