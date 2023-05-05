@@ -1,6 +1,6 @@
 # Formzillion
 
-Formzillion is an open-source low-code platform for building faster form-based features for developers.
+Instant backend for all your forms.
 
 ## Technologies Used
 
