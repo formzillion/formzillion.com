@@ -191,17 +191,15 @@ export default function FormsOverviewPage({
               </div>
             </div>
           )}
-          <div className="flex flex-row justify-between">
             {submissions.length <= 0 && filter !== "spam" && filter !== "verify" && (
-                <div className="mb-2 flex flex-row justify-between items-center mt-4">
+                <div className="mb-2 flex flex-row justify-end items-center mt-4">
                   {isEmpty(submissions) && (
-                    <Button onClick={toggleTestFormModal}>
+                    <Button className=" bg-black text-white hover:bg-black hover:text-white" onClick={toggleTestFormModal}>
                       Mock Submission
                     </Button>
                   )}
                 </div>
               )}
-          </div>
             {!isEmpty(currentData) ? (
               currentData?.map((submission: any, idx: any) => {
                 return (
