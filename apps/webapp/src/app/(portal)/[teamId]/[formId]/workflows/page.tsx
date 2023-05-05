@@ -190,7 +190,7 @@ const Workflows = ({ params }: PageProps) => {
         <MenuCard
           menuItems={actionMenuItems}
           title="Actions"
-          icon={<ChevronDownIcon className="h-6 w-6" />}
+          icon={<ChevronDownIcon className="h-6 w-6 text-gray-700" />}
         />
       </h4>
       {!isEmpty(details) && (
