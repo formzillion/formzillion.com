@@ -33,7 +33,7 @@ export default function Index({
 
       const data = await response.json();
       if (data.success === true) {
-        showSuccessToast("Updated spam vakue successfully");
+        showSuccessToast("Updated spam value successfully");
       }
     } catch (e) {
       showErrorToast("Error while updating spam Value");
