@@ -46,8 +46,8 @@ export default function FormListItem({ form, teamSlug }: any) {
   }, [getCount]);
 
   return (
-    <div className="dark:bg-black border border-gray-300 hover:border-gray-400 transition-all dark:hover:bg-gradient-to-r dark:from-orange-700 dark:via-orange-400 dark:to-yellow-500 p-[1.5px] dark:text-white w-[380px] my-2 mx-2">
-      <div className="px-[33px] py-[38px] w-full dark:bg-black relative">
+    <div className="dark:bg-black border border-gray-300 hover:border-gray-400 transition-all dark:hover:bg-gradient-to-r dark:from-orange-700 dark:via-orange-400 dark:to-yellow-500 p-[1.5px] dark:text-white  xl:w-[380px] my-2 mx-4 sm:mx-2 md:mx-6 lg:mx-2">
+      <div className="px-[33px] py-[38px] md:px-[25px] md:py-[25px] w-full dark:bg-black relative">
         <div className="flex justify-between items-end ">
           <h4 className="text-[19px] leading-6 font-medium font-['Space_Grotesk'] text-gray-700 dark:text-white">
             {startCase(form.name)}
