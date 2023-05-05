@@ -5,7 +5,7 @@ import { Menu } from "@headlessui/react";
 import classNames from "classnames";
 import { FaSync } from "react-icons/fa";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
+import {  EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 
 export default function Index({
   checkedIds,
@@ -62,7 +62,7 @@ export default function Index({
 
       <Menu as="div" className="relative flex items-center">
         <Menu.Button>
-          <AdjustmentsHorizontalIcon className="h-4 w-4" />
+          <EllipsisVerticalIcon className="h-4 w-4" />
         </Menu.Button>
         <Menu.Items className="absolute top-0 z-10 mt-2 w-56 origin-top-right border bg-white dark:bg-black  shadow-lg ring-1 ring-black ring-opacity-5 ">
           <Menu.Item>
