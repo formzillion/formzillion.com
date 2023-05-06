@@ -4,6 +4,8 @@ import { getTimeAgo } from "@/utils/timeAgo";
 
 export default function SubmissionItem({ submission, isChecked, setCheckedIds }: any) {
   const [change, setChange] = useState(false);
+    const [showMore, setShowMore] = useState(false);
+
   const {
     fields = {},
     country = "",
@@ -18,20 +20,22 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
     setCheckedIds(id);
   };
 
+  const [firstName, lastName] = submission.fields.name.split(" ");
+    const name = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+
+
   return (
     <>
-      <div className="broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-5">
+      <div className="broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
         <div className="col-span-3 flex gap-3">
-          <div>
-            <input
-              type="checkbox"
-              id="submission"
-              name="submission"
-              value=""
-              checked={change || isChecked}
-              onChange={(id) => handleChange(id)}
-            />
-          </div>
+          <input
+            type="checkbox"
+            id="submission"
+            name="submission"
+            value=""
+            checked={change || isChecked}
+            onChange={(id) => handleChange(id)}
+          />
           <div className="space-y-2">
             {/* getting 2 times formsubmission data */}
             {/* {Object.keys(fields).map((key, idx) => {
@@ -42,43 +46,57 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
                 </div>
               );
             })} */}
-            <div>
-              <p className="text-gray-400">Name</p>
-              <p>{fields.name}</p>
+            <div className="flex justify-between space-y-2">
+              <div>
+                <span className="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full bg-gray-600 mt-4">
+                  <span className="text-lg font-medium leading-none text-white">
+                    {name}
+                  </span>
+                </span>
+              </div>
+              <div className="grid grid-cols-2 ml-4 space-x-0">
+                <p className="text-gray-400">Name</p>
+                <p>{fields.name}</p>
+
+                <p className="text-gray-400 ">Email</p>
+
+                <p className="text-sm">{fields.email}</p>
+              </div>
             </div>
-            <div>
-              <p className="text-gray-400">Email</p>
-              <p>{fields.email}</p>
-            </div>
-            <div>
-              <p className="text-gray-400">Request</p>
-              <p>{fields.message}</p>
+            <div className="flex justify-center mt-2  text-sm">
+              <p>Submitted {getTimeAgo(createdAt)}</p>
             </div>
           </div>
         </div>
-        <div className="col-span-3 space-y-2">
+
+        <div className="col-span-3 space-y-2 flex justify-center ml-36">
           <div>
-            <p>IP Address</p>
-            <p>{ip}</p>
-          </div>
-          <div>
-            <p>Country</p>
-            <p>{country}</p>
+            <p className="text-gray-400">Request</p>
+
+            {showMore ? fields.message : `${fields.message.substring(0, 100)}`}
+            <button
+              className="btn underline "
+              onClick={() => setShowMore(!showMore)}
+            >
+              {showMore ? "Show less" : "Show more"}
+            </button>
           </div>
         </div>
         <div className="col-span-2 text-end relative">
           <div className="w-full mb-3">
-            <span className="bg-orange-500 px-4 py-3 text-sm text-gray-100">
+            <span className="bg-orange-500 px-4 py-2 text-sm text-gray-100">
               New
             </span>
+            {isSpam && (
+              <p className="absolute right-0 bottom-0 border py-1 px-2.5 border-red-700 ">
+                Spam
+              </p>
+            )}
           </div>
-          <p>Submitted {getTimeAgo(createdAt)}</p>
-          {isSpam && (
-            <p className="absolute right-0 bottom-0 border p-2 border-red-700 ">
-              Spam
-            </p>
-          )}
         </div>
+        {/* <div className="   text-sm">
+          <p>Submitted {getTimeAgo(createdAt)}</p>
+        </div> */}
       </div>
     </>
   );
