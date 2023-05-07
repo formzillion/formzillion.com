@@ -68,7 +68,7 @@ export default function Index({
 
   return (
     <>
-      <div className="border border-gray-300 h-[42px] w-[60px]  flex justify-center">
+      <div className="border border-gray-300 h-[41px] w-[60px] dark:border-gray-700  flex justify-center">
         <input
           type="checkbox"
           value=""
@@ -82,7 +82,7 @@ export default function Index({
       {submissions?.length > 0 && (
         <Filter setSearchTerm={setSearchTerm} setFilterType={setFilterType} />
       )}
-      <div className="border border-gray-300 h-[42px] w-[60px]  flex justify-center ">
+      <div className="border border-gray-300 h-[41px] w-[60px] dark:border-gray-700 flex justify-center ">
         <Menu as="div" className="relative py-3.5 px-1 inline-block ">
           <Menu.Button>
             <ArrowsUpDownIcon className="h-5 w-7" />
@@ -126,7 +126,7 @@ export default function Index({
           </Menu.Items>
         </Menu>
       </div>
-      <div className="border border-gray-300 h-[42px] w-[60px] flex justify-center">
+      <div className="border border-gray-300 h-[41px] w-[60px] dark:border-gray-700 flex justify-center">
         <Menu as="div" className="relative flex items-center">
           <Menu.Button>
             <EllipsisVerticalIcon className="h-5 w-7" />

@@ -89,7 +89,7 @@ export default function FormsOverviewPage({
   return (
     <>
       <div className="flex space-x-4  divide-gray-300 dark:divide-gray-700 px-1 bg-white pt-4 shadow dark:bg-black border border-gray-300 dark:border-gray-700">
-        <div className=" space-y-2 mt-5 cursor-pointer w-[10%]  text-start  border-r-2 border-gray-100 dark:border-gray-600">
+        <div className=" space-y-2 mt-5 cursor-pointer w-[10%]  text-start  border-r-2 border-gray-100 dark:border-gray-800">
           <div
             className="hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between"
             onClick={() => handleSubmission()}

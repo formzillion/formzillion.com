@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getTimeAgo } from "@/utils/timeAgo";
+import { ClockIcon } from "@heroicons/react/24/solid";
 
 
 export default function SubmissionItem({ submission, isChecked, setCheckedIds }: any) {
@@ -48,22 +49,23 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
             })} */}
             <div className="flex justify-between space-y-2">
               <div>
-                <span className="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full bg-gray-600 mt-4">
+                <span className="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full bg-gray-800 mt-4">
                   <span className="text-lg font-medium leading-none text-white">
                     {name}
                   </span>
                 </span>
               </div>
               <div className="grid grid-cols-2 ml-4 space-x-0">
-                <p className="text-gray-400">Name</p>
+                <p className="text-gray-500">Name</p>
                 <p>{fields.name}</p>
 
-                <p className="text-gray-400 ">Email</p>
+                <p className="text-gray-500 ">Email</p>
 
                 <p className="text-sm">{fields.email}</p>
               </div>
             </div>
-            <div className="flex justify-center mt-2  text-sm">
+            <div className="flex flex-row space-x-1 ml-20  text-sm ">
+              <ClockIcon className="h-[20px] w-[18px] text-gray-500" />
               <p>Submitted {getTimeAgo(createdAt)}</p>
             </div>
           </div>
@@ -71,15 +73,21 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
 
         <div className="col-span-3 space-y-2 flex justify-center ml-36">
           <div>
-            <p className="text-gray-400">Request</p>
+            <p className="text-gray-500">Request</p>
 
-            {showMore ? fields.message : `${fields.message.substring(0, 100)}`}
-            <button
-              className="btn underline "
-              onClick={() => setShowMore(!showMore)}
-            >
-              {showMore ? "Show less" : "Show more"}
-            </button>
+            <div>
+              {showMore
+                ? fields.message
+                : `${fields.message.substring(0, 100)}...`}
+              <div>
+                <button
+                  className="btn underline"
+                  onClick={() => setShowMore(!showMore)}
+                >
+                  {showMore ? "Show less" : "Show more"}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
         <div className="col-span-2 text-end relative">
@@ -94,9 +102,6 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
             )}
           </div>
         </div>
-        {/* <div className="   text-sm">
-          <p>Submitted {getTimeAgo(createdAt)}</p>
-        </div> */}
       </div>
     </>
   );
