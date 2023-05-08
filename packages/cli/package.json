@@ -1,6 +1,6 @@
 {
   "name": "@formzillion/cli",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Formzillion CLI tool.",
   "main": "dist/index.js",
   "bin": {
