@@ -1,15 +1,8 @@
 import React from "react";
 import { format } from "date-fns";
 import { FireIcon } from "@heroicons/react/24/solid";
-import stripeApi from "@/lib/stripe/stripe-api";
 
-export default async function Subscription({ customerId, planId }: any) {
-  const subscriptions: any = await stripeApi.listSubscriptions({
-    customerId,
-    plan: planId,
-  });
-  const subscription = subscriptions.data?.[0];
-
+export default function Subscription({ subscription }: any) {
   const plan = subscription?.plan || {};
   const { name } = plan?.product || {};
   const { amount_decimal = 0, interval = "month" } = plan || {};

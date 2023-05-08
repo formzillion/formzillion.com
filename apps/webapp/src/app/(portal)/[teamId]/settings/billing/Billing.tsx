@@ -9,18 +9,18 @@ import Heading from "../Heading";
 interface BillingProps {
   userDetails: any;
   teamSlug: string;
+  subscription: any;
 }
 
 export default function Billing(props: BillingProps) {
-  const { userDetails, teamSlug } = props;
+  const { userDetails, teamSlug, subscription } = props;
   const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${teamSlug}/settings/billing`;
   const customerId = userDetails?.billingCustomerId;
-  const { planId } = userDetails;
   const billingSessionLink = `/api/stripe/customer-portal-section?customerId=${customerId}&redirectUrl=${redirectUrl}`;
-  
+
   return (
     <>
-      <Subscription customerId={customerId} planId={planId} />
+      <Subscription subscription={subscription} />
       <div className="space-y-5">
         <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
           <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
