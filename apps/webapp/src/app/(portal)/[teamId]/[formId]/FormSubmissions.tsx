@@ -28,9 +28,11 @@ export default function FormsOverviewPage({
   const [checkedIds, setCheckedIds] = useState([]);
   const [count,setCount]=useState();
   const [total, setTotal] = useState();
+  const [selectedTab, setSelectedTab] = useState("All");
 
 
   const handleSpamClick = async (isSpam: any) => {
+    setSelectedTab(isSpam ? "Spam" : "Verified");
     const status = isSpam ? "spam" : "verify";
     if (!isEmpty(parsedFormSubmissions)) {
       const filteredSubmissions = parsedFormSubmissions.filter(
@@ -45,6 +47,7 @@ export default function FormsOverviewPage({
     setFilter(status);
   };
   const handleSpam = async (isSpam: any) => {
+    setSelectedTab(isSpam ? "Spam" : "Verified");
     const status = isSpam ? "spam" : "verify";
     if (!isEmpty(parsedFormSubmissions)) {
       const filteredSubmissions = parsedFormSubmissions.filter(
@@ -70,6 +73,7 @@ export default function FormsOverviewPage({
   });
 
   const handleSubmission = () => {
+    setSelectedTab("All");
     const isSpam = "all";
     if (!isEmpty(parsedFormSubmissions)) {
       setSubmissions(parsedFormSubmissions);
@@ -88,32 +92,40 @@ export default function FormsOverviewPage({
   const currentData = filteredData.slice(start, end);
   return (
     <>
-      <div className="flex space-x-4  divide-gray-300 dark:divide-gray-700 px-1 bg-white pt-4 shadow dark:bg-black border border-gray-300 dark:border-gray-700">
-        <div className=" space-y-2 mt-5 cursor-pointer w-[10%]  text-start  border-r-2 border-gray-100 dark:border-gray-800">
+      <div className="flex space-x-8  divide-gray-300 dark:divide-gray-700 px-1 bg-white pt-4 dark:bg-black">
+        <div className=" space-y-3 mt-5 cursor-pointer w-[10%]  text-start  ">
           <div
-            className="hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between"
+            id="All"
+            className={`${
+              selectedTab === "All" ? "bg-slate-100 text-gray-600" : ""
+            } hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between`}
             onClick={() => handleSubmission()}
           >
-            {" "}
             All
             <div>{parsedFormSubmissions.length}</div>
           </div>
           <div
-            className="hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between"
+            id="Spam"
+            className={`${
+              selectedTab === "Spam" ? "bg-slate-100 text-gray-600" : ""
+            } hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between`}
             onClick={() => handleSpamClick(true)}
           >
             Spam
             <div>{count}</div>
           </div>
           <div
-            className=" hover:bg-slate-100 p-2 hover:text-gray-600 transition-all rounded dark:hover:bg-slate-300 flex justify-between"
+            id="Verified"
+            className={`${
+              selectedTab === "Verified" ? "bg-slate-100 text-gray-600" : ""
+            } hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between`}
             onClick={() => handleSpam(false)}
           >
             Verified
             <div>{total}</div>
           </div>
         </div>
-        <div className="w-[85%] mt-5 ">
+        <div className="w-[85%] mt-5  shadow dark:bg-black border border-gray-300 dark:border-gray-700 p-4">
           {submissions?.length > 0 && (
             <div className="flex justify-between  ">
               <div className=" flex items-center">

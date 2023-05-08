@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getTimeAgo } from "@/utils/timeAgo";
-import { ClockIcon } from "@heroicons/react/24/solid";
+import { ChatBubbleBottomCenterIcon, ClockIcon, EnvelopeIcon, UserCircleIcon } from "@heroicons/react/24/solid";
 
 
 export default function SubmissionItem({ submission, isChecked, setCheckedIds }: any) {
@@ -49,22 +49,25 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
             })} */}
             <div className="flex justify-between space-y-2">
               <div>
-                <span className="inline-flex h-[60px] w-[60px] items-center justify-center rounded-full bg-gray-800 mt-4">
+                <span className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-gray-800 mt-4">
                   <span className="text-lg font-medium leading-none text-white">
                     {name}
                   </span>
                 </span>
               </div>
-              <div className="grid grid-cols-2 ml-4 space-x-0">
-                <p className="text-gray-500">Name</p>
-                <p>{fields.name}</p>
+              <div className="space-y-2">
+                <div className=" ml-4 flex flex-row space-x-2">
+                  <UserCircleIcon className="h-[20px] w-[18px] text-gray-500 " />
+                  <p>{fields.name}</p>
+                </div>
 
-                <p className="text-gray-500 ">Email</p>
-
-                <p className="text-sm">{fields.email}</p>
+                <div className="ml-4 flex flex-row space-x-2">
+                  <EnvelopeIcon className="h-[20px] w-[18px] text-gray-500 " />
+                  <p className="text-sm">{fields.email}</p>
+                </div>
               </div>
             </div>
-            <div className="flex flex-row space-x-1 ml-20  text-sm ">
+            <div className="flex flex-row space-x-2 ml-16  text-sm ">
               <ClockIcon className="h-[20px] w-[18px] text-gray-500" />
               <p>Submitted {getTimeAgo(createdAt)}</p>
             </div>
@@ -73,7 +76,10 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
 
         <div className="col-span-3 space-y-2 flex justify-center ml-36">
           <div>
-            <p className="text-gray-500">Request</p>
+            <div className="flex flex-row space-x-2">
+              <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
+              <p className="text-black text-md">Message</p>
+            </div>
 
             <div>
               {showMore
