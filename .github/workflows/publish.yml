@@ -18,9 +18,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org
-      - name: Navigate
-        run: cd packages/cli
       - name: publish
-        run: npm publish --access public
+        run: |
+          cd packages/cli
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
