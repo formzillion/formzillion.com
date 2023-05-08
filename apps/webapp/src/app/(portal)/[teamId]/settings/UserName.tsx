@@ -7,6 +7,7 @@ import { Input } from "@/ui/Input/SimpleInput";
 import CardFooter from "@/ui/CardFooter";
 import Heading from "./Heading";
 import { get } from "lodash";
+import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 
 const UserName = ({ teamSlug }: any) => {
   const parsedTeamData = JSON.parse(teamSlug);
@@ -14,15 +15,18 @@ const UserName = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
 
   const parsedTeam = get(parsedTeamData, "0", "");
-  const handleNameChange = () => {
+  const handleNameChange = async () => {
     setLoading(true);
-    const response: any = updateTeam({
+    const response: any = await updateTeam({
       teamName: name,
       teamSlug: parsedTeam.slug,
       type: "updateName",
     });
-    if (response) {
+    if (response.success) {
+      showSuccessToast("Name updated successfully");
       setLoading(false);
+    } else {
+      showErrorToast(response.message);
     }
   };
 
