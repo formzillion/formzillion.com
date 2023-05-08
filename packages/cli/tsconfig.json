@@ -1,0 +1,10 @@
+{
+  "extends": "@formzillion/tsconfig/node16.json",
+  "compilerOptions": {
+    "rootDir": "lib",
+    "outDir": "dist",
+    "lib": ["dom", "dom.iterable", "esnext"]
+  },
+  "include": ["."],
+  "exclude": ["dist", "build", "node_modules"]
+}
