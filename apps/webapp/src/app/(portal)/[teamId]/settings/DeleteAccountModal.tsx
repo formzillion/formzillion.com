@@ -87,7 +87,7 @@ export default function DeleteAccountModal({ closeModal, teamSlug }: any) {
                 onClick={onClickDeleteTeam}
                 type="submit"
               >
-                Delete team
+                Delete account
               </Button>
             </DialogFooter>
           </DialogContent>
