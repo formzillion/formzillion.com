@@ -3,13 +3,21 @@
   "version": "0.0.0",
   "description": "Formzillion CLI tool.",
   "main": "dist/index.js",
-  "bin": "./dist/index.js",
+  "bin": {
+    "formzillion": "bin/formzillion"
+  },
   "scripts": {
     "build": "tsc",
+    "prepublish": "npm run build",
     "prestart": "npm run build",
     "start": "node dist/index.js"
   },
-  "keywords": [],
+  "keywords": [
+    "dotenv",
+    "forms",
+    "cli",
+    "formzillion"
+  ],
   "author": "Formzillion",
   "repository": {
     "type": "git",
