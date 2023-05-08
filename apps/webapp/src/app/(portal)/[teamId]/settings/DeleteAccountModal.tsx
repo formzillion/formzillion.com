@@ -27,7 +27,7 @@ const checkAccount = (teamSlug: any) => {
   return isPersonalAccount;
 };
 
-export default function DeleteAccountModel({ closeModal, teamSlug }: any) {
+export default function DeleteAccountModal({ closeModal, teamSlug }: any) {
   const router = useRouter();
   const [isConfirmed, setIsConfirmed] = useState("");
 

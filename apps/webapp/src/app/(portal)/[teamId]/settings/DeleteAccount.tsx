@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 import Header from "@/ui/Header";
-import DeleteAccountModel from "./DeleteAccountModel";
+import DeleteAccountModal from "./DeleteAccountModal";
 import Heading from "./Heading";
 
 const DeleteAccount = ({ teamSlug }: any) => {
@@ -31,7 +31,7 @@ const DeleteAccount = ({ teamSlug }: any) => {
         </div>
       </div>
       {showModal && (
-        <DeleteAccountModel
+        <DeleteAccountModal
           closeModal={() => {
             setShowModal(false);
           }}
