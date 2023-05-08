@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -12,17 +12,31 @@ import {
 import Button from "@/ui/Buttons";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
+import { Input } from "@/ui/Input/SimpleInput";
+import { showErrorToast } from "@/ui/Toast/Toast";
+import { get } from "lodash";
 
 export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
   const router = useRouter();
+  const [isConfirmed, setIsConfirmed] = useState("");
+
   const onClickDeleteTeam = () => {
-    updateTeam({
-      teamName: teamSlug.name,
-      teamSlug: teamSlug.slug,
-      type: "deleteTeam",
-    });
-    closeModal();
-    router.push("/dashboard");
+    if (isConfirmed === teamSlug.name) {
+      updateTeam({
+        teamName: teamSlug.name,
+        teamSlug: teamSlug.slug,
+        type: "deleteTeam",
+      });
+      closeModal();
+      router.push("/register");
+    } else {
+      showErrorToast("Please type-in the correct team name");
+    }
+  };
+
+  const onChangeField = (e: any) => {
+    const { value } = e.target;
+    setIsConfirmed(value);
   };
 
   return (
@@ -34,6 +48,23 @@ export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
             Once you dalete your team, you will no longer be able to access it.
           </DialogDescription>
         </DialogHeader>
+        <div>
+          <div className="space-y-4 py-2 pb-4">
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {`Please type-in `}
+                <b>{`"${teamSlug.name}"`}</b>
+                {` to confirm.`}
+              </p>
+              <Input
+                type="text"
+                id="confirm"
+                onChange={onChangeField}
+                required
+              />
+            </div>
+          </div>
+        </div>
         <DialogFooter>
           <Button
             className="bg-red-600  text-white rounded-none"

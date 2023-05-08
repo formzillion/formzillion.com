@@ -6,12 +6,14 @@ import Header from "@/ui/Header";
 import { Input } from "@/ui/Input/SimpleInput";
 import CardFooter from "@/ui/CardFooter";
 import Heading from "./Heading";
+import { get } from "lodash";
 
-const TeamName = ({ teamSlug }: any) => {
-  const parsedTeam = JSON.parse(teamSlug);
+const UserName = ({ teamSlug }: any) => {
+  const parsedTeamData = JSON.parse(teamSlug);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState<any>(false);
 
+  const parsedTeam = get(parsedTeamData, "0", "");
   const handleNameChange = () => {
     setLoading(true);
     const response: any = updateTeam({
@@ -30,8 +32,8 @@ const TeamName = ({ teamSlug }: any) => {
         <Header title={"General"} />
         <div className="pt-4">
           <Heading
-            title={"Team Name"}
-            description="This is the name that will be displayed for your team on Formzillion, which can be the name of your client, company, or department."
+            title={"Your Name"}
+            description="This is the name that will be displayed for you on Formzillion."
           />
           <div className="flex items-center space-x-2 my-3">
             <Input
@@ -54,4 +56,4 @@ const TeamName = ({ teamSlug }: any) => {
   );
 };
 
-export default TeamName;
+export default UserName;
