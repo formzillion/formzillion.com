@@ -22,7 +22,7 @@ export default function CopyToClipboard(props: CopyProps) {
     <DocumentDuplicateIcon
       onClick={handleCopy}
       className={classNames(
-        "ml-[7px] cursor-pointer text-gray-600 w-5 h-5 hover:text-gray-700 hover:font-semibold transition-all",
+        "ml-[7px] cursor-pointer text-gray-600 dark:text-gray-300 w-5 h-5 hover:text-gray-700 hover:font-semibold transition-all",
         props.className
       )}
     />

@@ -27,7 +27,7 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
 
   return (
     <>
-      <div className="broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
+      <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
         <div className="col-span-3 flex gap-3">
           <input
             type="checkbox"
@@ -98,11 +98,11 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
         </div>
         <div className="col-span-2 text-end relative">
           <div className="w-full mb-3">
-            <span className="inline-flex items-center rounded-full bg-orange-500 px-1.5 py-0.5 text-xs font-medium text-gray-100">
+            <span className="inline-flex items-center rounded-full bg-orange-500 px-2 py-0.5 text-xs font-medium text-gray-100">
               New
             </span>
             {isSpam && (
-              <p className="absolute right-0 bottom-0 border py-1 px-2.5 border-red-700 ">
+              <p className="absolute right-0 bottom-0 border py-0.5 px-1.5 rounded-full bg-red-500  text-xs font-medium text-gray-100">
                 Spam
               </p>
             )}

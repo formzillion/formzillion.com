@@ -14,7 +14,7 @@ function InvoiceTable({ invoices, loading }: any) {
           thList={["Date", "Due", "Status", "Amount", "Receipt"]}
           loading={loading}
         >
-          {invoices.map((invoice: any) => {
+          {invoices?.map((invoice: any) => {
             const dueDate = format(
               new Date(invoice.due_date * 1000),
               "dd-MMM-yyyy"
@@ -73,9 +73,7 @@ function InvoiceTable({ invoices, loading }: any) {
   );
 }
 
-export default function BillingHistory({ account, loading }: any) {
-  const invoices = account?.invoices || [];
-
+export default function BillingHistory({ invoices, loading }: any) {
   return (
     <div className="space-y-5">
       <div className="bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 ">
