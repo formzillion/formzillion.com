@@ -98,7 +98,7 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
         </div>
         <div className="col-span-2 text-end relative">
           <div className="w-full mb-3">
-            <span className="bg-orange-500 px-4 py-2 text-sm text-gray-100">
+            <span className="inline-flex items-center rounded-full bg-orange-500 px-1.5 py-0.5 text-xs font-medium text-gray-100">
               New
             </span>
             {isSpam && (
