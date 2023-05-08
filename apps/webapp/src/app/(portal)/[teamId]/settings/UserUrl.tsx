@@ -8,6 +8,7 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import Heading from "./Heading";
 import CardFooter from "@/ui/CardFooter";
 import { get } from "lodash";
+import { showSuccessToast } from "@/ui/Toast/Toast";
 
 const UserUrl = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
@@ -23,7 +24,8 @@ const UserUrl = ({ teamSlug }: any) => {
       teamName: url,
       type: "updateSlug",
     });
-    if (response) {
+    if (response.success) {
+      showSuccessToast("Url updated successfully");
       setLoading(false);
     }
     router.push(`/${url}/settings`);

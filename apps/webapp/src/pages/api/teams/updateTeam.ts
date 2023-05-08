@@ -9,18 +9,29 @@ export default async function handler(
   try {
     const { teamName, teamSlug, type, userId } = req.body;
     const { currentUser } = await getUserSession(req, res);
-
+    
     let updatedTeam;
-    if (type === "updateName") {
-      updatedTeam = await updateTeamName(teamSlug, teamName);
-    } else if (type === "updateSlug") {
-      updatedTeam = await updateTeamSlug(teamSlug, teamName);
-    } else if (type === "leaveTeam") {
-      updatedTeam = await leaveTeam(teamSlug, currentUser.id);
-    } else if (type === "deleteTeam") {
-      updatedTeam = await deleteTeam(teamSlug);
-    } else if (type === "removeMember") {
-      updatedTeam = await removeMember(teamSlug, teamName);
+    switch (type) {
+      case "updateName":
+        updatedTeam = await updateTeamName(teamSlug, teamName);
+        break;
+      case "updateSlug":
+        updatedTeam = await updateTeamSlug(teamSlug, teamName);
+        break;
+      case "leaveTeam":
+        updatedTeam = await leaveTeam(teamSlug, currentUser.id);
+        break;
+      case "deleteTeam":
+        updatedTeam = await deleteTeam(teamSlug);
+        break;
+      case "removeMember":
+        updatedTeam = await removeMember(teamSlug, teamName);
+        break;
+      case "deleteAccount":
+        updatedTeam = await deleteAccount(teamSlug, currentUser.id);
+        break;
+      default:
+        throw new Error("Invalid operation type");
     }
 
     res.status(201).json({ success: true, data: updatedTeam });
@@ -60,6 +71,45 @@ async function leaveTeam(teamSlug: string, userId: string) {
 }
 
 async function deleteTeam(teamSlug: string) {
+  const team: any = await prisma.teams.findUnique({
+    where: {
+      slug: teamSlug,
+    },
+    include: {
+      forms: true,
+    },
+  });
+  await prisma.forms.deleteMany({
+    where: {
+      teamId: team.id,
+    },
+  });
+  return await prisma.teams.delete({
+    where: {
+      slug: teamSlug,
+    },
+  });
+}
+
+async function deleteAccount(teamSlug: string, userId: string) {
+  const team: any = await prisma.teams.findUnique({
+    where: {
+      slug: teamSlug,
+    },
+    include: {
+      forms: true,
+    },
+  });
+  await prisma.forms.deleteMany({
+    where: {
+      teamId: team.id,
+    },
+  });
+  await prisma.users.delete({
+    where: {
+      id: userId,
+    },
+  });
   return await prisma.teams.delete({
     where: {
       slug: teamSlug,

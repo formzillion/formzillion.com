@@ -30,17 +30,24 @@ const checkAccount = (teamSlug: any) => {
 export default function DeleteAccountModal({ closeModal, teamSlug }: any) {
   const router = useRouter();
   const [isConfirmed, setIsConfirmed] = useState("");
+  const [loading, setLoading] = useState<any>(false);
 
-  const onClickDeleteTeam = () => {
+  const onClickDeleteTeam = async () => {
     const team = get(teamSlug, "0", "");
     if (isConfirmed === team.name) {
-      updateTeam({
+      setLoading(true);
+      const response: any = await updateTeam({
         teamName: team.name,
         teamSlug: team.slug,
-        type: "deleteTeam",
+        type: "deleteAccount",
       });
-      closeModal();
-      router.push("/register");
+
+      if (response.success) {
+        showSuccessToast("Account deleted successfully");
+        setLoading(false);
+        closeModal();
+        router.push("/register");
+      }
     } else {
       showErrorToast("Please type-in the correct team name");
     }
@@ -130,6 +137,7 @@ export default function DeleteAccountModal({ closeModal, teamSlug }: any) {
                 className="bg-red-600  text-white rounded-none"
                 onClick={closeModal}
                 type="submit"
+                loading={loading}
               >
                 Cancel
               </Button>
