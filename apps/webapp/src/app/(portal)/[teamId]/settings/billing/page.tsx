@@ -1,8 +1,8 @@
 import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
 
-import Sidebar from "@/ui/Sidebar";
 import Billing from "./Billing";
+import stripeApi from "@/lib/stripe/stripe-api";
 
 export default async function Page({ params }: any) {
   const { teamId: teamSlug } = params;
@@ -11,11 +11,21 @@ export default async function Page({ params }: any) {
       slug: teamSlug,
     },
   });
-
+  const customerId = account?.billingCustomerId;
+  const planId = account?.planId;
+  const subscriptions: any = await stripeApi.listSubscriptions({
+    customerId,
+    plan: planId,
+  });
+  const subscription = subscriptions.data?.[0];
   return (
     <div className="w-full space-y-5 ">
       {!isEmpty(account) && (
-        <Billing userDetails={account} teamSlug={teamSlug} />
+        <Billing
+          userDetails={account}
+          teamSlug={teamSlug}
+          subscription={subscription}
+        />
       )}
     </div>
   );
