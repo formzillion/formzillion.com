@@ -3,13 +3,13 @@
 import { useState } from "react";
 import { isEmpty } from "lodash";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaSync } from "react-icons/fa";
 
 import { Button } from "@/ui/Buttons/SButton";
 import Sort from "@/ui/Sort";
 import EmptySubmissions from "./EmptySubmissions";
 import SubmissionItem from "./SubmissionItem";
 import TestFormModal from "./settings/TestFormModal";
-import { FaSync } from "react-icons/fa";
 
 export default function FormsOverviewPage({
   TotalPages,
@@ -30,7 +30,6 @@ export default function FormsOverviewPage({
   const [total, setTotal] = useState();
   const [selectedTab, setSelectedTab] = useState("All");
 
-
   const handleSpamClick = async (isSpam: any) => {
     setSelectedTab(isSpam ? "Spam" : "Verified");
     const status = isSpam ? "spam" : "verify";
@@ -46,6 +45,7 @@ export default function FormsOverviewPage({
     }
     setFilter(status);
   };
+
   const handleSpam = async (isSpam: any) => {
     setSelectedTab(isSpam ? "Spam" : "Verified");
     const status = isSpam ? "spam" : "verify";
@@ -80,10 +80,10 @@ export default function FormsOverviewPage({
     }
     setFilter(isSpam);
   };
+
   const refreshPage = () => {
     window.location.reload();
   };
-
 
   const itemsPerPage = 10;
   const totalPages = Math.ceil(TotalPages / itemsPerPage);
