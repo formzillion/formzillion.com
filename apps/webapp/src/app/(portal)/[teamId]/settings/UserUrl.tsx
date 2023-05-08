@@ -7,11 +7,13 @@ import Header from "@/ui/Header";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import Heading from "./Heading";
 import CardFooter from "@/ui/CardFooter";
+import { get } from "lodash";
 
-const TeamUrl = ({ teamSlug }: any) => {
+const UserUrl = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
   const router = useRouter();
-  const parsedTeam = JSON.parse(teamSlug);
+  const parsedTeamData = JSON.parse(teamSlug);
+  const parsedTeam = get(parsedTeamData, "0", "");
   const [url, setUrl] = useState("");
 
   const handleSlugChange = () => {
@@ -30,12 +32,12 @@ const TeamUrl = ({ teamSlug }: any) => {
   return (
     <>
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
-        <Header title={"Team URL"} />
+        <Header title={"Your ID"} />
         <div className="pt-4">
           <Heading
-            description="This is your team’s URL namespace on formzillion. Within it,
-              your team can inspect their projects, check out any recent
-              activity, or configure settings to their liking."
+            description="This is your URL namespace on formzillion. Within it,
+              you inspect their forms, check out any recent
+              activity, or configure settings to your liking."
           />
           <div className="flex items-center justify-between my-3">
             <Input
@@ -66,4 +68,4 @@ const TeamUrl = ({ teamSlug }: any) => {
   );
 };
 
-export default TeamUrl;
+export default UserUrl;

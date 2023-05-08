@@ -10,7 +10,6 @@ export default function Sidebar() {
   const pathname = path?.split("/")[1];
   const navigation = [
     { name: "General", href: `/${pathname}/settings` },
-    { name: "Members", href: `/${pathname}/settings/members` },
     { name: "Billing", href: `/${pathname}/settings/billing` },
     { name: "Invoices", href: `/${pathname}/settings/invoices` },
     { name: "Teams", href: `/${pathname}/settings/teams` },
