@@ -65,11 +65,11 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
                   <EnvelopeIcon className="h-[20px] w-[18px] text-gray-500 " />
                   <p className="text-sm">{fields.email}</p>
                 </div>
+                <div className="ml-4 flex flex-row space-x-2  text-sm ">
+                  <ClockIcon className="h-[20px] w-[18px] text-gray-500" />
+                  <p>Submitted {getTimeAgo(createdAt)}</p>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-row space-x-2 ml-16  text-sm ">
-              <ClockIcon className="h-[20px] w-[18px] text-gray-500" />
-              <p>Submitted {getTimeAgo(createdAt)}</p>
             </div>
           </div>
         </div>
