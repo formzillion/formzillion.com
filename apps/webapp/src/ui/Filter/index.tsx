@@ -25,7 +25,6 @@ export default function Index({ setSearchTerm, setFilterType }: any) {
   };
   return (
     <>
-      <div className=" flex flex-row justify-start space-x-4">
         <select
           onChange={handleFilterTypeChange}
           className="  border-gray-300 dark:bg-black dark:border-gray-700"
@@ -35,13 +34,12 @@ export default function Index({ setSearchTerm, setFilterType }: any) {
         </select>
         <div>
           <input
-            className="w-[840px] border-gray-300 dark:bg-black dark:border-gray-700 "
+            className="w-[630px] border-gray-300 dark:bg-black dark:border-gray-700 "
             type="text"
             placeholder="Search here"
             onChange={handleInputChange}
           />
         </div>
-      </div>
     </>
   );
 }

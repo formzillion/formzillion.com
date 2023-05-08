@@ -21,8 +21,8 @@ export default function SearchForm({ forms, teamSlug, formCounts }: any) {
 
   return (
     <>
-      <div className="flex my-8">
-        <div className="w-[87%]">
+      <div className="flex justify-between my-8 space-x-2 sm:mr-4 lg:mr-7 mx-auto sm:max-w-7xl">
+        <div className="w-[80%] lg:w-[87%]">
           <div className="ml-2">
             <label htmlFor="search" className="sr-only">
               Search
@@ -45,13 +45,13 @@ export default function SearchForm({ forms, teamSlug, formCounts }: any) {
             </div>
           </div>
         </div>
-        <div className="w-[10%]">
+        <div className="w-[20%] lg:w-[10%]">
           <ActionsSection teamSlug={teamSlug} />
         </div>
       </div>
       {!isEmpty(forms) ? (
         !isEmpty(filteredForms) ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredForms.map((form: any, idx: any) => {
               const count = formCounts[form.id] || 0;
               return (
