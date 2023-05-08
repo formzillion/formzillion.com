@@ -15,15 +15,15 @@ export default async function TeamLayout({ children, params }: any) {
     },
   });
   const forms = JSON.parse(JSON.stringify(allForms));
-  const formId = forms.map((item: any) => item.id);
+  const formId = forms?.map((item: any) => item.id);
 
-  const teamIds = [...user.teams?.map((team: any) => team.slug), "dashboard"];
+  const teamIds = [...user?.teams?.map((team: any) => team.slug), "dashboard"];
 
   if (!teamIds?.includes(finalTeamId)) {
     notFound();
   }
 
-  const team = user.teams.filter((team: any) => team.slug === finalTeamId);
+  const team = user?.teams?.filter((team: any) => team.slug === finalTeamId);
   const teamType = get(team, "0.type", "");
   const tabs = [
     { name: "Forms", path: `/`, targetSegment: null },
