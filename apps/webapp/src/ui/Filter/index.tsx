@@ -34,7 +34,7 @@ export default function Index({ setSearchTerm, setFilterType }: any) {
         </select>
         <div>
           <input
-            className="w-[670px] border-gray-300 dark:bg-black dark:border-gray-700 "
+            className="w-[630px] border-gray-300 dark:bg-black dark:border-gray-700 "
             type="text"
             placeholder="Search here"
             onChange={handleInputChange}
