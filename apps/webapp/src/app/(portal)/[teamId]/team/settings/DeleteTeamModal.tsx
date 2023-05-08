@@ -43,7 +43,7 @@ export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
     <Dialog open={closeModal} onOpenChange={closeModal}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Confirm Dalete Team</DialogTitle>
+          <DialogTitle>Confirm Delete Team</DialogTitle>
           <DialogDescription className="text-gray-600">
             Once you dalete your team, you will no longer be able to access it.
           </DialogDescription>
