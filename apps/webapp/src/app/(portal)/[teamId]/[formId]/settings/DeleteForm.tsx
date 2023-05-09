@@ -1,46 +1,30 @@
+"use client";
 import React, { useState } from "react";
-import deleteForm from "@/app/fetch/forms/deleteForm";
-import deleteAllSubmissions from "@/app/fetch/formSubmissions/deleteAllSubmissions";
-import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
+
+import { showErrorToast } from "@/ui/Toast/Toast";
+import SubmissionModal from "./SubmissionModal";
+import DeleteModal from "./DeleteModal";
 
 export default function DeleteForm({ formDetail, formSubmissions }: any) {
-  const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
-  const router = useRouter();
+  const [showModal, setShowModal] = useState<any>(false);
+  const [deleteModal, setDeleteModal] = useState<any>(false);
+
   const path = usePathname();
   const redirect = path?.split("/")[1] || "/dashboard";
 
   const submissionsCount = formSubmissions.length;
 
-  const handleForm = async () => {
+  const handleDeleteModal = () => {
     if (submissionsCount === 0) {
-      const response = await deleteForm({ formId: formDetail.id });
-      if (response.success) {
-        showSuccessToast("Form deleted successfully");
-      } else {
-        showErrorToast(`Failed to delete Form`);
-      }
-      router.refresh();
-      router.push(redirect);
+      setDisable(false);
+      setDeleteModal(true);
     } else {
       setDisable(true);
+      setDeleteModal(false);
       showErrorToast("You cannot delete a form that has submissions");
     }
-  };
-
-  const handleSubmission = async () => {
-    setLoading(true);
-    const response = await deleteAllSubmissions({
-      formId: formDetail.id,
-    });
-
-    if (response.success) {
-      showSuccessToast("Submissions deleted successfully");
-    } else {
-      showErrorToast(`Failed to delete submissions`);
-    }
-    router.refresh();
   };
 
   return (
@@ -65,19 +49,36 @@ export default function DeleteForm({ formDetail, formSubmissions }: any) {
           {submissionsCount > 0 && (
             <button
               className="rounded-none flex border hover:border-red-600 hover:text-red-700 hover:shadow border-red-400 text-red-600 dark:text-white px-8 py-2 min-w-[80px] disabled:border-red-300 disabled:text-red-500 hover:disabled:border-red-300 hover:disabled:text-red-500 dark:bg-black dark:border-red-600 dark:hover:border-red-700 dark:hover:text-red-700"
-              onClick={handleSubmission}
-              disabled={loading}
+              onClick={() => setShowModal(true)}
             >
               Delete All Submissions
             </button>
           )}
+          {showModal && (
+            <SubmissionModal
+              closeModal={() => {
+                setShowModal(false);
+              }}
+              formDetail={formDetail}
+            />
+          )}
+
           <button
             className={`rounded-none flex hover:shadow dark:text-white px-8 py-2 min-w-[80px]  hover:disabled:text-slate-100  dark:bg-red-600 dark:hover:text-white dark:hover:bg-red-700 bg-red-600 text-white disabled:text-white hover:text-white`}
-            onClick={handleForm}
+            onClick={handleDeleteModal}
             disabled={disable}
           >
             Delete Form
           </button>
+          {deleteModal && (
+            <DeleteModal
+              closeModal={() => {
+                setDeleteModal(false);
+              }}
+              formDetail={formDetail}
+              redirect={redirect}
+            />
+          )}
         </div>
       </div>
     </>
