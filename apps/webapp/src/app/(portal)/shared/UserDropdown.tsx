@@ -33,7 +33,7 @@ export default function UserDropdown({ user }: any) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 rounded-full bg-transparent hover:bg-transparent focus:bg-transparent focus:border-none focus-visible:border-none"
+          className="relative h-8 w-8 focus-visible:rounded-full bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:border-0"
         >
           {isEmpty(avatar) ? (
             <Avatar className="h-8 w-8">
@@ -75,7 +75,7 @@ export default function UserDropdown({ user }: any) {
           <a href="https://formzillion.com/" target="_blank" rel="noreferrer">
             <DropdownMenuItem className="cursor-pointer">
               <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
-              Back To Formzillion
+              Formzillion Homepage
               <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
           </a>
