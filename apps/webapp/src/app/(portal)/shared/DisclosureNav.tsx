@@ -22,7 +22,7 @@ const navigation = [
 ];
 
 const navigate = [
-  { name: "Back to Formzillion", href: "https://formzillion.com/" },
+  { name: "Formzillion Homepage", href: "https://formzillion.com/" },
   {
     name: "Join our Slack",
     href: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",

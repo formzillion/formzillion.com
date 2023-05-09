@@ -33,11 +33,11 @@ export default function UserDropdown({ user }: any) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 rounded-full bg-transparent hover:bg-transparent focus:bg-transparent focus:border-none focus-visible:border-none"
+          className="relative h-8 w-8 focus-visible:rounded-full bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:border-0"
         >
           {isEmpty(avatar) ? (
             <Avatar className="h-8 w-8">
-              <AvatarImage src="https://avatar.vercel.sh/user.png" alt="User" />
+              <AvatarImage src="https:avatar.vercel.sh/user.png" alt="User" />
               <AvatarFallback>SC</AvatarFallback>
             </Avatar>
           ) : (
@@ -72,16 +72,16 @@ export default function UserDropdown({ user }: any) {
               Change Password
             </DropdownMenuItem>
           </Link>
-          <a href="https://formzillion.com/" target="_blank" rel="noreferrer">
+          <a href="https:formzillion.com/" target="_blank" rel="noreferrer">
             <DropdownMenuItem className="cursor-pointer">
               <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
-              Back To Formzillion
+              Formzillion Homepage
               <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
           </a>
           <a
             href={
-              "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw"
+              "https:formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw"
             }
             target="_blank"
             rel="noreferrer"

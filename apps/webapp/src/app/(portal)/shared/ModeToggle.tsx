@@ -1,7 +1,8 @@
 "use client";
-
 import * as React from "react";
 import { useTheme } from "next-themes";
+import { FaLaptop } from "react-icons/fa";
+import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 
 import { Button } from "@/ui/Buttons/SButton";
 import {
@@ -10,19 +11,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/ui/DropdownMenu";
-import { HomeIcon, MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 
 export function ModeToggle() {
   const { theme, setTheme } = useTheme();
 
-  const icon =
-    theme === "light" ? (
-      <SunIcon className="h-4 w-4" />
-    ) : theme === "dark" ? (
-      <MoonIcon className="h-4 w-4" />
-    ) : (
-      <SunIcon className="h-4 w-4" />
-    );
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -31,7 +23,8 @@ export function ModeToggle() {
           size="sm"
           className="w-8 px-0 flex justify-center"
         >
-          {icon}
+          <SunIcon className="rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 h-4 w-4" />
+          <MoonIcon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 h-4 w-4" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -45,7 +38,7 @@ export function ModeToggle() {
           <span>Dark</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          <HomeIcon className="mr-2 h-4 w-4" />
+          <FaLaptop className="mr-2 h-4 w-4" />
           <span>System</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
