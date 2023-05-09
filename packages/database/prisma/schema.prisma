@@ -117,6 +117,7 @@ model teams {
   teamInvitations   team_invitations[]
   workflows         workflows[]
   users             users[]            @relation("teamsTousers")
+  avatar            String?
 
   @@index([slug])
   @@map("teams")
