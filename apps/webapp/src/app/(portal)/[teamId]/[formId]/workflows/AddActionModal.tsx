@@ -100,6 +100,7 @@ const AddActionModal = ({
       appId,
       actionSlug,
       connectionId,
+      appSlug,
       name: `${appSlug}_${actionSlug}`,
       template: {},
     });

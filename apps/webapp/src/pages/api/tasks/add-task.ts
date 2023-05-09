@@ -13,6 +13,7 @@ export default async function handler(
     name,
     template,
     actionSlug = "",
+    appSlug = "",
   } = req.body;
 
   try {
@@ -22,7 +23,7 @@ export default async function handler(
         type,
         connectionId,
         workflowId,
-        ...(actionSlug && { slug: actionSlug }),
+        slug: actionSlug,
       },
     });
 
@@ -39,6 +40,7 @@ export default async function handler(
           type,
           appId,
           connectionId,
+          appSlug,
           slug: actionSlug,
           status: "active",
         },
@@ -53,6 +55,7 @@ export default async function handler(
           connectionId,
           template,
           status: "active",
+          appSlug,
           slug: actionSlug,
         },
       });

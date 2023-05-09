@@ -6,6 +6,7 @@
  * @param {string} connectionId - Task connectionId for associating connection with task
  * @param {object} template - Task template for custom input
  * @param {string} actionSlug - Task actionSlug
+ * @param {string} appSlug - Task appSlug
  * @returns
  */
 const addTask = async ({
@@ -17,6 +18,7 @@ const addTask = async ({
   template = {},
   name,
   actionSlug,
+  appSlug,
 }: {
   workflowId: string | number;
   teamId: string;
@@ -26,6 +28,7 @@ const addTask = async ({
   template: any;
   name: string;
   actionSlug?: string;
+  appSlug?: string;
 }) => {
   const response = await fetch("/api/tasks/add-task", {
     method: "POST",
@@ -42,6 +45,7 @@ const addTask = async ({
       template,
       name,
       actionSlug,
+      appSlug,
     }),
   });
 

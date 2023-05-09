@@ -52,7 +52,6 @@ export default async function handler(
     }
 
     const connectionData: any = {
-      userId: requiredData?.userId,
       name: accessParams.accountname || email,
       email: email,
       appId: requiredData?.appId,
