@@ -276,7 +276,7 @@ html,
 
 .fz-indeterminate-progressbar {
   height: 4px;
-  background-color: #444444;
+  background-color: #d9d9d9;
   width: 100%;
   overflow: hidden;
 }
