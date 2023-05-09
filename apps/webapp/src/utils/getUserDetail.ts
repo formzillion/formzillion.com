@@ -8,14 +8,15 @@ export const getUserDetail = async () => {
     data: { session },
   } = await supabase.auth.getSession();
   const email = session?.user?.email;
-  if(!email) {
+  if (!email) {
     return {};
   }
   const user: any = await prisma.users.findUnique({
     where: { email },
     include: {
-      teams: true
-    }
+      teams: true,
+      memberships: true,
+    },
   });
   return user || {};
 };

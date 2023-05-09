@@ -86,41 +86,52 @@ const MembersList = ({ teams, currentUserEmail }: any) => {
                             <h1 className="capitalize">
                               {team.user.email.split("@")[0]}
                             </h1>
-                            <h1>{team.user.email}</h1>
+                            <h1 className="font-light text-gray-700 dark:text-gray-500">
+                              {team.user.email}
+                            </h1>
                           </div>
                         </div>
                         <div className="flex items-center">
-                          <h1 className="text-xs mr-2">{team.role}</h1>
-
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="black" className="px-2 py-1">
-                                <span className="sr-only">Actions</span>
-                                <EllipsisVerticalIcon className="h-5 w-5" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end">
-                              <DropdownMenuItem
-                                onSelect={() => setIsOpen(true)}
-                              >
-                                Change Role
-                              </DropdownMenuItem>
-                              <DropdownMenuSeparator />
-                              <DropdownMenuItem
-                                onSelect={() =>
-                                  handleLeave(
-                                    team.userId,
-                                    team.team.slug,
-                                    team.role,
-                                    team.user.email
-                                  )
-                                }
-                                className="text-red-600"
-                              >
-                                Remove
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+                          <h1
+                            className={
+                              team.role === "OWNER"
+                                ? "text-xs font-light mr-12"
+                                : "text-xs font-light mr-2"
+                            }
+                          >
+                            {team.role}
+                          </h1>
+                          {team.role !== "OWNER" && (
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button className="px-2 py-1">
+                                  <span className="sr-only">Actions</span>
+                                  <EllipsisVerticalIcon className="h-5 w-5" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent align="end">
+                                <DropdownMenuItem
+                                  onSelect={() => setIsOpen(true)}
+                                >
+                                  Change Role
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem
+                                  onSelect={() =>
+                                    handleLeave(
+                                      team.userId,
+                                      team.team.slug,
+                                      team.role,
+                                      team.user.email
+                                    )
+                                  }
+                                  className="text-red-600"
+                                >
+                                  Remove
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          )}
                           <Dialog open={open} onOpenChange={setIsOpen}>
                             <DialogContent>
                               <DialogHeader>

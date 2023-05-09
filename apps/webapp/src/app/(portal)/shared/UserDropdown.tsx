@@ -60,7 +60,7 @@ export default function UserDropdown({ user }: any) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={"/account"}>
+          <Link href={`/settings`}>
             <DropdownMenuItem className="cursor-pointer">
               <UserCircleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
               Profile
