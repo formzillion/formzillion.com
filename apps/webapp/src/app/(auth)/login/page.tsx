@@ -136,15 +136,15 @@ export default function Login() {
               Sign in
             </Button>
           </div>
-          {/* <div className="text-center text-sm">
+          <div className="text-center text-sm">
             <AuthLabel className="inline text-gray-100">{`Don't have an account yet?`}</AuthLabel>
             <Link
-              href="https://rkq53epk2c1.typeform.com/to/oflWmqo6"
+              href="/register"
               className="ml-2 font-medium text-orange-600 hover:text-orange-500"
             >
-              Request Access
+              Register
             </Link>
-          </div> */}
+          </div>
         </Form>
       </FormContainer>
     </>
