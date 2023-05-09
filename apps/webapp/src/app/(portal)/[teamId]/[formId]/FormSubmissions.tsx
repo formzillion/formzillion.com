@@ -26,7 +26,7 @@ export default function FormsOverviewPage({
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [checkedIds, setCheckedIds] = useState([]);
-  const [count,setCount]=useState();
+  const [count, setCount] = useState();
   const [total, setTotal] = useState();
   const [selectedTab, setSelectedTab] = useState("All");
 
@@ -36,10 +36,10 @@ export default function FormsOverviewPage({
     if (!isEmpty(parsedFormSubmissions)) {
       const filteredSubmissions = parsedFormSubmissions.filter(
         (submission: { isSpam: any }) => {
-          return submission.isSpam === isSpam
+          return submission.isSpam === isSpam;
         }
       );
-      const count=filteredSubmissions.length;
+      const count = filteredSubmissions.length;
       setCount(count);
       setSubmissions(filteredSubmissions);
     }
@@ -90,6 +90,7 @@ export default function FormsOverviewPage({
   const start = (currentPage - 1) * itemsPerPage;
   const end = start + itemsPerPage;
   const currentData = filteredData.slice(start, end);
+
   return (
     <>
       <div className="flex space-x-8  divide-gray-300 dark:divide-gray-700 px-1 bg-white pt-4 dark:bg-black">

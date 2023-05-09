@@ -5,10 +5,10 @@ import { checkEnvVars, appendHeaders, hostUrl, httpsAgent } from "../utils";
 export function registerFormListCommand(program: any) {
   program
     .command("form:list")
-    .description("List all provider configurations.")
+    .description("List all the forms.")
     .action(async function (this: Command) {
       checkEnvVars();
-      let url = hostUrl + "/config";
+      let url = hostUrl + "/forms";
       await axios
         .get(url, { headers: appendHeaders(), httpsAgent: httpsAgent() })
         .then((res) => {
