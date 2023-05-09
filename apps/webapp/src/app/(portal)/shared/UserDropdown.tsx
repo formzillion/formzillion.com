@@ -7,6 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { isEmpty, startCase } from "lodash";
+import { FiSlack } from "react-icons/fi";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
 import Button from "@/ui/Buttons";
@@ -61,29 +62,36 @@ export default function UserDropdown({ user }: any) {
         <DropdownMenuGroup>
           <Link href={"/account"}>
             <DropdownMenuItem className="cursor-pointer">
-              <UserCircleIcon className="mr-2 h-4 w-4" />
+              <UserCircleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
               Profile
             </DropdownMenuItem>
           </Link>
           <Link href={"/account/password"}>
             <DropdownMenuItem className="cursor-pointer">
-              <CreditCardIcon className="mr-2 h-4 w-4" />
+              <CreditCardIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
               Change Password
             </DropdownMenuItem>
           </Link>
           <a href="https://formzillion.com/" target="_blank" rel="noreferrer">
             <DropdownMenuItem className="cursor-pointer">
-              <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4" />
+              <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
               Back To Formzillion
               <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
           </a>
-          <Link href={"#"}>
+          <a
+            href={
+              "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw"
+            }
+            target="_blank"
+            rel="noreferrer"
+          >
             <DropdownMenuItem className="cursor-pointer">
-              <BellIcon className="mr-2 h-4 w-4" />
+              <FiSlack className="mr-2 h-4 w-4 text-gray-600" />
               Join our Slack
+              <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
-          </Link>
+          </a>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <Logout />

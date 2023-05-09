@@ -45,13 +45,10 @@ export default async function TeamLayout({ children, params }: any) {
     {
       name: "Settings",
       path: teamType === "personal" ? `settings` : `team/settings`,
-      targetSegment: "settings",
+      targetSegment: teamType === "personal" ? `settings` : `team`,
     },
   ];
-  // if (finalTeamId === "dashboard") {
-  //   redirect(`/${teamIds[0]}`);
-  // }
-
+ 
   return (
     <>
       <PrimaryNav tabs={tabs} finalTeamId={finalTeamId} formId={formId} />
