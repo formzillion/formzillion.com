@@ -86,8 +86,7 @@ const ActionMenu = ({
 };
 
 const TaskCard = ({ details, handleActionOnClick }: any) => {
-  const { name, type } = details;
-  const [appSlug, actionName] = name?.split("_") || ["", ""];
+  const { type, appSlug, slug: actionName } = details;
   const isAction = type === "action";
   const imageSrc = imageSrcMap[appSlug];
 
@@ -98,19 +97,16 @@ const TaskCard = ({ details, handleActionOnClick }: any) => {
         <div className="flex flex-row justify-between w-full">
           <div>
             <section
-              id="appSlug"
+              id="actionType"
               className="text-sm font-medium text-gray-900 dark:text-white"
             >
-              {startCase(appSlug)}
+              {isAction ? "Action" : "Trigger"}
             </section>
             <section
               id="actionName"
               className="text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-1"
             >
-              {startCase(actionName)}
-              <div className={`text-xs uppercase ml-1`}>
-                ({isAction ? "action" : "trigger"})
-              </div>
+              {`${startCase(appSlug)} - ${startCase(actionName)}`}
             </section>
           </div>
           <section>
@@ -197,7 +193,8 @@ const Workflows = ({ params }: PageProps) => {
         <div>
           <TaskCard
             details={{
-              name: "formzillion_newFormSubmission",
+              slug: "newFormSubmission",
+              appSlug: "formzillion",
               status: "active",
               type: "trigger",
             }}

@@ -16,55 +16,51 @@ export default async function handler(
     appSlug = "",
   } = req.body;
 
+  const parsedAppId = parseInt(appId);
+  const parsedConnectionId = parseInt(connectionId);
+
   try {
     const actionExits = await prisma.tasks.findFirst({
       where: {
-        appId,
+        appId: parsedAppId,
         type,
-        connectionId,
+        connectionId: parsedConnectionId,
         workflowId,
         slug: actionSlug,
       },
     });
 
     let taskData = {};
+    const taskDataToUpdate = {
+      name,
+      template,
+      type,
+      appId: parsedAppId,
+      connectionId: parsedConnectionId,
+      appSlug,
+      slug: actionSlug,
+      status: "active",
+      workflowId,
+      updatedAt: new Date(),
+    };
 
     if (actionExits) {
       taskData = await prisma.tasks.update({
         where: {
           id: actionExits.id,
         },
-        data: {
-          name,
-          template,
-          type,
-          appId,
-          connectionId,
-          appSlug,
-          slug: actionSlug,
-          status: "active",
-        },
+        data: taskDataToUpdate,
       });
     } else {
       taskData = await prisma.tasks.create({
-        data: {
-          workflowId,
-          appId,
-          name,
-          type,
-          connectionId,
-          template,
-          status: "active",
-          appSlug,
-          slug: actionSlug,
-        },
+        data: taskDataToUpdate,
       });
     }
 
     return res.status(200).json({ success: true, data: taskData });
   } catch (error: any) {
     return res
-      .status(500)
+      .status(200)
       .json({ success: false, data: {}, errorMsg: error.message });
   }
 }

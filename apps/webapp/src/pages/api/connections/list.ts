@@ -5,11 +5,15 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { appId, teamSlug } = req.body;
+  const { appSlug, teamSlug } = req?.body;
 
   try {
     const connections = await prisma.connections.findMany({
-      where: { status: "connected", appId, team: { slug: teamSlug } },
+      where: {
+        status: "connected",
+        team: { slug: teamSlug },
+        app: { slug: appSlug },
+      },
       orderBy: {
         createdAt: "asc",
       },
@@ -17,8 +21,10 @@ export default async function handler(
         id: true,
         name: true,
         teamId: true,
+        appSlug: true,
       },
     });
+
     return res.status(200).json({ success: true, data: connections });
   } catch (error) {
     console.log(`Error from connections list: ${error}`);

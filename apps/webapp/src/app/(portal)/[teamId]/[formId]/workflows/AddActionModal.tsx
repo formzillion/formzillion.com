@@ -58,13 +58,13 @@ const AddActionModal = ({
 
   const getConnectionsList = useCallback(async () => {
     const connections = await getConnections({
-      appId: actionSetup.appId,
+      appSlug,
       teamSlug,
     });
 
     setTeamId(get(connections, "0.teamId", ""));
     setconnectionList(connections);
-  }, [actionSetup.appId, teamSlug]);
+  }, [appSlug, teamSlug]);
 
   useEffect(() => {
     if (isEmpty(appsList)) {
@@ -73,7 +73,7 @@ const AddActionModal = ({
 
     if (actionSetup.appId) {
       const slug = appsList.find(
-        (app: any) => app.id === actionSetup.appId
+        (app: any) => app.id.toString() === actionSetup.appId
       )?.slug;
       setAppSlug(slug);
       getConnectionsList();
@@ -92,7 +92,8 @@ const AddActionModal = ({
     setLoading(true);
     const actionSlug = actionSetup.actionSlug || get(availableActions, "0", "");
     const appId = actionSetup.appId || get(appsList, "0.id", "");
-    const connectionId = actionSetup.connectionId || get(connectionList, "0.id", "");
+    const connectionId =
+      actionSetup.connectionId || get(connectionList, "0.id", "");
     const actionResp = await addTask({
       workflowId,
       teamId,
