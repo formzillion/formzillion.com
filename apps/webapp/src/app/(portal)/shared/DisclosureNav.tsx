@@ -19,7 +19,14 @@ import { ModeToggle } from "./ModeToggle";
 const navigation = [
   { name: "Profile", href: "/account", current: true },
   { name: "Change Password", href: "/account/password", current: false },
-  { name: "Join our Slack", href: "#", current: false },
+];
+
+const navigate = [
+  { name: "Back to Formzillion", href: "https://formzillion.com/" },
+  {
+    name: "Join our Slack",
+    href: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
+  },
 ];
 
 function classNames(...classes: any) {
@@ -125,16 +132,17 @@ export default function DisclosureNav({ teams, user }: any) {
                   {item.name}
                 </Disclosure.Button>
               ))}
-              <div className="cursor-pointer dark:text-gray-400 text-gray-900 hover:bg-gray-50 hover:text-gray-900 flex items-center rounded-md py-2 px-3 text-sm font-medium">
-                <a
-                  href="https://formzillion.com/"
-                  target="_blank"
-                  rel="noreferrer"
+              {navigate.map((item: any, idx: number) => (
+                <div
+                  key={idx}
+                  className="cursor-pointer dark:text-gray-400 text-gray-900 hover:bg-gray-50 hover:text-gray-900 flex items-center rounded-md py-2 px-3 text-sm font-medium"
                 >
-                  Back To Formzillion
-                  <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
-                </a>
-              </div>
+                  <a href={item.href} target="_blank" rel="noreferrer">
+                    {item.name}
+                    <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
+                  </a>
+                </div>
+              ))}
               <div
                 onClick={onClickLogout}
                 className="cursor-pointer dark:text-gray-400 text-gray-900 hover:bg-gray-50 hover:text-gray-900 block rounded-md py-2 px-3 text-sm font-medium"
