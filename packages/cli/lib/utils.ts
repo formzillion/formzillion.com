@@ -1,8 +1,8 @@
 import https from "https";
 
-export let hostUrl = process.env["FZ_HOST_URL"] || "http://localhost:3001";
-export let cloudHost = "https://api.formzillion.com";
-export let stagingHost = "https://dev-api.formzillion.com";
+export let hostUrl = process.env["FZ_HOST_URL"] || "http://localhost:3000/api";
+export let cloudHost = "https://formzillion.com/api";
+export let stagingHost = "https://dev.formzillion.com/api";
 
 if (hostUrl.slice(-1) === "/") {
   hostUrl = hostUrl.slice(0, -1);
@@ -37,7 +37,7 @@ export function httpsAgent() {
 }
 
 export function checkEnvVars() {
-  if (hostUrl === "http://localhost:3001") {
+  if (hostUrl === "http://localhost:3000") {
     console.log(
       `Assuming you are running Formzillion on localhost:3001 because you did not set the FZ_HOST_URL env var.\n\n`
     );
@@ -48,11 +48,11 @@ export function checkEnvVars() {
       );
     } else if (hostUrl === cloudHost) {
       console.log(
-        `Assuming you are using Formzillion Cloud (because you set the FZ_HOST_URL env var to https://api.formzillion.com).`
+        `Assuming you are using Formzillion Cloud (because you set the FZ_HOST_URL env var to https://formzillion.com/api).`
       );
     } else if (hostUrl === stagingHost) {
       console.log(
-        `Assuming you are using Formzillion Cloud (because you set the FZ_HOST_URL env var to https://dev-api.formzillion.com).`
+        `Assuming you are using Formzillion Cloud (because you set the FZ_HOST_URL env var to https://dev.formzillion.com/api).`
       );
     }
   } else {
