@@ -28,7 +28,6 @@ model users {
   language          String?
   timezone          String?
   title             String?
-  connections       connections[]
   memberships       memberships[]
   workflows         workflows[]
   teams             teams[]       @relation("teamsTousers")
@@ -46,8 +45,9 @@ model form_submissions {
   fields    Json?
   formId    String?  @map("form_id")
   isSpam    Boolean?
-  form      forms?   @relation(fields: [formId], references: [id])
+  form      forms?   @relation(fields: [formId], references: [id], onDelete: Cascade)
 
+  @@index([formId])
   @@map("form_submissions")
 }
 
@@ -72,11 +72,13 @@ model forms {
   customHoneypot      String?
   customSpamWords     String[]
   submissions         form_submissions[]
-  team                teams              @relation(fields: [teamId], references: [id])
+  team                teams              @relation(fields: [teamId], references: [id], onDelete: Cascade)
   workflows           workflows[]
   autoResponder       Boolean            @default(false)
   autoResponderConfig Json?
 
+  @@index([teamId])
+  @@index([workflowId])
   @@map("forms")
 }
 
@@ -92,7 +94,7 @@ model projects {
 
 model teams {
   id                String             @id @default(cuid())
-  type              String?            @default("default")
+  type              String             @default("default")
   name              String
   status            String             @default("")
   createdAt         DateTime           @default(now()) @map("created_at")
@@ -116,6 +118,7 @@ model teams {
   workflows         workflows[]
   users             users[]            @relation("teamsTousers")
 
+  @@index([slug])
   @@map("teams")
 }
 
@@ -146,27 +149,26 @@ model team_invitations {
 }
 
 model connections {
-  id        String   @id @default(cuid())
+  id        Int      @id @default(autoincrement())
   email     String?
-  status    String   @default("pending")
+  status    String   @default("inActive")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  userId    String   @map("user_id")
-  teamId    String?  @map("team_id")
+  teamId    String   @map("team_id")
   apiKeys   Json
   name      String   @default("")
-  appId     String?
+  appId     Int?
   appSlug   String
   app       apps?    @relation(fields: [appId], references: [id])
-  team      teams?   @relation(fields: [teamId], references: [id])
-  user      users    @relation(fields: [userId], references: [id])
+  team      teams    @relation(fields: [teamId], references: [id], onDelete: Cascade)
   tasks     tasks[]
 
+  @@index([teamId])
   @@map("connections")
 }
 
 model apps {
-  id          String        @id @default(cuid())
+  id          Int           @id @default(autoincrement())
   name        String
   status      String        @default("in_active")
   createdAt   DateTime      @default(now()) @map("created_at")
@@ -176,6 +178,7 @@ model apps {
   connections connections[]
   tasks       tasks[]
 
+  @@index([slug])
   @@map("apps")
 }
 
@@ -185,14 +188,16 @@ model workflows {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   formId    String   @map("form_id")
-  teamId    String?  @map("team_id")
+  teamId    String   @map("team_id")
   userId    String?  @map("user_id")
   id        Int      @id @default(autoincrement())
   tasks     tasks[]
   form      forms    @relation(fields: [formId], references: [id], onDelete: Cascade)
-  team      teams?   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  team      teams    @relation(fields: [teamId], references: [id], onDelete: Cascade)
   user      users?   @relation(fields: [userId], references: [id])
 
+  @@index([formId])
+  @@index([teamId])
   @@map("workflows")
 }
 
@@ -200,9 +205,10 @@ model tasks {
   id           Int         @id @default(autoincrement())
   type         String      @default("action")
   template     Json?
-  appId        String      @map("app_id")
+  appId        Int         @map("app_id")
+  appSlug      String?     @map("app_slug")
   workflowId   Int         @map("workflow_id")
-  connectionId String      @map("connection_id")
+  connectionId Int         @map("connection_id")
   createdAt    DateTime    @default(now()) @map("created_at")
   updatedAt    DateTime    @updatedAt @map("updated_at")
   name         String?
@@ -212,6 +218,8 @@ model tasks {
   connection   connections @relation(fields: [connectionId], references: [id], onDelete: Cascade)
   workflow     workflows   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 
+  @@index([appId])
+  @@index([workflowId])
   @@map("tasks")
 }
 
@@ -231,6 +239,7 @@ model invoices {
 
 model tokens {
   id        Int      @id @default(autoincrement())
+  type      String   @default("defaultToken")
   token     String   @unique
   isUsed    Boolean  @default(false)
   isActive  Boolean  @default(true)

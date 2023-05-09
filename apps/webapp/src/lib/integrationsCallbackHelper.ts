@@ -56,7 +56,6 @@ export default async function callBackHelper({
     const existingConnId = await prisma.connections.findFirst({
       where: {
         email: email,
-        userId: user?.id,
         appId: app?.id,
         teamId: team.id,
         appSlug: appSlug,
