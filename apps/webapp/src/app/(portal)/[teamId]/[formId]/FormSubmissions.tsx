@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { isEmpty } from "lodash";
+import { useEffect, useState } from "react";
+import { get, isEmpty } from "lodash";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaSync } from "react-icons/fa";
 
@@ -16,6 +16,8 @@ export default function FormsOverviewPage({
   formId,
   formSubmissions,
 }: any) {
+  const [skip, setSkip] = useState(0);
+
   const [showTestFormModal, setShowTestFormModal] = useState(false);
   const toggleTestFormModal = () => setShowTestFormModal(!showTestFormModal);
   const parsedFormSubmissions = JSON.parse(formSubmissions);
@@ -26,9 +28,33 @@ export default function FormsOverviewPage({
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [checkedIds, setCheckedIds] = useState([]);
-  const [count,setCount]=useState();
+  const [count, setCount] = useState();
   const [total, setTotal] = useState();
   const [selectedTab, setSelectedTab] = useState("All");
+
+  const [data, setData] = useState([]);
+  const filterData=get(data,"data",[]);
+  const totalpages=get(data,"totalPages",'');
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(
+        `/api/form-submission/list?page=${currentPage}`
+      );
+      const data = await res.json();
+      setData(data);
+    }
+    fetchData();
+  }, [currentPage]);
+
+  const handlePrev = () => {
+    setSkip(skip - 10);
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNext = () => {
+    setSkip(skip + 10);
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   const handleSpamClick = async (isSpam: any) => {
     setSelectedTab(isSpam ? "Spam" : "Verified");
@@ -36,10 +62,10 @@ export default function FormsOverviewPage({
     if (!isEmpty(parsedFormSubmissions)) {
       const filteredSubmissions = parsedFormSubmissions.filter(
         (submission: { isSpam: any }) => {
-          return submission.isSpam === isSpam
+          return submission.isSpam === isSpam;
         }
       );
-      const count=filteredSubmissions.length;
+      const count = filteredSubmissions.length;
       setCount(count);
       setSubmissions(filteredSubmissions);
     }
@@ -139,6 +165,7 @@ export default function FormsOverviewPage({
                   submissions={submissions}
                   setSearchTerm={setSearchTerm}
                   setFilterType={setFilterType}
+                  searchTerm={searchTerm}
                 />
               </div>
             </div>
@@ -150,21 +177,15 @@ export default function FormsOverviewPage({
                 className="text-gray-500 dark:text-gray-300 h-5 w-7 ml-2"
               />
             </button>
-            {submissions.length > 10 && (
+            {submissions.length > 0 && (
               <div className="flex justify-end dark:text-white">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
+                <button disabled={currentPage === 1} onClick={handlePrev}>
                   <IoIosArrowBack />
                 </button>
                 <div className="mx-2 rounded-lg border-2 px-2  font-medium dark:border-gray-700">
-                  {currentPage} / {totalPages}
+                  {currentPage} / {totalpages}
                 </div>
-                <button
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(currentPage + 1)}
-                >
+                <button disabled={data.length > 10} onClick={handleNext}>
                   <IoIosArrowForward />
                 </button>
               </div>
@@ -185,8 +206,8 @@ export default function FormsOverviewPage({
                 )}
               </div>
             )}
-          {!isEmpty(currentData) ? (
-            currentData?.map((submission: any, idx: any) => {
+          {!isEmpty(filterData) ? (
+            filterData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem
                   key={idx}
