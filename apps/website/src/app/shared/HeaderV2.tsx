@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
-import Image from "next/image";
-import AppLogo from "@/ui/AppLogo";
+import { useEffect, useState } from "react";
 import clsx from "clsx";
-import github from "public/logos/github.jpeg";
+import { StarIcon } from "@heroicons/react/24/outline";
+
+import AppLogo from "@/ui/AppLogo";
+import Loader from "@/ui/Loader";
 
 const headerItems = [
   {
@@ -14,14 +15,27 @@ const headerItems = [
     title: "Pricing",
     href: "/plans",
   },
-  {
-    title: "Templates",
-    href: "/templates",
-  },
 ];
 
 export default function ResponsiveHeader() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [starCount, setStarCount] = useState(null);
+  const url = "https://api.github.com/repos/formzillion/formzillion.com";
+
+  useEffect(() => {
+    async function fetchStarCount() {
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const count = data.stargazers_count;
+        setStarCount(count);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchStarCount();
+  }, []);
+
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -76,16 +90,38 @@ export default function ResponsiveHeader() {
           "w-full flex-grow lg:flex lg:items-center lg:w-auto"
         )}
       >
-        <div className="text-sm lg:flex-grow">
+        <div className="text-sm flex items-center lg:flex-grow">
           {headerItems.map((item, index) => (
             <a
               href={item.href}
-              className="block mt-4 lg:inline-block lg:mt-2 text-white hover:text-orange-600 mr-4 font-[Satoshi]"
+              className="block lg:inline-block text-white hover:text-orange-600 mr-4 font-[Satoshi]"
               key={index}
             >
               {item.title}
             </a>
           ))}
+        </div>
+        <div className="flex mr-3">
+          <a
+            href="https://github.com/formzillion/formzillion.com"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="border border-gray-900 text-white px-4 py-2 flex gap-1 items-center bg-gray-950 hover:border-gray-500">
+              <StarIcon className="h-5 w-5 inline" />
+              Stars
+            </p>
+          </a>
+          <a
+            href="https://github.com/formzillion/formzillion.com/stargazers"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center"
+          >
+            <p className="text-center py-2 px-4 hover:text-orange-400 text-white border border-gray-900 hover:border-gray-500">
+              {starCount === null ? <Loader className="w-[15px]" /> : starCount}
+            </p>
+          </a>
         </div>
         <div className="flex flex-row justify-center">
           <a
@@ -93,7 +129,7 @@ export default function ResponsiveHeader() {
             className="inline-flex text-center font-['Satoshi'] text-sm px-4 py-2 leading-none border text-white border-white hover:text-orange-600 mt-4 lg:mt-0 w-[80px] h-[40px] hover:border-orange-600 items-center justify-center"
           >
             Login
-          </a>          
+          </a>
         </div>
       </div>
     </nav>

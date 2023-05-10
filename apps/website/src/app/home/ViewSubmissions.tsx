@@ -1,4 +1,7 @@
 import React from "react";
+import Image from "next/image";
+
+import submissionList from "public/screenshots/submissions-list.png";
 
 export default function ViewSubmissions() {
   return (
@@ -55,37 +58,45 @@ export default function ViewSubmissions() {
           </div>
           <div className="hidden md:flex items-center mt-8">
             <div className="text-center">
-              <img
+              <Image
                 src="brands/gmail.svg"
                 alt="Email"
                 className="rounded w-16 p-2 "
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">Email</div>
             </div>
             <div className="mr-12"></div>
             <div className="text-center">
-              <img
+              <Image
                 src="brands/slack.svg"
                 alt="Slack"
                 className="rounded w-16 p-2 "
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">Slack</div>
             </div>
             <div className="mr-12"></div>
             <div className="text-center">
-              <img
+              <Image
                 src="brands/zapier.svg"
                 alt="Slack"
                 className="rounded w-16 p-2 "
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">Zapier</div>
             </div>
             <div className="mr-12"></div>
             <div className="text-center">
-              <img
+              <Image
                 src="brands/webhooks.svg"
                 alt="Webhooks"
                 className="rounded w-16 p-2 "
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">Webhooks</div>
             </div>
@@ -93,8 +104,8 @@ export default function ViewSubmissions() {
         </div>
       </div>
       <div className="hidden md:block">
-        <img
-          src="screenshots/submissions-list.png"
+        <Image
+          src={submissionList}
           alt="Submissions list"
           aria-label="Submissions list"
           className="border rounded-md shadow-md"
