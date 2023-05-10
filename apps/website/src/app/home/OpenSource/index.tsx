@@ -1,4 +1,9 @@
+import Image from "next/image";
 import React from "react";
+
+import slackIcon from "public/brands/slackIcon.png";
+import githubIcon from "public/brands/githubIcon.png";
+import starIcon from "public/brands/starIcon.png";
 
 const cardData = [
   {
@@ -6,18 +11,21 @@ const cardData = [
     title: "Contributors",
     buttonTitle: "Explore Github",
     url: "https://github.com/formzillion/formzillion.com",
+    image: githubIcon,
   },
   {
     count: "12+",
     title: "Community Members",
     buttonTitle: "Join our slack ",
     url: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
+    image: slackIcon,
   },
   {
     count: "10+",
     title: "GitHub Stars",
     buttonTitle: "Browse on github",
     url: "https://github.com/formzillion/formzillion.com/stargazers",
+    image: starIcon,
   },
 ];
 export default function OpenSource() {
@@ -44,19 +52,26 @@ export default function OpenSource() {
         {cardData.map((card: any, index: number) => (
           <div
             key={index}
-            className="px-0 py-6 border rounded border-gray-500 text-center space-y-4 hover-border"
+            className="p-4 border rounded border-gray-500 text-center space-y-4 hover-border"
           >
-            <h4 className="text-5xl">{card.count}</h4>
-            <p className="text-gray-300 text-lg">{card.title}</p>
-            <div>
-              <a
-                href={card.url}
-                target="_blank"
-                rel="noreferrer"
-                className="border border-gray-700 m-2 py-2 px-4 hover:border-gray-500 hover:text-orange-400"
-              >
-                {card.buttonTitle}
-              </a>
+            <div className="space-y-4 bg-black px-4 py-8 rounded relative z-10 flex flex-col justify-center items-center">
+              <Image
+                src={card.image}
+                alt="logos"
+                className="h-20 w-20 bg-white rounded-full p-0.5"
+              />
+              <h4 className="text-5xl">{card.count}</h4>
+              <p className="text-gray-300 text-lg">{card.title}</p>
+              <div className="pt-4">
+                <a
+                  href={card.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="border border-gray-700 m-2 py-2 px-4 hover:border-gray-500 hover:text-orange-400"
+                >
+                  {card.buttonTitle}
+                </a>
+              </div>
             </div>
           </div>
         ))}
