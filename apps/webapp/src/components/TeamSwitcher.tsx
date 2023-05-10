@@ -45,6 +45,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isEmpty, startCase } from "lodash";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
@@ -72,13 +73,18 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
     name: "",
     emailsToInvite: [""],
   });
+  const personalTeams = parsedTeams.filter((team: any) => team.type !== "personal");
 
-  const filteredTeams = parsedTeams?.map((team: any) => {
+  const filteredTeams = personalTeams?.map((team: any) => {
+    // if (team.type === "personal") {
     return { label: team.name, value: team.slug, planName: team.planName };
+    // }
   });
-  const loggedInUser = [
-    { label: session?.user?.email?.split("@")[0], value: session?.user?.id },
-  ];
+  const loggedInUser = parsedTeams?.map((team: any) => {
+    if (team.type === "personal") {
+      return { label: team.name, value: team.slug, planName: team.planName };
+    }
+  });
 
   const groups =
     filteredTeams?.length > 0
@@ -137,13 +143,17 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
   return (
     <div className="flex items-center max-w-[200px]">
       <div className="flex items-center dark:text-white text-gray-800">
-        <Avatar className="mr-2 h-5 w-5">
-          <AvatarImage
-            src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
-            alt={selectedTeam.label}
-          />
-          <AvatarFallback></AvatarFallback>
-        </Avatar>
+        {!isEmpty(selectedTeam.teamSlug) ? (
+          <UserCircleIcon className="mr-2 h-5 w-5" />
+        ) : (
+          <Avatar className="mr-2 h-5 w-5">
+            <AvatarImage
+              src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
+              alt={selectedTeam.label}
+            />
+            <AvatarFallback>SC</AvatarFallback>
+          </Avatar>
+        )}
         <Link
           href={`${process.env.NEXT_PUBLIC_APP_URL}/${selectedTeam.value}`}
           className="flex items-center"
@@ -195,8 +205,8 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
                       >
                         <Avatar className="mr-2 h-5 w-5">
                           <AvatarImage
-                            src={`https://avatar.vercel.sh/${team.value}.png`}
-                            alt={team.label}
+                            src={`https://avatar.vercel.sh/${team?.value}.png`}
+                            alt={team?.label}
                           />
                           <AvatarFallback>SC</AvatarFallback>
                         </Avatar>

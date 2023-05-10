@@ -7,9 +7,9 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { teamName, teamSlug, type, userId } = req.body;
+    const { teamName, teamSlug, type, avatar } = req.body;
     const { currentUser } = await getUserSession(req, res);
-    
+
     let updatedTeam;
     switch (type) {
       case "updateName":
@@ -29,6 +29,9 @@ export default async function handler(
         break;
       case "deleteAccount":
         updatedTeam = await deleteAccount(teamSlug, currentUser.id);
+        break;
+      case "changeAvatar":
+        updatedTeam = await updateAvatar(teamSlug, avatar);
         break;
       default:
         throw new Error("Invalid operation type");
@@ -134,5 +137,14 @@ async function removeMember(teamSlug: string, teamName: string) {
 
   return await prisma.memberships.deleteMany({
     where: { teamId: updatedTeam.id, userId: teamName },
+  });
+}
+
+async function updateAvatar(teamSlug: string, avatar: string) {
+  return await prisma.teams.update({
+    where: { slug: teamSlug },
+    data: {
+      avatar: avatar,
+    },
   });
 }
