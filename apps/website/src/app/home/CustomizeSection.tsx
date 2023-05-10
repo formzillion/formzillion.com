@@ -1,11 +1,15 @@
 import React from "react";
+import Image from "next/image";
+
+import feedback from "public/screenshots/submission-feedback.png";
+import akismet from "public/brands/akismet.png";
 
 export default function CustomizeSection() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 items-center rounded-md p-4 sm:p-8 md:p-12">
       <div className="hidden md:block">
-        <img
-          src="screenshots/submission-feedback.png"
+        <Image
+          src={feedback}
           alt="Submission feedback"
           aria-label="Submission feedback"
           className="border rounded-md shadow-md"
@@ -66,35 +70,41 @@ export default function CustomizeSection() {
           </div>
           <div className="hidden md:flex items-center mt-8">
             <div className="text-center">
-              <img
+              <Image
                 src="brands/botpoison.svg"
                 alt="Botpoison"
-                className="rounded w-16 p-2 "
+                className="rounded w-16 p-2"
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">Botpoison</div>
             </div>
             <div className="mr-12"></div>
             <div className="text-center">
-              <img
+              <Image
                 src="brands/recaptcha.svg"
                 alt="reCAPTCHA"
-                className="rounded w-16 p-2 "
+                className="rounded w-16 p-2"
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">reCAPTCHA</div>
             </div>
             <div className="mr-12"></div>
             <div className="text-center">
-              <img
+              <Image
                 src="brands/hcaptcha.svg"
                 alt="hCaptcha"
-                className="rounded w-16 p-2 "
+                className="rounded w-16 p-2"
+                width={20}
+                height={20}
               />
               <div className="text-sm font-semibold">hCaptcha</div>
             </div>
             <div className="mr-12"></div>
             <div className="text-center">
-              <img
-                src="brands/akismet.png"
+              <Image
+                src={akismet}
                 alt="Akismet"
                 className="rounded w-16 p-2 "
               />

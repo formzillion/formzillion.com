@@ -275,25 +275,28 @@ html,
   font-weight: bold;
 }
 
-.hover-border {
-  border: 1px solid #333;
+.hover-border{
+  position: relative;
+  overflow: hidden;  
+  padding: 3px;
 }
-.hover-border:hover {
-  border: none;
-  background: linear-gradient(90deg, #ee6313 50%, transparent 0) repeat-x,
-    linear-gradient(90deg, #ee6313 50%, transparent 0) repeat-x,
-    linear-gradient(0deg, #ebc726 50%, transparent 0) repeat-y,
-    linear-gradient(0deg, #ebc726 50%, transparent 0) repeat-y;
-  background-size: 4px 1px, 4px 1px, 1px 4px, 1px 4px;
-  background-position: 0 0, 0 100%, 0 0, 100% 0;
+.hover-border::before{
+  content:"";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: 50% 100%;
+  border-radius: inherit;
+}
+.hover-border:hover::before{
+  background: linear-gradient(115deg, #4FCF70, #D8BD46, #D67C15, #f0f35c, #44CE7B);
+  animation: animate_border .5s linear infinite;
 }
 
-.hover-border:hover {
-  animation: linearGradientMove .3s infinite linear;
-}
-
-@keyframes linearGradientMove {
-  100% {
-      background-position: 4px 0, -4px 100%, 0 -4px, 100% 4px;
+@keyframes animate_border {
+  to{
+    transform: translateX(-50%);
   }
 }

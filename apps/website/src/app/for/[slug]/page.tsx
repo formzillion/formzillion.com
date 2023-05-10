@@ -1,6 +1,6 @@
-import Image from "next/image";
 import React from "react";
 import CTABanner from "@/app/home/CTABanner";
+import Image from "next/image";
 
 export default function DynamicSection({
   params,
@@ -48,12 +48,14 @@ export default function DynamicSection({
   }
   return (
     <section>
-      <div className="relative flex flex-col justify-center content-center items-center rounded-md text-center mt-28">
+      <div className="relative flex flex-col justify-center content-center items-center rounded-md text-center mt-10">
         <div className="w-full h-full flex flex-col py-20 px-10 justify-center items-center ">
-          <img
-            className="object-scale-down h-20 w-30 object-center rounded"
+          <Image
             alt="hero"
             src={dynamicContent.imageUrl}
+            height={80}
+            width={80}
+            className="object-scale-down h-20 w-30 object-center rounded"
           />
           <div className=" text-xl font-medium leading-normal font-['Satoshi']">
             <h1 className="title-font sm:text-4xl text-4xl mb-4 text-white font-semibold mt-8">
@@ -79,15 +81,13 @@ export default function DynamicSection({
         </div>
       </div>
       <div className=" text-xl font-medium leading-normal font-['Satoshi']">
-        <h1 className="title-font sm:text-4xl text-4xl mb-4 text-white font-semibold mt-8">
-          <h1 className="text-3xl mr-6 mt-8 text-center">
-            {dynamicContent.title}
-          </h1>
+        <h1 className="title-font text-xl sm:text-3xl mb-4 text-white font-semibold mt-8 text-center">
+          {dynamicContent.title}
         </h1>
 
         {staticData.map((data, index) => (
           <div key={index}>
-            <div
+            <p
               className="leading-10 mt-4 text-xl text-center"
               dangerouslySetInnerHTML={{ __html: data.description }}
             />

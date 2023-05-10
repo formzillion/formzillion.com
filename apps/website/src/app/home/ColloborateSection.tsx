@@ -1,5 +1,7 @@
+import Image from "next/image";
 import React from "react";
 
+import members from "public/screenshots/workspace-members.png";
 export default function ColloborateSection() {
   return (
     <>
@@ -20,8 +22,8 @@ export default function ColloborateSection() {
           </div>
         </div>
         <div className="hidden md:block">
-          <img
-            src="screenshots/workspace-members.png"
+          <Image
+            src={members}
             alt="Workspace members"
             aria-label="Workspace members"
             className="border rounded-md shadow-md"
