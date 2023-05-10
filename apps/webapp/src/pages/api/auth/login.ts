@@ -14,7 +14,13 @@ export default async function handler(
     data: { session },
   }: any = await supabase.auth.getSession();
   const loginEmail: any = session?.user?.email;
-  const { email, password } = req.body;
+  const { email, password, type } = req.body;
+
+  //Using this if the user already has a session
+  if (type === "hasSession") {
+    const teamSlug = await getTeams(loginEmail);
+    return res.status(200).json({ url: teamSlug });
+  }
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -41,8 +47,13 @@ const getTeams = async (email: string) => {
 
   const teams = user?.teams;
   if (teams) {
-    const teamSlug = get(teams, "0.slug", "dashboard");
+    let teamSlug = teams?.filter((team: any) => team.type === "personal");
 
+    teamSlug = get(teamSlug, "0.slug", "dashboard");
+
+    if (!teamSlug) {
+      teamSlug = get(teams, "0.slug", "dashboard");
+    }
     return teamSlug;
   } else {
     return "dashboard";

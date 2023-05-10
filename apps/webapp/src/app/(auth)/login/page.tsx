@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 import { useSupabase } from "@/components/SupbaseProvider";
@@ -26,7 +26,17 @@ export default function Login() {
   const router = useRouter();
 
   if (!isEmpty(session)) {
-    redirect("/dashboard");
+    (async () => {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ type: "hasSession" }),
+      });
+      const { url } = await res.json();
+      router.push(`/${url}`);
+    })();
   }
 
   const onClickLogin = async (formValues: any) => {
