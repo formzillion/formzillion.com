@@ -60,6 +60,11 @@ async function updateTeamSlug(teamSlug: string, newSlug: string) {
 }
 
 async function leaveTeam(teamSlug: string, userId: string) {
+  const res = await prisma.memberships.deleteMany({
+    where: {
+      AND: [{ userId: userId }, { teamId: teamSlug }],
+    },
+  });
   return await prisma.teams.update({
     where: { slug: teamSlug },
     data: {

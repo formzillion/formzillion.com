@@ -10,6 +10,7 @@ import FeatureSection from "./home/Features/FeatureSection";
 import HeroSection from "./home/WaitlistHeroSection/HeroSection";
 import InviteTeamIllustration from "./home/Features/Collaboration/InviteTeamIllustration";
 import IntegrationsIllustration from "./home/Features/Integrations/IntegrationsIllustration";
+import OpenSource from "./home/OpenSource";
 
 export default function page() {
   return (
@@ -46,6 +47,7 @@ export default function page() {
         reverse={false}
         action="https://docs.formzillion.com/features/collaboration"
       />
+      <OpenSource />
       <CTABanner />
 
       {/*<SeeItInAction />

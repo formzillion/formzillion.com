@@ -274,3 +274,29 @@ html,
   font-size: 22px;
   font-weight: bold;
 }
+
+.hover-border{
+  position: relative;
+  overflow: hidden;  
+  padding: 3px;
+}
+.hover-border::before{
+  content:"";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: 50% 100%;
+  border-radius: inherit;
+}
+.hover-border:hover::before{
+  background: linear-gradient(115deg, #4FCF70, #D8BD46, #D67C15, #f0f35c, #44CE7B);
+  animation: animate_border .5s linear infinite;
+}
+
+@keyframes animate_border {
+  to{
+    transform: translateX(-50%);
+  }
+}

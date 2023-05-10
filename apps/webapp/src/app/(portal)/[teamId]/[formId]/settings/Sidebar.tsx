@@ -12,21 +12,33 @@ export default function Sidebar() {
 
   const navigation = [
     { name: "General", href: `/${teamSlug}/${formId}/settings` },
-    { name: "Spam Filtering", href: `/${teamSlug}/${formId}/settings/spam-filter
-    ` },
-    { name: "Autoresponders", href: `/${teamSlug}/${formId}/settings/auto-responders` },
+    {
+      name: "Spam Filtering",
+      href: `/${teamSlug}/${formId}/settings/spam-filter
+    `,
+    },
+    {
+      name: "Autoresponders",
+      href: `/${teamSlug}/${formId}/settings/auto-responders`,
+    },
     {
       name: "Email Notifications",
       href: `/${teamSlug}/${formId}/settings/email-notifications`,
     },
-    { name: "Redirects", href: `/${teamSlug}/${formId}/settings/redirects` },
+    {
+      name: "Thank You Page",
+      href: `/${teamSlug}/${formId}/settings/thank-you-page`,
+    },
   ];
 
   return (
     <nav aria-label="Sidebar" className="w-40">
       <ul role="list" className="space-y-1 w-40">
         {navigation.map((item) => (
-          <li key={item.name} className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900">
+          <li
+            key={item.name}
+            className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900"
+          >
             <Link
               href={item.href}
               className={classNames(

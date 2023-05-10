@@ -41,7 +41,6 @@ export default async function handler(
       where: {
         appSlug,
         email: email,
-        userId: user?.id,
         appId: app?.id,
         teamId: teamId,
       },
@@ -54,7 +53,6 @@ export default async function handler(
       email,
       appId: app?.id,
       teamId: teamId,
-      userId: user?.id,
       name: connectionName || `${startCase(appSlug)} Account`,
       status: "connected",
       apiKeys: {

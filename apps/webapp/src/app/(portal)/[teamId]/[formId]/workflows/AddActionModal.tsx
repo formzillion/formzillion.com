@@ -15,6 +15,13 @@ import getApps from "@/app/fetch/integrations/getApps";
 import getConnections from "@/app/fetch/connections/getConnections";
 import addTask from "@/app/fetch/tasks/addTask";
 import { showSuccessToast } from "@/ui/Toast/Toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  SelectTrigger,
+} from "@/ui/Select";
 
 interface IAddActionModal {
   workflowId: number | string;
@@ -58,30 +65,29 @@ const AddActionModal = ({
 
   const getConnectionsList = useCallback(async () => {
     const connections = await getConnections({
-      appId: actionSetup.appId,
+      appSlug,
       teamSlug,
     });
 
     setTeamId(get(connections, "0.teamId", ""));
     setconnectionList(connections);
-  }, [actionSetup.appId, teamSlug]);
+  }, [appSlug, teamSlug]);
 
   useEffect(() => {
     if (isEmpty(appsList)) {
       getAppsList();
     }
 
-    if (actionSetup.appId) {
+    if (actionSetup.appId !== "") {
       const slug = appsList.find(
-        (app: any) => app.id === actionSetup.appId
+        (app: { id: string }) => app.id === actionSetup.appId
       )?.slug;
       setAppSlug(slug);
       getConnectionsList();
     }
-  }, [actionSetup, appsList, getAppsList, getConnectionsList]);
+  }, [actionSetup.appId, appsList, getAppsList, getConnectionsList]);
 
-  const handleOnSelect = (e: any) => {
-    const { name, value } = e.target;
+  const handleOnSelect = (value: string, name: string) => {
     setActionSetup({
       ...actionSetup,
       [name]: value,
@@ -92,7 +98,8 @@ const AddActionModal = ({
     setLoading(true);
     const actionSlug = actionSetup.actionSlug || get(availableActions, "0", "");
     const appId = actionSetup.appId || get(appsList, "0.id", "");
-    const connectionId = actionSetup.connectionId || get(connectionList, "0.id", "");
+    const connectionId =
+      actionSetup.connectionId || get(connectionList, "0.id", "");
     const actionResp = await addTask({
       workflowId,
       teamId,
@@ -100,6 +107,7 @@ const AddActionModal = ({
       appId,
       actionSlug,
       connectionId,
+      appSlug,
       name: `${appSlug}_${actionSlug}`,
       template: {},
     });
@@ -118,83 +126,80 @@ const AddActionModal = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Action</DialogTitle>
-          <DialogDescription className="text-gray-600">
+          <DialogDescription className="text-gray-700 dark:text-gray-400">
             Add action for the current workflow
           </DialogDescription>
         </DialogHeader>
         <div>
           <div className="space-y-4 py-2 pb-4">
-            <label
-              htmlFor="appId"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
               Select App
-            </label>
-            <select
-              id="appId"
-              name="appId"
-              className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+            </span>
+            <Select
               defaultValue={actionSetup.appId}
-              onClick={(e: any) => handleOnSelect(e)}
+              onValueChange={(value) => handleOnSelect(value, "appId")}
             >
-              {isAppsExists &&
-                appsList.map((app: any) => {
-                  return (
-                    <option key={app.id} value={app.id}>
-                      {app.name}
-                    </option>
-                  );
-                })}
-            </select>
+              <SelectTrigger>
+                <SelectValue placeholder="Select App" />
+              </SelectTrigger>
+              <SelectContent>
+                {isAppsExists &&
+                  appsList.map((app: any) => {
+                    return (
+                      <SelectItem key={app.id} value={app.id}>
+                        {app.name}
+                      </SelectItem>
+                    );
+                  })}
+              </SelectContent>
+            </Select>
           </div>
           {isConnectionsExists && (
             <div className="space-y-4 py-2 pb-4">
-              <label
-                htmlFor="connectionId"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Select Connection
-              </label>
-              <select
-                id="connectionId"
-                name="connectionId"
-                className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+              </span>
+              <Select
                 defaultValue={actionSetup.connectionId}
-                onClick={(e: any) => handleOnSelect(e)}
+                onValueChange={(value) => handleOnSelect(value, "connectionId")}
               >
-                {connectionList.map((conn: any) => {
-                  return (
-                    <option key={conn.id} value={conn.id}>
-                      {conn.name}
-                    </option>
-                  );
-                })}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Connection" />
+                </SelectTrigger>
+                <SelectContent>
+                  {connectionList.map((conn: any) => {
+                    return (
+                      <SelectItem key={conn.id} value={conn.id}>
+                        {conn.name}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
             </div>
           )}
           {isConnectionsExists && !isEmpty(availableActions) && (
             <div className="space-y-4 py-2 pb-4">
-              <label
-                htmlFor="actionSlug"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Select Action
-              </label>
-              <select
-                id="actionSlug"
-                name="actionSlug"
-                className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+              </span>
+              <Select
                 defaultValue={actionSetup.actionSlug}
-                onClick={(e: any) => handleOnSelect(e)}
+                onValueChange={(value) => handleOnSelect(value, "actionSlug")}
               >
-                {availableActions.map((action: any) => {
-                  return (
-                    <option key={action} value={action}>
-                      {startCase(action)}
-                    </option>
-                  );
-                })}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Action" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableActions.map((action: any) => {
+                    return (
+                      <SelectItem key={action} value={action}>
+                        {startCase(action)}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
             </div>
           )}
         </div>

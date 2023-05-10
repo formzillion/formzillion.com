@@ -5,14 +5,14 @@ import { checkEnvVars, appendHeaders, hostUrl, httpsAgent } from "../utils";
 export function registerFormGetCommand(program: any) {
   program
     .command("form:get")
-    .description("Get an provider configuration.")
+    .description("Get a form detail.")
     .argument(
-      "<provider_config_key>",
-      "The unique key of the provider configuration (chosen by you upon creating this provider configuration)."
+      "<form_id>",
+      "The unique slug of the form (chosen by system upon creating this form)."
     )
     .action(async function (this: Command) {
       checkEnvVars();
-      let url = hostUrl + `/config/${this.args[0]}`;
+      let url = hostUrl + `/form/${this.args[0]}`;
       await axios
         .get(url, { headers: appendHeaders(), httpsAgent: httpsAgent() })
         .then((res) => {
