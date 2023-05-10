@@ -29,8 +29,8 @@ export default function FormSummary({
       }),
     });
     const jsonData = await response.json();
-    router.refresh();
     setSummaryData(jsonData.data);
+    router.refresh();
   };
 
   return (
