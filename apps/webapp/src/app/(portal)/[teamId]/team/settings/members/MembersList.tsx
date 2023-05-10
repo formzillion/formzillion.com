@@ -30,6 +30,7 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import { showErrorToast } from "@/ui/Toast/Toast";
 import { isEmpty } from "lodash";
 import Header from "@/ui/Header";
+import Image from "next/image";
 
 const MembersList = ({ teams, currentUserEmail }: any) => {
   const parsedMembers = JSON.parse(teams);
@@ -74,13 +75,23 @@ const MembersList = ({ teams, currentUserEmail }: any) => {
                       <div className="text-sm flex justify-between items-center dark:text-white p-4">
                         <div className="flex flex-row items-center">
                           <div>
-                            <Avatar className="mr-4 h-8 w-8">
-                              <AvatarImage
-                                src={`https://avatar.vercel.sh/${team?.user.email}.png`}
-                                alt={team.id}
+                            {!isEmpty(team.team.avatar) ? (
+                              <Image
+                                src={team.team.avatar}
+                                alt="err"
+                                className="mr-4 h-8 w-8 rounded-full"
+                                height={20}
+                                width={20}
                               />
-                              <AvatarFallback>SC</AvatarFallback>
-                            </Avatar>
+                            ) : (
+                              <Avatar className="mr-4 h-8 w-8">
+                                <AvatarImage
+                                  src={`https://avatar.vercel.sh/${team.team.slug}.png`}
+                                  alt={team.team.name}
+                                />
+                                <AvatarFallback>SC</AvatarFallback>
+                              </Avatar>
+                            )}
                           </div>
                           <div>
                             <h1 className="capitalize">
