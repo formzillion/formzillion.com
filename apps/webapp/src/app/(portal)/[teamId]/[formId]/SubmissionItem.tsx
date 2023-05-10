@@ -24,9 +24,9 @@ let name;
   if (submission && submission.fields && submission.fields.name) {
     const [firstName, lastName] = submission.fields.name.split(" ");
      name = `${firstName.charAt(0)}${lastName.charAt(0)}`;
-    // do something with the 'name' variable
+
   } else {
-    // handle the case where the 'submission' object or its properties are undefined
+   console.log("error")
   }
 
 

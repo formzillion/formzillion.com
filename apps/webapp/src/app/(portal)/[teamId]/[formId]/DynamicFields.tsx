@@ -10,7 +10,6 @@ interface Service {
 
 function App() {
   const [serviceList, setServiceList] = useState<Service[]>([{ service: "" }]);
-  console.log("🚀 ~ file: DynamicFields.tsx:13 ~ App ~ serviceList:", serviceList)
 
   const handleServiceChange = (
     e: React.ChangeEvent<HTMLInputElement>,
