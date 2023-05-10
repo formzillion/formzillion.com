@@ -59,7 +59,7 @@ const TeamUrl = ({ teamSlug }: any) => {
               className="border px-3 py-2 dark:bg-black dark:border-gray-800"
               defaultValue={parsedTeam.slug}
               onChange={(e) => setUrl(e.target.value)}
-              maxLength={10}
+              maxLength={36}
             />
           </div>
         </div>
