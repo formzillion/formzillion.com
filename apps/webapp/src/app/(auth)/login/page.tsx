@@ -26,18 +26,17 @@ export default function Login() {
   const router = useRouter();
 
   if (!isEmpty(session)) {
-    const onClickLogin = async (session: any) => {
+    (async () => {
       const res = await fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ session, type: "hasSession" }),
+        body: JSON.stringify({ type: "hasSession" }),
       });
       const { url } = await res.json();
       router.push(`/${url}`);
-    };
-    onClickLogin(session);
+    })();
   }
 
   const onClickLogin = async (formValues: any) => {
