@@ -2,12 +2,17 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
 
+enum Role {
+  ADMIN = "ADMIN",
+  MEMBER = "MEMBER", //Right = 4
+}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { teamName, teamSlug, type, avatar } = req.body;
+    const { teamName, teamSlug, type, avatar, role } = req.body;
+    console.log(teamName, teamSlug, type, avatar);
     const { currentUser } = await getUserSession(req, res);
 
     let updatedTeam;
@@ -32,6 +37,9 @@ export default async function handler(
         break;
       case "changeAvatar":
         updatedTeam = await updateAvatar(teamSlug, avatar);
+        break;
+      case "roleChange":
+        updatedTeam = await roleChange(teamName, teamSlug, role);
         break;
       default:
         throw new Error("Invalid operation type");
@@ -63,7 +71,7 @@ async function updateTeamSlug(teamSlug: string, newSlug: string) {
 }
 
 async function leaveTeam(teamSlug: string, userId: string) {
-  const res = await prisma.memberships.deleteMany({
+  await prisma.memberships.deleteMany({
     where: {
       AND: [{ userId: userId }, { teamId: teamSlug }],
     },
@@ -146,5 +154,12 @@ async function updateAvatar(teamSlug: string, avatar: string) {
     data: {
       avatar: avatar,
     },
+  });
+}
+
+async function roleChange(teamName: string, teamSlug: string, role: Role) {
+  return await prisma.memberships.update({
+    where: { userId_teamId: { teamId: teamName, userId: teamSlug } },
+    data: { role },
   });
 }

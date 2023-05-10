@@ -11,18 +11,20 @@ const updateTeam = async ({
   teamSlug,
   type,
   avatar,
+  role,
 }: {
   teamName?: string;
   teamSlug?: string;
   type?: string;
   avatar?: string;
+  role?: { ADMIN: any; MEMBER: any };
 }) => {
   const response = await fetch("/api/teams/updateTeam", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ teamName, teamSlug, type, avatar }),
+    body: JSON.stringify({ teamName, teamSlug, type, avatar, role }),
   });
 
   const res = await response.json();
