@@ -5,26 +5,18 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { searchTerm, formId } = req.body;
 
-  const { sortBy } = req.query
-
-  let data
-
-  if (sortBy === 'asc') {
-    data = await prisma.form_submissions.findMany({
-      orderBy: {
-        createdAt: "asc",
+  try {
+    const results = await prisma.form_submissions.findMany({
+      where: {
+        OR: [{ fields: searchTerm }],
       },
     });
-  } else if (sortBy === 'desc') {
-    data = await prisma.form_submissions.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-  } else {
-    data = await prisma.form_submissions.findMany()
+
+    res.status(200).json(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-  res.status(200).json(data)
 }
