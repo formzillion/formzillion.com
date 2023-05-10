@@ -206,8 +206,8 @@ export default function FormsOverviewPage({
                 )}
               </div>
             )}
-          {!isEmpty(filterData) ? (
-            filterData?.map((submission: any, idx: any) => {
+          {!isEmpty(currentData) ? (
+            currentData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem
                   key={idx}

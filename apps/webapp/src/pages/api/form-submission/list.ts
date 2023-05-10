@@ -15,7 +15,7 @@ export default async function handler(
     skip: startIndex,
     take: limit,
     where: {
-      formId: reqBody.formId,
+      id: reqBody.formId,
     },
     orderBy: {
       createdAt: "desc",

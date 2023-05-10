@@ -5,20 +5,26 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const page = req.query.page || 1;
-  console.log("🚀 ~ file: search.ts:9 ~ page:", page)
-  const limit = 10;
 
-  // const startIndex = (page - 1) * limit;
-  const reqBody = req.body;
-  const formSubmissions = await prisma.form_submissions.findMany({
-    where: {
-      id: reqBody.formId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+  const { sortBy } = req.query
 
-  return res.status(201).json({ success: true, data: formSubmissions });
+  let data
+
+  if (sortBy === 'asc') {
+    data = await prisma.form_submissions.findMany({
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+  } else if (sortBy === 'desc') {
+    data = await prisma.form_submissions.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+  } else {
+    data = await prisma.form_submissions.findMany()
+  }
+
+  res.status(200).json(data)
 }

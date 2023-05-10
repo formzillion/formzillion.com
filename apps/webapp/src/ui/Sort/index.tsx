@@ -27,21 +27,11 @@ export default function Index({
   setFilterType,
   searchTerm,
 }: any) {
-  const [sortOrder, setSortOrder] = useState("asc");
   const [data, setData] = useState([]);
   const handleCheckAll = () => {
     setIsChecked(!isChecked);
   };
-  useEffect(() => {
-    async function fetchData() {
-      const res = await fetch(
-        `/api/form-submission/search?sortOrder=${sortOrder}`
-      );
-      const data = await res.json();
-      setData(data);
-    }
-    fetchData();
-  }, [sortOrder]);
+
 
   const updateSpamValue = async (e: any) => {
     try {
@@ -65,23 +55,11 @@ export default function Index({
     }
   };
 
-  const handleValueChange = (value: any) => {
-    if (value === "asc") {
-      const sortedSubmissions = [...submissions].sort((a, b) => {
-        const timeA = new Date(a.createdAt).getTime();
-        const timeB = new Date(b.createdAt).getTime();
-        return timeA - timeB;
-      });
-      setSubmissions(sortedSubmissions);
-    } else if (value === "desc") {
-      const sortedSubmissions = [...submissions].sort((a, b) => {
-        const timeA = new Date(a.createdAt).getTime();
-        const timeB = new Date(b.createdAt).getTime();
-        return timeB - timeA;
-      });
-      setSubmissions(sortedSubmissions);
-    }
-  };
+const fetchData = async (sortBy:any) => {
+  const res = await fetch(`/api/form-submission/search?sortBy=${sortBy}`);
+  const newData = await res.json();
+  setData(newData);
+};
 
   return (
     <>
@@ -109,41 +87,39 @@ export default function Index({
             <ArrowsUpDownIcon className="h-5 w-7" />
           </Menu.Button>
           <Menu.Items className="absolute top-0 z-10 mt-2 w-56 origin-top-right border bg-white dark:bg-black  shadow-lg ring-1 ring-black ring-opacity-5 ">
-            <div onClick={handleValueChange}>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active
-                        ? "bg-gray-100 text-gray-900 dark:bg-black dark:hover:bg-slate-200"
-                        : "text-gray-700 dark:text-gray-300",
-                      "block px-4 py-2 text-sm"
-                    )}
-                    onClick={() => handleValueChange("asc")}
-                  >
-                    {" "}
-                    Ascending
-                  </a>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={classNames(
-                      active
-                        ? "bg-gray-100 text-gray-900 dark:bg-black dark:hover:bg-slate-200"
-                        : "text-gray-700 dark:text-gray-300",
-                      "block px-4 py-2 text-sm"
-                    )}
-                    onClick={() => handleValueChange("desc")}
-                  >
-                    Descending
-                  </a>
-                )}
-              </Menu.Item>
-            </div>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active
+                      ? "bg-gray-100 text-gray-900 dark:bg-black dark:hover:bg-slate-200"
+                      : "text-gray-700 dark:text-gray-300",
+                    "block px-4 py-2 text-sm"
+                  )}
+                  onClick={() => fetchData("asc")}
+                >
+                  {" "}
+                  Ascending
+                </a>
+              )}
+            </Menu.Item>
+            <Menu.Item>
+              {({ active }) => (
+                <a
+                  href="#"
+                  className={classNames(
+                    active
+                      ? "bg-gray-100 text-gray-900 dark:bg-black dark:hover:bg-slate-200"
+                      : "text-gray-700 dark:text-gray-300",
+                    "block px-4 py-2 text-sm"
+                  )}
+                  onClick={() => fetchData("desc")}
+                >
+                  Descending
+                </a>
+              )}
+            </Menu.Item>
           </Menu.Items>
         </Menu>
       </div>
