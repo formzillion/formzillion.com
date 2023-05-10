@@ -6,8 +6,10 @@ import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
 import CardFooter from "@/ui/CardFooter";
+import { useRouter } from "next/navigation";
 
 const RedirectPageSetting = ({ formDetail }: any) => {
+  const router = useRouter();
   let previousSelectedValue;
   if (isEmpty(formDetail?.redirectData) && isEmpty(formDetail?.redirectUrl)) {
     previousSelectedValue = "default";
@@ -54,6 +56,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
       ? showSuccessToast("Redirect details saved successfully")
       : showErrorToast("some thing went wrong");
     setLoading(false);
+    router.refresh();
   };
 
   const handleRadioChange = (event: any) => {

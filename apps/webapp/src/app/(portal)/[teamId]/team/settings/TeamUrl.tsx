@@ -7,6 +7,8 @@ import Header from "@/ui/Header";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import Heading from "./Heading";
 import CardFooter from "@/ui/CardFooter";
+import { kebabCase } from "lodash";
+import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 
 const TeamUrl = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
@@ -14,17 +16,23 @@ const TeamUrl = ({ teamSlug }: any) => {
   const parsedTeam = JSON.parse(teamSlug);
   const [url, setUrl] = useState("");
 
-  const handleSlugChange = () => {
-    setLoading(true);
-    const response: any = updateTeam({
-      teamSlug: parsedTeam.slug,
-      teamName: url,
-      type: "updateSlug",
-    });
-    if (response) {
-      setLoading(false);
+  const handleSlugChange = async () => {
+    if (url.length > 5) {
+      setLoading(true);
+      const response: any = await updateTeam({
+        teamSlug: parsedTeam.slug,
+        teamName: kebabCase(url),
+        type: "updateSlug",
+      });
+      if (response.success) {
+        showSuccessToast("Your ID updated successfully");
+        setLoading(false);
+        router.push(`/${kebabCase(url)}/settings`);
+        router.refresh();
+      }
+    } else {
+      showErrorToast("Minimum length is 5 characters");
     }
-    router.push(`/${url}/settings`);
   };
 
   return (

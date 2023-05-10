@@ -30,8 +30,10 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import { showErrorToast } from "@/ui/Toast/Toast";
 import { isEmpty } from "lodash";
 import Header from "@/ui/Header";
+import { useRouter } from "next/navigation";
 
 const MembersList = ({ teams, currentUserEmail }: any) => {
+  const router = useRouter();
   const parsedMembers = JSON.parse(teams);
   const parsedCurrentEmail = JSON.parse(currentUserEmail);
   let currentUserDetails: any;
@@ -53,7 +55,14 @@ const MembersList = ({ teams, currentUserEmail }: any) => {
     } else if (currentUserDetails?.role === "MEMBER") {
       showErrorToast("Please get Access");
     } else {
-      updateTeam({ teamName: userId, teamSlug, type: "removeMember" });
+      const res: any = updateTeam({
+        teamName: userId,
+        teamSlug,
+        type: "removeMember",
+      });
+      if (res) {
+        router.refresh();
+      }
     }
   };
   const handleRoleChange = (id: any, teamId: any) => {

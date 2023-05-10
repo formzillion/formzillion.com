@@ -28,7 +28,7 @@ export default function LeaveTeamModal({ closeModal, teamSlug }: any) {
     if (response) {
       setLoading(false);
     }
-    router.push("/dashboard");
+    router.push("/login");
   };
 
   return (
@@ -43,7 +43,7 @@ export default function LeaveTeamModal({ closeModal, teamSlug }: any) {
         <DialogFooter>
           <Button
             loading={loading}
-            className="bg-orange-600  text-white rounded-none"
+            className="bg-orange-600 text-white rounded-none"
             onClick={() => onClickLeaveTeam()}
             type="submit"
           >

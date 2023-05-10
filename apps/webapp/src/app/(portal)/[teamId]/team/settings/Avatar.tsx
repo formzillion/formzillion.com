@@ -10,8 +10,10 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import Header from "@/ui/Header";
 import Heading from "./Heading";
 import CardFooter from "@/ui/CardFooter";
+import { useRouter } from "next/navigation";
 
 const Avatar = ({ teamSlug }: any) => {
+  const router = useRouter();
   let parsedData;
   if (teamSlug) {
     parsedData = JSON.parse(teamSlug || "");
@@ -48,6 +50,7 @@ const Avatar = ({ teamSlug }: any) => {
     });
     if (res.success === true) {
       setLoading(false);
+      router.refresh();
       showSuccessToast("Updated profile successfully");
     } else {
       setLoading(false);

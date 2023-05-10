@@ -7,8 +7,10 @@ import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
 import CardFooter from "@/ui/CardFooter";
 import Heading from "../../settings/Heading";
+import { useRouter } from "next/navigation";
 
 export default function SpamFilter({ formDetail }: any) {
+  const router = useRouter();
   const { spamProvider = "none", spamConfig = {} } = formDetail || {};
 
   let secretKey;
@@ -47,6 +49,7 @@ export default function SpamFilter({ formDetail }: any) {
       setLoading(false);
       if (data.success === true) {
         showSuccessToast("Updated spam provider successfully");
+        router.refresh();
       }
     } catch (e) {
       setLoading(false);

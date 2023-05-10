@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useSupabase } from "@/components/SupbaseProvider";
 import {
   CheckIcon,
   ChevronUpDownIcon,
@@ -30,8 +29,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/ui/Dialog";
-//import { Input } from "@/components/ui/input";
-//import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
 import {
   Select,
@@ -45,7 +42,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { isEmpty, startCase } from "lodash";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import { UserCircleIcon } from "@heroicons/react/24/outline";
+import Image from "next/image";
+import TeamName from "./TeamName";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
@@ -62,7 +60,6 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
   const pathname = usePathname();
   const teamSlug = pathname?.split("/")[1];
   const [loading, setLoading] = useState(false);
-  const { session } = useSupabase();
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [showNewTeamDialog, setShowNewTeamDialog] = useState(false);
@@ -73,26 +70,38 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
     name: "",
     emailsToInvite: [""],
   });
-  const personalTeams = parsedTeams.filter((team: any) => team.type !== "personal");
-
-  const filteredTeams = personalTeams?.map((team: any) => {
-    // if (team.type === "personal") {
-    return { label: team.name, value: team.slug, planName: team.planName };
-    // }
+  const defaultTeams = parsedTeams.filter(
+    (team: any) => team.type !== "personal"
+  );
+  const personalTeam = parsedTeams.filter(
+    (team: any) => team.type === "personal"
+  );
+  const filteredTeams = defaultTeams?.map((team: any) => {
+    return {
+      label: team.name,
+      value: team.slug,
+      planName: team.planName,
+      avatar: team.avatar,
+    };
   });
-  const loggedInUser = parsedTeams?.map((team: any) => {
+  const loggedInUser = personalTeam?.map((team: any) => {
     if (team.type === "personal") {
-      return { label: team.name, value: team.slug, planName: team.planName };
+      return {
+        label: team.name,
+        value: team.slug,
+        planName: team.planName,
+        avatar: team.avatar,
+      };
     }
   });
 
   const groups =
     filteredTeams?.length > 0
       ? [
-          // {
-          //   label: "Personal Account",
-          //   teams: loggedInUser,
-          // },
+          {
+            label: "Personal Account",
+            teams: loggedInUser,
+          },
           {
             label: "Teams",
             teams: filteredTeams,
@@ -105,6 +114,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
       label: teamSlug,
       value: teamSlug,
       planName: "",
+      avatar: "",
     };
   });
 
@@ -142,36 +152,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
 
   return (
     <div className="flex items-center max-w-[200px]">
-      <div className="flex items-center dark:text-white text-gray-800">
-        {!isEmpty(selectedTeam.teamSlug) ? (
-          <UserCircleIcon className="mr-2 h-5 w-5" />
-        ) : (
-          <Avatar className="mr-2 h-5 w-5">
-            <AvatarImage
-              src={`https://avatar.vercel.sh/${selectedTeam.value}.png`}
-              alt={selectedTeam.label}
-            />
-            <AvatarFallback>SC</AvatarFallback>
-          </Avatar>
-        )}
-        <Link
-          href={`${process.env.NEXT_PUBLIC_APP_URL}/${selectedTeam.value}`}
-          className="flex items-center"
-        >
-          {selectedTeam?.label?.length >= 10 ? (
-            <div className="w-[150px] truncate text-base">
-              {startCase(selectedTeam.label)}
-            </div>
-          ) : (
-            <div className="text-base">{startCase(selectedTeam.label)}</div>
-          )}
-          {!isEmpty(selectedTeam.planName) && (
-            <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full ml-2 flex items-center">
-              {selectedTeam.planName}
-            </span>
-          )}
-        </Link>
-      </div>
+      <TeamName selectedTeam={selectedTeam} />
       <Dialog open={showNewTeamDialog} onOpenChange={setShowNewTeamDialog}>
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
@@ -203,13 +184,23 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
                         }}
                         className="text-sm cursor-pointer"
                       >
-                        <Avatar className="mr-2 h-5 w-5">
-                          <AvatarImage
-                            src={`https://avatar.vercel.sh/${team?.value}.png`}
-                            alt={team?.label}
+                        {!isEmpty(team.avatar) ? (
+                          <Image
+                            src={team.avatar}
+                            alt="err"
+                            className="mr-2 h-5 w-5 rounded-full"
+                            height={20}
+                            width={20}
                           />
-                          <AvatarFallback>SC</AvatarFallback>
-                        </Avatar>
+                        ) : (
+                          <Avatar className="mr-2 h-5 w-5">
+                            <AvatarImage
+                              src={`https://avatar.vercel.sh/${team.value}.png`}
+                              alt={team.label}
+                            />
+                            <AvatarFallback>SC</AvatarFallback>
+                          </Avatar>
+                        )}
                         {team.label}{" "}
                         <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full ml-2">
                           {team.planName}
