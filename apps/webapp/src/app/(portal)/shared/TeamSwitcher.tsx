@@ -10,7 +10,6 @@ import {
 import { cn } from "@/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
 import { Button } from "@/ui/Buttons/SButton";
-import Button2 from "@/ui/Buttons";
 import {
   Command,
   CommandEmpty,
@@ -20,30 +19,14 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/ui/Command";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/ui/Dialog";
+import { Dialog, DialogTrigger } from "@/ui/Dialog";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/Popover";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/ui/Select";
-import { Input } from "@/ui/Input/SimpleInput";
-import Link from "next/link";
+
 import { usePathname } from "next/navigation";
-import { isEmpty, startCase } from "lodash";
-import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import { isEmpty } from "lodash";
 import Image from "next/image";
 import TeamName from "./TeamName";
+import CreateTeamDialog from "./CreateTeamDialog";
 
 type PopoverTriggerProps = React.ComponentPropsWithoutRef<
   typeof PopoverTrigger
@@ -59,17 +42,13 @@ interface TeamSwitcherProps {
 export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
   const pathname = usePathname();
   const teamSlug = pathname?.split("/")[1];
-  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [showNewTeamDialog, setShowNewTeamDialog] = useState(false);
   const parsedTeams = JSON.parse(teams || "[]");
 
   //Dialog related States
-  const [teamValues, setTeamValues] = useState<any>({
-    name: "",
-    emailsToInvite: [""],
-  });
+
   const defaultTeams = parsedTeams.filter(
     (team: any) => team.type !== "personal"
   );
@@ -120,34 +99,6 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
 
   const handleSelectTeam = (teamId: any) => {
     router.push(`/${teamId}`);
-  };
-
-  const onClickCreateTeam = async () => {
-    setLoading(true);
-    const response: any = await fetch("/api/teams/create", {
-      method: "POST",
-      body: JSON.stringify(teamValues),
-    });
-    setShowNewTeamDialog(false);
-    const responseData = await response.json();
-
-    if (response.status === 201) {
-      showSuccessToast("Created Team Successfully");
-      setLoading(false);
-      const teamSlug = responseData.data.slug;
-      router.push(`/${teamSlug}`);
-    } else {
-      setLoading(false);
-      showErrorToast(responseData.message);
-    }
-  };
-
-  const onChangeField = (e: any) => {
-    const { name, value } = e.target;
-    setTeamValues({
-      ...teamValues,
-      [name]: value,
-    });
   };
 
   return (
@@ -238,78 +189,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
             </Command>
           </PopoverContent>
         </Popover>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Create team</DialogTitle>
-            <DialogDescription className="text-gray-600">
-              Add a new team to manage products and customers.
-            </DialogDescription>
-          </DialogHeader>
-          <div>
-            <div className="space-y-4 py-2 pb-4">
-              <div className="space-y-2">
-                <label htmlFor="teamName">Team name</label>
-                <Input
-                  className="text-gray-600"
-                  type="text"
-                  name="name"
-                  id="name"
-                  autoComplete="teamName"
-                  value={teamValues?.name}
-                  placeholder="Team name"
-                  onChange={onChangeField}
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="emails">Emails</label>
-                <Input
-                  type="email"
-                  name="emailsToInvite"
-                  id="emails"
-                  autoComplete="emails"
-                  value={teamValues?.emailsToInvite}
-                  placeholder="Enter emails in comma separated format."
-                  onChange={onChangeField}
-                />
-              </div>
-              <div className="space-y-2">
-                <label htmlFor="plan">Subscription plan</label>
-                <Select>
-                  <SelectTrigger className="rounded-none">
-                    <SelectValue
-                      className="text-gray-600"
-                      placeholder="Select a plan"
-                    />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem className={"dark:bg-black"} value="free">
-                      <span className="font-medium">Free</span> -{" "}
-                      <span className="text-muted-foreground">
-                        Trial for two weeks
-                      </span>
-                    </SelectItem>
-                    <SelectItem className={"dark:bg-black"} value="pro">
-                      <span className="font-medium">Pro</span> -{" "}
-                      <span className="text-muted-foreground">
-                        $9/month per user
-                      </span>
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button2
-              loading={loading}
-              className="bg-orange-600 text-white rounded-none"
-              onClick={onClickCreateTeam}
-              type="submit"
-            >
-              Create
-            </Button2>
-          </DialogFooter>
-        </DialogContent>
+        <CreateTeamDialog setShowNewTeamDialog={setShowNewTeamDialog} />
       </Dialog>
     </div>
   );
