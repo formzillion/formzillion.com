@@ -74,14 +74,14 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
     }
   });
 
-  const groups =
-    filteredTeams?.length > 0
+  const groups: any =
+    filteredTeams?.length > 0 || loggedInUser?.length > 0
       ? [
-          {
+          !isEmpty(loggedInUser) && {
             label: "Personal Account",
             teams: loggedInUser,
           },
-          {
+          !isEmpty(filteredTeams) && {
             label: "Teams",
             teams: filteredTeams,
           },
@@ -123,9 +123,9 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
               <CommandList>
                 <CommandInput placeholder="Search team..." />
                 <CommandEmpty>No team found.</CommandEmpty>
-                {groups.map((group) => (
+                {groups?.map((group: any) => (
                   <CommandGroup key={group.label} heading={group.label}>
-                    {group.teams.map((team: any) => (
+                    {group?.teams?.map((team: any) => (
                       <CommandItem
                         key={team.value}
                         onSelect={() => {
