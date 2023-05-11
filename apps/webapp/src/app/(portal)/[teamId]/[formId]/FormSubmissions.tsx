@@ -153,6 +153,8 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
                   setFilterType={setFilterType}
                   setData={setData}
                   searchTerm={searchTerm}
+                  filterType={filterType}
+                  formId={formId}
                 />
               </div>
             </div>

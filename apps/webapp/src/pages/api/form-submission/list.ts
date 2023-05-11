@@ -21,7 +21,6 @@ export default async function handler(
       createdAt: "desc",
     },
   });
-
   const totalPosts = await prisma.form_submissions.count();
   const totalPages = Math.ceil(totalPosts / limit);
 

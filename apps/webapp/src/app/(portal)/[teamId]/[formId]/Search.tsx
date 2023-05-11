@@ -5,9 +5,10 @@ export default function Index({
   setSearchTerm,
   setFilterType,
   searchTerm,
+  filterType,
+  formId,
 }: any) {
   const [results, setResults] = useState([]);
-
   useEffect(() => {
     async function fetchResults() {
       if (searchTerm.length > 0) {
@@ -16,7 +17,9 @@ export default function Index({
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ searchType: "name", searchValue: searchTerm }),
+          body: JSON.stringify(
+            { filterFields: { [filterType]: searchTerm },formId},
+          ),
         });
         const data = await res.json();
         setResults(data);
@@ -25,7 +28,7 @@ export default function Index({
       }
     }
     fetchResults();
-  }, [searchTerm]);
+  }, [filterType, formId, searchTerm]);
 
   const handleInputChange = (event: any) => {
     setSearchTerm(event.target.value);

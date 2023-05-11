@@ -24,6 +24,9 @@ export default function Index({
   setSearchTerm,
   setFilterType,
   searchTerm,
+  filterType,
+  setData,
+  formId,
 }: any) {
   const handleCheckAll = () => {
     setIsChecked(!isChecked);
@@ -52,7 +55,7 @@ export default function Index({
   };
 
   const fetchData = async (sortBy: any) => {
-    const res = await fetch(`/api/form-submission/search?sortBy=${sortBy}`);
+    const res = await fetch(`/api/form-submission/?sortBy=${sortBy}`);
     const newData = await res.json();
     setSubmissions(newData);
   };
@@ -75,6 +78,9 @@ export default function Index({
           setSearchTerm={setSearchTerm}
           setFilterType={setFilterType}
           searchTerm={searchTerm}
+          filterType={filterType}
+          setData={setData}
+          formId={formId}
         />
       )}
       <div className="border border-gray-300 h-[41px] w-[60px] dark:border-gray-700 flex justify-center ">

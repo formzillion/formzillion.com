@@ -5,12 +5,17 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { searchTerm, formId } = req.body;
-
+  const {  filterFields ={},formId } = req.body;
+  const fieldPath = Object.keys(filterFields);
+  const searchedString = filterFields[fieldPath[0]] || "";
   try {
     const results = await prisma.form_submissions.findMany({
       where: {
-        OR: [{ fields: searchTerm }],
+        formId: formId,
+        fields: {
+          path: fieldPath,
+          string_contains: searchedString,
+        },
       },
     });
 
