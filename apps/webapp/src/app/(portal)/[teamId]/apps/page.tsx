@@ -55,8 +55,8 @@ const integrations = [
     icon: "/brands/airtable.png",
     description: "Import the form submission data to airtable.",
     status: "not_connected",
-    authType: "api_key",
-    isAvailable: false,
+    authType: "airtable",
+    isAvailable: true,
   },
   {
     name: "Freshdesk",
