@@ -152,10 +152,14 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
                             <AvatarFallback>SC</AvatarFallback>
                           </Avatar>
                         )}
-                        {team.label}{" "}
-                        <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full ml-2">
-                          {team.planName}
-                        </span>
+                        <div className="flex items-center justify-between w-[70%]">
+                          <p className="truncate"> 
+                          {team.label}{" "}
+                          </p>
+                          <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full">
+                            {team.planName}
+                          </span>
+                        </div>
                         <CheckIcon
                           className={cn(
                             "ml-auto h-4 w-4",
