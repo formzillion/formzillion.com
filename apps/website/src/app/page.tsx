@@ -14,7 +14,7 @@ import OpenSource from "./home/OpenSource";
 
 export default function page() {
   return (
-    <>
+    <section className="relative">
       <BlurDotGridTop />
       <BlurDotGridBottom />
       <HeroSection />
@@ -63,6 +63,6 @@ export default function page() {
         </div>
       </div>
       <CtaSection />*/}
-    </>
+    </section>
   );
 }
