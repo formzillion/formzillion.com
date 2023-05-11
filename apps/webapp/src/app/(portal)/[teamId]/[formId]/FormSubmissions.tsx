@@ -25,7 +25,7 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
   const [count, setCount] = useState();
   const [total, setTotal] = useState();
   const [selectedTab, setSelectedTab] = useState("All");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(parsedFormSubmissions);
 
   const TotalPages = data.length;
 
