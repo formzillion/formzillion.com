@@ -22,6 +22,7 @@ import {
   SelectValue,
   SelectTrigger,
 } from "@/ui/Select";
+import { Input } from "@/ui/Input/SimpleInput";
 
 interface IAddActionModal {
   workflowId: number | string;
@@ -32,9 +33,13 @@ interface IAddActionModal {
 
 const availableActionsMap: any = {
   mailerlite: ["addSubscriber"],
-  sendgrid: ["sendWelcomeEmail", "sendThankyouEmail"],
+  sendgrid: ["sendThankyouEmail"],
   slack: ["sendNotification"],
   webhooks: ["postToWebhookEnpoint"],
+};
+
+const taskTemplateConfig: any = {
+  sendgrid: ["fromEmail", "name"],
 };
 
 const AddActionModal = ({
@@ -53,37 +58,43 @@ const AddActionModal = ({
     connectionId: "",
     actionSlug: "",
   });
+  const [template, setTemplate] = useState<any>({});
 
   const availableActions = availableActionsMap[appSlug];
+  const taskTemplate = taskTemplateConfig[appSlug];
   const isConnectionsExists = !isEmpty(connectionList);
   const isAppsExists = !isEmpty(appsList);
+  const isActionExists = !isEmpty(availableActions);
 
   const getAppsList = useCallback(async () => {
     const apps = await getApps();
     setAppsList(apps);
   }, []);
 
-  const getConnectionsList = useCallback(async () => {
-    const connections = await getConnections({
-      appSlug,
-      teamSlug,
-    });
+  const getConnectionsList = useCallback(
+    async (slug: string) => {
+      const connections = await getConnections({
+        appSlug: slug,
+        teamSlug,
+      });
 
-    setTeamId(get(connections, "0.teamId", ""));
-    setconnectionList(connections);
-  }, [appSlug, teamSlug]);
+      setTeamId(get(connections, "0.teamId", ""));
+      setconnectionList(connections);
+    },
+    [teamSlug]
+  );
 
   useEffect(() => {
     if (isEmpty(appsList)) {
       getAppsList();
     }
 
-    if (actionSetup.appId !== "") {
+    if (!isEmpty(actionSetup.appId)) {
       const slug = appsList.find(
-        (app: { id: string }) => app.id === actionSetup.appId
+        (app: { id: string }) => app.id.toString() === actionSetup.appId
       )?.slug;
       setAppSlug(slug);
-      getConnectionsList();
+      getConnectionsList(slug);
     }
   }, [actionSetup.appId, appsList, getAppsList, getConnectionsList]);
 
@@ -109,7 +120,7 @@ const AddActionModal = ({
       connectionId,
       appSlug,
       name: `${appSlug}_${actionSlug}`,
-      template: {},
+      template,
     });
     if (actionResp.success) {
       showSuccessToast("Action added successfully");
@@ -119,6 +130,13 @@ const AddActionModal = ({
     }
     refreshGrid();
     setLoading(false);
+  };
+
+  const handleTemplateConfig = (e: any, name: string) => {
+    setTemplate({
+      ...template,
+      [name]: e.target.value,
+    });
   };
 
   return (
@@ -146,7 +164,7 @@ const AddActionModal = ({
                 {isAppsExists &&
                   appsList.map((app: any) => {
                     return (
-                      <SelectItem key={app.id} value={app.id}>
+                      <SelectItem key={app.id} value={app.id.toString()}>
                         {app.name}
                       </SelectItem>
                     );
@@ -169,7 +187,7 @@ const AddActionModal = ({
                 <SelectContent>
                   {connectionList.map((conn: any) => {
                     return (
-                      <SelectItem key={conn.id} value={conn.id}>
+                      <SelectItem key={conn.id} value={conn.id.toString()}>
                         {conn.name}
                       </SelectItem>
                     );
@@ -178,7 +196,7 @@ const AddActionModal = ({
               </Select>
             </div>
           )}
-          {isConnectionsExists && !isEmpty(availableActions) && (
+          {isConnectionsExists && isActionExists && (
             <div className="space-y-4 py-2 pb-4">
               <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Select Action
@@ -201,6 +219,26 @@ const AddActionModal = ({
                 </SelectContent>
               </Select>
             </div>
+          )}
+          {isConnectionsExists && isActionExists && !isEmpty(taskTemplate) && (
+            <>
+              {taskTemplate.map((templateField: string) => (
+                <div className="space-y-4 py-2 pb-4">
+                  <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                    Enter {startCase(templateField)}
+                  </span>
+                  <Input
+                    type="text"
+                    name={templateField}
+                    id={templateField}
+                    autoComplete={templateField}
+                    value={template[templateField] || ""}
+                    onChange={(e) => handleTemplateConfig(e, templateField)}
+                    required
+                  />
+                </div>
+              ))}
+            </>
           )}
         </div>
         <DialogFooter>
