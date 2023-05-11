@@ -19,6 +19,7 @@ import React, { useState } from "react";
 import Button2 from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { useRouter } from "next/navigation";
+import getSingleTeam from "@/app/fetch/teams/getSingleTeam";
 
 const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
     emailsToInvite: [""],
   });
   const [loading, setLoading] = useState(false);
+  const [isTeamExist, setIsTeamExist] = useState(false);
 
   const onClickCreateTeam = async () => {
     setLoading(true);
@@ -47,8 +49,16 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
       showErrorToast(responseData.message);
     }
   };
-  const onChangeField = (e: any) => {
+  const onChangeField = async (e: any) => {
     const { name, value } = e.target;
+    if (value.length > 5) {
+      const team = await getSingleTeam({ teamSlug: value });
+      if (team.success) {
+        setIsTeamExist(true);
+      } else {
+        setIsTeamExist(false);
+      }
+    }
     setTeamValues({
       ...teamValues,
       [name]: value,
@@ -66,6 +76,11 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
         <div className="space-y-4 py-2 pb-4">
           <div className="space-y-2">
             <label htmlFor="teamName">Team name</label>
+            {isTeamExist && (
+              <p className="text-xs text-red-600">
+                Team with this name already exists.
+              </p>
+            )}
             <Input
               className="text-gray-600"
               type="text"
