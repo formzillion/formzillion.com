@@ -1,14 +1,18 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import addMember from "@/app/fetch/teams/addMember";
 import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
 import Heading from "../Heading";
 import CardFooter from "@/ui/CardFooter";
+import { useRouter } from "next/navigation";
+import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 
 const AddMember = ({ teamSlug }: any) => {
-  const [email, setEmail] = React.useState("");
-  const [role, setRole] = React.useState("MEMBER");
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [role, setRole] = useState("MEMBER");
+  const [loading, setLoading] = useState(false);
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -18,10 +22,22 @@ const AddMember = ({ teamSlug }: any) => {
     setRole(e.target.value);
   };
 
-  const handleAddMember = () => {
-    addMember({ emailsToInvite: email, teamSlug, role });
-    setEmail("");
-    setRole("MEMBER");
+  const handleAddMember = async () => {
+    if (email.length < 5) {
+      setLoading(true);
+      const res = await addMember({ emailsToInvite: email, teamSlug, role });
+      if (res.success) {
+        setLoading(false);
+        setEmail("");
+        setRole("MEMBER");
+        showSuccessToast(
+          "Member added successfully if not formzillion user email invitations are sent."
+        );
+        router.refresh();
+      }
+    } else {
+      showErrorToast("Please enter a valid email address.");
+    }
   };
 
   return (
@@ -30,7 +46,7 @@ const AddMember = ({ teamSlug }: any) => {
         <div className="p-4 px-6 divide-y divide-gray-300">
           <Header title={"Add Members"} />
           <div className="py-4">
-            <Heading description="Invite your team members to join the team" />
+            <Heading description="Invite members to join the team." />
             <div className="flex items-center space-x-2">
               <Input
                 type="email"
@@ -53,7 +69,11 @@ const AddMember = ({ teamSlug }: any) => {
             </div>
           </div>
         </div>
-        <CardFooter btnText={"Add Member"} onClick={handleAddMember} />
+        <CardFooter
+          loading={loading}
+          btnText={"Add Member"}
+          onClick={handleAddMember}
+        />
       </div>
     </div>
   );

@@ -6,7 +6,7 @@ import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
  * @param {string} teamSlug - team Slug
  * @returns
  */
-const addMember = ({
+const addMember = async ({
   emailsToInvite,
   teamSlug,
   role,
@@ -14,8 +14,8 @@ const addMember = ({
   emailsToInvite?: string;
   teamSlug?: string;
   role?: string;
-}) =>
-  fetch("/api/teams/addMember", {
+}) => {
+  const response = await fetch("/api/teams/addMember", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -25,15 +25,10 @@ const addMember = ({
       teamSlug,
       role,
     }),
-  }).then(async (res) => {
-    if (res?.status === 201) {
-      showSuccessToast("Added Members");
-      return (await res.json()).team;
-    }
-    const error = await res.json();
-    console.log("Failed to add member");
-    showErrorToast(error.message);
-    return undefined;
   });
+  const res = await response.json();
+
+  return res || {};
+};
 
 export default addMember;
