@@ -22,6 +22,7 @@ export default function CreateTeamModal({ isOpen, closeModal }: any) {
     if (response) {
       const teamId = response?.data?.id;
       router.push(`/teams/${teamId}`);
+      router.refresh();
     }
   };
 

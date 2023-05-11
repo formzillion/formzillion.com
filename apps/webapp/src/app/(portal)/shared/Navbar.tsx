@@ -3,7 +3,7 @@ import {
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
 
-import TeamSwitcher from "@/components/TeamSwitcher";
+import TeamSwitcher from "@/app/(portal)/shared/TeamSwitcher";
 import UserDropdown from "./UserDropdown";
 import { ModeToggle } from "./ModeToggle";
 import FormId from "../FormId";

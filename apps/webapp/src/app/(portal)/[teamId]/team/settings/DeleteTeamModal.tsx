@@ -14,7 +14,6 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
 import { Input } from "@/ui/Input/SimpleInput";
 import { showErrorToast } from "@/ui/Toast/Toast";
-import { get } from "lodash";
 
 export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
   const router = useRouter();

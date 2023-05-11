@@ -33,6 +33,7 @@ export default function FormEmails({ formDetail }: any) {
 
     if (response.success) {
       showSuccessToast("Emails updated!");
+      router.refresh();
     } else {
       showErrorToast(`Error while updating emails due to ${response?.message}`);
     }

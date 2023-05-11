@@ -8,8 +8,10 @@ import Header from "@/ui/Header";
 import CardFooter from "@/ui/CardFooter";
 import Heading from "../../settings/Heading";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 export default function CustomSpam({ formDetail }: any) {
+  const router = useRouter();
   const { customHoneypot, customSpamWords } = formDetail;
   const [honeypot, setHoneypot] = useState(customHoneypot);
   const [spamWords, setSpamWords] = useState(customSpamWords || []);
@@ -34,6 +36,7 @@ export default function CustomSpam({ formDetail }: any) {
 
       const data = await response.json();
       setLoading(false);
+      router.refresh();
       if (data.success === true) {
         showSuccessToast("Updated custom spam filter successfully");
       }

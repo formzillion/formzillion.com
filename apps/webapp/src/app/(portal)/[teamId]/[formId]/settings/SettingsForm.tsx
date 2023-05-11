@@ -9,8 +9,10 @@ import Header from "@/ui/Header";
 
 import SwitchGroup from "./SwitchGroup";
 import DeleteForm from "./DeleteForm";
+import { useRouter } from "next/navigation";
 
 export default function SettingsForm({ formDetail, formSubmissions }: any) {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [formValues, setFormValues] = useState<any>({
     name: formDetail?.name,
@@ -35,6 +37,7 @@ export default function SettingsForm({ formDetail, formSubmissions }: any) {
       const jsonResponse = response.json();
       setLoading(false);
       showSuccessToast("Test form submitted!");
+      router.refresh();
     } catch (e) {
       showErrorToast("Error while testing form");
     }
@@ -101,7 +104,7 @@ export default function SettingsForm({ formDetail, formSubmissions }: any) {
         </div>
       </div>
       <div className="divide-y divide-gray-300 border border-red-400 dark:border-red-600 shadow dark:divide-gray-700 bg-white  dark:bg-black p-4 px-6">
-        <DeleteForm formDetail={formDetail} formSubmissions={formSubmissions}/>
+        <DeleteForm formDetail={formDetail} formSubmissions={formSubmissions} />
       </div>
     </div>
   );
