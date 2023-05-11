@@ -51,7 +51,7 @@ export default function GithubStar() {
           rel="noreferrer"
           className="flex items-center"
         >
-          <p className="text-center hover:text-orange-400 p-1 px-2 rounded-r text-white border border-gray-900 ">
+          <p className="text-center hover:text-orange-400 p-1 px-2 rounded-r text-white border border-gray-900 border-l-0">
             {starCount === null ? <Loader className="w-[15px]" /> : starCount}
           </p>
         </a>
