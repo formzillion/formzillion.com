@@ -22,25 +22,25 @@ export default async function handler(
   try {
     const actionExits = await prisma.tasks.findFirst({
       where: {
-        appId: parsedAppId,
         type,
-        connectionId: parsedConnectionId,
         workflowId,
         slug: actionSlug,
+        appId: parsedAppId,
+        connectionId: parsedConnectionId,
       },
     });
 
     let taskData = {};
     const taskDataToUpdate = {
-      name,
-      template,
       type,
+      name,
+      appSlug,
+      template,
+      workflowId,
+      status: "active",
+      slug: actionSlug,
       appId: parsedAppId,
       connectionId: parsedConnectionId,
-      appSlug,
-      slug: actionSlug,
-      status: "active",
-      workflowId,
       updatedAt: new Date(),
     };
 
