@@ -4,8 +4,9 @@ import UserUrl from "./UserUrl";
 import DeleteAccount from "./DeleteAccount";
 import { getUserDetail } from "@/utils/getUserDetail";
 import { isEmpty } from "lodash";
+import Avatar from "./Avatar";
 
-const settingSections = [UserName, UserUrl];
+const settingSections = [UserName, UserUrl, Avatar];
 
 const TeamsPage = async ({ params }: any) => {
   const { teamId: teamSlug } = params;

@@ -1,6 +1,7 @@
 "use client";
 import { Card, Title, BarChart, Subtitle } from "@tremor/react";
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FormSummary({
   formId,
@@ -9,6 +10,7 @@ export default function FormSummary({
   title,
   subTitle,
 }: any) {
+  const router = useRouter();
   const [summaryData, setSummaryData] = useState([]);
 
   useEffect(() => {
@@ -27,8 +29,8 @@ export default function FormSummary({
       }),
     });
     const jsonData = await response.json();
-
     setSummaryData(jsonData.data);
+    router.refresh();
   };
 
   return (
