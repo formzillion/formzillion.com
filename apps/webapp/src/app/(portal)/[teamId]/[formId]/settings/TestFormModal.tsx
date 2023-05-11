@@ -8,9 +8,10 @@ import Modal, { ModalTitle } from "@/components/Modal";
 import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input, Label } from "@/ui/fields";
+import DynamicField from "../DynamicFields";
 
 export default function TestFormModal({ formId, closeModal }: any) {
-  const router = useRouter()
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [submitCount, setSubmitCount] = useState(1);
   const [formValues, setFormValues] = useState<any>({
@@ -90,7 +91,7 @@ export default function TestFormModal({ formId, closeModal }: any) {
             </div>
           );
         })}
-
+        <DynamicField />
         <div className="flex flex-row items-center justify-between">
           <div className="flex items-center space-x-2">
             <input

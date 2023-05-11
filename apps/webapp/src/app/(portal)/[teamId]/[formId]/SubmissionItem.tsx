@@ -20,9 +20,14 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
     setChange(e.target.checked);
     setCheckedIds(id);
   };
+let name;
+  if (submission && submission.fields && submission.fields.name) {
+    const [firstName, lastName] = submission.fields.name.split(" ");
+     name = `${firstName.charAt(0)}${lastName.charAt(0)}`;
 
-  const [firstName, lastName] = submission.fields.name.split(" ");
-    const name = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+  } else {
+   console.log("error")
+  }
 
 
   return (
@@ -84,7 +89,7 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
             <div>
               {showMore
                 ? fields.message
-                : `${fields.message.substring(0, 100)}...`}
+                : `${fields?.message?.substring(0, 100)}...`}
               <div>
                 <button
                   className="btn underline"

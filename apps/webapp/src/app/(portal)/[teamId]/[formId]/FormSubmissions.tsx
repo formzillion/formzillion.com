@@ -1,21 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { isEmpty } from "lodash";
+import { useEffect, useState } from "react";
+import { get, isEmpty } from "lodash";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaSync } from "react-icons/fa";
 
 import { Button } from "@/ui/Buttons/SButton";
-import Sort from "@/ui/Sort";
 import EmptySubmissions from "./EmptySubmissions";
 import SubmissionItem from "./SubmissionItem";
 import TestFormModal from "./settings/TestFormModal";
+import ArrayOperations from "./ArrayOperations";
 
-export default function FormsOverviewPage({
-  TotalPages,
-  formId,
-  formSubmissions,
-}: any) {
+export default function FormsOverviewPage({ formId, formSubmissions }: any) {
   const [showTestFormModal, setShowTestFormModal] = useState(false);
   const toggleTestFormModal = () => setShowTestFormModal(!showTestFormModal);
   const parsedFormSubmissions = JSON.parse(formSubmissions);
@@ -29,6 +25,28 @@ export default function FormsOverviewPage({
   const [count, setCount] = useState();
   const [total, setTotal] = useState();
   const [selectedTab, setSelectedTab] = useState("All");
+  const [data, setData] = useState([]);
+
+  const TotalPages = data.length;
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
+      const data = await res.json();
+      const filterData = get(data, "data", []);
+
+      setData(filterData);
+    }
+    fetchData();
+  }, [currentPage]);
+
+  const handlePrev = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   const handleSpamClick = async (isSpam: any) => {
     setSelectedTab(isSpam ? "Spam" : "Verified");
@@ -62,7 +80,7 @@ export default function FormsOverviewPage({
     setFilter(status);
   };
 
-  const filteredData = submissions.filter((obj: any) => {
+  const filteredData = data.filter((obj: any) => {
     if (filterType === "name") {
       return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {
@@ -84,12 +102,6 @@ export default function FormsOverviewPage({
   const refreshPage = () => {
     window.location.reload();
   };
-
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(TotalPages / itemsPerPage);
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const currentData = filteredData.slice(start, end);
 
   return (
     <>
@@ -130,7 +142,7 @@ export default function FormsOverviewPage({
           {submissions?.length > 0 && (
             <div className="flex justify-between  ">
               <div className=" flex items-center">
-                <Sort
+                <ArrayOperations
                   formSubmissions={formSubmissions}
                   checkedIds={checkedIds}
                   setIsChecked={setIsChecked}
@@ -140,6 +152,10 @@ export default function FormsOverviewPage({
                   submissions={submissions}
                   setSearchTerm={setSearchTerm}
                   setFilterType={setFilterType}
+                  setData={setData}
+                  searchTerm={searchTerm}
+                  filterType={filterType}
+                  formId={formId}
                 />
               </div>
             </div>
@@ -153,18 +169,15 @@ export default function FormsOverviewPage({
             </button>
             {submissions.length > 10 && (
               <div className="flex justify-end dark:text-white">
-                <button
-                  disabled={currentPage === 1}
-                  onClick={() => setCurrentPage(currentPage - 1)}
-                >
+                <button disabled={currentPage === 1} onClick={handlePrev}>
                   <IoIosArrowBack />
                 </button>
                 <div className="mx-2 rounded-lg border-2 px-2  font-medium dark:border-gray-700">
-                  {currentPage} / {totalPages}
+                  {currentPage} / {TotalPages}
                 </div>
                 <button
-                  disabled={currentPage === totalPages}
-                  onClick={() => setCurrentPage(currentPage + 1)}
+                  disabled={currentPage === TotalPages}
+                  onClick={handleNext}
                 >
                   <IoIosArrowForward />
                 </button>
@@ -186,8 +199,8 @@ export default function FormsOverviewPage({
                 )}
               </div>
             )}
-          {!isEmpty(currentData) ? (
-            currentData?.map((submission: any, idx: any) => {
+          {!isEmpty(filteredData) ? (
+            filteredData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem
                   key={idx}

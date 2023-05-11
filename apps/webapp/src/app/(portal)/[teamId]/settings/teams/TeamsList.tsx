@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import { Dialog } from "@/ui/Dialog";
 import LoadingButton from "@/ui/Buttons";
 import CreateTeamDialog from "@/app/(portal)/shared/CreateTeamDialog";
+import Image from "next/image";
 
 function getTeamRoles(teams: any) {
   const roles: any = [];
@@ -30,6 +31,7 @@ function getTeamRoles(teams: any) {
         type: team.type,
         slug: team.slug,
         role: membership.role,
+        avatar: team.avatar,
       });
     }
   });
@@ -81,13 +83,23 @@ const TeamsList = ({ teams }: any) => {
                           <div className="text-sm flex justify-between items-center dark:text-white p-4">
                             <div className="flex flex-row items-center">
                               <div>
-                                <Avatar className="mr-4 h-8 w-8">
-                                  <AvatarImage
-                                    src={`https://avatar.vercel.sh/${team?.slug}.png`}
-                                    alt={team.id}
+                                {!isEmpty(team.avatar) ? (
+                                  <Image
+                                    src={team.avatar}
+                                    alt="err"
+                                    className="mr-4 h-8 w-8 rounded-full"
+                                    height={20}
+                                    width={20}
                                   />
-                                  <AvatarFallback>SC</AvatarFallback>
-                                </Avatar>
+                                ) : (
+                                  <Avatar className="mr-4 h-8 w-8">
+                                    <AvatarImage
+                                      src={`https://avatar.vercel.sh/${team.slug}.png`}
+                                      alt={team.name}
+                                    />
+                                    <AvatarFallback>SC</AvatarFallback>
+                                  </Avatar>
+                                )}
                               </div>
                               <div>
                                 <h1 className="capitalize">{team.name}</h1>
