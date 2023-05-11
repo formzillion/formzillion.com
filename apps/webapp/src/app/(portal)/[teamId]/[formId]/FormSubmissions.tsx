@@ -27,14 +27,15 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
   const [selectedTab, setSelectedTab] = useState("All");
   const [data, setData] = useState([]);
 
-  const filterData = get(data, "data", []);
-  const TotalPages = get(data, "totalPages");
+  const TotalPages = data.length;
 
   useEffect(() => {
     async function fetchData() {
       const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
       const data = await res.json();
-      setData(data);
+      const filterData = get(data, "data", []);
+
+      setData(filterData);
     }
     fetchData();
   }, [currentPage]);
@@ -79,7 +80,7 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
     setFilter(status);
   };
 
-  const filteredData = filterData.filter((obj: any) => {
+  const filteredData = data.filter((obj: any) => {
     if (filterType === "name") {
       return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {

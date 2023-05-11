@@ -19,7 +19,6 @@ export default function Index({
   toggleTestFormModal,
   setIsChecked,
   isChecked,
-  setSubmissions,
   submissions,
   setSearchTerm,
   setFilterType,
@@ -55,9 +54,18 @@ export default function Index({
   };
 
   const fetchData = async (sortBy: any) => {
-    const res = await fetch(`/api/form-submission/?sortBy=${sortBy}`);
+    const res = await fetch(`/api/form-submission/sort/?sortBy=${sortBy}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formId,
+        sortBy,
+      }),
+    });
     const newData = await res.json();
-    setSubmissions(newData);
+    setData(newData);
   };
 
   return (
