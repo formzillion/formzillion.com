@@ -1,8 +1,6 @@
 import React from "react";
 
 import FeaturesOverview from "./home/FeaturesOverview";
-import BlurDotGridTop from "./home/WaitlistHeroSection/BlurDotGridTop";
-import BlurDotGridBottom from "./home/WaitlistHeroSection/BlurDotGridBottom";
 import SpamFiltersIllustration from "./home/Features/SpamFilters/SpamFiltersIllustration";
 import RedirectsIllustration from "./home/Features/Redirects/RedirectsIllustration";
 import CTABanner from "./home/CTABanner";
@@ -14,9 +12,7 @@ import OpenSource from "./home/OpenSource";
 
 export default function page() {
   return (
-    <section className="relative">
-      <BlurDotGridTop />
-      <BlurDotGridBottom />
+    <>
       <HeroSection />
       <FeaturesOverview />
       <FeatureSection
@@ -63,6 +59,6 @@ export default function page() {
         </div>
       </div>
       <CtaSection />*/}
-    </section>
+    </>
   );
 }
