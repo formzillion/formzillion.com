@@ -8,25 +8,32 @@ import CardFooter from "@/ui/CardFooter";
 import Heading from "./Heading";
 import { get } from "lodash";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import { useRouter } from "next/navigation";
 
 const UserName = ({ teamSlug }: any) => {
+  const router = useRouter();
   const parsedTeamData = JSON.parse(teamSlug);
   const [name, setName] = useState("");
   const [loading, setLoading] = useState<any>(false);
 
   const parsedTeam = get(parsedTeamData, "0", "");
   const handleNameChange = async () => {
-    setLoading(true);
-    const response: any = await updateTeam({
-      teamName: name,
-      teamSlug: parsedTeam.slug,
-      type: "updateName",
-    });
-    if (response.success) {
-      showSuccessToast("Name updated successfully");
-      setLoading(false);
+    if (name.length > 5) {
+      setLoading(true);
+      const response: any = await updateTeam({
+        teamName: name,
+        teamSlug: parsedTeam.slug,
+        type: "updateName",
+      });
+      if (response.success) {
+        showSuccessToast("Your Name updated successfully");
+        setLoading(false);
+        router.refresh();
+      } else {
+        showErrorToast(response.message);
+      }
     } else {
-      showErrorToast(response.message);
+      showErrorToast("Minimum length is 5 characters");
     }
   };
 

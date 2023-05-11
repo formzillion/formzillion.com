@@ -4,8 +4,9 @@ import TeamUrl from "./TeamUrl";
 import LeaveTeam from "./LeaveTeam";
 import DeleteTeam from "./DeleteTeam";
 import prisma from "@/lib/prisma";
+import Avatar from "./Avatar";
 
-const settingSections = [TeamName, TeamUrl];
+const settingSections = [TeamName, TeamUrl, Avatar];
 
 const TeamsPage = async ({ params }: any) => {
   const { teamId: teamSlug } = params;

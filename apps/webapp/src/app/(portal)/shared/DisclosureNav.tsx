@@ -9,7 +9,7 @@ import {
   XMarkIcon,
 } from "@heroicons/react/24/outline";
 
-import TeamSwitcher from "@/components/TeamSwitcher";
+import TeamSwitcher from "@/app/(portal)/shared/TeamSwitcher";
 import { useSupabase } from "@/components/SupbaseProvider";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
 import { BreadcrumbSeparator } from "./Navbar";
