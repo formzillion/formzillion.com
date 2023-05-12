@@ -98,7 +98,7 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <div className="dark:bg-neutral-900 min-h-screen">
-      <div className="grid grid-cols-4 p-4 mx-auto max-w-7xl">
+      <div className="grid lg:grid-cols-4 p-4 mx-auto max-w-xs sm:max-w-7xl md:grid-cols-3 md:4 sm:grid-cols-2 md:max-w-7xl">
         {finalIntegrations.map((integration: any, idx: number) => (
           <IntegrationItem
             integration={integration}
