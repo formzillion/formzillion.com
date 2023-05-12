@@ -22,8 +22,8 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
   };
 let name;
   if (submission && submission.fields && submission.fields.name) {
-    const [firstName, lastName] = submission.fields.name.split(" ");
-     name = `${firstName.charAt(0)}${lastName.charAt(0)}`;
+    const [firstName="", lastName=""] = submission.fields.name?.split(" ");
+     name = `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
 
   } else {
    console.log("error")
