@@ -88,10 +88,10 @@ function classNames(...classes: any) {
 
 export default function PriceComparison() {
   return (
-    <div className="bg-black py-8 sm:py-16 font-[Satoshi]">
+    <div className="bg-black py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl font-['Space_Grotesk']">
+          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
             Not sure which plan is right for you?
           </p>
         </div>
@@ -107,7 +107,7 @@ export default function PriceComparison() {
               className={classNames(
                 tier.mostPopular
                   ? "rounded-xl bg-gray-400/5 ring-1 ring-inset ring-gray-200"
-                  : "",
+                  : "rounded-xl  ring-1 ring-inset ring-gray-900",
                 "p-8"
               )}
             >

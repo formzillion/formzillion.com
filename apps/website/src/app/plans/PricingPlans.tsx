@@ -67,10 +67,10 @@ export default function PricingPlans() {
   const [frequency, setFrequency] = useState(frequencies[1]);
 
   return (
-    <div className="bg-black mt-20 py-8 sm:py-16 text-white font-[Satoshi]">
+    <div className="bg-black py-8 sm:py-16 text-white">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl font-['Space_Grotesk']">
+          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
             Plans and Pricing
           </p>
         </div>
