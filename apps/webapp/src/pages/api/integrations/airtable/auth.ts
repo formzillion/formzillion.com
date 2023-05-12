@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { isEmpty } from "lodash";
 import crypto from "crypto";
+import qs from "querystring";
 
 import callBackHelper from "@/lib/integrationsCallbackHelper";
 
@@ -13,7 +14,8 @@ const clientId =
 const clientSecret =
   process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID ||
   "c1d670e8f180e3876369238cf7e076c06f9bebb6b335a3be77607fff08a6e848";
-const scopes = "data.records:read data.records:write schema.bases:read";
+const scopes =
+  "data.records:read data.records:write schema.bases:read schema.bases:write";
 
 const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString(
   "base64"
@@ -134,30 +136,29 @@ export default async function handler(
       return res.send("<script>window.close();</script>");
     }
   } catch (error) {
-    return res.status(500).send(JSON.stringify(error, null, 2));
+    return res
+      .status(500)
+      .json({ success: false, message: JSON.stringify(error, null, 2) });
   }
 }
 
 const getAccessToken = async (code: string, codeVerifier: any) => {
-  const urlencoded = new URLSearchParams({
-    client_id: clientId,
-    code_verifier: codeVerifier,
-    redirect_uri: redirectUri,
-    code: code,
-    grant_type: "authorization_code",
-  });
-
   try {
-    const requestOptions: any = {
+    const response = await fetch(`${baseUri}/oauth2/v1/token`, {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
         Authorization: authorizationHeader,
       },
-      body: urlencoded,
+      body: qs.stringify({
+        client_id: clientId,
+        code_verifier: codeVerifier,
+        redirect_uri: redirectUri,
+        code: code,
+        grant_type: "authorization_code",
+      }),
       redirect: "follow",
-    };
-    const response = await fetch(`${baseUri}/oauth2/v1/token`, requestOptions);
+    });
     const result = await response.json();
     return result || {};
   } catch (error) {
