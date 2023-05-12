@@ -10,6 +10,18 @@ import TurnstileIllustration from "../illustrations/turnstile";
 export default function page() {
   return (
     <>
+      <div className="mb-4 text-center">
+        <h1 className="text-4xl xl:text-5xl mt-10 mb-3">
+          What is a{" "}
+          <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+            spam filter?{" "}
+          </span>
+        </h1>
+        <p className="text-gray-400 xl:text-xl">
+          Spam filter process of identifying and filtering out spam submissions
+          in online forms.
+        </p>
+      </div>
       <div className="lg:max-w-3xl xl:max-w-7xl max-w-xs sm:max-w-xl mx-auto lg:block">
         <FeatureSection
           title="The user-friendly anti-spam solution"
