@@ -45,7 +45,7 @@ export default function CardFooter(props: FooterProps) {
           type={type}
           loading={loading}
           onClick={onClick}
-          className="flex justify-end rounded-none min-w-[80px] h-[30px]"
+          className="flex justify-end rounded-none min-w-[80px] text-sm h-9"
         >
           {btnText}
         </Button>

@@ -32,14 +32,14 @@ export default function OpenSource() {
   return (
     <div className="mx-auto max-w-5xl my-10">
       <div className="flex flex-col justify-center items-center w-full text-center space-y-5 text-white">
-        <h1 className="text-5xl">
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl">
           Join our{" "}
           <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
             open source{" "}
           </span>
           community
         </h1>
-        <p className="text-xl">
+        <p className="text-base lg:text-xl px-4 lg:px-0">
           Join us in creating the most extensive Formzillion community on the
           internet. <br /> Explore{" "}
           <a href="#" className="text-orange-400 underline">
@@ -48,7 +48,7 @@ export default function OpenSource() {
           and share your thoughts by leaving comments!
         </p>
       </div>
-      <div className="grid grid-cols-3 place-content-center gap-6 pt-10">
+      <div className="sm:grid sm:grid-cols-2 md:grid-cols-3 gap-6 pt-10 text-white px-6 lg:px-3 space-y-4 sm:space-y-0">
         {cardData.map((card: any, index: number) => (
           <div
             key={index}

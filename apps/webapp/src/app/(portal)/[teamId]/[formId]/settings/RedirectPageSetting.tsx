@@ -64,7 +64,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
   };
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
         <Header title={"Redirects"} />
         <div className="text-gray-500 py-4">
@@ -226,13 +226,13 @@ const RedirectPageSetting = ({ formDetail }: any) => {
       </div>
       <CardFooter
         title={"Learn more about"}
+        type="submit"
         urlText="Redirects"
         url="https://docs.formzillion.com/features/redirects"
         btnText={"Save"}
-        onClick={handleSubmit}
         loading={loading}
       />
-    </>
+    </form>
   );
 };
 export default RedirectPageSetting;

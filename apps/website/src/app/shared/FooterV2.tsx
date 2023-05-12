@@ -1,9 +1,7 @@
 import Link from "next/link";
 import AppLogo from "@/ui/AppLogo";
-import Image from "next/image";
+import { FiGithub, FiLinkedin, FiSlack } from "react-icons/fi";
 import BlurDotGridBottom from "../home/WaitlistHeroSection/BlurDotGridBottom";
-import github from "public/logos/github.jpeg";
-
 
 const ProductItems = [
   {
@@ -51,7 +49,7 @@ const CompanyItems = [
   },
   {
     label: "Roadmap",
-    href: "/roadmap",
+    href: "https://github.com/orgs/formzillion/projects/1",
   },
   {
     label: "Terms",
@@ -71,7 +69,7 @@ const FeaturesItem = [
   {
     label: "Spam Filtering",
     href: "/features/spam-filtering",
-  }
+  },
 ];
 
 const PlatformItem = [
@@ -93,17 +91,50 @@ const PlatformItem = [
   },
 ];
 
+const FooterIcons = [
+  {
+    icon: <FiLinkedin className="text-gray-400 hover:text-blue-600" />,
+    url: "https://www.linkedin.com/company/formzillion/",
+  },
+  {
+    icon: <FiGithub className="text-gray-400 hover:text-white" />,
+    url: "https://github.com/formzillion",
+  },
+  {
+    icon: <FiSlack className="text-gray-400 hover:text-purple-900" />,
+    url: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
+  },
+];
+
 export default function Footer() {
   return (
-    <div className="relative">
+    <div className="relative border-t border-gray-950">
       <BlurDotGridBottom />
-      <div className="relative z-50 gap-8 flex flex-row flex-wrap text-start text-white max-w-5xl mx-auto py-10">
-        <div className={`flex flex-col items-start font-['Satoshi']`}>
-          <div className="gap-5 flex flex-col">
+      <div className="grid grid-cols-3 mx-auto max-w-6xl mt-8 text-white px-3">
+        <div className="font-medium col-span-3 md:col-span-1">
+          <AppLogo />
+          <div className="text-sm lg:text-base mt-3 ">
+            <p className="leading-normal ">
+              1511-35 Hayden Street,
+              <br />
+              Toronto, Ontario, Canada.
+            </p>
+            <br />
+            <p className="leading-normal">
+              <a href="tel:+1 (587) 988-9633">+1 (587) 988-9633</a>
+              <br />
+              <a href="mailto:support@formzillion.com">
+                support@formzillion.com
+              </a>
+            </p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-4 col-span-3 md:col-span-2 mt-8 md:mt-0 relative">
+          <div>
             <p className="text-md font-bold leading-normal underline">
               Product
             </p>
-            <div className="gap-4 flex flex-col font-normal text-md leading-normal">
+            <div className="gap-4 flex flex-col font-normal text-md leading-normal mt-3">
               {ProductItems.map((item, index) => (
                 <Link key={index} href={item.href}>
                   {item.label}
@@ -111,13 +142,11 @@ export default function Footer() {
               ))}
             </div>
           </div>
-        </div>
-        <div className={`flex flex-col items-start font-['Satoshi']`}>
-          <div className="gap-5 flex flex-col">
+          <div>
             <p className="text-md font-bold leading-normal underline">
               Company
             </p>
-            <div className="gap-4 flex flex-col font-normal text-md leading-normal">
+            <div className="gap-4 flex flex-col font-normal text-md leading-normal mt-3">
               {CompanyItems.map((item, index) => (
                 <Link key={index} href={item.href}>
                   {item.label}
@@ -125,14 +154,11 @@ export default function Footer() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className={`flex flex-col items-start font-['Satoshi']`}>
-          <div className="gap-5 flex flex-col">
-            <p className="text-md font-bold leading-normal underline">
+          <div>
+            <p className="text-md font-bold leading-normal underline mt-8 sm:mt-0">
               Platforms
             </p>
-            <div className="gap-4 flex flex-col font-normal text-md leading-normal">
+            <div className="gap-4 flex flex-col font-normal text-md leading-normal mt-3">
               {PlatformItem.map((item, index) => (
                 <Link key={index} href={item.href}>
                   {item.label}
@@ -140,14 +166,11 @@ export default function Footer() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className={`flex flex-col items-start font-['Satoshi']`}>
-          <div className="gap-5 flex flex-col">
-            <p className="text-md font-bold leading-normal underline">
+          <div>
+            <p className="text-md font-bold leading-normal underline mt-8 sm:mt-0">
               Features
             </p>
-            <div className="gap-4 flex flex-col font-normal text-md leading-normal">
+            <div className="gap-4 flex flex-col font-normal text-md leading-normal mt-3">
               {FeaturesItem.map((item, index) => (
                 <Link key={index} href={item.href}>
                   {item.label}
@@ -156,44 +179,24 @@ export default function Footer() {
             </div>
           </div>
         </div>
-
-        <div className="flex flex-col grow items-center md:items-end">
-          <AppLogo />
-          <div
-            className={`gap-6 pt-0 pl-0 flex flex-col font-medium font-['Satoshi'] mt-5`}
-          >
-            <div className="gap-6 flex flex-col text-end">
-              <p className="text-md leading-normal">
-                1511-35 Hayden Street,
-                <br />
-                Toronto, Ontario, Canada.
-              </p>
-              <p className="text-md leading-normal">
-                +1 (587) 988-9633
-                <br />
-                support@formzillion.com
-              </p>
-            </div>
+      </div>
+      <div className="sm:flex justify-between w-full text-white p-3 mx-auto max-w-6xl mt-8 mb-8">
+        <div className="flex items-center space-x-2">
+          {FooterIcons.map((item: any, idx: number) => (
             <a
-              href="https://github.com/formzillion"
+              key={idx}
+              href={item.url}
               target="_blank"
               rel="noreferrer"
+              className="bg-gradient-to-b from-gray-900 to-gray-950 rounded h-8 w-8 flex justify-center items-center"
             >
-              <Image
-                src={github}
-                alt="github"
-                className=" ml-2 h-10 w-10 object-center rounded bg:none dark:bg-none hover:bg-gray-600"
-              />
+              {item.icon}
             </a>
-          </div>
+          ))}
         </div>
-        <div className={`flex flex-col w-full text-center font-['Satoshi']`}>
-          <div className="flex justify-center">
-            <p className="text-md leading-normal text-end">
-              Copyright © 2023 Zillionstack Inc. All rights reserved.
-            </p>
-          </div>
-        </div>
+        <p className="text-md leading-normal text-center md:text-end">
+          Copyright © 2023 Zillionstack Inc. All rights reserved.
+        </p>
       </div>
     </div>
   );
