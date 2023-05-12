@@ -77,7 +77,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
           <div className="space-y-2">
             <label htmlFor="teamName">Team name</label>
             {isTeamExist && (
-              <p className="text-xs text-red-600">
+              <p className="text-xs text-red-600 animate-bounce ease-in-out">
                 Team with this name already exists.
               </p>
             )}
@@ -135,6 +135,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
         <Button2
           loading={loading}
           className="bg-orange-600 text-white rounded-none"
+          disabled={isTeamExist}
           onClick={onClickCreateTeam}
           type="submit"
         >

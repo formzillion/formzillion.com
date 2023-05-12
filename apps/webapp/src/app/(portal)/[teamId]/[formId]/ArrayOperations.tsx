@@ -26,6 +26,7 @@ export default function Index({
   filterType,
   setData,
   formId,
+  toggleExportModal,
 }: any) {
   const handleCheckAll = () => {
     setIsChecked(!isChecked);
@@ -125,6 +126,10 @@ export default function Index({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={toggleTestFormModal}>
               Mock submission
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={toggleExportModal}>
+              Export to CSV
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
