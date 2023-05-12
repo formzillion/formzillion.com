@@ -51,9 +51,9 @@ export default function ThirdPartyApps() {
         <h1 className="text-4xl text-center mt-10 mb-5">
           Some of Our 3rd party integrations
         </h1>
-        <div className="grid grid-cols-4 gap-5 border border-gray-600 rounded-xl p-10 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 border border-gray-600 rounded-xl p-10 max-w-4xl mx-auto">
           {apps.map((item: any, idx) => (
-            <div className="flex items-center" key={idx}>
+            <div className="flex items-center justify-center" key={idx}>
               <Image src={item.image} alt={item.name} className="w-10" />
               <p className="ml-2">{startCase(item.name)}</p>
             </div>
