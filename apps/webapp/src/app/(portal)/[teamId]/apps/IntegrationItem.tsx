@@ -134,8 +134,8 @@ export default function IntegrationItem({ integration, teamSlug }: any) {
   };
 
   return (
-    <div className="w-[256px] h-[336px] mb-4 mx-auto sm:mx-auto md:mx-auto lg:mx-auto">
-      <Card className="w-full h-[336px] sm:w-full sm:h-[336px] md:w-full md:h-[336px] lg:w-[256px] lg:h-[336px] mx-auto  sm:space-x-2 ">
+    <div className="h-[336px] lg:w-[246px] lg:h-[336px] md:w-[236px] md:h-[336px] sm:w-[296px] sm:h-[336px] md:mb-4 mb-4 mx-auto md:mx-auto sm:mx-auto">
+      <Card className="w-full h-[336px] lg:h[336px] mx-auto ">
         <CardContent className="h-[336px] dark:text-white">
           <ReconnectButton
             status={status}
