@@ -1,6 +1,5 @@
 import React from "react";
 
-import FeaturesOverview from "./home/FeaturesOverview";
 import SpamFiltersIllustration from "./home/Features/SpamFilters/SpamFiltersIllustration";
 import RedirectsIllustration from "./home/Features/Redirects/RedirectsIllustration";
 import CTABanner from "./home/CTABanner";
@@ -9,12 +8,13 @@ import HeroSection from "./home/WaitlistHeroSection/HeroSection";
 import InviteTeamIllustration from "./home/Features/Collaboration/InviteTeamIllustration";
 import IntegrationsIllustration from "./home/Features/Integrations/IntegrationsIllustration";
 import OpenSource from "./home/OpenSource";
+import FeaturesOverviewNew from "./home/FeaturesOverviewNew";
 
 export default function page() {
   return (
     <>
       <HeroSection />
-      <FeaturesOverview />
+      <FeaturesOverviewNew />
       <FeatureSection
         title="Safeguard your forms from spam."
         description="Formzillion employs a combination of machine learning and human review to ensure that your form submissions are free of spam. Just enable the filters you need and we'll take care of the rest."
