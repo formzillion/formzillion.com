@@ -189,23 +189,23 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
                 </button>
               </div>
             )}
+            {submissions.length <= 0 &&
+              filter !== "spam" &&
+              filter !== "verify" && (
+                <div className="mb-2 flex flex-row justify-end items-center ">
+                  {isEmpty(submissions) && (
+                    <Button
+                      className=" bg-black text-white hover:bg-black hover:text-white"
+                      onClick={toggleTestFormModal}
+                    >
+                      Mock Submission
+                    </Button>
+                  )}
+                </div>
+              )}
           </div>
 
-          {submissions.length <= 0 &&
-            filter !== "spam" &&
-            filter !== "verify" && (
-              <div className="mb-2 flex flex-row justify-end items-center mt-4">
-                {isEmpty(submissions) && (
-                  <Button
-                    className=" bg-black text-white hover:bg-black hover:text-white"
-                    onClick={toggleTestFormModal}
-                  >
-                    Mock Submission
-                  </Button>
-                )}
-              </div>
-            )}
-          {!isEmpty(filteredData) ? (
+          {!isEmpty(filteredData) && submissions.length > 0 ? (
             filteredData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem

@@ -3,50 +3,34 @@
 import { useState } from "react";
 import { Input, Label } from "@/ui/fields";
 import { MinusCircleIcon, PlusCircleIcon } from "@heroicons/react/24/solid";
-import { isEmpty } from "lodash";
 
 function App({ testData }: any) {
-  const [serviceList, setServiceList] = useState([{ fields: "" }]);
-  const [title, setTitle] = useState("");
+  const [dynamicValues, setDynamicValues] = useState<any[]>([
+    { keyName: "Field", keyValue: "Value" },
+  ]);
+  testData(dynamicValues);
 
-  const fieldsString = serviceList
-    .map((service, index) => {
-      return `${service.fields}`;
-    })
-    .join(", ");
-
-  testData(fieldsString);
-
-  const handleServiceChange: any = (
+  const handleServiceChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     index: number
   ) => {
-    const { name, value } = e.target;
-    const list = [...serviceList];
-    list[index] = { ...list[index], [name]: value };
-    setServiceList(list);
-  };
 
-  const handleService: any = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
     const { name, value } = e.target;
-
-    setTitle(value);
+    const updatedValues = [...dynamicValues];
+    const fieldName = name.substring(0, name.length - 1);
+    updatedValues[index][fieldName] = value;
+    setDynamicValues(updatedValues);
   };
 
   const handleServiceRemove = (index: number) => {
-    const list = [...serviceList];
+    const list = [...dynamicValues];
     list.splice(index, 1);
-    setServiceList(list);
+    setDynamicValues(list);
   };
 
   const handleServiceAdd = () => {
-    setServiceList([...serviceList, { fields: "" }]);
+    setDynamicValues([...dynamicValues, { keyName: "", keyValue: "" }]);
   };
-
-
 
   return (
     <form className="App" autoComplete="off">
@@ -57,42 +41,39 @@ function App({ testData }: any) {
         >
           Add Fields
         </label>
-        {serviceList.map((singleService, index) => (
+        {dynamicValues.map((item, index) => (
           <div key={index} className="mb-4 ml-24">
             <div className="grid grid-cols-5 space-x-4">
               <Input
-                name="fields"
+                name={`keyName${index}`}
                 type="text"
-                id="fields"
-                value={isEmpty(title) ? `Field${index + 1}` : title}
-                onChange={(e) => handleService(e, index)}
+                value={item.keyName || ""}
+                onChange={(e) => handleServiceChange(e, index)}
                 required
                 className="col-span-1 h-10"
               />
 
               <Input
-                name="fields"
+                name={`keyValue${index}`}
                 type="text"
-                id="fields"
-                value={singleService.fields}
+                value={item.keyValue || ""}
                 onChange={(e) => handleServiceChange(e, index)}
                 required
                 className="col-span-3 h-10 ml-4"
               />
-              <div className="col-span-1 flex items-center justify-end">
-                {serviceList.length - 1 === index &&
-                  serviceList.length < 50 && (
-                    <button
-                      type="button"
-                      onClick={handleServiceAdd}
-                      className="add-btn"
-                    >
-                      <PlusCircleIcon className=" h-8 w-6 text-green-700" />
-                    </button>
-                  )}
-                {serviceList.length - 2 === index && (
+              <div className="col-span-1 flex items-center justify-center">
+                {dynamicValues.length - 1 === index &&
+                dynamicValues.length < 50 ? (
+                  <button
+                    type="button"
+                    onClick={handleServiceAdd}
+                    className="add-btn"
+                  >
+                    <PlusCircleIcon className="h-8 w-6 text-green-700" />
+                  </button>
+                ) : (
                   <div className="second-division flex justify-content">
-                    {serviceList.length !== 1 && (
+                    {dynamicValues.length !== 1 && (
                       <button
                         type="button"
                         onClick={() => handleServiceRemove(index)}
@@ -111,5 +92,4 @@ function App({ testData }: any) {
     </form>
   );
 }
-
 export default App;

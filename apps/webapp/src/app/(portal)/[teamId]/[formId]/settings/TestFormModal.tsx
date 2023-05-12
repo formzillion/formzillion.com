@@ -14,13 +14,18 @@ export default function TestFormModal({ formId, closeModal }: any) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [test, testData] = useState<any>();
-
   const [submitCount, setSubmitCount] = useState(1);
   const [formValues, setFormValues] = useState<any>({
     name: randFullName({ withAccents: false }),
     email: randEmail(),
     message: randQuote(),
   });
+
+  let response = "";
+  for (let i = 0; i < test?.length; i++) {
+    const { keyName, keyValue } = test[i];
+    response += `${keyName}:${keyValue} `;
+  }
 
   const onClickTestForm = async () => {
     try {
@@ -30,12 +35,12 @@ export default function TestFormModal({ formId, closeModal }: any) {
         name: randFullName({ withAccents: false }),
         email: randEmail(),
         message: randQuote(),
-        test,
+        response,
       }));
 
       if (submitCount === 1) {
         const formData = new FormData();
-        const currentValues = { ...formValues, test };
+        const currentValues = { ...formValues, response };
         for (const key in currentValues) {
           formData.append(key, currentValues[key]);
         }
@@ -92,7 +97,7 @@ export default function TestFormModal({ formId, closeModal }: any) {
             </div>
           );
         })}
-      <DynamicField testData={testData} />
+        <DynamicField testData={testData} />
         <div className="flex flex-row items-center justify-between">
           <div className="flex items-center space-x-2">
             <input
