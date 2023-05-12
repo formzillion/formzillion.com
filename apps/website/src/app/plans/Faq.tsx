@@ -35,8 +35,8 @@ const faqs = [
 ];
 export default function Faq() {
   return (
-    <div className="max-w-4xl mx-auto py-16">
-      <h1 className="text-5xl mb-10">
+    <div className="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto py-8 lg:py-16">
+      <h1 className="text-4xl sm:text-5xl mb-10">
         Frequently asked questions,{" "}
         <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
           answered.

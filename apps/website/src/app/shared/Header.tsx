@@ -22,7 +22,7 @@ const NavLink = (props: navProps) => {
 
 export default function Header() {
   return (
-    <div className="shadow text-white sticky bg-gray-900 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden">
+    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden">
       <div className="mx-auto max-w-7xl flex justify-between p-2 h-[60px]">
         <div className="flex items-center space-x-8">
           <div>
