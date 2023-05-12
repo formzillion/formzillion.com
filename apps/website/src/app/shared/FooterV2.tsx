@@ -4,7 +4,6 @@ import Image from "next/image";
 import BlurDotGridBottom from "../home/WaitlistHeroSection/BlurDotGridBottom";
 import github from "public/logos/github.jpeg";
 
-
 const ProductItems = [
   {
     label: "Templates",
@@ -71,7 +70,7 @@ const FeaturesItem = [
   {
     label: "Spam Filtering",
     href: "/features/spam-filtering",
-  }
+  },
 ];
 
 const PlatformItem = [
@@ -97,7 +96,7 @@ export default function Footer() {
   return (
     <div className="relative">
       <BlurDotGridBottom />
-      <div className="relative z-50 gap-8 flex flex-row flex-wrap text-start text-white max-w-5xl mx-auto py-10">
+      <div className="relative z-50 gap-8 flex flex-row flex-wrap text-start text-white max-w-5xl mx-auto pt-10 pb-2 px-8">
         <div className={`flex flex-col items-start font-['Satoshi']`}>
           <div className="gap-5 flex flex-col">
             <p className="text-md font-bold leading-normal underline">
@@ -174,6 +173,10 @@ export default function Footer() {
                 support@formzillion.com
               </p>
             </div>
+          </div>
+        </div>
+        <div className="sm:flex justify-between w-full text-white p-3 pb-0">
+          <div>
             <a
               href="https://github.com/formzillion"
               target="_blank"
@@ -186,13 +189,9 @@ export default function Footer() {
               />
             </a>
           </div>
-        </div>
-        <div className={`flex flex-col w-full text-center font-['Satoshi']`}>
-          <div className="flex justify-center">
-            <p className="text-md leading-normal text-end">
-              Copyright © 2023 Zillionstack Inc. All rights reserved.
-            </p>
-          </div>
+          <p className="text-md leading-normal text-end">
+            Copyright © 2023 Zillionstack Inc. All rights reserved.
+          </p>
         </div>
       </div>
     </div>

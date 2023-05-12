@@ -103,12 +103,31 @@ export default function IntegrationItem({ integration, teamSlug }: any) {
   const { session }: any = useSupabase();
   const user = session?.user || {};
 
-  const onClickApp = (provider: string) => {
+  const onClickApp = async (provider: string) => {
     if (authType === "oauth") {
       zauth.auth(provider, {
         ...user,
         teamId: teamSlug,
       });
+    } else if (authType === "airtable") { // Airtable Auth Required CodeViriable for both authUrl and post callback url
+      const getAuthUrl = await fetch(`/api/integrations/airtable/auth`, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ teamSlug, email: user?.email }),
+      });
+      const response = await getAuthUrl.json();
+
+      const x = window.screen.width / 2 - 600 / 2;
+      const y = window.screen.height / 2 - 600 / 2;
+
+      return window.open(
+        response.authUrl,
+        "Authentication",
+        `height=600,width=600,left=${x},top=${y}`
+      );
     } else {
       toggleShowApiKeyModal();
     }
