@@ -10,10 +10,13 @@ import EmptySubmissions from "./EmptySubmissions";
 import SubmissionItem from "./SubmissionItem";
 import TestFormModal from "./settings/TestFormModal";
 import ArrayOperations from "./ArrayOperations";
+import ExportModal from "./ExportModel";
 
 export default function FormsOverviewPage({ formId, formSubmissions }: any) {
   const [showTestFormModal, setShowTestFormModal] = useState(false);
   const toggleTestFormModal = () => setShowTestFormModal(!showTestFormModal);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const toggleExportModal = () => setShowExportModal(!showExportModal);
   const parsedFormSubmissions = JSON.parse(formSubmissions);
   const [submissions, setSubmissions] = useState(parsedFormSubmissions);
   const [searchTerm, setSearchTerm] = useState("");
@@ -158,6 +161,7 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
                   searchTerm={searchTerm}
                   filterType={filterType}
                   formId={formId}
+                  toggleExportModal={toggleExportModal}
                 />
               </div>
             </div>
@@ -220,6 +224,13 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
               formId={formId}
               isOpen={showTestFormModal}
               closeModal={toggleTestFormModal}
+            />
+          )}
+          {showExportModal && (
+            <ExportModal
+              formId={formId}
+              isOpen={showExportModal}
+              closeModal={toggleExportModal}
             />
           )}
         </div>

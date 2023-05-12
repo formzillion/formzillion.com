@@ -9,6 +9,7 @@ import Heading from "./Heading";
 import CardFooter from "@/ui/CardFooter";
 import { get, kebabCase } from "lodash";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import getSingleTeam from "@/app/fetch/teams/getSingleTeam";
 
 const UserUrl = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
@@ -16,6 +17,7 @@ const UserUrl = ({ teamSlug }: any) => {
   const parsedTeamData = JSON.parse(teamSlug);
   const parsedTeam = get(parsedTeamData, "0", "");
   const [url, setUrl] = useState("");
+  const [isTeamExist, setIsTeamExist] = useState(false);
 
   const handleSlugChange = async () => {
     if (url.length > 5) {
@@ -33,6 +35,19 @@ const UserUrl = ({ teamSlug }: any) => {
       }
     } else {
       showErrorToast("Minimum length is 5 characters");
+    }
+  };
+
+  const onChangeField = async (e: any) => {
+    const { value } = e.target;
+    setUrl(value);
+    if (value.length > 5) {
+      const team = await getSingleTeam({ teamSlug: value });
+      if (team.success) {
+        setIsTeamExist(true);
+      } else {
+        setIsTeamExist(false);
+      }
     }
   };
 
@@ -55,14 +70,20 @@ const UserUrl = ({ teamSlug }: any) => {
               onChange={(e) => setUrl(e.target.value)}
               disabled
             />
+
             <Input
               type="text"
               className="border px-3 py-2 dark:bg-black dark:border-gray-800"
               defaultValue={parsedTeam.slug}
-              onChange={(e) => setUrl(e.target.value)}
+              onChange={onChangeField}
               maxLength={36}
             />
           </div>
+          {isTeamExist && (
+            <p className="text-xs text-red-600">
+              URL with this text already exists.
+            </p>
+          )}
         </div>
       </div>
       <CardFooter
@@ -70,6 +91,7 @@ const UserUrl = ({ teamSlug }: any) => {
         btnText={"Save"}
         onClick={handleSlugChange}
         loading={loading}
+        disabled={isTeamExist}
       />
     </>
   );
