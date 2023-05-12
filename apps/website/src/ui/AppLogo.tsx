@@ -16,7 +16,7 @@ export default function AppLogo({
       <Image
         src={"/logos/fz_logo_full.svg"}
         alt="Formzillion Logo"
-        className="w-auto h-8 object-contain"
+        className="w-auto h-7 object-contain"
         height={10}
         width={10}
       />
