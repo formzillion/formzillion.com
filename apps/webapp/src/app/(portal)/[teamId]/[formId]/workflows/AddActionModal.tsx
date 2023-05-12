@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { get, isEmpty, startCase } from "lodash";
+import { get, isEmpty, map, startCase } from "lodash";
 
 import {
   Dialog,
@@ -24,6 +24,8 @@ import {
 } from "@/ui/Select";
 import { Input } from "@/ui/Input/SimpleInput";
 
+import getTablesFromAirtable from "@/app/fetch/integrations/airtable/getTables";
+
 interface IAddActionModal {
   workflowId: number | string;
   teamSlug: string;
@@ -36,10 +38,12 @@ const availableActionsMap: any = {
   sendgrid: ["sendThankyouEmail"],
   slack: ["sendNotification"],
   webhooks: ["postToWebhookEnpoint"],
+  airtable: ["addRecord"],
 };
 
 const taskTemplateConfig: any = {
-  sendgrid: ["fromEmail", "name"],
+  sendgrid: { fromEmail: "formEmail", name: "name" },
+  airtable: { table: [] },
 };
 
 const AddActionModal = ({
@@ -59,12 +63,26 @@ const AddActionModal = ({
     actionSlug: "",
   });
   const [template, setTemplate] = useState<any>({});
+  const [taskTemplate, setTaskTemplate] = useState(
+    taskTemplateConfig[appSlug] || {}
+  );
 
   const availableActions = availableActionsMap[appSlug];
-  const taskTemplate = taskTemplateConfig[appSlug];
   const isConnectionsExists = !isEmpty(connectionList);
   const isAppsExists = !isEmpty(appsList);
   const isActionExists = !isEmpty(availableActions);
+
+  const processAirtable = useCallback(async () => {
+    if (!isEmpty(actionSetup.connectionId)) {
+      if (appSlug === "airtable") {
+        const tables = await getTablesFromAirtable({
+          connectionId: actionSetup.connectionId,
+        });
+
+        setTaskTemplate({ table: tables });
+      }
+    }
+  }, [actionSetup.connectionId, appSlug]);
 
   const getAppsList = useCallback(async () => {
     const apps = await getApps();
@@ -96,7 +114,16 @@ const AddActionModal = ({
       setAppSlug(slug);
       getConnectionsList(slug);
     }
-  }, [actionSetup.appId, appsList, getAppsList, getConnectionsList]);
+
+    processAirtable();
+  }, [
+    actionSetup.appId,
+    appSlug,
+    appsList,
+    getAppsList,
+    getConnectionsList,
+    processAirtable,
+  ]);
 
   const handleOnSelect = (value: string, name: string) => {
     setActionSetup({
@@ -136,6 +163,13 @@ const AddActionModal = ({
     setTemplate({
       ...template,
       [name]: e.target.value,
+    });
+  };
+
+  const handleAirtableConfig = (value: any, name: string, tables: any) => {
+    setTemplate({
+      [`${name}Id`]: value,
+      tables,
     });
   };
 
@@ -222,20 +256,63 @@ const AddActionModal = ({
           )}
           {isConnectionsExists && isActionExists && !isEmpty(taskTemplate) && (
             <>
-              {taskTemplate.map((templateField: string) => (
+              {map(taskTemplate, (templateField: any, templateFieldKey) => (
                 <div className="space-y-4 py-2 pb-4">
-                  <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
-                    Enter {startCase(templateField)}
-                  </span>
-                  <Input
-                    type="text"
-                    name={templateField}
-                    id={templateField}
-                    autoComplete={templateField}
-                    value={template[templateField] || ""}
-                    onChange={(e) => handleTemplateConfig(e, templateField)}
-                    required
-                  />
+                  {typeof templateField === "string" && (
+                    <>
+                      <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        Enter {startCase(templateFieldKey)}
+                      </span>
+                      <Input
+                        type="text"
+                        name={templateFieldKey}
+                        id={templateFieldKey}
+                        autoComplete={templateFieldKey}
+                        value={template[templateFieldKey] || ""}
+                        onChange={(e) =>
+                          handleTemplateConfig(e, templateFieldKey)
+                        }
+                        required
+                      />
+                    </>
+                  )}
+                  {templateField?.length > 0 && (
+                    <>
+                      {!isEmpty(templateField) && (
+                        <div className="space-y-4 py-2 pb-4">
+                          <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Select {startCase(templateFieldKey)}
+                          </span>
+                          <Select
+                            onValueChange={(value) =>
+                              handleAirtableConfig(
+                                value,
+                                templateFieldKey,
+                                templateField
+                              )
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={`Select ${startCase(
+                                  templateFieldKey
+                                )}`}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {templateField?.map(({ label, value }: any) => {
+                                return (
+                                  <SelectItem key={value} value={value}>
+                                    {startCase(label)}
+                                  </SelectItem>
+                                );
+                              })}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+                    </>
+                  )}
                 </div>
               ))}
             </>

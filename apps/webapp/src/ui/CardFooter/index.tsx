@@ -12,6 +12,7 @@ interface FooterProps {
   onClick?: React.MouseEvent | any;
   loading?: boolean;
   type?: string;
+  disabled?: boolean;
 }
 
 export default function CardFooter(props: FooterProps) {
@@ -23,6 +24,7 @@ export default function CardFooter(props: FooterProps) {
     onClick,
     loading,
     type = "button",
+    disabled,
   } = props;
   return (
     <div className="h-12 px-6 bg-slate-50 dark:bg-black flex justify-between items-center">
@@ -45,6 +47,7 @@ export default function CardFooter(props: FooterProps) {
           type={type}
           loading={loading}
           onClick={onClick}
+          disabled={disabled}
           className="flex justify-end rounded-none min-w-[80px] text-sm h-9"
         >
           {btnText}

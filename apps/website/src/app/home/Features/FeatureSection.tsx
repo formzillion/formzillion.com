@@ -7,7 +7,7 @@ export default function FeatureSection({
   description,
   action,
   illustration,
-  reverse
+  reverse,
 }: {
   className?: string;
   title: string;
@@ -17,11 +17,21 @@ export default function FeatureSection({
   reverse?: boolean;
 }) {
   return (
-    <div className={clsx("w-full max-w-7xl mt-40 mx-auto", className)}>
-      <div className={clsx("flex z-20", reverse ? "flex-wrap-reverse" : "flex-wrap", reverse ? "flex-row-reverse" : "flex-row", "justify-center")}>
-        <div className="basis-1 md:basis-1/2">
-          {illustration}
-        </div>
+    <div
+      className={clsx(
+        "w-full lg:max-w-3xl xl:max-w-7xl max-w-xs sm:max-w-md md:max-w-2xl border border-gray-900 rounded-xl p-5 xl:p-0 lg:border-none my-5 lg:mt-8 mx-auto",
+        className
+      )}
+    >
+      <div
+        className={clsx(
+          "lg:flex items-center z-20",
+          reverse ? "flex-wrap-reverse" : "flex-wrap",
+          reverse ? "flex-row-reverse" : "flex-row",
+          "justify-center"
+        )}
+      >
+        <div className="basis-1 md:basis-1/2">{illustration}</div>
         <div className="basis-1 md:basis-1/2">
           <FeatureDescription
             title={title}
@@ -31,5 +41,5 @@ export default function FeatureSection({
         </div>
       </div>
     </div>
-  )
+  );
 }
