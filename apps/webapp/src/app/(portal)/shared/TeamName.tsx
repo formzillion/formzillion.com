@@ -28,7 +28,7 @@ const TeamName = ({ selectedTeam }: any) => {
         className="flex items-center"
       >
         {selectedTeam?.label?.length >= 10 ? (
-          <div className="w-[150px] truncate text-base">
+          <div className="w-[100px] truncate text-base">
             {startCase(selectedTeam.label)}
           </div>
         ) : (

@@ -1,7 +1,7 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
 import { Card } from "@/ui/Card/SCard";
-import React from "react";
+import React, { useState } from "react";
 import { EllipsisVerticalIcon } from "@heroicons/react/24/solid";
 import {
   DropdownMenu,
@@ -14,6 +14,9 @@ import { capitalize, isEmpty } from "lodash";
 import Link from "next/link";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
+import { Dialog } from "@/ui/Dialog";
+import LoadingButton from "@/ui/Buttons";
+import CreateTeamDialog from "@/app/(portal)/shared/CreateTeamDialog";
 import Image from "next/image";
 
 function getTeamRoles(teams: any) {
@@ -38,6 +41,7 @@ function getTeamRoles(teams: any) {
 
 const TeamsList = ({ teams }: any) => {
   const router = useRouter();
+  const [showModal, setShowModal] = useState<any>(false);
   const parsedTeams = JSON.parse(teams);
   teams = getTeamRoles(parsedTeams);
 
@@ -60,9 +64,15 @@ const TeamsList = ({ teams }: any) => {
             <div className="p-4 px-6 divide-y divide-gray-300">
               <div className="flex justify-between items-center">
                 <div className="font-bold text-lg py-4">Teams</div>
-                <button className="p-2 text-sm border bg-orange-600 dark:border-orange-600 dark:text-white text-white hover:bg-transparent hover:text-black">
+                <LoadingButton
+                  onClick={() => setShowModal(true)}
+                  className="rounded-none pt-1 pb-1"
+                >
                   Create a Team
-                </button>
+                </LoadingButton>
+                  <Dialog open={showModal} onOpenChange={setShowModal}>
+                    <CreateTeamDialog setShowNewTeamDialog={setShowModal} />
+                  </Dialog>
               </div>
               <div>
                 {teams?.map((team: any, idx: number) => (
