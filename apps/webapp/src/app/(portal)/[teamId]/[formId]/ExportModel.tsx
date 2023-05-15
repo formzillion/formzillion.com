@@ -23,12 +23,32 @@ import {
 export default function ExportModal({ formId, closeModal }: any) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const [exportDays, setExportDays] = useState("");
 
-  const onClickCreateForm = async () => {
+  const onClickExport = async () => {
+    setLoading(true);
+    const res = await fetch(
+      `http://localhost:3011/formzillion/events`,
+      {
+        cache: "no-cache",
+        method: "POST",
+        body: JSON.stringify({
+          eventName: "export-submissions",
+          eventData: {
+            formId,
+            exportDays,
+          },
+        }),
+      }
+    );
+    setLoading(false);
+
     router.refresh();
   };
 
-  const handleOnSelect = (value: any) => {};
+  const handleOnSelect = (value: any) => {
+    setExportDays(value);
+  };
 
   const dateOptions: any = [
     {
@@ -90,7 +110,7 @@ export default function ExportModal({ formId, closeModal }: any) {
           <Button
             loading={loading}
             className="bg-orange-600 text-white rounded-none min-w-[80px]"
-            onClick={onClickCreateForm}
+            onClick={onClickExport}
             type="submit"
           >
             Export
