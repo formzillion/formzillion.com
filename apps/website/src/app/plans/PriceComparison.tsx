@@ -1,28 +1,29 @@
 import { Fragment } from "react";
 import { CheckIcon, MinusIcon } from "@heroicons/react/20/solid";
+import { startCase } from "lodash";
 
 const tiers: any = [
   {
     name: "Personal",
-    id: "tier-basic",
+    id: "basic",
     href: "#",
-    priceMonthly: "$9",
+    priceMonthly: "$10",
     description: "Quis suspendisse ut fermentum neque vivamus non tellus.",
     mostPopular: false,
   },
   {
     name: "Professional",
-    id: "tier-essential",
+    id: "essential",
     href: "#",
-    priceMonthly: "$29",
+    priceMonthly: "$22",
     description: "Quis eleifend a tincidunt pellentesque. A tempor in sed.",
     mostPopular: true,
   },
   {
     name: "Agency",
-    id: "tier-premium",
+    id: "premium",
     href: "#",
-    priceMonthly: "$59",
+    priceMonthly: "$100",
     description:
       "Orci volutpat ut sed sed neque, dui eget. Quis tristique non.",
     mostPopular: false,
@@ -37,36 +38,20 @@ const sections: any = [
         tiers: { Basic: true, Essential: true, Premium: true },
       },
       {
-        name: "Shared links",
-        tiers: { Basic: true, Essential: true, Premium: true },
-      },
-      {
         name: "Importing and exporting",
         tiers: { Essential: true, Premium: true },
       },
       {
-        name: "Team members",
+        name: "Collaboration",
         tiers: { Essential: "Up to 20 users", Premium: "Up to 50 users" },
       },
-    ],
-  },
-  {
-    name: "Reporting",
-    features: [
-      {
-        name: "Advanced analytics",
-        tiers: { Basic: true, Essential: true, Premium: true },
-      },
-      { name: "Basic reports", tiers: { Essential: true, Premium: true } },
-      { name: "Professional reports", tiers: { Premium: true } },
-      { name: "Custom report builder", tiers: { Premium: true } },
     ],
   },
   {
     name: "Support",
     features: [
       {
-        name: "24/7 online support",
+        name: "Online support",
         tiers: { Basic: true, Essential: true, Premium: true },
       },
       {
@@ -113,11 +98,11 @@ export default function PriceComparison() {
             >
               <h3
                 id={tier.id}
-                className="text-sm font-semibold leading-6 text-white"
+                className="text-lg font-semibold leading-6 text-white"
               >
                 {tier.name}
               </h3>
-              <p className="mt-2 flex items-baseline gap-x-1 text-white">
+              <p className="mt-2 flex items-baseline justify-center gap-x-1 text-white">
                 <span className="text-4xl font-bold">{tier.priceMonthly}</span>
                 <span className="text-sm font-semibold">/month</span>
               </p>
@@ -141,7 +126,7 @@ export default function PriceComparison() {
                   <li key={section.name}>
                     <ul role="list" className="space-y-4">
                       {section.features.map((feature: any) =>
-                        feature.tiers[tier.name] ? (
+                        feature.tiers[startCase(tier.id)] ? (
                           <li key={feature.name} className="flex gap-x-3">
                             <CheckIcon
                               className="h-6 w-5 flex-none text-orange-600"
@@ -149,9 +134,10 @@ export default function PriceComparison() {
                             />
                             <span>
                               {feature.name}{" "}
-                              {typeof feature.tiers[tier.name] === "string" ? (
+                              {typeof feature.tiers[startCase(tier.id)] ===
+                              "string" ? (
                                 <span className="text-sm leading-6 text-white">
-                                  ({feature.tiers[tier.name]})
+                                  ({feature.tiers[startCase(tier.id)]})
                                 </span>
                               ) : null}
                             </span>
@@ -199,7 +185,7 @@ export default function PriceComparison() {
                       scope="col"
                       className="px-6 pt-6 xl:px-8 xl:pt-8"
                     >
-                      <div className="text-sm font-semibold leading-7 text-white">
+                      <div className="text-lg font-semibold leading-7 text-center text-white">
                         {tier.name}
                       </div>
                     </th>
@@ -213,7 +199,7 @@ export default function PriceComparison() {
                   </th>
                   {tiers.map((tier: any) => (
                     <td key={tier.id} className="px-6 pt-2 xl:px-8">
-                      <div className="flex items-baseline gap-x-1 text-white">
+                      <div className="flex items-baseline justify-center gap-x-1 text-center text-white">
                         <span className="text-4xl font-bold">
                           {tier.priceMonthly}
                         </span>
@@ -242,36 +228,39 @@ export default function PriceComparison() {
                         scope="colgroup"
                         colSpan={4}
                         className={classNames(
-                          sectionIdx === 0 ? "pt-8" : "pt-16",
-                          "pb-4 text-sm font-semibold leading-6 text-white"
+                          sectionIdx === 0 ? "pt-8" : "pt-8",
+                          "text-base font-semibold leading-6 text-white"
                         )}
                       >
                         {section.name}
-                        <div className="absolute inset-x-8 mt-4 h-px bg-black/10" />
+                        <div className="absolute inset-x-8 h-px bg-black/10" />
                       </th>
                     </tr>
                     {section.features.map((feature: any) => (
                       <tr key={feature.name}>
                         <th
                           scope="row"
-                          className="py-4 text-sm font-normal leading-6 text-white"
+                          className=" text-sm font-normal leading-6 text-gray-400"
                         >
                           {feature.name}
-                          <div className="absolute inset-x-8 mt-4 h-px bg-black/5" />
+                          <div className="absolute inset-x-8 h-px bg-black/5" />
                         </th>
                         {tiers.map((tier: any) => (
-                          <td key={tier.id} className="py-4 px-6 xl:px-8">
-                            {typeof feature.tiers[tier.name] === "string" ? (
+                          <td key={tier.id} className="px-6 xl:px-8">
+                            {typeof feature.tiers[startCase(tier.id)] ===
+                            "string" ? (
                               <div className="text-center text-sm leading-6 text-white">
-                                {feature.tiers[tier.name]}
+                                {feature.tiers[startCase(tier.id)]}
                               </div>
                             ) : (
                               <>
-                                {feature.tiers[tier.name] === true ? (
-                                  <CheckIcon
-                                    className="mx-auto h-5 w-5 text-orange-600"
-                                    aria-hidden="true"
-                                  />
+                                {feature.tiers[startCase(tier.id)] === true ? (
+                                  <>
+                                    <CheckIcon
+                                      className="mx-auto h-5 w-5 text-orange-600"
+                                      aria-hidden="true"
+                                    />
+                                  </>
                                 ) : (
                                   <MinusIcon
                                     className="mx-auto h-5 w-5 text-white"
@@ -280,7 +269,7 @@ export default function PriceComparison() {
                                 )}
 
                                 <span className="sr-only">
-                                  {feature.tiers[tier.name] === true
+                                  {feature.tiers[startCase(tier.id)] === true
                                     ? "Included"
                                     : "Not included"}{" "}
                                   in {tier.name}
