@@ -41,7 +41,7 @@ export default async function handler(
 
     const { email, teamSlug } = stateParams;
 
-    const requiredData = await callbackHelper({
+    const requiredData: any = await callbackHelper({
       email,
       teamSlug,
       appSlug,
