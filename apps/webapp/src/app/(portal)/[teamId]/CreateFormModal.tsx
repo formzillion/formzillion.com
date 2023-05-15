@@ -39,10 +39,9 @@ export default function CreateFormModal({ isOpen, closeModal, teamSlug }: any) {
 
         if (jsonResponse.success === true) {
           setLoading(false);
+          router.refresh();
           closeModal();
           showSuccessToast("Form created successfully!");
-          const formId = jsonResponse?.data?.id;
-          router.push(`${teamSlug}/${formId}`);
         } else {
           setLoading(false);
           showErrorToast("Form creation failed! make sure you are in a team.");
