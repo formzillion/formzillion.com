@@ -1,14 +1,10 @@
-import Image from "next/image";
 import {
   ShieldCheckIcon,
   EnvelopeIcon,
   ShareIcon,
   ListBulletIcon,
 } from "@heroicons/react/24/solid";
-import formExaple from "public/screenshots/formExample.png";
 import ThirdPartyApps from "./ThirdPartyApps";
-import DotGrid from "../FeaturesOverview/DotGrid";
-import DotGridBottom from "../FeaturesOverview/DotGridBottom";
 
 const fertures = [
   {
@@ -20,7 +16,7 @@ const fertures = [
   {
     title: "Email notifications and automatic responses are dispatched.",
     subtitle:
-      "Responsiveness through Automated Email Notifications and Auto-Responses",
+      "Responsiveness through automated email notifications and auto-responses",
     icon: <EnvelopeIcon className="w-8 text-yellow-500" />,
   },
   {
@@ -29,7 +25,7 @@ const fertures = [
     icon: <ListBulletIcon className="w-8" />,
   },
   {
-    title: "3rd party integrations come into action.",
+    title: "Third party integrations come into action.",
     subtitle:
       "We eliminate the need for Zapier like application by utilizing our direct integrations to effortlessly transport your data to its intended destination.",
     icon: <ShareIcon className="w-8 text-blue-500" />,
@@ -37,42 +33,37 @@ const fertures = [
 ];
 const FeaturesOverviewNew = () => {
   return (
-    <section className="py-16 lg:max-w-5xl xl:max-w-6xl max-w-sm sm:max-w-xl md:max-w-2xl mx-auto">
+    <section className="py-16 lg:max-w-3xl  max-w-sm sm:max-w-xl md:max-w-2xl mx-auto">
       <div className="mb-4 text-center">
-        <h1 className="text-4xl mb-2">
-          Here’s how we make your work a breeze...
-        </h1>
+        <h1 className="text-4xl mb-2">How it works</h1>
         <p className="text-gray-400">
           Once your form is submitted using JavaScript forms or HTML forms, the
           following events occur
         </p>
       </div>
-      <div className=" grid grid-cols-1 lg:grid-cols-5 relative mt-5 gap-5">
-        <div className=" lg:col-span-2">
-          <div className=" flex justify-center items-center   border-gray-500 rounded w-full h-full">
-            <Image src={formExaple} alt={"formExaple"} className="" />
-          </div>
-        </div>
-        <div className=" lg:col-span-3">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {fertures.map((ferture, idx) => (
-              <div
-                key={idx}
-                className="p-2 border rounded border-gray-900 space-y-4 hover-border"
-              >
-                <div className="bg-black px-4 py-8 rounded relative z-10 h-full p-4">
+      <div className=" lg:col-span-3 mt-5">
+        <div className=" space-y-5">
+          {fertures.map((ferture, idx) => (
+            <div
+              key={idx}
+              className="p-2 border rounded border-gray-900 space-y-4 hover-border"
+            >
+              <div className="bg-black p-4 rounded relative z-10 h-full space-y-5">
+                <div className=" flex space-x-5">
                   {ferture.icon}
                   <div>
-                    <h2 className="text-lg my-1 ">{ferture.title}</h2>
+                    <h2 className="text-lg my-1 font-semibold ">
+                      {idx + 1}. {ferture.title}
+                    </h2>
                     <p className="text-gray-400 text-sm">{ferture.subtitle}</p>
                   </div>
                 </div>
+                {idx === 3 ? <ThirdPartyApps /> : ""}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-      <ThirdPartyApps />
     </section>
   );
 };
