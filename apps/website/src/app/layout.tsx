@@ -25,7 +25,7 @@ export default async function RootLayout({
       <body className="overflow-x-hidden">
         <Header />
         <DisclosureNav />
-        <main>{children}</main>
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <Analytics />
       </body>
