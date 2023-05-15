@@ -7,14 +7,14 @@ const faqs = [
       "We prioritize the privacy and security of your data on Formzillion, both for our valued customers and our organization. We are committed to implementing the highest standards of security measures. You can review our Security policy by visiting this link.",
   },
   {
-    title: "How do I go about upgrading my account to premium?",
+    title: "How do I go about upgrading my account to Agency plan?",
     description:
-      "We provide three distinct premium packages tailored to varying levels of requirements. You have the freedom to choose the package that best suits your needs, and with the convenience of your credit card, you can initiate your premium subscription.",
+      "We provide three distinct subscription packages tailored to varying levels of requirements. You have the freedom to choose the package that best suits your needs, and with the convenience of your credit card, you can initiate your subscription.",
   },
   {
-    title: "Is it possible to cancel my premium plan at any time?",
+    title: "Is it possible to cancel my subscription plan at any time?",
     description:
-      "Absolutely! There are no limitations when it comes to downgrading your account. You can effortlessly switch from any premium package to a free one or transition between different premium plans. It's important to note that once we receive your downgrade request, you will continue to enjoy the benefits and features of your premium package until the next billing period.",
+      "Absolutely! There are no limitations when it comes to downgrading your account. You can effortlessly switch from any premium package to a free one or transition between different subscription plans. It's important to note that once we receive your downgrade request, you will continue to enjoy the benefits and features of your subscription package until the next billing period.",
   },
   {
     title: "How is my card information stored by you?",
