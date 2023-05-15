@@ -42,7 +42,10 @@ export default function OpenSource() {
         <p className="text-base lg:text-xl px-4 lg:px-0">
           Join us in creating the most extensive Formzillion community on the
           internet. <br /> Explore{" "}
-          <a href="#" className="text-orange-400 underline">
+          <a
+            href="https://github.com/orgs/formzillion/projects/1"
+            className="text-orange-400 underline"
+          >
             our Roadmap
           </a>{" "}
           and share your thoughts by leaving comments!
