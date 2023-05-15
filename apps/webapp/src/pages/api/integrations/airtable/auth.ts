@@ -3,6 +3,7 @@ import { isEmpty } from "lodash";
 import crypto from "crypto";
 import qs from "querystring";
 
+import prisma from "@/lib/prisma";
 import callBackHelper from "@/lib/integrationsCallbackHelper";
 
 const appSlug = "airtable";
