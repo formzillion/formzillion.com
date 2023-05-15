@@ -23,7 +23,7 @@ const AddMember = ({ teamSlug }: any) => {
   };
 
   const handleAddMember = async () => {
-    if (email.length < 5) {
+    if (email.length > 5) {
       setLoading(true);
       const res = await addMember({ emailsToInvite: email, teamSlug, role });
       if (res.success) {

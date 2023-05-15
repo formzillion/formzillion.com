@@ -3,21 +3,26 @@ import TeamName from "./TeamName";
 import TeamUrl from "./TeamUrl";
 import LeaveTeam from "./LeaveTeam";
 import DeleteTeam from "./DeleteTeam";
-import prisma from "@/lib/prisma";
 import Avatar from "./Avatar";
+import { getUserDetail } from "@/utils/getUserDetail";
+import { get } from "lodash";
 
 const settingSections = [TeamName, TeamUrl, Avatar];
 
 const TeamsPage = async ({ params }: any) => {
   const { teamId: teamSlug } = params;
+  const user: any = await getUserDetail();
+  const teams = user?.teams?.filter((team: any) => team.slug === teamSlug);
+  const personalAccount = user?.teams?.filter(
+    (team: any) => team.type === "personal"
+  );
+
   if (teamSlug === "dashboard") {
     return <>You should be in a team to Access this page</>;
   }
-  const teams = await prisma.teams.findUniqueOrThrow({
-    where: { slug: teamSlug },
-  });
 
-  const serializedTeams = JSON.stringify(teams);
+  const serializedTeams = JSON.stringify(get(teams, "0", {}));
+  const serializedAccount = JSON.stringify(personalAccount);
   return (
     <div className="space-y-4">
       {settingSections.map((Section, idx: number) => (
@@ -27,8 +32,14 @@ const TeamsPage = async ({ params }: any) => {
           </div>
         </div>
       ))}
-      <LeaveTeam teamSlug={serializedTeams} />
-      <DeleteTeam teamSlug={serializedTeams} />
+      <LeaveTeam
+        teamSlug={serializedTeams}
+        personalAccount={serializedAccount}
+      />
+      <DeleteTeam
+        teamSlug={serializedTeams}
+        personalAccount={serializedAccount}
+      />
     </div>
   );
 };

@@ -14,11 +14,17 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
 import { Input } from "@/ui/Input/SimpleInput";
 import { showErrorToast } from "@/ui/Toast/Toast";
+import { get } from "lodash";
 
-export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
+export default function DeleteTeamModal({
+  closeModal,
+  teamSlug,
+  personalAccount,
+}: any) {
   const router = useRouter();
   const [isConfirmed, setIsConfirmed] = useState("");
-
+  const userAcc = JSON.parse(personalAccount);
+  const userSlug = get(userAcc, "0.slug", "");
   const onClickDeleteTeam = () => {
     if (isConfirmed === teamSlug.name) {
       updateTeam({
@@ -27,7 +33,7 @@ export default function DeleteTeamModal({ closeModal, teamSlug }: any) {
         type: "deleteTeam",
       });
       closeModal();
-      router.push("/register");
+      router.push(`/${userSlug}`);
     } else {
       showErrorToast("Please type-in the correct team name");
     }
