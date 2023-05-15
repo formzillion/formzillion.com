@@ -17,13 +17,12 @@ export default function HeroLeft() {
     <div className="flex relative justify-center items-center text-white text-center w-full h-full mx-auto max-w-6xl">
       <div className="flex items-start w-full h-full mt-10 sm:mt-16">
         <div className="gap-6 flex flex-col items-center">
-          <h1 className="font-bold m-0 text-xl sm:text-3xl md:text-4xl lg:text-6xl leading-[normal]">
-            Instant backend for all your forms.
+          <h1 className="font-bold m-0 py-4 text-2xl sm:text-3xl lg:text-5xl leading-[normal]">
+            Open source headless forms.
           </h1>
           <p className="text-base sm:text-xl leading-normal px-12 sm:px-28">
-            Retain full control over the look and feel of your forms. Let us
-            handle the rest, including scaling, security, integrations,
-            collaboration and automations.
+            Instant backend for all your forms while maintaining complete
+            control over their appearance and style.
           </p>
           <div>
             <Link
