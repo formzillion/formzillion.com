@@ -1,10 +1,10 @@
 import React from "react";
 
-import CTABanner from "./home/CTABanner";
 import HeroSection from "./home/WaitlistHeroSection/HeroSection";
 import OpenSource from "./home/OpenSource";
 import FeaturesOverviewNew from "./home/FeaturesOverviewNew";
 import FeaturesTab from "./home/Features/FeaturesTab";
+import CTASection from "./shared/CTASection";
 
 export default function page() {
   return (
@@ -13,7 +13,7 @@ export default function page() {
       <FeaturesTab />
       <FeaturesOverviewNew />
       <OpenSource />
-      <CTABanner />
+      <CTASection />
 
       {/*<SeeItInAction />
       <div className="bg-white features-section">
