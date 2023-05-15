@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/ui/DropdownMenu";
 import { Button } from "@/ui/Buttons/SButton";
-import Filter from "./Search";
+import Search from "./Search";
 
 export default function Index({
   checkedIds,
@@ -83,7 +83,7 @@ export default function Index({
       </div>
 
       {submissions?.length > 0 && (
-        <Filter
+        <Search
           setSearchTerm={setSearchTerm}
           setFilterType={setFilterType}
           searchTerm={searchTerm}

@@ -29,7 +29,7 @@ let name;
    console.log("error")
   }
 
-
+const excludeFields = ["name", "email", "message"];
   return (
     <>
       <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
@@ -79,7 +79,7 @@ let name;
           </div>
         </div>
 
-        <div className="col-span-3 space-y-2 flex justify-center ml-36">
+        <div className="col-span-3 space-y-2 flex justify-center ">
           <div>
             <div className="flex flex-row space-x-2">
               <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
@@ -89,7 +89,7 @@ let name;
             <div>
               {showMore
                 ? fields.message
-                : `${fields?.message?.substring(0, 100)}...`}
+                : `${fields?.message?.substring(0, 50)}...`}
               <div>
                 <button
                   className="btn underline"
@@ -101,8 +101,19 @@ let name;
             </div>
           </div>
         </div>
-        <div className="col-span-2 text-end relative">
-          <div className="w-full mb-3">
+        <div className="space-y-2 flex flex-col justify-center ml-4">
+          {Object.entries(fields)
+            .filter(([key, value]: any) => !excludeFields.includes(key))
+            .map(([key, value]: any) => (
+              <div key={key} className="ml-4 flex flex-row space-x-2">
+                <p className="text-black">{key}:</p>
+                <p className="text-gray-500">{value}</p>
+              </div>
+            ))}
+        </div>
+
+        <div className=" text-end relative">
+          <div className="w-full ">
             <span className="inline-flex items-center rounded-full bg-orange-500 px-2 py-0.5 text-xs font-medium text-gray-100">
               New
             </span>

@@ -35,33 +35,36 @@ function App({ testData }: any) {
   return (
     <form className="App" autoComplete="off">
       <div className="form-field">
-        <label
-          htmlFor="fields"
-          className="block text-sm font-medium text-gray-700 dark:text-gray-400"
-        >
-          Add Fields
-        </label>
         {dynamicValues.map((item, index) => (
-          <div key={index} className="mb-4 ml-24">
-            <div className="grid grid-cols-5 space-x-4">
-              <Input
-                name={`keyName${index}`}
-                type="text"
-                value={item.keyName || ""}
-                onChange={(e) => handleServiceChange(e, index)}
-                required
-                className="col-span-1 h-10"
-              />
+          <div key={index} className="mb-4 flex flex-row ">
 
-              <Input
-                name={`keyValue${index}`}
-                type="text"
-                value={item.keyValue || ""}
-                onChange={(e) => handleServiceChange(e, index)}
-                required
-                className="col-span-3 h-10 ml-4"
-              />
-              <div className="col-span-1 flex items-center justify-center">
+              <label
+                htmlFor="fields"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-400 mt-2 "
+              >
+                Add Fields
+              </label>
+
+                <div className="flex flex-row  ">
+                  <Input
+                    name={`keyName${index}`}
+                    type="text"
+                    value={item.keyName || ""}
+                    onChange={(e) => handleServiceChange(e, index)}
+                    required
+                    className="col-span-1 h-10 ml-[162px]"
+                  />
+
+                  <Input
+                    name={`keyValue${index}`}
+                    type="text"
+                    value={item.keyValue || ""}
+                    onChange={(e) => handleServiceChange(e, index)}
+                    required
+                    className="col-span-3 h-10 ml-4 "
+                  />
+              </div>
+              <div className="space-x-2">
                 {dynamicValues.length - 1 === index &&
                 dynamicValues.length < 50 ? (
                   <button
@@ -86,7 +89,6 @@ function App({ testData }: any) {
                 )}
               </div>
             </div>
-          </div>
         ))}
       </div>
     </form>
