@@ -29,7 +29,7 @@ export default function GithubStar() {
 
   return (
     <div
-      className={`border border-gray-800 rounded hidden lg:flex space-x-4 py-1 px-3 items-center ${
+      className={`border border-gray-800 rounded hidden lg:flex space-x-4 py-1 px-3 items-center text-sm ${
         starBox === false && "lg:hidden"
       }`}
     >

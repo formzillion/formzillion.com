@@ -74,7 +74,7 @@ const Avatar = ({ teamSlug }: any) => {
               <Image
                 src={!isEmpty(base64Image) ? base64Image : avatar}
                 alt="err"
-                className="h-20 w-20 rounded-full"
+                className="h-20 w-20 border border-gray-200 dark:border-gray-800 object-contain rounded-full"
                 height={20}
                 width={20}
               />

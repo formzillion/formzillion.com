@@ -71,11 +71,13 @@ async function updateTeamSlug(teamSlug: string, newSlug: string) {
 }
 
 async function leaveTeam(teamSlug: string, userId: string) {
-  await prisma.memberships.deleteMany({
-    where: {
-      AND: [{ userId: userId }, { teamId: teamSlug }],
-    },
-  });
+  if (teamSlug && userId) {
+    await prisma.memberships.deleteMany({
+      where: {
+        AND: [{ userId: userId }, { teamId: teamSlug }],
+      },
+    });
+  }
   return await prisma.teams.update({
     where: { slug: teamSlug },
     data: {
@@ -95,11 +97,13 @@ async function deleteTeam(teamSlug: string) {
       forms: true,
     },
   });
-  await prisma.forms.deleteMany({
-    where: {
-      teamId: team.id,
-    },
-  });
+  if (team.id) {
+    await prisma.forms.deleteMany({
+      where: {
+        teamId: team.id,
+      },
+    });
+  }
   return await prisma.teams.delete({
     where: {
       slug: teamSlug,
@@ -116,11 +120,13 @@ async function deleteAccount(teamSlug: string, userId: string) {
       forms: true,
     },
   });
-  await prisma.forms.deleteMany({
-    where: {
-      teamId: team.id,
-    },
-  });
+  if (team.id) {
+    await prisma.forms.deleteMany({
+      where: {
+        teamId: team.id,
+      },
+    });
+  }
   await prisma.users.delete({
     where: {
       id: userId,
@@ -142,10 +148,13 @@ async function removeMember(teamSlug: string, teamName: string) {
       },
     },
   });
-
-  return await prisma.memberships.deleteMany({
-    where: { teamId: updatedTeam.id, userId: teamName },
-  });
+  if (updatedTeam.id) {
+    return await prisma.memberships.deleteMany({
+      where: { teamId: updatedTeam.id, userId: teamName },
+    });
+  } else {
+    return;
+  }
 }
 
 async function updateAvatar(teamSlug: string, avatar: string) {

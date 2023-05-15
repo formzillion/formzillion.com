@@ -1,7 +1,5 @@
 import React from "react";
 
-import SpamFiltersIllustration from "./home/Features/SpamFilters/SpamFiltersIllustration";
-import RedirectsIllustration from "./home/Features/Redirects/RedirectsIllustration";
 import CTABanner from "./home/CTABanner";
 import HeroSection from "./home/WaitlistHeroSection/HeroSection";
 import OpenSource from "./home/OpenSource";
@@ -12,8 +10,8 @@ export default function page() {
   return (
     <>
       <HeroSection />
-      <FeaturesOverviewNew />
       <FeaturesTab />
+      <FeaturesOverviewNew />
       <OpenSource />
       <CTABanner />
 

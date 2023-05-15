@@ -1,6 +1,7 @@
 "use client";
 import { Tab } from "@headlessui/react";
 import {
+  ArrowRightIcon,
   ArrowTopRightOnSquareIcon,
   PuzzlePieceIcon,
   ShieldCheckIcon,
@@ -95,9 +96,10 @@ export default function FeaturesTab() {
                   <p className="text-base">{posts.description}</p>
                   <a
                     href={posts.url}
-                    className="flex justify-center items-center text-white text-left font-bold w-[210px] h-12 md:h-[60px] bg-orange-600 hover:bg-orange-800"
+                    className="flex items-center text-orange-600 text-lg"
                   >
                     Learn More
+                    <ArrowRightIcon className="h-4 w-4 ml-1" />
                   </a>
                 </div>
               </div>

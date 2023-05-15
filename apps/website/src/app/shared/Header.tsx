@@ -22,8 +22,8 @@ const NavLink = (props: navProps) => {
 
 export default function Header() {
   return (
-    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden">
-      <div className="mx-auto max-w-7xl flex justify-between p-2 h-[60px]">
+    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden border-b border-gray-800">
+      <div className="mx-auto max-w-7xl flex justify-between py-2 h-[60px]">
         <div className="flex items-center space-x-8">
           <div>
             <AppLogo />
@@ -34,7 +34,7 @@ export default function Header() {
         </div>
         <GithubStar />
         <div className="flex items-center space-x-4">
-          <NavLink url={"/plans"} title={"Pricing"} />
+          <NavLink url={"/pricing"} title={"Pricing"} />
           <div className="border-r py-4 border-gray-800"></div>
           <NavLink
             url={`${process.env.NEXT_PUBLIC_APP_URL}/login`}
@@ -42,7 +42,7 @@ export default function Header() {
           />
           <a
             href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
-            className="bg-orange-600 text-orange-50 px-6 py-2 rounded hover:bg-orange-700"
+            className="bg-orange-600 text-orange-50 px-4 py-1.5 rounded hover:bg-orange-700"
           >
             Sign up
           </a>
