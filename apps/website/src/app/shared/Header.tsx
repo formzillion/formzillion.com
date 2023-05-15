@@ -42,7 +42,7 @@ export default function Header() {
           />
           <a
             href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
-            className="bg-orange-600 text-orange-50 px-6 py-2 rounded hover:bg-orange-700"
+            className="bg-orange-600 text-orange-50 px-4 py-1.5 rounded hover:bg-orange-700"
           >
             Sign up
           </a>
