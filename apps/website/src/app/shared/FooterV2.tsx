@@ -111,7 +111,7 @@ export default function Footer() {
     <div className="relative border-t border-gray-950">
       <BlurDotGridBottom />
       <div className="grid grid-cols-3 mx-auto max-w-6xl mt-8 text-white px-3">
-        <div className="font-medium col-span-3 md:col-span-1">
+        <div className="col-span-3 md:col-span-1">
           <AppLogo />
           <div className="text-sm lg:text-base mt-3 ">
             <p className="leading-normal ">

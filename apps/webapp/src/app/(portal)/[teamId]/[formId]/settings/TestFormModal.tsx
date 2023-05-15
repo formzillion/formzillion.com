@@ -13,7 +13,7 @@ import DynamicField from "../DynamicFields";
 export default function TestFormModal({ formId, closeModal }: any) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [test, testData] = useState<any>();
+  const [test, testData] = useState<any>([]);
   const [submitCount, setSubmitCount] = useState(1);
   const [formValues, setFormValues] = useState<any>({
     name: randFullName({ withAccents: false }),
@@ -21,11 +21,11 @@ export default function TestFormModal({ formId, closeModal }: any) {
     message: randQuote(),
   });
 
-  let response = "";
-  for (let i = 0; i < test?.length; i++) {
-    const { keyName, keyValue } = test[i];
-    response += `${keyName}:${keyValue} `;
-  }
+  let dynamicFields: any = {};
+  test.forEach(
+    (field: any) =>
+      (dynamicFields[field.keyName?.toLowerCase()] = field.keyValue)
+  );
 
   const onClickTestForm = async () => {
     try {
@@ -35,19 +35,18 @@ export default function TestFormModal({ formId, closeModal }: any) {
         name: randFullName({ withAccents: false }),
         email: randEmail(),
         message: randQuote(),
-        response,
       }));
 
       if (submitCount === 1) {
         const formData = new FormData();
-        const currentValues = { ...formValues, response };
+        const currentValues = { ...formValues, ...dynamicFields };
         for (const key in currentValues) {
           formData.append(key, currentValues[key]);
         }
         await fetch(`/f/${formId}`, { method: "POST", body: formData });
       } else {
         for (const formValues of formSubmissionValues) {
-          const currentValues: any = { ...formValues };
+          const currentValues: any = { ...formValues, ...dynamicFields };
           const formData = new FormData();
           for (const key in formValues) {
             formData.append(key, currentValues[key]);

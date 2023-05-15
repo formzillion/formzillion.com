@@ -3,6 +3,7 @@ import { isEmpty } from "lodash";
 import crypto from "crypto";
 import qs from "querystring";
 
+import prisma from "@/lib/prisma";
 import callBackHelper from "@/lib/integrationsCallbackHelper";
 
 const appSlug = "airtable";
@@ -96,7 +97,7 @@ export default async function handler(
 
       const { email, teamSlug } = stateParams;
 
-      const requiredData = await callBackHelper({
+      const requiredData: any = await callBackHelper({
         email,
         teamSlug,
         appSlug,
@@ -122,7 +123,7 @@ export default async function handler(
         },
       };
 
-      if (requiredData.connectionId) {
+      if (!isEmpty(requiredData.connectionId)) {
         await prisma.connections.update({
           where: { id: requiredData.connectionId },
           data: connectionData,
@@ -135,10 +136,10 @@ export default async function handler(
 
       return res.send("<script>window.close();</script>");
     }
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ success: false, message: JSON.stringify(error, null, 2) });
+  } catch (error: any) {
+    // TODO: Remove this console after debugging
+    console.log("Error from airable/auth : ", error);
+    return res.status(500).json({ success: false, message: error.message });
   }
 }
 
