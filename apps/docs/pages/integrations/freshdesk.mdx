@@ -1,3 +1,39 @@
 # Freshdesk
 
 Integrate your forms with Freshdesk, a popular customer support software. Automatically create support tickets or trigger specific actions based on form submissions. Streamline your support processes, provide timely responses, and ensure exceptional customer service.
+
+## Setting up Freshdesk Integration
+
+To add the new workflow action for form submissions to create a ticket on Freshdesk, follow these steps:
+
+1.  Make sure you have an account on Freshdesk if not please visit [Freshdesk](https://www.freshworks.com/freshdesk/signup) and sign up.
+2.  Get the API Key by following the Freshdesk guide [How to find your API key](https://support.freshdesk.com/en/support/solutions/articles/215517-how-to-find-your-api-key).
+3.  Log in to your dashboard and navigate to the “**Apps**” Tab.
+4.  Click on Freshdesk “**Connect**”. This will bring an window for you to add the name of the connection and Freshdesk Sub Domian, Freshdesk API Key and CC Emails seprared by commas(",")
+5.  Please enter the “**Connection Name**” , "**Freshdesk Sub Domain**" and “**API Key**” and click “**Add**”.
+
+![](/integrations/freshdesk/auth.png)
+
+**Note:** Your Freshdeks Sub Domain can be found after you login. Take a look in the below Screenshot with Yellow Marking.
+
+![](/integrations/freshdesk/auth1.png)
+
+6.  Now navigate to the “**Forms**” tab and select the form for which you want to set up Freshdesk workflow.
+7.  Under the selected form page navigate to the “**Workflows**” Tab
+8.  Under the workflows click on the “**Actions**” and select “**Add action**” this will bring up a new window.
+9.  Here select the App as “**Freshdesk**” and Connection which was connected previously and "**Create Ticket**" as an action.
+10. After Selecting all the options click on “**Add**” and test the Freshdesk workflow action by submitting a test form on your website and verify the ticket created in Freshdesk.
+
+## Deleting the Freshdesk Workflow
+
+If you no logger required the Freshdesk workflow you can delete the workflow by following these steps:
+
+1.  Navigate to the the “**Workflow**” tab under the selected form
+2.  Click on the Tree Dots(...) icon to delete the workflow.
+
+## Troubleshooting Freshdesk Workflow.
+
+If you encounter any issues with Freshdesk workflow, such as ticket not being created, you can troubleshoot the issue by:
+
+- Reconnecting the Freshdesk connection by clicking the reconnect button under the “Apps” tab and entering the “**Connection Name**” "**Freshdesk Sub Domain**", and “**API Key**”.
+- Test the workflow by submitting the test submission on the form.
