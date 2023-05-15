@@ -60,8 +60,8 @@ const TeamsList = ({ teams }: any) => {
     <>
       {!isEmpty(teams) && (
         <div className="space-y-5">
-          <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
-            <div className="p-4 px-6 divide-y divide-gray-300">
+          <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black dark:divide-gray-800">
+            <div className="p-4 px-6 divide-y divide-gray-100 dark:divide-black">
               <div className="flex justify-between items-center">
                 <div className="font-bold text-lg py-4">Teams</div>
                 <LoadingButton
@@ -70,9 +70,9 @@ const TeamsList = ({ teams }: any) => {
                 >
                   Create a Team
                 </LoadingButton>
-                  <Dialog open={showModal} onOpenChange={setShowModal}>
-                    <CreateTeamDialog setShowNewTeamDialog={setShowModal} />
-                  </Dialog>
+                <Dialog open={showModal} onOpenChange={setShowModal}>
+                  <CreateTeamDialog setShowNewTeamDialog={setShowModal} />
+                </Dialog>
               </div>
               <div>
                 {teams?.map((team: any, idx: number) => (

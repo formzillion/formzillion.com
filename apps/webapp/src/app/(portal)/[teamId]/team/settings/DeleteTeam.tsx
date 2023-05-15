@@ -5,7 +5,7 @@ import Header from "@/ui/Header";
 import DeleteTeamModal from "./DeleteTeamModal";
 import Heading from "./Heading";
 
-const DeleteTeam = ({ teamSlug }: any) => {
+const DeleteTeam = ({ teamSlug, personalAccount }: any) => {
   const parsedTeam = JSON.parse(teamSlug);
   const [showModal, setShowModal] = useState<any>(false);
   return (
@@ -36,6 +36,7 @@ const DeleteTeam = ({ teamSlug }: any) => {
             setShowModal(false);
           }}
           teamSlug={parsedTeam}
+          personalAccount={personalAccount}
         />
       )}
     </div>
