@@ -13,7 +13,7 @@ const headerItems = [
   },
   {
     title: "Pricing",
-    href: "/plans",
+    href: "/pricing",
   },
 ];
 

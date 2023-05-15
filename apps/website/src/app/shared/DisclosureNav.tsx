@@ -17,7 +17,7 @@ const navigation = [
   },
   {
     name: "Pricing",
-    href: "/plans",
+    href: "/pricing",
     current: true,
     icon: <BanknotesIcon className="inline h-4 w-4 text-gray-300" />,
   },
