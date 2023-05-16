@@ -9752,7 +9752,7 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /next-sitemap@4.0.9(@next/env@13.3.0)(next@13.3.0):
+  /next-sitemap@4.0.9(@next/env@13.3.0)(next@13.2.0):
     resolution: {integrity: sha512-8pbcEe4vrmgGEc3beVbrSqd8mTQ9lCsGxP+AOlArrGmeLkKD4TbSR41R2unQHHSTkBG8cQ/7gjKkdLBlzwtu6g==}
     engines: {node: '>=14.18'}
     hasBin: true
@@ -9764,6 +9764,20 @@ packages:
       '@next/env': 13.3.0
       minimist: 1.2.8
       next: 13.2.0(@babel/core@7.21.8)(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /next-sitemap@4.0.9(@next/env@13.3.0)(next@13.3.0):
+    resolution: {integrity: sha512-8pbcEe4vrmgGEc3beVbrSqd8mTQ9lCsGxP+AOlArrGmeLkKD4TbSR41R2unQHHSTkBG8cQ/7gjKkdLBlzwtu6g==}
+    engines: {node: '>=14.18'}
+    hasBin: true
+    peerDependencies:
+      '@next/env': '*'
+      next: '*'
+    dependencies:
+      '@corex/deepmerge': 4.0.43
+      '@next/env': 13.3.0
+      minimist: 1.2.8
+      next: 13.3.0(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /next-themes@0.2.1(next@13.2.0)(react-dom@18.2.0)(react@18.2.0):
