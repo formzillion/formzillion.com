@@ -1,10 +1,9 @@
 {
-  "slack": "",
-  "sendgrid": "",
-  "webhooks": "",
-  "mailerlite": "",
-  "airtable": "",
-  "freshdesk": "",
-  "mailchimp": "",
-  "typeform": ""
+  "send-slack-notification-on-channel": "Send Slack Notification on Channel",
+  "send-emails-via-sendgrid": "Send Emails via Sendgrid",
+  "send-from-data-to-webhooks-endpoint": "Send FromData to Webhooks Endpoint",
+  "add-subscribers-to-mailerlite": "Add Subscribers to Mailerlite",
+  "create-ticket-in-freshdesk": "Create Ticket in Freshdesk",
+  "add-record-in-airtable": "Add Record in Airtable",
+  "mailchimp": ""
 }

@@ -123,11 +123,11 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
               <CommandList>
                 <CommandInput placeholder="Search team..." />
                 <CommandEmpty>No team found.</CommandEmpty>
-                {groups?.map((group: any) => (
-                  <CommandGroup key={group.label} heading={group.label}>
-                    {group?.teams?.map((team: any) => (
+                {groups?.map((group: any, index:number) => (
+                  <CommandGroup key={index} heading={group.label}>
+                    {group?.teams?.map((team: any,idx: number) => (
                       <CommandItem
-                        key={team.value}
+                        key={idx}
                         onSelect={() => {
                           setSelectedTeam(team);
                           handleSelectTeam(team.value);

@@ -42,3 +42,7 @@ yarn-error.log*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+robots.txt
+sitemap-0.xml
+sitemap.xml
