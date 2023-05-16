@@ -31,12 +31,11 @@ const config: DocsThemeConfig = {
   },
   head: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const { asPath, defaultLocale, locale } = useRouter();
+    const { asPath } = useRouter();
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const { frontMatter } = useConfig();
-    const url =
-      "https://docs.formzillion.com" +
-      (defaultLocale === locale ? asPath : `/${locale}${asPath}`);
+    const { tags } = frontMatter;
+    const url = `https://docs.formzillion.com${asPath}`;
 
     return (
       <>
@@ -46,17 +45,10 @@ const config: DocsThemeConfig = {
           sizes="any"
           href={"/favicon.ico"}
         />
-        {/*<meta property="og:url" content={url} />
-        <meta
-          property="og:title"
-          content={frontMatter.title || "Formzillion"}
-        />
-        <meta
-          property="og:description"
-          content={
-            frontMatter.description || "Instant backend for all your forms"
-          }
-        />*/}
+        <meta property="og:url" content={url} />
+        <meta property="og:type" content="website" />
+        <link rel="canonical" href={url} />
+        {tags && <meta name="keywords" content={tags} />}
       </>
     );
   },
