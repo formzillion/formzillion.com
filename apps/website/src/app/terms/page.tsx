@@ -3,7 +3,7 @@ import React from "react";
 export default function page() {
   return (
     <>
-      <section className="border-b border-gray-800 py-20">
+      <section className="border-b border-gray-800 py-28 bg-gray-900/20">
         <h1 className="text-5xl mb-5 text-white text-center">
           Formzillion Terms & Conditions
         </h1>
