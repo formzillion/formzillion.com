@@ -87,15 +87,14 @@ export default function SubmissionItem({
           </div>
         </div>
 
-        <div className="col-span-3 space-y-2 flex justify-center ">
-          <div>
-            <div className="flex flex-row space-x-2">
+        <div className="flex col-span-3 space-y-2  ">
+          <div className="flex flex-row">
               <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
               <div>
                 <p className="text-black  dark:text-gray-300 text-md">
                   Message
                 </p>
-                <div className="text-left">
+                <div className="">
                   {showMore
                     ? fields.message
                     : `${fields?.message?.substring(0, 30)}...`}
@@ -109,7 +108,6 @@ export default function SubmissionItem({
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
         <div className="flex flex-col">

@@ -38,9 +38,8 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
     async function fetchData() {
       const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
       const data = await res.json();
-      const filterData = get(data, "data", []);
 
-      setData(filterData);
+      setData(data);
     }
     fetchData();
   }, [currentPage]);
@@ -205,7 +204,7 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
               )}
           </div>
 
-          {!isEmpty(filteredData) && submissions.length > 0 ? (
+          {!isEmpty(filteredData) && filteredData.length > 0 ? (
             filteredData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem
