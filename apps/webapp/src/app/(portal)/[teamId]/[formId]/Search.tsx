@@ -12,7 +12,7 @@ export default function Index({
   useEffect(() => {
     async function fetchResults() {
       if (searchTerm.length > 0) {
-        const res = await fetch(`/api/form-submission/search?q=${searchTerm}`, {
+        const res = await fetch(`/api/form-submission/search`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
