@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { getTimeAgo } from "@/utils/timeAgo";
-import { ChatBubbleBottomCenterIcon, ClockIcon, EnvelopeIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import {
+  ChatBubbleBottomCenterIcon,
+  ClockIcon,
+  EnvelopeIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/solid";
 
-
-export default function SubmissionItem({ submission, isChecked, setCheckedIds }: any) {
+export default function SubmissionItem({
+  submission,
+  isChecked,
+  setCheckedIds,
+}: any) {
   const [change, setChange] = useState(false);
-    const [showMore, setShowMore] = useState(false);
+  const [showMore, setShowMore] = useState(false);
+  const [showAllFields, setShowAllFields] = useState(false);
 
   const {
     fields = {},
@@ -20,16 +29,15 @@ export default function SubmissionItem({ submission, isChecked, setCheckedIds }:
     setChange(e.target.checked);
     setCheckedIds(id);
   };
-let name;
+  let name;
   if (submission && submission.fields && submission.fields.name) {
-    const [firstName="", lastName=""] = submission.fields.name?.split(" ");
-     name = `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
-
+    const [firstName = "", lastName = ""] = submission.fields.name?.split(" ");
+    name = `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
   } else {
-   console.log("error")
+    console.log("error");
   }
 
-const excludeFields = ["name", "email", "message"];
+  const excludeFields = ["name", "email", "message"];
   return (
     <>
       <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
@@ -83,33 +91,65 @@ const excludeFields = ["name", "email", "message"];
           <div>
             <div className="flex flex-row space-x-2">
               <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
-              <p className="text-black text-md">Message</p>
-            </div>
-
-            <div>
-              {showMore
-                ? fields.message
-                : `${fields?.message?.substring(0, 50)}...`}
               <div>
-                <button
-                  className="btn underline"
-                  onClick={() => setShowMore(!showMore)}
-                >
-                  {showMore ? "Show less" : "Show more"}
-                </button>
+                <p className="text-black  dark:text-gray-300 text-md">
+                  Message
+                </p>
+                <div className="text-left">
+                  {showMore
+                    ? fields.message
+                    : `${fields?.message?.substring(0, 30)}...`}
+                  <div>
+                    <button
+                      className="btn underline"
+                      onClick={() => setShowMore(!showMore)}
+                    >
+                      {showMore ? "Show less" : "Show more"}
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div className="space-y-2 flex flex-col justify-center ml-4">
+        <div className="flex flex-col">
           {Object.entries(fields)
             .filter(([key, value]: any) => !excludeFields.includes(key))
-            .map(([key, value]: any) => (
-              <div key={key} className="ml-4 flex flex-row space-x-2">
-                <p className="text-black">{key}:</p>
-                <p className="text-gray-500">{value}</p>
-              </div>
-            ))}
+            .map(([key, value]: any, index, array) => {
+              if (showAllFields || index < 2 || array.length === 2) {
+                return (
+                  <div key={key} className="flex flex-row space-x-2">
+                    <p className="text-black whitespace-nowrap dark:text-gray-300">
+                      {key}:
+                    </p>
+                    <p className="text-gray-500">{value}</p>
+                  </div>
+                );
+              } else if (index === 2 && array.length > 2) {
+                return (
+                  <div key="show-more" className="">
+                    <button
+                      className="btn underline"
+                      onClick={() => setShowAllFields(true)}
+                    >
+                      Show more
+                    </button>
+                  </div>
+                );
+              } else {
+                return null;
+              }
+            })}
+          {showAllFields && (
+            <div className="">
+              <button
+                className="btn underline"
+                onClick={() => setShowAllFields(false)}
+              >
+                Show less
+              </button>
+            </div>
+          )}
         </div>
 
         <div className=" text-end relative">
