@@ -1,3 +1,4 @@
+import BlurDotGridBottom from "./BlurDotGridBottom";
 import BlurDotGridTop from "./BlurDotGridTop";
 import HeroLeft from "./HeroLeft";
 import HeroRight from "./HeroRight";
@@ -8,6 +9,7 @@ export default function HeroSection() {
       <BlurDotGridTop />
       <HeroLeft />
       <HeroRight />
+      <BlurDotGridBottom />
     </div>
   )
 }

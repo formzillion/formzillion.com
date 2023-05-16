@@ -143,17 +143,17 @@ const FooterIcons = [
   {
     icon: <FiLinkedin className="text-gray-400 hover:text-blue-800" />,
     url: "https://www.linkedin.com/company/formzillion/",
-    hoverColor: "border-blue-800",
+    hoverColor: "hover:border-blue-800 hover:text-blue-800",
   },
   {
     icon: <FiGithub className="text-gray-400 hover:text-white" />,
     url: "https://github.com/formzillion",
-    hoverColor: "border-white",
+    hoverColor: "hover:border-white",
   },
   {
     icon: <FiSlack className="text-gray-400 hover:text-purple-900" />,
     url: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
-    hoverColor: "border-purple-800",
+    hoverColor: "hover:border-purple-800",
   },
 ];
 
@@ -189,7 +189,7 @@ export default function Footer() {
               href={item.url}
               target="_blank"
               rel="noreferrer"
-              className={`border border-gray-500 rounded-full h-8 w-8 flex justify-center items-center hover:${item?.hoverColor}`}
+              className={`border border-gray-500 rounded-full h-8 w-8 flex justify-center items-center ${item.hoverColor}`}
             >
               {item.icon}
             </a>
