@@ -62,7 +62,9 @@ export default async function handler(
         ...(webhooksEndpoint && {
           webhooksEndpoint,
         }),
-        additionalData: {},
+        additionalData: {
+          ...connectionConfig,
+        },
       },
     };
 

@@ -39,6 +39,7 @@ const availableActionsMap: any = {
   slack: ["sendNotification"],
   webhooks: ["postToWebhookEnpoint"],
   airtable: ["addRecord"],
+  freshdesk: ["createTicket"],
 };
 
 const taskTemplateConfig: any = {

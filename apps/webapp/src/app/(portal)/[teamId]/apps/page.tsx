@@ -67,7 +67,7 @@ const integrations = [
       "Automatically collect the customer related data from form submission and send it to Freshdesk.",
     status: "not_connected",
     authType: "api_key",
-    isAvailable: false,
+    isAvailable: true,
   },
   {
     name: "Mailchimp",
