@@ -1,6 +1,6 @@
 import React from "react";
-import CTABanner from "@/app/home/CTABanner";
 import Image from "next/image";
+import Example from "./Example";
 
 export default function DynamicSection({
   params,
@@ -37,7 +37,7 @@ export default function DynamicSection({
     {
       title: "Start collecting submissions with Formzillion ",
       description:
-        "Start collecting data in a matter of clicks.<br />  Let formzillion take care of the servers, databases,and analytics <br /> Set up any form in seconds.",
+        "<ul><li>Start collecting data in a matter of clicks.</li><li>Let formzillion take care of the servers, databases,and analytics </li><li>Set up any form in seconds.</li></ul>",
     },
   ];
   const dynamicContent = dynamicData.find(
@@ -47,57 +47,75 @@ export default function DynamicSection({
     return <div>Invalid slug</div>;
   }
   return (
-    <section>
-      <div className="relative flex flex-col justify-center content-center items-center rounded-md text-center mt-10">
-        <div className="w-full h-full flex flex-col py-20 px-10 justify-center items-center ">
-          <Image
-            alt="hero"
-            src={dynamicContent.imageUrl}
-            height={80}
-            width={80}
-            className="object-scale-down h-20 w-30 object-center rounded"
-          />
-          <div className=" text-xl font-medium leading-normal font-['Satoshi']">
-            <h1 className="title-font sm:text-4xl text-4xl mb-4 text-white font-semibold mt-8">
-              <div
-                dangerouslySetInnerHTML={{ __html: dynamicContent.description }}
-              />
-            </h1>
-            <div className="flex flex-row justify-center mt-10">
-              <a
-                href="https://rkq53epk2c1.typeform.com/to/oflWmqo6"
-                className="cursor-pointer inline-flex text-center font-['Satoshi'] text-sm px-4 py-2 leading-none text-white bg-orange-600 hover:bg-orange-700 mt-4 lg:mt-0 w-[160px] h-[40px] ml-2 items-center content-center justify-center"
-              >
-                Request Access
-              </a>
-              <a
-                href="https://docs.formzillion.com/"
-                className="cursor-pointer ml-8 inline-flex text-center font-['Satoshi'] text-sm px-4 py-2 leading-none border text-white border-white hover:text-orange-600 mt-4 lg:mt-0 w-[150px] h-[40px] hover:border-orange-600 items-center justify-center"
-              >
-                Learn more
-              </a>
+    <>
+      <section className="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto">
+        <div className="relative flex flex-col justify-center content-center items-center rounded-md text-center mt-10">
+          <div className="w-full h-full flex flex-col pb-20 px-10 justify-center items-center ">
+            {/* <Image
+              alt="hero"
+              src={dynamicContent.imageUrl}
+              height={80}
+              width={80}
+              className="object-scale-down h-20 w-30 object-center rounded"
+            /> */}
+            <div className=" text-xl font-medium leading-normal">
+              <h1 className="title-font sm:text-4xl text-4xl mb-4 text-white font-semibold mt-8">
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: dynamicContent.description,
+                  }}
+                />
+              </h1>
+              <div className="flex flex-row justify-center mt-10">
+                <a
+                  href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="cursor-pointer inline-flex text-center text-sm px-4 py-2 leading-none text-white bg-orange-600 hover:bg-orange-700 mt-4 lg:mt-0   h-[40px] ml-2 items-center content-center justify-center"
+                >
+                  Try Formzillion its free
+                </a>
+                <a
+                  href="https://docs.formzillion.com/"
+                  className="cursor-pointer ml-8 inline-flex text-center text-sm px-4 py-2 leading-none border text-white border-white hover:text-orange-600 mt-4 lg:mt-0 w-[150px] h-[40px] hover:border-orange-600 items-center justify-center"
+                >
+                  Learn more
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className=" text-xl font-medium leading-normal font-['Satoshi']">
-        <h1 className="title-font text-xl sm:text-3xl mb-4 text-white font-semibold mt-8 text-center">
-          {dynamicContent.title}
-        </h1>
-
-        {staticData.map((data, index) => (
-          <div key={index}>
-            <p
-              className="leading-10 mt-4 text-xl text-center"
-              dangerouslySetInnerHTML={{ __html: data.description }}
+        <div className=" font-medium leading-normal p-10 bg-gray-400/10 rounded-xl grid grid-cols-6">
+          <div className="flex items-center">
+            <Image
+              alt="hero"
+              src={dynamicContent.imageUrl}
+              height={80}
+              width={80}
+              className="object-scale-down h-20 w-30 object-center rounded"
             />
           </div>
-        ))}
-      </div>
+          <div className="col-span-5 flex  flex-col">
+            <h1 className="title-font text-xl sm:text-3xl mb-4 text-white font-semibold ">
+              {dynamicContent.title}
+            </h1>
 
-      <div>
-        <CTABanner />
-      </div>
-    </section>
+            {staticData.map((data, index) => (
+              <div key={index} className="leading-8 mt-4 font-normal">
+                <ul className="list-disc space-y-3 pl-7">
+                  <li>Start collecting data in a matter of clicks.</li>
+                  <li>
+                    Let formzillion take care of the servers, databases,and
+                    analytics{" "}
+                  </li>
+                  <li>Set up any form in seconds.</li>
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <Example slug={params.slug} />
+    </>
   );
 }

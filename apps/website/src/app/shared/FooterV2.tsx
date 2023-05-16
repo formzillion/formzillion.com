@@ -52,22 +52,22 @@ const footerLinks = [
     list: [
       {
         label: "Wordpress",
-        href: "/for/wordpress",
+        href: "/platforms/wordpress",
         target: "_self",
       },
       {
         label: "Gatsby",
-        href: "/for/gatsby",
+        href: "/platforms/gatsby",
         target: "_self",
       },
       {
         label: "Nextjs",
-        href: "/for/nextjs",
+        href: "/platforms/nextjs",
         target: "_self",
       },
       {
         label: "Webflow",
-        href: "/for/webflow",
+        href: "/platforms/webflow",
         target: "_self",
       },
     ],
@@ -164,7 +164,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mt-8 text-white">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
-              <p className="text-gray-300 text-base font-medium">{data.title}</p>
+              <p className="text-gray-300 text-base font-medium">
+                {data.title}
+              </p>
               <div className="gap-2 text-sm flex flex-col mt-4 text-gray-400">
                 {data.list.map((item: any, index: number) => (
                   <a
