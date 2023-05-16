@@ -8,7 +8,7 @@ function BlurDotGridBottom() {
       height="600"
       fill="none"
       viewBox="0 0 686 600"
-      className="absolute bottom-0 right-0"
+      className="absolute bottom-0 right-0 hidden md:block"
     >
       <g filter="url(#filter0_f_18_112)">
         <path
