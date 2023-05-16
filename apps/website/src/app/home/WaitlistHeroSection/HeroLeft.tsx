@@ -15,23 +15,24 @@ const Badge = (props: BadgeProps) => {
 export default function HeroLeft() {
   return (
     <div className="flex relative justify-center items-center text-white text-center w-full h-full mx-auto max-w-6xl">
-      <div className="flex items-start w-full h-full mt-10 sm:mt-16">
-        <div className="gap-6 flex flex-col items-center">
-          <h1 className="font-bold m-0 py-4 text-2xl sm:text-3xl lg:text-5xl leading-[normal]">
-            Open source headless forms.
-          </h1>
-          <p className="text-base sm:text-xl leading-normal px-12 sm:px-28">
-            Instant backend for all your forms while maintaining complete
-            control over their appearance and style.
-          </p>
-          <div>
-            <Link
-              href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
-              className="mt-0 flex h-[44px] items-center justify-center rounded bg-orange-600 py-2.5 px-4 text-white hover:bg-orange-700"
-            >
-              Get Started for free
-            </Link>
-          </div>
+      <div className="mt-10 flex flex-col items-center space-y-4">
+        <h1 className="font-bold text-2xl sm:text-3xl lg:text-5xl leading-[normal]">
+          <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+            Open source
+          </span>{" "}
+          headless forms.
+        </h1>
+        <p className="text-base leading-normal px-12 sm:max-w-2xl">
+          Instant backend for all your forms while maintaining complete control
+          over their appearance and style.
+        </p>
+        <div>
+          <Link
+            href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
+            className="mt-0 flex h-[44px] w-fit items-center justify-center rounded bg-orange-600 py-2.5 px-4 text-white hover:bg-orange-700"
+          >
+            Get Started for free
+          </Link>
         </div>
       </div>
     </div>
