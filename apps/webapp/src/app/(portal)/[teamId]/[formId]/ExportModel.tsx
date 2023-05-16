@@ -19,30 +19,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/ui/Select";
+import exportSubmissions from "@/app/fetch/formSubmissions/exportSubmissions";
+import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 
-export default function ExportModal({ formId, closeModal }: any) {
+export default function ExportModal({ formId, closeModal, userEmail }: any) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [exportDays, setExportDays] = useState("");
-
   const onClickExport = async () => {
     setLoading(true);
-    const res = await fetch(
-      `http://localhost:3011/formzillion/events`,
-      {
-        cache: "no-cache",
-        method: "POST",
-        body: JSON.stringify({
-          eventName: "export-submissions",
-          eventData: {
-            formId,
-            exportDays,
-          },
-        }),
-      }
-    );
-    setLoading(false);
-
+    const res = await exportSubmissions({ formId, exportDays, userEmail });
+    if (res.success) {
+      setLoading(false);
+      showSuccessToast("Submissions sent to your Email Successfully");
+    } else {
+      setLoading(false);
+      showErrorToast(res.message);
+    }
     router.refresh();
   };
 
