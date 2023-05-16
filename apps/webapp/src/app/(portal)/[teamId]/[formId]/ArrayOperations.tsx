@@ -27,6 +27,7 @@ export default function Index({
   setData,
   formId,
   toggleExportModal,
+  setSubmissions,
 }: any) {
   const handleCheckAll = () => {
     setIsChecked(!isChecked);
@@ -66,7 +67,7 @@ export default function Index({
       }),
     });
     const newData = await res.json();
-    setData(newData);
+    setSubmissions(newData);
   };
 
   return (

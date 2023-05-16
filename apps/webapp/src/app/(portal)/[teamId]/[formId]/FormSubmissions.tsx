@@ -42,9 +42,8 @@ export default function FormsOverviewPage({
     async function fetchData() {
       const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
       const data = await res.json();
-      const filterData = get(data, "data", []);
 
-      setData(filterData);
+      setData(data);
     }
     fetchData();
   }, [currentPage]);
@@ -89,7 +88,7 @@ export default function FormsOverviewPage({
     setFilter(status);
   };
 
-  const filteredData = data.filter((obj: any) => {
+  const filteredData = submissions.filter((obj: any) => {
     if (filterType === "name") {
       return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {
@@ -209,7 +208,7 @@ export default function FormsOverviewPage({
               )}
           </div>
 
-          {!isEmpty(filteredData) && submissions.length > 0 ? (
+          {!isEmpty(filteredData) && filteredData.length > 0 ? (
             filteredData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem
