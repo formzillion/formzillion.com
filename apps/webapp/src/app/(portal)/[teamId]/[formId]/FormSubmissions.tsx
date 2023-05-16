@@ -84,7 +84,7 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
     setFilter(status);
   };
 
-  const filteredData = data.filter((obj: any) => {
+  const filteredData = submissions.filter((obj: any) => {
     if (filterType === "name") {
       return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {
