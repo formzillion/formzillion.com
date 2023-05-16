@@ -293,7 +293,7 @@ html,
 
 .hover-border:hover::before {
   background: linear-gradient(115deg, #4FCF70, #D8BD46, #D67C15, #f0f35c, #44CE7B);
-  animation: animate_border .5s linear infinite;
+  animation: animate_border 2s linear infinite;
 }
 
 @keyframes animate_border {
