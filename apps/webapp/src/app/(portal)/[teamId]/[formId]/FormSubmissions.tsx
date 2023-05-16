@@ -12,7 +12,11 @@ import TestFormModal from "./settings/TestFormModal";
 import ArrayOperations from "./ArrayOperations";
 import ExportModal from "./ExportModel";
 
-export default function FormsOverviewPage({ formId, formSubmissions }: any) {
+export default function FormsOverviewPage({
+  formId,
+  formSubmissions,
+  userEmail,
+}: any) {
   const [showTestFormModal, setShowTestFormModal] = useState(false);
   const toggleTestFormModal = () => setShowTestFormModal(!showTestFormModal);
   const [showExportModal, setShowExportModal] = useState(false);
@@ -231,6 +235,7 @@ export default function FormsOverviewPage({ formId, formSubmissions }: any) {
               formId={formId}
               isOpen={showExportModal}
               closeModal={toggleExportModal}
+              userEmail={userEmail}
             />
           )}
         </div>
