@@ -5,7 +5,7 @@ import Header from "@/ui/Header";
 import LeaveTeamModal from "./LeaveTeamModal";
 import Heading from "./Heading";
 
-const LeaveTeam = ({ teamSlug }: any) => {
+const LeaveTeam = ({ teamSlug, personalAccount }: any) => {
   const parsedTeam = JSON.parse(teamSlug);
   const [showModal, setShowModal] = useState<any>(false);
 
@@ -34,6 +34,7 @@ const LeaveTeam = ({ teamSlug }: any) => {
                 setShowModal(false);
               }}
               teamSlug={parsedTeam}
+              personalAccount={personalAccount}
             />
           )}
         </div>

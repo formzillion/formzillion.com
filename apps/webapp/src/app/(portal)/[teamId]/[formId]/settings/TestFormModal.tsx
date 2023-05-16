@@ -8,10 +8,12 @@ import Modal, { ModalTitle } from "@/components/Modal";
 import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input, Label } from "@/ui/fields";
+import DynamicField from "../DynamicFields";
 
 export default function TestFormModal({ formId, closeModal }: any) {
-  const router = useRouter()
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [test, testData] = useState<any>([]);
   const [submitCount, setSubmitCount] = useState(1);
   const [formValues, setFormValues] = useState<any>({
     name: randFullName({ withAccents: false }),
@@ -19,11 +21,16 @@ export default function TestFormModal({ formId, closeModal }: any) {
     message: randQuote(),
   });
 
+  let dynamicFields: any = {};
+  test.forEach(
+    (field: any) =>
+      (dynamicFields[field.keyName?.toLowerCase()] = field.keyValue)
+  );
+
   const onClickTestForm = async () => {
     try {
       setLoading(true);
 
-      // Generating Mock Data based on no of Submit Count
       const formSubmissionValues = [...Array(Number(submitCount))].map(() => ({
         name: randFullName({ withAccents: false }),
         email: randEmail(),
@@ -32,15 +39,14 @@ export default function TestFormModal({ formId, closeModal }: any) {
 
       if (submitCount === 1) {
         const formData = new FormData();
-        const currentValues = { ...formValues };
-        for (const key in formValues) {
+        const currentValues = { ...formValues, ...dynamicFields };
+        for (const key in currentValues) {
           formData.append(key, currentValues[key]);
         }
         await fetch(`/f/${formId}`, { method: "POST", body: formData });
       } else {
-        // Looging Thorugh each formValues for creating seprate formData
         for (const formValues of formSubmissionValues) {
-          const currentValues: any = { ...formValues };
+          const currentValues: any = { ...formValues, ...dynamicFields };
           const formData = new FormData();
           for (const key in formValues) {
             formData.append(key, currentValues[key]);
@@ -90,7 +96,7 @@ export default function TestFormModal({ formId, closeModal }: any) {
             </div>
           );
         })}
-
+        <DynamicField testData={testData} />
         <div className="flex flex-row items-center justify-between">
           <div className="flex items-center space-x-2">
             <input

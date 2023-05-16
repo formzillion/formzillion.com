@@ -1,27 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import { isEmpty } from "lodash";
-import classNames from "classnames";
+import { useEffect, useState } from "react";
+import { get, isEmpty } from "lodash";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaSync } from "react-icons/fa";
 
-import { Menu } from "@headlessui/react";
 import { Button } from "@/ui/Buttons/SButton";
-import Sort from "@/ui/Sort";
-import { ArrowsUpDownIcon } from "@heroicons/react/24/solid";
-import Filter from "@/ui/Filter";
-
 import EmptySubmissions from "./EmptySubmissions";
 import SubmissionItem from "./SubmissionItem";
 import TestFormModal from "./settings/TestFormModal";
+import ArrayOperations from "./ArrayOperations";
+import ExportModal from "./ExportModel";
 
 export default function FormsOverviewPage({
-  TotalPages,
   formId,
   formSubmissions,
+  userEmail,
 }: any) {
   const [showTestFormModal, setShowTestFormModal] = useState(false);
   const toggleTestFormModal = () => setShowTestFormModal(!showTestFormModal);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const toggleExportModal = () => setShowExportModal(!showExportModal);
   const parsedFormSubmissions = JSON.parse(formSubmissions);
   const [submissions, setSubmissions] = useState(parsedFormSubmissions);
   const [searchTerm, setSearchTerm] = useState("");
@@ -30,195 +29,213 @@ export default function FormsOverviewPage({
   const [filter, setFilter] = useState("all");
   const [currentPage, setCurrentPage] = useState(1);
   const [checkedIds, setCheckedIds] = useState([]);
+  const [count, setCount] = useState();
+  const [total, setTotal] = useState();
+  const [selectedTab, setSelectedTab] = useState("All");
+  const [data, setData] = useState(parsedFormSubmissions);
+
+  const pages = submissions.length;
+  const pageLimit = 10;
+  const TotalPages = Math.ceil(pages / pageLimit);
+
+  useEffect(() => {
+    async function fetchData() {
+      const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
+      const data = await res.json();
+      const filterData = get(data, "data", []);
+
+      setData(filterData);
+    }
+    fetchData();
+  }, [currentPage]);
+
+  const handlePrev = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNext = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
 
   const handleSpamClick = async (isSpam: any) => {
+    setSelectedTab(isSpam ? "Spam" : "Verified");
     const status = isSpam ? "spam" : "verify";
     if (!isEmpty(parsedFormSubmissions)) {
       const filteredSubmissions = parsedFormSubmissions.filter(
-        (submission: { isSpam: any }) => submission.isSpam === isSpam
+        (submission: { isSpam: any }) => {
+          return submission.isSpam === isSpam;
+        }
       );
+      const count = filteredSubmissions.length;
+      setCount(count);
       setSubmissions(filteredSubmissions);
     }
     setFilter(status);
   };
 
-  const filteredData = submissions.filter((obj: any) => {
+  const handleSpam = async (isSpam: any) => {
+    setSelectedTab(isSpam ? "Spam" : "Verified");
+    const status = isSpam ? "spam" : "verify";
+    if (!isEmpty(parsedFormSubmissions)) {
+      const filteredSubmissions = parsedFormSubmissions.filter(
+        (submission: { isSpam: any }) => {
+          return submission.isSpam === isSpam;
+        }
+      );
+      const TotalCount = filteredSubmissions.length;
+      setTotal(TotalCount);
+      setSubmissions(filteredSubmissions);
+    }
+    setFilter(status);
+  };
+
+  const filteredData = data.filter((obj: any) => {
     if (filterType === "name") {
-      return obj.fields.name.toLowerCase().includes(searchTerm.toLowerCase());
+      return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {
-      return obj.fields.email.toLowerCase().includes(searchTerm.toLowerCase());
+      return obj.fields.email?.toLowerCase().includes(searchTerm.toLowerCase());
     } else {
       return false;
     }
   });
 
   const handleSubmission = () => {
+    setSelectedTab("All");
     const isSpam = "all";
     if (!isEmpty(parsedFormSubmissions)) {
       setSubmissions(parsedFormSubmissions);
     }
     setFilter(isSpam);
   };
-  const handleValueChange = (value: any) => {
-    if (value === "ascending") {
-      const sortedSubmissions = [...submissions].sort((a, b) => {
-        const timeA = new Date(a.createdAt).getTime();
-        const timeB = new Date(b.createdAt).getTime();
-        return timeA - timeB;
-      });
-      setSubmissions(sortedSubmissions);
-    } else if (value === "descending") {
-      const sortedSubmissions = [...submissions].sort((a, b) => {
-        const timeA = new Date(a.createdAt).getTime();
-        const timeB = new Date(b.createdAt).getTime();
-        return timeB - timeA;
-      });
-      setSubmissions(sortedSubmissions);
-    }
-  };
 
-  const itemsPerPage = 10;
-  const totalPages = Math.ceil(TotalPages / itemsPerPage);
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const currentData = filteredData.slice(start, end);
+  const refreshPage = () => {
+    window.location.reload();
+  };
 
   return (
     <>
-      <div className="flex space-x-4">
-        <div className=" space-y-2 cursor-pointer w-[10%]  text-start">
+      <div className="flex space-x-8  divide-gray-300 dark:divide-gray-700 px-1 bg-white pt-4 dark:bg-black">
+        <div className=" space-y-3 mt-5 cursor-pointer w-[10%]  text-start  ">
           <div
-            className="hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded "
+            id="All"
+            className={`${
+              selectedTab === "All" ? "bg-slate-100 text-gray-600" : ""
+            } hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between`}
             onClick={() => handleSubmission()}
           >
-            {" "}
             All
+            <div>{parsedFormSubmissions.length}</div>
           </div>
           <div
-            className="hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded "
+            id="Spam"
+            className={`${
+              selectedTab === "Spam" ? "bg-slate-100 text-gray-600" : ""
+            } hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between`}
             onClick={() => handleSpamClick(true)}
           >
-            {" "}
             Spam
+            <div>{count}</div>
           </div>
           <div
-            className=" hover:bg-slate-100 p-2 hover:text-gray-600 transition-all rounded dark:hover:bg-slate-300"
-            onClick={() => handleSpamClick(false)}
+            id="Verified"
+            className={`${
+              selectedTab === "Verified" ? "bg-slate-100 text-gray-600" : ""
+            } hover:bg-slate-100 p-2 hover:text-gray-600 dark:hover:bg-slate-300 transition-all rounded flex justify-between`}
+            onClick={() => handleSpam(false)}
           >
-            {" "}
             Verified
+            <div>{total}</div>
           </div>
         </div>
-        <div className="w-[85%]">
+        <div className="w-[85%] mt-5  shadow dark:bg-black border border-gray-300 dark:border-gray-700 p-4">
           {submissions?.length > 0 && (
-            <Filter
-              setSearchTerm={setSearchTerm}
-              setFilterType={setFilterType}
-            />
-          )}
-          {submissions?.length > 0 && (
-            <div className="flex justify-between ml-6">
-              <div className="space-x-6 flex items-center">
-                <Sort
+            <div className="flex justify-between  ">
+              <div className=" flex items-center">
+                <ArrayOperations
                   formSubmissions={formSubmissions}
                   checkedIds={checkedIds}
                   setIsChecked={setIsChecked}
                   toggleTestFormModal={toggleTestFormModal}
                   setSubmissions={setSubmissions}
                   isChecked={isChecked}
+                  submissions={submissions}
+                  setSearchTerm={setSearchTerm}
+                  setFilterType={setFilterType}
+                  setData={setData}
+                  searchTerm={searchTerm}
+                  filterType={filterType}
+                  formId={formId}
+                  toggleExportModal={toggleExportModal}
                 />
-                <Menu as="div" className="relative py-3.5 px-1 inline-block mt-1" >
-                  <Menu.Button>
-                    <ArrowsUpDownIcon className="h-4 w-4" />
-                  </Menu.Button>
-                  <Menu.Items className="absolute top-0 z-10 mt-2 w-56 origin-top-right border bg-white dark:bg-black  shadow-lg ring-1 ring-black ring-opacity-5 ">
-                    <div onClick={handleValueChange}>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900 dark:bg-black dark:hover:bg-slate-200"
-                                : "text-gray-700 dark:text-gray-300",
-                              "block px-4 py-2 text-sm"
-                            )}
-                            onClick={() => handleValueChange("ascending")}
-                          > Ascending
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(
-                              active
-                                ? "bg-gray-100 text-gray-900 dark:bg-black dark:hover:bg-slate-200"
-                                : "text-gray-700 dark:text-gray-300",
-                              "block px-4 py-2 text-sm"
-                            )}
-                            onClick={() => handleValueChange("descending")}
-                          >
-                            Descending
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </div>
-                  </Menu.Items>
-                </Menu>
-              </div>
-              <div className="text-end mt-4">
-                {submissions.length > 10 && (
-                  <div className="flex justify-end dark:text-white">
-                    <button
-                      disabled={currentPage === 1}
-                      onClick={() => setCurrentPage(currentPage - 1)}
-                    >
-                      <IoIosArrowBack />
-                    </button>
-                    <div className="mx-2 rounded-lg border-2 px-2  font-medium dark:border-gray-700">
-                      {currentPage} / {totalPages}
-                    </div>
-                    <button
-                      disabled={currentPage === totalPages}
-                      onClick={() => setCurrentPage(currentPage + 1)}
-                    >
-                      <IoIosArrowForward />
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           )}
-            {submissions.length <= 0 && filter !== "spam" && filter !== "verify" && (
-                <div className="mb-2 flex flex-row justify-end items-center mt-4">
+          <div className="text-end mt-6 mb-2 flex justify-between">
+            <button onClick={refreshPage}>
+              <FaSync
+                size={14}
+                className="text-gray-500 dark:text-gray-300 h-5 w-7 ml-2"
+              />
+            </button>
+            {submissions.length > 10 && (
+              <div className="flex justify-end dark:text-white">
+                <button disabled={currentPage === 1} onClick={handlePrev}>
+                  <IoIosArrowBack />
+                </button>
+                <div className="mx-2 rounded-lg border-2 px-2  font-medium dark:border-gray-700">
+                  {currentPage} / {TotalPages}
+                </div>
+                <button
+                  disabled={currentPage === TotalPages}
+                  onClick={handleNext}
+                >
+                  <IoIosArrowForward />
+                </button>
+              </div>
+            )}
+            {submissions.length <= 0 &&
+              filter !== "spam" &&
+              filter !== "verify" && (
+                <div className="mb-2 flex flex-row justify-end items-center ">
                   {isEmpty(submissions) && (
-                    <Button className=" bg-black text-white hover:bg-black hover:text-white" onClick={toggleTestFormModal}>
+                    <Button
+                      className=" bg-black text-white hover:bg-black hover:text-white"
+                      onClick={toggleTestFormModal}
+                    >
                       Mock Submission
                     </Button>
                   )}
                 </div>
               )}
-            {!isEmpty(currentData) ? (
-              currentData?.map((submission: any, idx: any) => {
-                return (
-                  <SubmissionItem
-                    key={idx}
-                    submission={submission}
-                    isChecked={isChecked}
-                    setCheckedIds={setCheckedIds}
-                  />
-                );
-              })
-            ) : (
-              <EmptySubmissions formId={formId} />
-            )}
+          </div>
+
+          {!isEmpty(filteredData) && submissions.length > 0 ? (
+            filteredData?.map((submission: any, idx: any) => {
+              return (
+                <SubmissionItem
+                  key={idx}
+                  submission={submission}
+                  isChecked={isChecked}
+                  setCheckedIds={setCheckedIds}
+                />
+              );
+            })
+          ) : (
+            <EmptySubmissions formId={formId} />
+          )}
           {showTestFormModal && (
             <TestFormModal
               formId={formId}
               isOpen={showTestFormModal}
               closeModal={toggleTestFormModal}
+            />
+          )}
+          {showExportModal && (
+            <ExportModal
+              formId={formId}
+              isOpen={showExportModal}
+              closeModal={toggleExportModal}
+              userEmail={userEmail}
             />
           )}
         </div>

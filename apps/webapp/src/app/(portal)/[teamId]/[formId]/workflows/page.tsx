@@ -86,31 +86,27 @@ const ActionMenu = ({
 };
 
 const TaskCard = ({ details, handleActionOnClick }: any) => {
-  const { name, type } = details;
-  const [appSlug, actionName] = name?.split("_") || ["", ""];
+  const { type, appSlug, slug: actionName } = details;
   const isAction = type === "action";
   const imageSrc = imageSrcMap[appSlug];
 
   return (
     <div className="my-2 py-2 px-4 border-2 dark:border-gray-800 flex flex-row items-center space-x-4 w-full">
-      {imageSrc && <Image src={imageSrc} alt={appSlug} className="h-10 w-12" />}
+      {imageSrc && <Image src={imageSrc} alt={appSlug} className="h-12 w-12 object-contain" />}
       <div className="flex items-center justify-between py-4 w-full">
         <div className="flex flex-row justify-between w-full">
           <div>
             <section
-              id="appSlug"
+              id="actionType"
               className="text-sm font-medium text-gray-900 dark:text-white"
             >
-              {startCase(appSlug)}
+              {isAction ? "Action" : "Trigger"}
             </section>
             <section
               id="actionName"
               className="text-sm text-gray-500 dark:text-gray-400 flex items-center space-x-1"
             >
-              {startCase(actionName)}
-              <div className={`text-xs uppercase ml-1`}>
-                ({isAction ? "action" : "trigger"})
-              </div>
+              {`${startCase(appSlug)} - ${startCase(actionName)}`}
             </section>
           </div>
           <section>
@@ -190,14 +186,15 @@ const Workflows = ({ params }: PageProps) => {
         <MenuCard
           menuItems={actionMenuItems}
           title="Actions"
-          icon={<ChevronDownIcon className="h-6 w-6" />}
+          icon={<ChevronDownIcon className="h-6 w-6 text-gray-700" />}
         />
       </h4>
       {!isEmpty(details) && (
         <div>
           <TaskCard
             details={{
-              name: "formzillion_newFormSubmission",
+              slug: "newFormSubmission",
+              appSlug: "formzillion",
               status: "active",
               type: "trigger",
             }}

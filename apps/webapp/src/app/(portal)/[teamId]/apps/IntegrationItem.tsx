@@ -103,20 +103,39 @@ export default function IntegrationItem({ integration, teamSlug }: any) {
   const { session }: any = useSupabase();
   const user = session?.user || {};
 
-  const onClickApp = (provider: string) => {
+  const onClickApp = async (provider: string) => {
     if (authType === "oauth") {
       zauth.auth(provider, {
         ...user,
         teamId: teamSlug,
       });
+    } else if (authType === "airtable") { // Airtable Auth Required CodeViriable for both authUrl and post callback url
+      const getAuthUrl = await fetch(`/api/integrations/airtable/auth`, {
+        method: "POST",
+        cache: "no-cache",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ teamSlug, email: user?.email }),
+      });
+      const response = await getAuthUrl.json();
+
+      const x = window.screen.width / 2 - 600 / 2;
+      const y = window.screen.height / 2 - 600 / 2;
+
+      return window.open(
+        response.authUrl,
+        "Authentication",
+        `height=600,width=600,left=${x},top=${y}`
+      );
     } else {
       toggleShowApiKeyModal();
     }
   };
 
   return (
-    <div className="w-[256px] h-[336px] mb-4">
-      <Card className="w-[256px] h-[336px]">
+    <div className="h-[336px] lg:w-[246px] lg:h-[336px] md:w-[236px] md:h-[336px] sm:w-[296px] sm:h-[336px] md:mb-4 mb-4 mx-auto md:mx-auto sm:mx-auto">
+      <Card className="w-full h-[336px] lg:h[336px] mx-auto ">
         <CardContent className="h-[336px] dark:text-white">
           <ReconnectButton
             status={status}

@@ -17,7 +17,7 @@ export default function Logout() {
 
   return (
     <DropdownMenuItem onClick={onClickLogout} className="cursor-pointer">
-      <ArrowRightCircleIcon className="mr-2 h-4 w-4" />
+      <ArrowRightCircleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
       Logout
     </DropdownMenuItem>
   );

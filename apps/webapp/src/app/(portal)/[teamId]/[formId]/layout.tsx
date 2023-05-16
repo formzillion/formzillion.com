@@ -56,9 +56,9 @@ export default async function FormDetailLayout({
   const formDetail = (await useGetFormDetail(formId)) || [];
 
   return (
-    <div className="hidden sm:block">
+    <div>
       <div className="border-b border-gray-200 dark:border-gray-800">
-        <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+        <nav className="-mb-2 sm:px-6 flex space-x-3  overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent" aria-label="Tabs">
           {tabs.map((tab, idx) => (
             <Tab
               name={tab?.name}
@@ -70,7 +70,7 @@ export default async function FormDetailLayout({
         </nav>
       </div>
       <Suspense fallback={<FzLoader />}>
-        <div className="rounded p-4 mx-auto max-w-6xl">
+        <div className="rounded p-4 mx-auto max-w-7xl">
           {React.cloneElement(children, { formDetail: formDetail })}
         </div>
       </Suspense>

@@ -6,34 +6,30 @@ import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
  * @param {string} teamSlug - team Slug
  * @returns
  */
-const updateTeam = ({
+const updateTeam = async ({
   teamName,
   teamSlug,
   type,
+  avatar,
+  role,
 }: {
   teamName?: string;
   teamSlug?: string;
   type?: string;
+  avatar?: string;
+  role?: { ADMIN: any; MEMBER: any };
 }) => {
-  fetch("/api/teams/updateTeam", {
+  const response = await fetch("/api/teams/updateTeam", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      teamName,
-      teamSlug,
-      type,
-    }),
-  }).then(async (res) => {
-    if (res?.status === 201) {
-      showSuccessToast("Team updated successfully");
-      return (await res.json()).team;
-    } else {
-      showErrorToast("Failed to update team");
-      return undefined;
-    }
+    body: JSON.stringify({ teamName, teamSlug, type, avatar, role }),
   });
+
+  const res = await response.json();
+
+  return res || {};
 };
 
 export default updateTeam;

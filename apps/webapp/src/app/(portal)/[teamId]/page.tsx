@@ -1,10 +1,6 @@
-import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
-import Search from "@/components/Search";
 import { PageProps } from "@/types/PageProps";
-import ActionsSection from "./ActionsSection";
-import FormListItem from "./FormListItem";
-import EmptyForm from "./EmptyForm";
+import SearchForm from "./SearchForm";
 
 export default async function page({ params }: PageProps) {
   const teamSlug = params.teamId;
@@ -20,27 +16,21 @@ export default async function page({ params }: PageProps) {
     forms = JSON.parse(JSON.stringify(allForms));
   } catch (error) {}
 
-  return (
-    <div className="dark:bg-neutral-900 min-h-screen">
-      <div className="mx-auto sm:max-w-7xl">
-        <div className="flex items-center mb-10 pt-7">
-          <div className="w-[87%]">
-            <Search />
-          </div>
-          <div className="w-[10%]">
-            <ActionsSection teamSlug={teamSlug} />
-          </div>
-        </div>
+  const formCounts: Record<number, number> = {};
 
-        {!isEmpty(forms) ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {forms.map((form: any, idx: any) => {
-              return <FormListItem form={form} key={idx} teamSlug={teamSlug} />;
-            })}
-          </div>
-        ) : (
-          <EmptyForm teamSlug={teamSlug} />
-        )}
+  for (const form of forms) {
+    const count = await prisma.form_submissions.count({
+      where: {
+        formId: form.id,
+      },
+    });
+    formCounts[form.id] = count;
+  }
+
+  return (
+    <div className="dark:bg-black min-h-screen">
+      <div className="mx-auto sm:max-w-7xl">
+        <SearchForm forms={forms} teamSlug={teamSlug} formCounts={formCounts} />
       </div>
     </div>
   );

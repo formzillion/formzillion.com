@@ -1,0 +1,47 @@
+{
+  "name": "@formzillion/cli",
+  "version": "0.0.2",
+  "description": "Formzillion CLI tool.",
+  "main": "dist/index.js",
+  "bin": {
+    "formzillion": "bin/formzillion"
+  },
+  "scripts": {
+    "build": "tsc",
+    "prepublish": "npm run build",
+    "prestart": "npm run build",
+    "start": "node dist/index.js",
+    "release": "npm release"
+  },
+  "keywords": [
+    "dotenv",
+    "forms",
+    "cli",
+    "formzillion"
+  ],
+  "author": "Formzillion",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/formzillion/formzillion.com",
+    "directory": "packages/cli"
+  },
+  "license": "SEE LICENSE IN LICENSE FILE IN GIT REPOSITORY",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "commander": "^10.0.1"
+  },
+  "devDependencies": {
+    "@formzillion/tsconfig": "workspace:*",
+    "@types/commander": "^2.12.2",
+    "@types/node": "^20.1.0",
+    "typescript": "^5.0.4"
+  },
+  "engines": {
+    "node": ">=16.7"
+  },
+  "files": [
+    "dist/**/*",
+    "package.json",
+    "README.md"
+  ]
+}

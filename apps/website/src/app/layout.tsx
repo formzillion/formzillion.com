@@ -1,9 +1,11 @@
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 
-import Header from "./shared/HeaderV2";
 import Footer from "./shared/FooterV2";
 import "../assets/styles/globals.css";
+import Header from "./shared/Header";
+import DisclosureNav from "./shared/DisclosureNav";
+import CTASection from "./shared/CTASection";
 
 export const metadata: Metadata = {
   title: "Formzillion - Instant backend for all your forms",
@@ -21,10 +23,11 @@ export default async function RootLayout({
         <head /> will contain the components returned by the nearest parent
         head.tsx. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
       */}
-      <head />
       <body className="overflow-x-hidden">
         <Header />
-        <main>{children}</main>
+        <DisclosureNav />
+        <main className="min-h-screen">{children}</main>
+        <CTASection />
         <Footer />
         <Analytics />
       </body>

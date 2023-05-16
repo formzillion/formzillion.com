@@ -77,11 +77,12 @@
   * {
     @apply border-border;
   }
+
   body {
     /*Todo: Need to uncomment to fix the background color */
     /*@apply bg-background text-foreground;*/
     @apply text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-feature-settings: "rlig"1, "calt"1;
   }
 }
 
@@ -95,6 +96,7 @@
 }
 
 @layer base {
+
   h1,
   h2,
   h3,
@@ -194,17 +196,14 @@ html,
   top: -5px !important;
 }
 
-.tremor-base button.input-elem > svg {
+.tremor-base button.input-elem>svg {
   color: var(--text-black) !important;
   width: 1.05rem;
   heigth: 1.05rem;
   margin-top: -1px;
 }
 
-.ranger-picker
-  .tremor-base
-  > div
-  > button:last-child.input-elem.tr-inline-flex {
+.ranger-picker .tremor-base>div>button:last-child.input-elem.tr-inline-flex {
   min-width: 150px;
 }
 
@@ -273,4 +272,32 @@ html,
   border-radius: 18px;
   font-size: 22px;
   font-weight: bold;
+}
+
+.hover-border {
+  position: relative;
+  overflow: hidden;
+  padding: 1px;
+}
+
+.hover-border::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+  background-size: 50% 100%;
+  border-radius: inherit;
+}
+
+.hover-border:hover::before {
+  background: linear-gradient(115deg, #4FCF70, #D8BD46, #D67C15, #f0f35c, #44CE7B);
+  animation: animate_border 2s linear infinite;
+}
+
+@keyframes animate_border {
+  to {
+    transform: translateX(-50%);
+  }
 }

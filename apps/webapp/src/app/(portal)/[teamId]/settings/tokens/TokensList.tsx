@@ -52,11 +52,11 @@ const TokensList = () => {
                           </div>
                           <div>
                             <h1 className="capitalize">{team.user.name}</h1>
-                            <h1>{team.user.expiry}</h1>
+                            <h1 className="font-light dark:text-gray-500">{team.user.expiry}</h1>
                           </div>
                         </div>
                         <div className="flex items-center">
-                          <h1 className="text-xs mr-2">{team.createdAt}</h1>
+                          <h1 className="text-xs font-light mr-2">{team.createdAt}</h1>
 
                           <DropdownMenu>
                             <DropdownMenuTrigger asChild>

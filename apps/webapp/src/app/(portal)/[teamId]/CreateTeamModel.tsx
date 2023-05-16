@@ -18,10 +18,11 @@ export default function CreateTeamModal({ isOpen, closeModal }: any) {
       method: "POST",
       body: JSON.stringify(teamValues),
     });
-    closeModal();
     if (response) {
       const teamId = response?.data?.id;
+      closeModal();
       router.push(`/teams/${teamId}`);
+      router.refresh();
     }
   };
 

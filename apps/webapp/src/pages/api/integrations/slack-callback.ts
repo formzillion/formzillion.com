@@ -34,17 +34,15 @@ export default async function handler(
     const accessParams = await getAccessToken(code);
 
     if (isEmpty(accessParams)) {
-      return res
-        .status(400)
-        .json({
-          success: false,
-          message: "Failed to fetch access token! please try to reconnect",
-        });
+      return res.status(400).json({
+        success: false,
+        message: "Failed to fetch access token! please try to reconnect",
+      });
     }
 
     const { email, teamSlug } = stateParams;
 
-    const requiredData = await callbackHelper({
+    const requiredData: any = await callbackHelper({
       email,
       teamSlug,
       appSlug,
@@ -55,7 +53,6 @@ export default async function handler(
     }
 
     const connectionData: any = {
-      userId: requiredData?.userId,
       name: email,
       email: email,
       appId: requiredData?.appId,

@@ -6,7 +6,7 @@ function SpamFiltersIllustration() {
       xmlns="http://www.w3.org/2000/svg"      
       fill="none"
       viewBox="0 0 580 575"
-      className="w-[580px] h-auto p-10"
+      className="w-full sm:w-auto sm:h-[450px] p-5 sm:p-10"
     >
       <path
         fill="#F4F6F8"

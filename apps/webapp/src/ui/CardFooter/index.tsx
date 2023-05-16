@@ -11,10 +11,21 @@ interface FooterProps {
   btnText?: string;
   onClick?: React.MouseEvent | any;
   loading?: boolean;
+  type?: string;
+  disabled?: boolean;
 }
 
 export default function CardFooter(props: FooterProps) {
-  const { title, urlText, url, btnText, onClick, loading } = props;
+  const {
+    title,
+    urlText,
+    url,
+    btnText,
+    onClick,
+    loading,
+    type = "button",
+    disabled,
+  } = props;
   return (
     <div className="h-12 px-6 bg-slate-50 dark:bg-black flex justify-between items-center">
       <p className="text-sm text-gray-700 dark:text-gray-400">
@@ -33,9 +44,11 @@ export default function CardFooter(props: FooterProps) {
       </p>
       {btnText && (
         <Button
+          type={type}
           loading={loading}
           onClick={onClick}
-          className="flex justify-end rounded-none min-w-[80px] h-[30px]"
+          disabled={disabled}
+          className="flex justify-end rounded-none min-w-[80px] text-sm h-9"
         >
           {btnText}
         </Button>

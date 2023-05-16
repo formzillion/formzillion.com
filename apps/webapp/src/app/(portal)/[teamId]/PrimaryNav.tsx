@@ -12,8 +12,11 @@ export default function PrimaryNav({ tabs, finalTeamId, formId }: any) {
   return (
     <>
       {!primary && (
-        <div className="border-b border-gray-200 dark:border-gray-800">
-          <nav className="-mb-px mx-auto max-w-7xl flex space-x-6" aria-label="Tabs">
+        <div className="border-b border-gray-200 dark:border-gray-800 ">
+          <nav
+            className="-mb-2 sm:px-6 flex space-x-3  overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"
+            aria-label="Tabs"
+          >
             {tabs.map((tab: any, idx: number) => (
               <Tab
                 name={tab?.name}

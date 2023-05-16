@@ -1,4 +1,4 @@
-import { getUserData } from "@/utils/getUserData";
+import prisma from "@/lib/prisma";
 
 interface IIntegrationMap {
   integrations: {
@@ -19,18 +19,18 @@ export default async function integrationMap({
   try {
     const integrationConnectionMap: any = {};
 
-    // Fetching the User Data for App Connections status
-    const userDetails = await getUserData({
-      select: {
-        id: true,
-        teams: { select: { id: true, slug: true, name: true } },
-        connections: {
-          select: { id: true, appSlug: true, status: true, teamId: true },
+    const connections = await prisma.connections.findMany({
+      where: {
+        team: {
+          slug: teamSlug,
         },
       },
+      select: {
+        appSlug: true,
+        appId: true,
+        status: true,
+      },
     });
-
-    const { teams = [], connections = [] } = userDetails || {};
 
     integrations.forEach((integration: any) => {
       integrationConnectionMap[integration.slug] = {
@@ -40,17 +40,11 @@ export default async function integrationMap({
     });
 
     // Mapping the Connected app status based on the teamId
-    teams?.forEach(({ id, slug }: { id: string; slug: string }) => {
-      if (slug === teamSlug) {
-        connections?.forEach((conn: any) => {
-          if (conn.teamId === id) {
-            integrationConnectionMap[conn.appSlug] = {
-              ...integrations.find((i: any) => i.slug === conn.appSlug),
-              status: conn.status || "not_connected",
-            };
-          }
-        });
-      }
+    connections?.forEach((conn: any) => {
+      integrationConnectionMap[conn.appSlug] = {
+        ...integrations.find((i: any) => i.slug === conn.appSlug),
+        status: conn.status || "not_connected",
+      };
     });
 
     const finalIntegrations = Object.values(integrationConnectionMap);

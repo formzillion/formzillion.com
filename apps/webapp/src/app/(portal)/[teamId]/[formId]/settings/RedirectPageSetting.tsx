@@ -6,8 +6,10 @@ import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
 import CardFooter from "@/ui/CardFooter";
+import { useRouter } from "next/navigation";
 
 const RedirectPageSetting = ({ formDetail }: any) => {
+  const router = useRouter();
   let previousSelectedValue;
   if (isEmpty(formDetail?.redirectData) && isEmpty(formDetail?.redirectUrl)) {
     previousSelectedValue = "default";
@@ -54,6 +56,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
       ? showSuccessToast("Redirect details saved successfully")
       : showErrorToast("some thing went wrong");
     setLoading(false);
+    router.refresh();
   };
 
   const handleRadioChange = (event: any) => {
@@ -61,7 +64,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
   };
 
   return (
-    <>
+    <form onSubmit={handleSubmit}>
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
         <Header title={"Redirects"} />
         <div className="text-gray-500 py-4">
@@ -223,13 +226,13 @@ const RedirectPageSetting = ({ formDetail }: any) => {
       </div>
       <CardFooter
         title={"Learn more about"}
+        type="submit"
         urlText="Redirects"
         url="https://docs.formzillion.com/features/redirects"
         btnText={"Save"}
-        onClick={handleSubmit}
         loading={loading}
       />
-    </>
+    </form>
   );
 };
 export default RedirectPageSetting;

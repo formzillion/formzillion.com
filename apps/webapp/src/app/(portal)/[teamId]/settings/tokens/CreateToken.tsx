@@ -27,6 +27,45 @@ const CreateToken = () => {
     setScope("TEAM");
   };
 
+  const dateOptions: any = [
+    {
+      name: "Expiration",
+      value: "1",
+    },
+    {
+      name: "1 Day",
+      value: "1",
+    },
+    {
+      name: "7 Days",
+      value: "7",
+    },
+    {
+      name: "30 Days",
+      value: "30",
+    },
+    {
+      name: "60 Days",
+      value: "60",
+    },
+    {
+      name: "90 Days",
+      value: "90",
+    },
+    {
+      name: "180 Days",
+      value: "180",
+    },
+    {
+      name: "1 Year",
+      value: "365",
+    },
+    {
+      name: "No Expiration",
+      value: "0",
+    },
+  ];
+
   return (
     <div className="space-y-5">
       <div className="divide-y divide-gray-300  bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700 dark:divide-gray-800">
@@ -64,15 +103,9 @@ Then select the scope for the token."
                 value={expiry}
                 onChange={handleExpiration}
               >
-                <option value="1">Expiration</option>
-                <option value="1">1 Day</option>
-                <option value="7">7 Days</option>
-                <option value="30">30 Days</option>
-                <option value="60">60 Days</option>
-                <option value="90">90 Days</option>
-                <option value="180">180 Days</option>
-                <option value="360">1 Year</option>
-                <option value="0">No Expiration</option>
+                {dateOptions?.map((option: any) => {
+                  return <option value={option.value}>{option.name}</option>;
+                })}
               </select>
             </div>
           </div>

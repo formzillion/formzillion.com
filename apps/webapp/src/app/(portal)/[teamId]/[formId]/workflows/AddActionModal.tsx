@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { get, isEmpty, startCase } from "lodash";
+import { get, isEmpty, map, startCase } from "lodash";
 
 import {
   Dialog,
@@ -15,6 +15,16 @@ import getApps from "@/app/fetch/integrations/getApps";
 import getConnections from "@/app/fetch/connections/getConnections";
 import addTask from "@/app/fetch/tasks/addTask";
 import { showSuccessToast } from "@/ui/Toast/Toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  SelectTrigger,
+} from "@/ui/Select";
+import { Input } from "@/ui/Input/SimpleInput";
+
+import getTablesFromAirtable from "@/app/fetch/integrations/airtable/getTables";
 
 interface IAddActionModal {
   workflowId: number | string;
@@ -25,9 +35,16 @@ interface IAddActionModal {
 
 const availableActionsMap: any = {
   mailerlite: ["addSubscriber"],
-  sendgrid: ["sendWelcomeEmail", "sendThankyouEmail"],
+  sendgrid: ["sendThankyouEmail"],
   slack: ["sendNotification"],
   webhooks: ["postToWebhookEnpoint"],
+  airtable: ["addRecord"],
+  freshdesk: ["createTicket"],
+};
+
+const taskTemplateConfig: any = {
+  sendgrid: { fromEmail: "formEmail", name: "name" },
+  airtable: { table: [] },
 };
 
 const AddActionModal = ({
@@ -46,42 +63,70 @@ const AddActionModal = ({
     connectionId: "",
     actionSlug: "",
   });
+  const [template, setTemplate] = useState<any>({});
+  const [taskTemplate, setTaskTemplate] = useState(
+    taskTemplateConfig[appSlug] || {}
+  );
 
   const availableActions = availableActionsMap[appSlug];
   const isConnectionsExists = !isEmpty(connectionList);
   const isAppsExists = !isEmpty(appsList);
+  const isActionExists = !isEmpty(availableActions);
+
+  const processAirtable = useCallback(async () => {
+    if (!isEmpty(actionSetup.connectionId)) {
+      if (appSlug === "airtable") {
+        const tables = await getTablesFromAirtable({
+          connectionId: actionSetup.connectionId,
+        });
+
+        setTaskTemplate({ table: tables });
+      }
+    }
+  }, [actionSetup.connectionId, appSlug]);
 
   const getAppsList = useCallback(async () => {
     const apps = await getApps();
     setAppsList(apps);
   }, []);
 
-  const getConnectionsList = useCallback(async () => {
-    const connections = await getConnections({
-      appId: actionSetup.appId,
-      teamSlug,
-    });
+  const getConnectionsList = useCallback(
+    async (slug: string) => {
+      const connections = await getConnections({
+        appSlug: slug,
+        teamSlug,
+      });
 
-    setTeamId(get(connections, "0.teamId", ""));
-    setconnectionList(connections);
-  }, [actionSetup.appId, teamSlug]);
+      setTeamId(get(connections, "0.teamId", ""));
+      setconnectionList(connections);
+    },
+    [teamSlug]
+  );
 
   useEffect(() => {
     if (isEmpty(appsList)) {
       getAppsList();
     }
 
-    if (actionSetup.appId) {
+    if (!isEmpty(actionSetup.appId)) {
       const slug = appsList.find(
-        (app: any) => app.id === actionSetup.appId
+        (app: { id: string }) => app.id.toString() === actionSetup.appId
       )?.slug;
       setAppSlug(slug);
-      getConnectionsList();
+      getConnectionsList(slug);
     }
-  }, [actionSetup, appsList, getAppsList, getConnectionsList]);
 
-  const handleOnSelect = (e: any) => {
-    const { name, value } = e.target;
+    processAirtable();
+  }, [
+    actionSetup.appId,
+    appSlug,
+    appsList,
+    getAppsList,
+    getConnectionsList,
+    processAirtable,
+  ]);
+
+  const handleOnSelect = (value: string, name: string) => {
     setActionSetup({
       ...actionSetup,
       [name]: value,
@@ -92,7 +137,8 @@ const AddActionModal = ({
     setLoading(true);
     const actionSlug = actionSetup.actionSlug || get(availableActions, "0", "");
     const appId = actionSetup.appId || get(appsList, "0.id", "");
-    const connectionId = actionSetup.connectionId || get(connectionList, "0.id", "");
+    const connectionId =
+      actionSetup.connectionId || get(connectionList, "0.id", "");
     const actionResp = await addTask({
       workflowId,
       teamId,
@@ -100,8 +146,9 @@ const AddActionModal = ({
       appId,
       actionSlug,
       connectionId,
+      appSlug,
       name: `${appSlug}_${actionSlug}`,
-      template: {},
+      template,
     });
     if (actionResp.success) {
       showSuccessToast("Action added successfully");
@@ -113,89 +160,163 @@ const AddActionModal = ({
     setLoading(false);
   };
 
+  const handleTemplateConfig = (e: any, name: string) => {
+    setTemplate({
+      ...template,
+      [name]: e.target.value,
+    });
+  };
+
+  const handleAirtableConfig = (value: any, name: string, tables: any) => {
+    setTemplate({
+      [`${name}Id`]: value,
+      tables,
+    });
+  };
+
   return (
     <Dialog open={true} onOpenChange={closeModal}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Action</DialogTitle>
-          <DialogDescription className="text-gray-600">
+          <DialogDescription className="text-gray-700 dark:text-gray-400">
             Add action for the current workflow
           </DialogDescription>
         </DialogHeader>
         <div>
           <div className="space-y-4 py-2 pb-4">
-            <label
-              htmlFor="appId"
-              className="block text-sm font-medium text-gray-700"
-            >
+            <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
               Select App
-            </label>
-            <select
-              id="appId"
-              name="appId"
-              className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+            </span>
+            <Select
               defaultValue={actionSetup.appId}
-              onClick={(e: any) => handleOnSelect(e)}
+              onValueChange={(value) => handleOnSelect(value, "appId")}
             >
-              {isAppsExists &&
-                appsList.map((app: any) => {
-                  return (
-                    <option key={app.id} value={app.id}>
-                      {app.name}
-                    </option>
-                  );
-                })}
-            </select>
+              <SelectTrigger>
+                <SelectValue placeholder="Select App" />
+              </SelectTrigger>
+              <SelectContent>
+                {isAppsExists &&
+                  appsList.map((app: any) => {
+                    return (
+                      <SelectItem key={app.id} value={app.id.toString()}>
+                        {app.name}
+                      </SelectItem>
+                    );
+                  })}
+              </SelectContent>
+            </Select>
           </div>
           {isConnectionsExists && (
             <div className="space-y-4 py-2 pb-4">
-              <label
-                htmlFor="connectionId"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Select Connection
-              </label>
-              <select
-                id="connectionId"
-                name="connectionId"
-                className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+              </span>
+              <Select
                 defaultValue={actionSetup.connectionId}
-                onClick={(e: any) => handleOnSelect(e)}
+                onValueChange={(value) => handleOnSelect(value, "connectionId")}
               >
-                {connectionList.map((conn: any) => {
-                  return (
-                    <option key={conn.id} value={conn.id}>
-                      {conn.name}
-                    </option>
-                  );
-                })}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Connection" />
+                </SelectTrigger>
+                <SelectContent>
+                  {connectionList.map((conn: any) => {
+                    return (
+                      <SelectItem key={conn.id} value={conn.id.toString()}>
+                        {conn.name}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
             </div>
           )}
-          {isConnectionsExists && !isEmpty(availableActions) && (
+          {isConnectionsExists && isActionExists && (
             <div className="space-y-4 py-2 pb-4">
-              <label
-                htmlFor="actionSlug"
-                className="block text-sm font-medium text-gray-700"
-              >
+              <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
                 Select Action
-              </label>
-              <select
-                id="actionSlug"
-                name="actionSlug"
-                className="appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+              </span>
+              <Select
                 defaultValue={actionSetup.actionSlug}
-                onClick={(e: any) => handleOnSelect(e)}
+                onValueChange={(value) => handleOnSelect(value, "actionSlug")}
               >
-                {availableActions.map((action: any) => {
-                  return (
-                    <option key={action} value={action}>
-                      {startCase(action)}
-                    </option>
-                  );
-                })}
-              </select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Action" />
+                </SelectTrigger>
+                <SelectContent>
+                  {availableActions.map((action: any) => {
+                    return (
+                      <SelectItem key={action} value={action}>
+                        {startCase(action)}
+                      </SelectItem>
+                    );
+                  })}
+                </SelectContent>
+              </Select>
             </div>
+          )}
+          {isConnectionsExists && isActionExists && !isEmpty(taskTemplate) && (
+            <>
+              {map(taskTemplate, (templateField: any, templateFieldKey) => (
+                <div className="space-y-4 py-2 pb-4">
+                  {typeof templateField === "string" && (
+                    <>
+                      <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        Enter {startCase(templateFieldKey)}
+                      </span>
+                      <Input
+                        type="text"
+                        name={templateFieldKey}
+                        id={templateFieldKey}
+                        autoComplete={templateFieldKey}
+                        value={template[templateFieldKey] || ""}
+                        onChange={(e) =>
+                          handleTemplateConfig(e, templateFieldKey)
+                        }
+                        required
+                      />
+                    </>
+                  )}
+                  {templateField?.length > 0 && (
+                    <>
+                      {!isEmpty(templateField) && (
+                        <div className="space-y-4 py-2 pb-4">
+                          <span className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Select {startCase(templateFieldKey)}
+                          </span>
+                          <Select
+                            onValueChange={(value) =>
+                              handleAirtableConfig(
+                                value,
+                                templateFieldKey,
+                                templateField
+                              )
+                            }
+                          >
+                            <SelectTrigger>
+                              <SelectValue
+                                placeholder={`Select ${startCase(
+                                  templateFieldKey
+                                )}`}
+                              />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {templateField?.map(({ label, value }: any) => {
+                                return (
+                                  <SelectItem key={value} value={value}>
+                                    {startCase(label)}
+                                  </SelectItem>
+                                );
+                              })}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+              ))}
+            </>
           )}
         </div>
         <DialogFooter>

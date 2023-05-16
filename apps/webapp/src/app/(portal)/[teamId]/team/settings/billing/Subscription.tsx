@@ -1,38 +1,13 @@
-"use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { format } from "date-fns";
 import { FireIcon } from "@heroicons/react/24/solid";
 
-export default function Subscription({ customerId, planId }: any) {
-  const [account, setAccount] = useState<any>([]);
-  const [loading, setLoading] = useState<any>(false);
-
-  const getData = useCallback(async () => {
-    setLoading(true);
-
-    fetch("/api/stripe/account", {
-      method: "POST",
-      body: JSON.stringify({
-        customerId,
-        planId,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => setAccount(data));
-    setLoading(false);
-  }, []);
-
-  useEffect(() => {
-    getData().then(() => console.log("fetched"));
-  }, []);
-
-  const subscription = account?.subscriptions?.[0];
+export default function Subscription({ subscription }: any) {
   const plan = subscription?.plan || {};
   const { name } = plan?.product || {};
   const { amount_decimal = 0, interval = "month" } = plan || {};
   const { current_period_end = 0 } = subscription || {};
   const nextBillingDate = format(current_period_end * 1000, "dd/MMM/yyyy");
-
   return (
     <div className="space-y-5">
       <div className="bg-white shadow dark:bg-black border border-gray-300 dark:border-gray-700">

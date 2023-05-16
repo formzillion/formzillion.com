@@ -1,3 +1,4 @@
+import { get } from "lodash";
 import prisma from "@/lib/prisma";
 
 interface ICallBackHeler {
@@ -23,7 +24,10 @@ export default async function callBackHelper({
     /* Fetching the user details and associated teams for email */
     const user = (await prisma.users.findUnique({
       where: { email },
-      select: { id: true, teams: { select: { id: true, slug: true } } },
+      select: {
+        id: true,
+        teams: { where: { slug: teamSlug }, select: { id: true, slug: true } },
+      },
     })) as IUser;
 
     if (!user) {
@@ -40,12 +44,9 @@ export default async function callBackHelper({
       return { success: false, message: `App not found! for slug: ${appSlug}` };
     }
 
-    /* Finding the team for teamSlug */
-    const team = user?.teams.find(
-      ({ slug }: { slug: string }) => slug === teamSlug
-    );
+    const teamId = get(user, "teams.0.id", "");
 
-    if (!team) {
+    if (!teamId) {
       return {
         success: false,
         message: `Team not found! for slug: ${teamSlug} and email: ${email}`,
@@ -55,10 +56,9 @@ export default async function callBackHelper({
     /* Checking for existing connection */
     const existingConnId = await prisma.connections.findFirst({
       where: {
+        teamId: teamId,
         email: email,
-        userId: user?.id,
         appId: app?.id,
-        teamId: team.id,
         appSlug: appSlug,
       },
       select: {
@@ -68,17 +68,17 @@ export default async function callBackHelper({
 
     return {
       success: true,
-      teamId: team.id,
+      teamId: teamId,
       userId: user?.id,
       appId: app?.id,
       connectionId: existingConnId?.id,
     };
-  } catch (error) {
+  } catch (error: any) {
     console.log(`Error in callBackHelper: ${error}`);
 
     return {
       success: false,
-      message: `Error occured while fetching the required data: ${error}`,
+      message: `Error occured while fetching the required data: ${error.message}`,
     };
   }
 }

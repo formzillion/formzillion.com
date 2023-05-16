@@ -12,10 +12,17 @@ import {
 import Button from "@/ui/Buttons";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
+import { get } from "lodash";
 
-export default function LeaveTeamModal({ closeModal, teamSlug }: any) {
+export default function LeaveTeamModal({
+  closeModal,
+  teamSlug,
+  personalAccount,
+}: any) {
   const router = useRouter();
   const [loading, setLoading] = useState<any>(false);
+  const userAcc = JSON.parse(personalAccount);
+  const userSlug = get(userAcc, "0.slug", "");
 
   const onClickLeaveTeam = () => {
     setLoading(true);
@@ -28,7 +35,7 @@ export default function LeaveTeamModal({ closeModal, teamSlug }: any) {
     if (response) {
       setLoading(false);
     }
-    router.push("/dashboard");
+    router.push(`/${userSlug}`);
   };
 
   return (
@@ -43,7 +50,7 @@ export default function LeaveTeamModal({ closeModal, teamSlug }: any) {
         <DialogFooter>
           <Button
             loading={loading}
-            className="bg-orange-600  text-white rounded-none"
+            className="bg-orange-600 text-white rounded-none"
             onClick={() => onClickLeaveTeam()}
             type="submit"
           >

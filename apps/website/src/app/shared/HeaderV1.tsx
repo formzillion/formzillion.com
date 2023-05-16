@@ -18,10 +18,10 @@ export function Header() {
               <div className="hidden md:flex md:flex-1 md:items-center md:justify-between pt-3 pl-20">
                 <nav className="flex space-x-10">
                   <Link
-                    href="/plans"
+                    href="/pricing"
                     className="text-lg font-[satoshi] font-medium text-gray-200 hover:text-orange-500"
                   >
-                    Plans
+                    Pricing
                   </Link>
                   {/* <Link
                     href="/templates"

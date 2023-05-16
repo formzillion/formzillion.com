@@ -2,25 +2,47 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
 
+enum Role {
+  ADMIN = "ADMIN",
+  MEMBER = "MEMBER", //Right = 4
+}
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { teamName, teamSlug, type, userId } = req.body;
+    const { teamName, teamSlug, type, avatar, role } = req.body;
+    console.log(teamName, teamSlug, type, avatar);
     const { currentUser } = await getUserSession(req, res);
 
     let updatedTeam;
-    if (type === "updateName") {
-      updatedTeam = await updateTeamName(teamSlug, teamName);
-    } else if (type === "updateSlug") {
-      updatedTeam = await updateTeamSlug(teamSlug, teamName);
-    } else if (type === "leaveTeam") {
-      updatedTeam = await leaveTeam(teamSlug, currentUser.id);
-    } else if (type === "deleteTeam") {
-      updatedTeam = await deleteTeam(teamSlug);
-    } else if (type === "removeMember") {
-      updatedTeam = await removeMember(teamSlug, teamName);
+    switch (type) {
+      case "updateName":
+        updatedTeam = await updateTeamName(teamSlug, teamName);
+        break;
+      case "updateSlug":
+        updatedTeam = await updateTeamSlug(teamSlug, teamName);
+        break;
+      case "leaveTeam":
+        updatedTeam = await leaveTeam(teamSlug, currentUser.id);
+        break;
+      case "deleteTeam":
+        updatedTeam = await deleteTeam(teamSlug);
+        break;
+      case "removeMember":
+        updatedTeam = await removeMember(teamSlug, teamName);
+        break;
+      case "deleteAccount":
+        updatedTeam = await deleteAccount(teamSlug, currentUser.id);
+        break;
+      case "changeAvatar":
+        updatedTeam = await updateAvatar(teamSlug, avatar);
+        break;
+      case "roleChange":
+        updatedTeam = await roleChange(teamName, teamSlug, role);
+        break;
+      default:
+        throw new Error("Invalid operation type");
     }
 
     res.status(201).json({ success: true, data: updatedTeam });
@@ -49,6 +71,13 @@ async function updateTeamSlug(teamSlug: string, newSlug: string) {
 }
 
 async function leaveTeam(teamSlug: string, userId: string) {
+  if (teamSlug && userId) {
+    await prisma.memberships.deleteMany({
+      where: {
+        AND: [{ userId: userId }, { teamId: teamSlug }],
+      },
+    });
+  }
   return await prisma.teams.update({
     where: { slug: teamSlug },
     data: {
@@ -60,6 +89,49 @@ async function leaveTeam(teamSlug: string, userId: string) {
 }
 
 async function deleteTeam(teamSlug: string) {
+  const team: any = await prisma.teams.findUnique({
+    where: {
+      slug: teamSlug,
+    },
+    include: {
+      forms: true,
+    },
+  });
+  if (team.id) {
+    await prisma.forms.deleteMany({
+      where: {
+        teamId: team.id,
+      },
+    });
+  }
+  return await prisma.teams.delete({
+    where: {
+      slug: teamSlug,
+    },
+  });
+}
+
+async function deleteAccount(teamSlug: string, userId: string) {
+  const team: any = await prisma.teams.findUnique({
+    where: {
+      slug: teamSlug,
+    },
+    include: {
+      forms: true,
+    },
+  });
+  if (team.id) {
+    await prisma.forms.deleteMany({
+      where: {
+        teamId: team.id,
+      },
+    });
+  }
+  await prisma.users.delete({
+    where: {
+      id: userId,
+    },
+  });
   return await prisma.teams.delete({
     where: {
       slug: teamSlug,
@@ -76,8 +148,27 @@ async function removeMember(teamSlug: string, teamName: string) {
       },
     },
   });
+  if (updatedTeam.id) {
+    return await prisma.memberships.deleteMany({
+      where: { teamId: updatedTeam.id, userId: teamName },
+    });
+  } else {
+    return;
+  }
+}
 
-  return await prisma.memberships.deleteMany({
-    where: { teamId: updatedTeam.id, userId: teamName },
+async function updateAvatar(teamSlug: string, avatar: string) {
+  return await prisma.teams.update({
+    where: { slug: teamSlug },
+    data: {
+      avatar: avatar,
+    },
+  });
+}
+
+async function roleChange(teamName: string, teamSlug: string, role: Role) {
+  return await prisma.memberships.update({
+    where: { userId_teamId: { teamId: teamName, userId: teamSlug } },
+    data: { role },
   });
 }

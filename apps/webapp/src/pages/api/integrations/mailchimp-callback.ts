@@ -41,7 +41,7 @@ export default async function handler(
 
     const { email, teamSlug } = stateParams;
 
-    const requiredData = await callbackHelper({
+    const requiredData: any = await callbackHelper({
       email,
       teamSlug,
       appSlug,
@@ -52,7 +52,6 @@ export default async function handler(
     }
 
     const connectionData: any = {
-      userId: requiredData?.userId,
       name: accessParams.accountname || email,
       email: email,
       appId: requiredData?.appId,

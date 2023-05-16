@@ -2,17 +2,23 @@
 import React from "react";
 import Link from "next/link";
 import clsx from "clsx";
+import Image from "next/image";
 
-export default function AppLogo({ href = "/", className }: {
+export default function AppLogo({
+  href = "/",
+  className,
+}: {
   href?: string;
   className?: string;
 }) {
   return (
     <Link href={href} className={clsx("flex", className)}>
-      <img
+      <Image
         src={"/logos/fz_logo_full.svg"}
         alt="Formzillion Logo"
-        className="w-auto h-8 object-contain"
+        className="w-auto h-7 object-contain"
+        height={10}
+        width={10}
       />
     </Link>
   );
