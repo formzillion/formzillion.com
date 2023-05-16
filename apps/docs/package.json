@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 3001",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "dependencies": {
@@ -12,6 +13,7 @@
     "@codesandbox/sandpack-themes": "^2.0.21",
     "@vercel/analytics": "^1.0.0",
     "next": "13.3.0",
+    "next-sitemap": "^4.0.9",
     "next-themes": "^0.2.1",
     "nextra": "^2.3.0",
     "nextra-theme-docs": "^2.2.20",
