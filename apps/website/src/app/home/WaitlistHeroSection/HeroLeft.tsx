@@ -16,13 +16,13 @@ export default function HeroLeft() {
   return (
     <div className="flex relative justify-center items-center text-white text-center w-full h-full mx-auto max-w-6xl">
       <div className="mt-10 flex flex-col items-center space-y-4">
-        <h1 className="font-bold text-2xl sm:text-3xl lg:text-5xl leading-[normal]">
+        <h1 className="font-bold text-2xl sm:text-3xl lg:text-5xl xl:text-6xl leading-[normal]">
           <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
-            Open source
+            Open Source
           </span>{" "}
-          headless forms.
+          Headless Forms
         </h1>
-        <p className="text-base leading-normal px-12 sm:max-w-2xl">
+        <p className="text-base lg:text-xl leading-normal px-12 sm:max-w-2xl">
           Instant backend for all your forms while maintaining complete control
           over their appearance and style.
         </p>

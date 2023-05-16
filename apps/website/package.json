@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 4000",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -30,6 +31,7 @@
     "javascript-time-ago": "^2.5.9",
     "lodash": "^4.17.21",
     "next": "13.2.0",
+    "next-sitemap": "^4.0.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.5",
