@@ -2,7 +2,6 @@ import React from "react";
 
 import BotpoisonIllustration from "../illustrations/botpoison";
 import HcaptchaIllustration from "../illustrations/hcaptcha";
-import CTABanner from "@/app/home/CTABanner";
 import FeatureSection from "@/app/home/Features/FeatureSection";
 import RecaptchaIllustration from "../illustrations/recaptcha";
 import TurnstileIllustration from "../illustrations/turnstile";
@@ -56,7 +55,6 @@ export default function page() {
           action="https://docs.formzillion.com/setup/spam-protection/turnstile"
         />
       </div>
-      <CTABanner />
     </>
   );
 }

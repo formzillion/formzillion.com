@@ -13,7 +13,6 @@ export default function page() {
       <FeaturesTab />
       <FeaturesOverviewNew />
       <OpenSource />
-      <CTASection />
 
       {/*<SeeItInAction />
       <div className="bg-white features-section">

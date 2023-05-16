@@ -5,6 +5,7 @@ import Footer from "./shared/FooterV2";
 import "../assets/styles/globals.css";
 import Header from "./shared/Header";
 import DisclosureNav from "./shared/DisclosureNav";
+import CTASection from "./shared/CTASection";
 
 export const metadata: Metadata = {
   title: "Formzillion - Instant backend for all your forms",
@@ -26,6 +27,7 @@ export default async function RootLayout({
         <Header />
         <DisclosureNav />
         <main className="min-h-screen">{children}</main>
+        <CTASection />
         <Footer />
         <Analytics />
       </body>
