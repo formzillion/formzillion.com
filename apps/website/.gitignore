@@ -41,3 +41,8 @@ next-env.d.ts
 
 # Sentry
 next.config.original.js
+
+# sitemap
+robots.txt
+sitemap-0.xml
+sitemap.xml
