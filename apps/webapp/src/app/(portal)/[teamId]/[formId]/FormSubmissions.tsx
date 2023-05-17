@@ -40,13 +40,22 @@ export default function FormsOverviewPage({
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
+      const res = await fetch(`/api/form-submission/list?page=${currentPage}`,
+      {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formId,
+      }),
+    });
       const data = await res.json();
 
       setData(data);
     }
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, formId]);
 
   const handlePrev = () => {
     setCurrentPage((prevPage) => prevPage - 1);
@@ -88,7 +97,7 @@ export default function FormsOverviewPage({
     setFilter(status);
   };
 
-  const filteredData = submissions.filter((obj: any) => {
+  const filteredData = data.filter((obj: any) => {
     if (filterType === "name") {
       return obj.fields.name?.toLowerCase().includes(searchTerm.toLowerCase());
     } else if (filterType === "email") {
@@ -208,7 +217,7 @@ export default function FormsOverviewPage({
               )}
           </div>
 
-          {!isEmpty(filteredData) && filteredData.length > 0 ? (
+          {!isEmpty(filteredData) && data.length > 0 ? (
             filteredData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem
