@@ -3,16 +3,11 @@ import AppIcon from "@/ui/AppIcon";
 
 export default function CTASection() {
   return (
-    <div className="mx-auto max-w-7xl flex flex-col items-center text-center p-10 text-white">
+    <div className="mx-auto max-w-md sm:max-w-xl md:max-w-3xl flex flex-col items-center text-center p-10 text-white bg-gray-400/10 rounded-2xl lg:max-w-5xl m-10 mb-6 my-28 md:my-40">
       <div className="space-y-4 pb-4">
-        <h3 className="text-2xl sm:text-3xl lg:text-5xl">
-          Manage you forms with Formzillion
+        <h3 className="text-2xl sm:text-3xl font-normal">
+          Ready to send your first form submission?
         </h3>
-        <p className="text-base sm:text-lg text-center leading-relaxed">
-          Our options are suitable for individuals, small or large teams, and
-          enterprises. <br /> Please feel free to contact us if you have any
-          inquiries.
-        </p>
       </div>
       <div className="grid md:grid-cols-2 gap-10 my-8 max-w-4xl">
         <div className="bg-white rounded-2xl p-8 text-gray-950 flex flex-col items-center text-center">
