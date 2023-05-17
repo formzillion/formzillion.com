@@ -21,12 +21,10 @@ export default function SubmissionModal({ closeModal, formDetail }: any) {
   const [isConfirmed, setIsConfirmed] = useState("");
 
   const formName = formDetail.name;
-  const formId = formDetail.id;
-  const form = formName + "/" + formId;
 
   const handleSubmission = async () => {
     setLoading(true);
-    if (isConfirmed === form) {
+    if (isConfirmed === formName) {
       const response = await deleteAllSubmissions({
         formId: formDetail.id,
       });
@@ -40,7 +38,7 @@ export default function SubmissionModal({ closeModal, formDetail }: any) {
       setLoading(false);
       router.refresh();
     } else {
-      showErrorToast(`Please Enter the Form Name & Form Id`);
+      showErrorToast(`Please Enter the Form Name`);
       setLoading(false);
     }
   };
@@ -73,7 +71,7 @@ export default function SubmissionModal({ closeModal, formDetail }: any) {
           <div className="space-y-2 text-sm py-4 text-gray-600 dark:text-gray-300">
             <label htmlFor="name">
               {`Enter the form name & form id`}{" "}
-              <b>{`${formDetail.name}/${formDetail.id}`}</b> {`to continue`}
+              <b>{`${formDetail.name}`}</b> {`to continue`}
             </label>
 
             <Input

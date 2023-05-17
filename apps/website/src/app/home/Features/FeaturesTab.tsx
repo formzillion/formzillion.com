@@ -59,7 +59,7 @@ export default function FeaturesTab() {
   return (
     <div className="text-white mx-auto max-w-6xl p-2 lg:p-8 md:mt-24 border-t border-gray-800 border-dashed">
       <div className="text-center mb-14">
-        <h2 className="py-4 text-2xl sm:text-3xl lg:text-5xl">Features</h2>
+        <h2 className="py-4 font-normal text-2xl sm:text-3xl lg:text-5xl">Features</h2>
       </div>
       <Tab.Group>
         <Tab.List className="flex justify-between">
