@@ -1,6 +1,6 @@
 {
   "send-slack-notification-on-channel": "Send Slack Notification on Channel",
-  "send-emails-via-sendgrid": "Send Emails via Sendgrid",
+  "send-emails-using-sendgrid": "Send Emails using Sendgrid",
   "send-from-data-to-webhooks-endpoint": "Send Form Data to Webhooks Endpoint",
   "add-subscribers-to-mailerlite": "Add Subscribers to Mailerlite",
   "create-ticket-in-freshdesk": "Create Ticket in Freshdesk",

@@ -8,15 +8,15 @@ const config: DocsThemeConfig = {
   project: {
     link: "https://github.com/formzillion/formzillion.com",
   },
-  chat: {
-    link: "https://discord.com",
-  },
   docsRepositoryBase:
     "https://github.com/formzillion/formzillion.com/blob/main/apps/docs",
   useNextSeoProps() {
-    return {
-      titleTemplate: "%s – Formzillion",
-    };
+    const { asPath } = useRouter();
+    if (asPath !== "/") {
+      return {
+        titleTemplate: "%s – Formzillion",
+      };
+    }
   },
   primaryHue: 31,
   sidebar: {
