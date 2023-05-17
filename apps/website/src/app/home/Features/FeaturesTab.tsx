@@ -57,15 +57,9 @@ const featuresData = [
 ];
 export default function FeaturesTab() {
   return (
-    <div className="text-white mx-auto max-w-6xl p-2 lg:p-8 mt-8">
+    <div className="text-white mx-auto max-w-6xl p-2 lg:p-8 md:mt-24 border-t border-gray-800 border-dashed">
       <div className="text-center mb-14">
-        <h2 className="py-4 text-2xl sm:text-3xl lg:text-5xl">
-          Automate your form with robust{" "}
-          <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
-            features
-          </span>
-          .
-        </h2>
+        <h2 className="py-4 font-normal text-2xl sm:text-3xl lg:text-5xl">Features</h2>
       </div>
       <Tab.Group>
         <Tab.List className="flex justify-between">
@@ -76,8 +70,8 @@ export default function FeaturesTab() {
                 classNames(
                   "w-full py-2 flex flex-col items-center gap-1 text-xs sm:text-base",
                   selected
-                    ? `border-b-0 border border-gray-600  focus-visible:outline-none text-orange-600 bg-gray-900/20 rounded-t border-dashed`
-                    : "border-b border-gray-600 hover:bg-gray-900/20  transition-all ease-in-out logo-hover:animate-pulse border-dashed"
+                    ? `border-b-0 border border-gray-600  focus-visible:outline-none text-orange-600 bg-gray-400/10 rounded-t border-dashed`
+                    : "border-b border-gray-600 hover:bg-gray-400/10  transition-all ease-in-out logo-hover:animate-pulse border-dashed"
                 )
               }
             >
@@ -86,7 +80,7 @@ export default function FeaturesTab() {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="border border-gray-600 border-dashed border-t-0 relative bg-gray-900/20  lg:p-8 px-4">
+        <Tab.Panels className="border border-gray-600 border-dashed border-t-0 relative bg-gray-400/10  lg:p-8 px-4">
           {featuresData.map((posts: any, idx: number) => (
             <Tab.Panel key={idx} className={classNames()}>
               <div className="md:flex items-center">

@@ -30,9 +30,9 @@ const cardData = [
 ];
 export default function OpenSource() {
   return (
-    <div className="mx-auto max-w-5xl my-10">
+    <div className="mx-auto max-w-5xl my-10 mt-20 md:mt-40">
       <div className="flex flex-col justify-center items-center w-full text-center space-y-5 text-white">
-        <h1 className="text-2xl sm:text-3xl lg:text-5xl">
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-normal">
           Join our{" "}
           <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
             open source{" "}

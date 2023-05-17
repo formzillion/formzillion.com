@@ -33,9 +33,9 @@ const fertures = [
 ];
 const FeaturesOverviewNew = () => {
   return (
-    <section className="py-16 lg:max-w-3xl  max-w-sm sm:max-w-xl md:max-w-2xl mx-auto">
+    <section className="py-10 lg:max-w-4xl bg-gray-400/10 px-10 lg:px-32 rounded-2xl max-w-sm sm:max-w-xl md:max-w-2xl mx-auto mt-20 md:mt-40">
       <div className="mb-4 text-center">
-        <h1 className="text-4xl mb-2">How it works</h1>
+        <h1 className="text-4xl mb-2 font-normal">How it works</h1>
         <p className="text-gray-400">
           Once your form is submitted using JavaScript forms or HTML forms, the
           following events occur

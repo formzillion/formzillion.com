@@ -40,14 +40,22 @@ export default function FormsOverviewPage({
 
   useEffect(() => {
     async function fetchData() {
-      const res = await fetch(`/api/form-submission/list?page=${currentPage}`);
+      const res = await fetch(`/api/form-submission/list?page=${currentPage}`,
+      {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        formId,
+      }),
+    });
       const data = await res.json();
-      const filterData = get(data, "data", []);
 
-      setData(filterData);
+      setData(data);
     }
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, formId]);
 
   const handlePrev = () => {
     setCurrentPage((prevPage) => prevPage - 1);
@@ -209,7 +217,7 @@ export default function FormsOverviewPage({
               )}
           </div>
 
-          {!isEmpty(filteredData) && submissions.length > 0 ? (
+          {!isEmpty(filteredData) && data.length > 0 ? (
             filteredData?.map((submission: any, idx: any) => {
               return (
                 <SubmissionItem

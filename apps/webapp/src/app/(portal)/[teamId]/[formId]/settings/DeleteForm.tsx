@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 
-import { showErrorToast } from "@/ui/Toast/Toast";
 import SubmissionModal from "./SubmissionModal";
 import DeleteModal from "./DeleteModal";
 
@@ -15,17 +14,6 @@ export default function DeleteForm({ formDetail, formSubmissions }: any) {
   const redirect = path?.split("/")[1] || "/dashboard";
 
   const submissionsCount = formSubmissions.length;
-
-  const handleDeleteModal = () => {
-    if (submissionsCount === 0) {
-      setDisable(false);
-      setDeleteModal(true);
-    } else {
-      setDisable(true);
-      setDeleteModal(false);
-      showErrorToast("You cannot delete a form that has submissions");
-    }
-  };
 
   return (
     <>
@@ -65,8 +53,7 @@ export default function DeleteForm({ formDetail, formSubmissions }: any) {
 
           <button
             className={`rounded-none flex hover:shadow dark:text-white px-8 py-2 min-w-[80px]  hover:disabled:text-slate-100  dark:bg-red-600 dark:hover:text-white dark:hover:bg-red-700 bg-red-600 text-white disabled:text-white hover:text-white`}
-            onClick={handleDeleteModal}
-            disabled={disable}
+            onClick={() => setDeleteModal(true)}
           >
             Delete Form
           </button>

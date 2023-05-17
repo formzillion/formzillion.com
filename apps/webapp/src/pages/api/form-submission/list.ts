@@ -9,24 +9,22 @@ export default async function handler(
   const limit = 10;
 
   const startIndex = (page - 1) * limit;
-  const reqBody = req.body;
+  const {  formId } = req.body;
 
-  const formSubmissions = await prisma.form_submissions.findMany({
-    skip: startIndex,
-    take: limit,
-    where: {
-      id: reqBody.formId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
-  const totalPosts = await prisma.form_submissions.count();
-  const totalPages = Math.ceil(totalPosts / limit);
-
-  res.status(200).json({
-    data: formSubmissions,
-    currentPage: page,
-    totalPages: totalPages,
-  });
+  try {
+    const formSubmissions = await prisma.form_submissions.findMany({
+      skip: startIndex,
+      take: limit,
+      where: {
+        formId: formId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+    res.status(200).json(formSubmissions);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 }

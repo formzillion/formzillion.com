@@ -1,15 +1,13 @@
-import BlurDotGridBottom from "./BlurDotGridBottom";
-import BlurDotGridTop from "./BlurDotGridTop";
+import GradientBackground from "../GradientBackground";
 import HeroLeft from "./HeroLeft";
 import HeroRight from "./HeroRight";
 
 export default function HeroSection() {
   return (
     <div className="w-full relative">
-      <BlurDotGridTop />
+      <GradientBackground />
       <HeroLeft />
       <HeroRight />
-      <BlurDotGridBottom />
     </div>
   )
 }

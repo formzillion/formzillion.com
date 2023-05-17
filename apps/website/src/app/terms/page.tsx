@@ -1,5 +1,16 @@
 import React from "react";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Terms and Conditions - Formzillion",
+  description:
+    "Familiarize yourself with Formzillion's terms and conditions to ensure proper use of our headless form management solution. Stay informed and make the most of our streamlined and automated system.",
+  keywords:
+    "Formzillion, Terms and Conditions, Guidelines, Headless Form Management, Streamlined Forms, Automated Forms, Managing API Requests, Ensuring Compliance, Payment, Refunds, Upgrading, Downgrading Terms, Intellectul Property Right",
+  alternates: {
+    canonical: "https://formzillion.com/terms",
+  },
+};
 export default function page() {
   return (
     <>

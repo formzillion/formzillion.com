@@ -23,28 +23,23 @@ const NavLink = (props: navProps) => {
 export default function Header() {
   return (
     <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden border-b border-gray-800">
-      <div className="mx-auto max-w-7xl flex justify-between py-2 h-[60px]">
+      <div className="mx-auto max-w-7xl xl:max-w-full px-4 xl:px-10 xl:py-2.5 flex justify-between py-2 h-[60px] xl:h-[65px]">
         <div className="flex items-center space-x-8">
           <div>
             <AppLogo />
           </div>
-          <div className="flex items-end space-x-6 text-base">
-            <NavLink url={"https://docs.formzillion.com"} title={"Docs"} />
-          </div>
         </div>
         <GithubStar />
         <div className="flex items-center space-x-4">
+          <NavLink url={"https://docs.formzillion.com"} title={"Docs"} />
+          <div className="border-r py-4 border-gray-800"></div>
           <NavLink url={"/pricing"} title={"Pricing"} />
           <div className="border-r py-4 border-gray-800"></div>
-          <NavLink
-            url={`${process.env.NEXT_PUBLIC_APP_URL}/login`}
-            title={"Login"}
-          />
           <a
-            href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
+            href={`${process.env.NEXT_PUBLIC_APP_URL}`}
             className="bg-orange-600 text-orange-50 px-4 py-1.5 rounded hover:bg-orange-700"
           >
-            Sign up
+            Get Started
           </a>
         </div>
       </div>

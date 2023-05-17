@@ -160,11 +160,13 @@ const FooterIcons = [
 export default function Footer() {
   return (
     <div className="relative border-t border-gray-800 bg-gray-900/20">
-      <div className="mx-auto max-w-7xl px-4 lg:px-0">
+      <div className="mx-auto max-w-7xl px-4 lg:px-2">
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mt-8 text-white">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
-              <p className="text-gray-300 text-base font-medium">{data.title}</p>
+              <p className="text-gray-300 text-base font-medium">
+                {data.title}
+              </p>
               <div className="gap-2 text-sm flex flex-col mt-4 text-gray-400">
                 {data.list.map((item: any, index: number) => (
                   <a

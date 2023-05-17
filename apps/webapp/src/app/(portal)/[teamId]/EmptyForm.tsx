@@ -2,9 +2,14 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import CreateFormModal from "./CreateFormModal";
+import { useSupabase } from "@/components/SupbaseProvider";
+import { get } from "lodash";
 
 export default function EmptyForm({ teamSlug }: any) {
   const [showModal, setShowModal] = useState<any>(false);
+  const { session } = useSupabase();
+  const userEmail = get(session, "user.email", "");
+
   return (
     <>
       <div className="flex mt-10 justify-center">
@@ -32,6 +37,7 @@ export default function EmptyForm({ teamSlug }: any) {
             setShowModal(false);
           }}
           teamSlug={teamSlug}
+          userEmail={userEmail}
         />
       )}
     </>

@@ -1,4 +1,16 @@
 import React from "react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy - Formzillion",
+  description:
+    "Formzillion values your privacy. Read our privacy policy to learn how we collect, use, and protect your data. Trust us to provide a secure headless form management solution.",
+  keywords:
+    " Formzillion, Privacy Policy, Secure Data, Headless Form Management, Data Collection, Data Protection, Trust Us, Personal Information, Security, Responsibilities.",
+  alternates: {
+    canonical: "https://formzillion.com/privacy-policy",
+  },
+};
 
 export default function Policy() {
   return (

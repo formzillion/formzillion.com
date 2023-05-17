@@ -27,6 +27,7 @@ export default function Index({
   setData,
   formId,
   toggleExportModal,
+  setSubmissions,
 }: any) {
   const handleCheckAll = () => {
     setIsChecked(!isChecked);

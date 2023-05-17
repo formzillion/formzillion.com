@@ -1,10 +1,13 @@
 "use client";
 import { useState } from "react";
 import CreateFormModal from "./CreateFormModal";
+import { useSupabase } from "@/components/SupbaseProvider";
+import { get } from "lodash";
 
 export default function ActionsSection({ teamSlug }: any) {
   const [showModal, setShowModal] = useState<any>(false);
-
+  const { session } = useSupabase();
+  const userEmail = get(session, "user.email", "");
   return (
     <div className="flex justify-center ">
       <button
@@ -21,6 +24,7 @@ export default function ActionsSection({ teamSlug }: any) {
             setShowModal(false);
           }}
           teamSlug={teamSlug}
+          userEmail={userEmail}
         />
       )}
     </div>

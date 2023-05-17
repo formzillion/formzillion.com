@@ -20,7 +20,7 @@ const UserUrl = ({ teamSlug }: any) => {
   const [isTeamExist, setIsTeamExist] = useState(false);
 
   const handleSlugChange = async () => {
-    if (url.length > 5) {
+    if (url.length >= 5) {
       setLoading(true);
       const response: any = await updateTeam({
         teamSlug: parsedTeam.slug,
