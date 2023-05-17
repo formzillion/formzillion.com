@@ -8,7 +8,7 @@ import DisclosureNav from "./shared/DisclosureNav";
 import CTASection from "./shared/CTASection";
 
 export const metadata: Metadata = {
-  title: "Formzillion - Open Source Headless Forms",
+  title: "Formzillion - The open-source form infrastructure for everyone",
   description:
     "Instant backend for all your forms. Formzillion provides a seamless and automated headless form management solution.",
   keywords: `open source forms, formzillion, instant backend for all your forms, headless forms, automate, email notification, spam protection, forms submission, integrations`,
@@ -16,10 +16,10 @@ export const metadata: Metadata = {
     canonical: "https://formzillion.com/",
   },
   openGraph: {
-    title: "Formzillion - Open Source Headless Forms",
+    title: "Formzillion - The open-source form infrastructure for everyone",
     description: `Formzillion provides a seamless and automated headless form management solution. Retain full control over the style and appearance of your forms while enjoying the benefits of automation. Sign up now!`,
     url: "https://formzillion.com/",
-    siteName: "Formzillion - Instant backend for all your forms",
+    siteName: "Formzillion - The open-source form infrastructure for everyone",
     type: "website",
   },
 };

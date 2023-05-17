@@ -7,7 +7,7 @@ import FeaturesOverviewNew from "./home/FeaturesOverviewNew";
 import FeaturesTab from "./home/Features/FeaturesTab";
 
 export const metadata: Metadata = {
-  title: "Formzillion - Open Source Headless Forms",
+  title: "Formzillion - The open-source form infrastructure for everyone",
   description:
     "Automate and streamline your forms with Formzillion's instant backend. Retain full control over the appearance and style of your forms. Sign up now for free!",
   keywords:
