@@ -67,7 +67,7 @@ export default function Index({
       }),
     });
     const newData = await res.json();
-    setSubmissions(newData);
+    setData(newData);
   };
 
   return (

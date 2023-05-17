@@ -9,13 +9,14 @@ export default async function handler(
   const limit = 10;
 
   const startIndex = (page - 1) * limit;
-  const reqBody = req.body;
+  const {  formId } = req.body;
+
   try {
     const formSubmissions = await prisma.form_submissions.findMany({
       skip: startIndex,
       take: limit,
       where: {
-        id: reqBody.formId,
+        formId: formId,
       },
       orderBy: {
         createdAt: "desc",

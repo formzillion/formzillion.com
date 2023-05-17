@@ -37,7 +37,7 @@ export default function SubmissionItem({
     console.log("error");
   }
 
-  const excludeFields = ["name", "email", "message"];
+  const excludeFields = ["name", "email", "message","g-recaptcha-response","platform"];
   return (
     <>
       <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
@@ -89,25 +89,25 @@ export default function SubmissionItem({
 
         <div className="flex col-span-3 space-y-2  ">
           <div className="flex flex-row">
-              <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
-              <div>
-                <p className="text-black  dark:text-gray-300 text-md">
-                  Message
-                </p>
-                <div className="">
+            <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
+            <div>
+              <p className="text-black dark:text-gray-300 text-md">Message</p>
+              <div className="flex flex-col">
+                <div className="flex items-start">
                   {showMore
                     ? fields.message
                     : `${fields?.message?.substring(0, 30)}...`}
-                  <div>
-                    <button
-                      className="btn underline"
-                      onClick={() => setShowMore(!showMore)}
-                    >
-                      {showMore ? "Show less" : "Show more"}
-                    </button>
-                  </div>
+                </div>
+                <div>
+                  <button
+                    className="btn underline"
+                    onClick={() => setShowMore(!showMore)}
+                  >
+                    {showMore ? "Show less" : "Show more"}
+                  </button>
                 </div>
               </div>
+            </div>
           </div>
         </div>
         <div className="flex flex-col">
@@ -116,11 +116,19 @@ export default function SubmissionItem({
             .map(([key, value]: any, index, array) => {
               if (showAllFields || index < 2 || array.length === 2) {
                 return (
-                  <div key={key} className="flex flex-row space-x-2">
+                  <div key={key} className="">
                     <p className="text-black whitespace-nowrap dark:text-gray-300">
-                      {key}:
+                      {key.split(" ").slice(0, 3).join(" ")}
+                      {key.split(" ").length > 5 && <br />}
+                      {key.split(" ").slice(5).join(" ")}
                     </p>
-                    <p className="text-gray-500">{value}</p>
+                    <div className="text-gray-500">
+                      <p>
+                        {value.split(" ").slice(0, 3).join(" ")}
+                        {value.split(" ").length > 5 && <br />}
+                        {value.split(" ").slice(5).join(" ")}
+                      </p>
+                    </div>
                   </div>
                 );
               } else if (index === 2 && array.length > 2) {
@@ -134,8 +142,6 @@ export default function SubmissionItem({
                     </button>
                   </div>
                 );
-              } else {
-                return null;
               }
             })}
           {showAllFields && (
