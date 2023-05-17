@@ -2,7 +2,7 @@
 import { useForm } from "react-hook-form";
 import { isEmpty } from "lodash";
 
-import { Form } from "@/ui/fields";
+import { Form, Label, ShowPassword } from "@/ui/fields";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { useSupabase } from "@/components/SupbaseProvider";
 import { Input } from "@/ui/Input/SimpleInput";
@@ -63,31 +63,29 @@ const Page = () => {
             <div className="p-4 px-6 divide-y divide-gray-300">
               <Header title={"Change Password"} />
 
-              <div className="py-4">
-                <p className="text-sm text-gray-700 dark:text-gray-200">
-                  New Password
-                </p>
-                <div className="flex items-center space-x-2 my-1">
-                  <Input
-                    {...formMethods.register("newPassword")}
-                    type="password"
-                    name="newPassword"
-                    autoComplete="password"
-                    className="border px-3 py-2 dark:bg-black dark:border-gray-800 mb-3"
-                  />
-                </div>
-                <p className="text-sm text-gray-700 dark:text-gray-200">
-                  Confirm Password
-                </p>
-                <div className="flex items-center space-x-2 my-1">
-                  <Input
-                    {...formMethods.register("confirmPassword")}
-                    type="password"
-                    name="confirmPassword"
-                    autoComplete="password"
-                    className="border px-3 py-2 dark:bg-black dark:border-gray-800"
-                  />
-                </div>
+              <div className="py-4 space-y-5">
+                <Label htmlFor="password">New Password
+                <ShowPassword
+                  {...formMethods.register("newPassword")}
+                  required={true}
+                  minLength={8}
+                  maxLength={40}
+                  id="password"
+                  autoComplete="current-password"
+                  className="h-[44px] rounded-none my-1"
+                />
+                </Label>
+                <Label htmlFor="confirmPassword">Confirm Password
+                <ShowPassword
+                  {...formMethods.register("confirmPassword")}
+                  required={true}
+                  minLength={8}
+                  maxLength={40}
+                  id="confirmPassword"
+                  autoComplete="current-password"
+                  className="h-[44px] rounded-none my-1"
+                />
+                </Label>
               </div>
             </div>
             <CardFooter
