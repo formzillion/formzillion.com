@@ -52,22 +52,22 @@ const footerLinks = [
     list: [
       {
         label: "Wordpress",
-        href: "/for/wordpress",
+        href: "/platforms/wordpress",
         target: "_self",
       },
       {
         label: "Gatsby",
-        href: "/for/gatsby",
+        href: "/platforms/gatsby",
         target: "_self",
       },
       {
         label: "Nextjs",
-        href: "/for/nextjs",
+        href: "/platforms/nextjs",
         target: "_self",
       },
       {
         label: "Webflow",
-        href: "/for/webflow",
+        href: "/platforms/webflow",
         target: "_self",
       },
     ],
