@@ -31,7 +31,7 @@ export default function HeroLeft() {
             href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
             className="mt-0 flex h-[44px] w-fit items-center justify-center rounded bg-orange-600 py-2.5 px-4 text-white hover:bg-orange-700"
           >
-            Get Started for free
+            {`Try Formzillion - It's free!`}
           </Link>
         </div>
       </div>

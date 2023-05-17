@@ -30,7 +30,7 @@ const cardData = [
 ];
 export default function OpenSource() {
   return (
-    <div className="mx-auto max-w-5xl my-10">
+    <div className="mx-auto max-w-5xl my-10 mt-20 md:mt-40">
       <div className="flex flex-col justify-center items-center w-full text-center space-y-5 text-white">
         <h1 className="text-2xl sm:text-3xl lg:text-5xl">
           Join our{" "}
