@@ -18,7 +18,7 @@ const UserName = ({ teamSlug }: any) => {
 
   const parsedTeam = get(parsedTeamData, "0", "");
   const handleNameChange = async () => {
-    if (name.length > 5) {
+    if (name.length >= 5) {
       setLoading(true);
       const response: any = await updateTeam({
         teamName: name,

@@ -15,13 +15,19 @@ import {
 import { Input } from "@/ui/Input/SimpleInput";
 import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import { randJobTitle } from "@ngneat/falso";
 
-export default function CreateFormModal({ isOpen, closeModal, teamSlug }: any) {
+export default function CreateFormModal({
+  isOpen,
+  closeModal,
+  teamSlug,
+  userEmail,
+}: any) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [formValues, setFormValues] = useState<any>({
-    name: "",
-    sendToEmail: "",
+    name: randJobTitle(),
+    sendToEmail: userEmail,
     teamSlug: teamSlug,
   });
 

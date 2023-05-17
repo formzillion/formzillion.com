@@ -20,6 +20,7 @@ import Button2 from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { useRouter } from "next/navigation";
 import getSingleTeam from "@/app/fetch/teams/getSingleTeam";
+import { get } from "lodash";
 
 const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const router = useRouter();
@@ -31,34 +32,37 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const [isTeamExist, setIsTeamExist] = useState(false);
 
   const onClickCreateTeam = async () => {
-    setLoading(true);
-    const response: any = await fetch("/api/teams/create", {
-      method: "POST",
-      body: JSON.stringify(teamValues),
-    });
-    setShowNewTeamDialog(false);
-    const responseData = await response.json();
+    const teamSlug = get(teamValues, "name", "");
 
-    if (response.status === 201) {
-      showSuccessToast("Created Team Successfully");
-      setLoading(false);
-      const teamSlug = responseData.data.slug;
-      router.push(`/${teamSlug}`);
-    } else {
-      setLoading(false);
-      showErrorToast(responseData.message);
-    }
-  };
-  const onChangeField = async (e: any) => {
-    const { name, value } = e.target;
-    if (value.length > 5) {
-      const team = await getSingleTeam({ teamSlug: value });
+    if (teamSlug.length > 5) {
+      const team = await getSingleTeam({ teamSlug: teamSlug });
       if (team.success) {
         setIsTeamExist(true);
       } else {
         setIsTeamExist(false);
+        setLoading(true);
+        const response: any = await fetch("/api/teams/create", {
+          method: "POST",
+          body: JSON.stringify(teamValues),
+        });
+        setShowNewTeamDialog(false);
+        const responseData = await response.json();
+
+        if (response.status === 201) {
+          showSuccessToast("Created Team Successfully");
+          setLoading(false);
+          const teamSlug = responseData.data.slug;
+          router.push(`/${teamSlug}`);
+        } else {
+          setLoading(false);
+          showErrorToast(responseData.message);
+        }
       }
     }
+  };
+  const onChangeField = async (e: any) => {
+    const { name, value } = e.target;
+    setIsTeamExist(false);
     setTeamValues({
       ...teamValues,
       [name]: value,

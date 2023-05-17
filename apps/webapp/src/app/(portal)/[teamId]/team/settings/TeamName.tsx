@@ -16,7 +16,7 @@ const TeamName = ({ teamSlug }: any) => {
   const [loading, setLoading] = useState<any>(false);
 
   const handleNameChange = async () => {
-    if (name.length > 5) {
+    if (name.length >= 5) {
       setLoading(true);
       const response: any = await updateTeam({
         teamName: name,

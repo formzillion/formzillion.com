@@ -67,7 +67,7 @@ export default function DeleteAccountModal({ closeModal, teamSlug }: any) {
             <DialogHeader>
               <DialogTitle>Delete Personal Account</DialogTitle>
               <DialogDescription className="text-gray-600">
-                Once you dalete your Account, you will no longer be able to
+                Once you delete your Account, you will no longer be able to
                 access it.
               </DialogDescription>
             </DialogHeader>
