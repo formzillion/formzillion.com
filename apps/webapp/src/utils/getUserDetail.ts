@@ -1,5 +1,6 @@
 import { createServerClient } from "@/utils/supabase-server";
 import prisma from "@/lib/prisma";
+import { redirect } from "next/navigation";
 
 export const getUserDetail = async () => {
   // Create authenticated Supabase Client
@@ -7,6 +8,9 @@ export const getUserDetail = async () => {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+  if (!session) {
+    redirect("/login");
+  }
   const email = session?.user?.email;
   if (!email) {
     return {};
