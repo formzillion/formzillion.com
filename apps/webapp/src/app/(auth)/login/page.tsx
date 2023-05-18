@@ -50,8 +50,18 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const { url, error } = await login({ email, password });
+      const { url, avatar, planName, error } = await login({ email, password });
 
+      if (avatar) {
+        sessionStorage.setItem(
+          "teamData",
+          JSON.stringify({
+            label: url,
+            avatar,
+            planName,
+          })
+        );
+      }
       if (error) {
         showErrorToast(error?.message);
         setLoading(false);
