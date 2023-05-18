@@ -203,7 +203,7 @@ const MembersList = ({ teams, currentUserEmail }: any) => {
                                   }
                                 >
                                   <SelectTrigger>
-                                    <SelectValue placeholder="Select App" />
+                                    <SelectValue placeholder="" />
                                   </SelectTrigger>
                                   <SelectContent>
                                     {rolesList.map((role: any) => {
