@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
+import FreePlan from "./FreePlan";
 
 const frequencies: any = [
   { value: "monthly", label: "Monthly", priceSuffix: "/month" },
@@ -76,6 +77,7 @@ export default function PricingPlans() {
           client projects, Formzillion has an affordable plans to meet your
           needs.`}
         </p>
+        <FreePlan />
         <div className="mt-16 flex justify-center">
           <RadioGroup
             value={frequency}

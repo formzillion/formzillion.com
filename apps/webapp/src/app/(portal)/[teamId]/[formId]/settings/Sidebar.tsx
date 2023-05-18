@@ -14,8 +14,7 @@ export default function Sidebar() {
     { name: "General", href: `/${teamSlug}/${formId}/settings` },
     {
       name: "Spam Filtering",
-      href: `/${teamSlug}/${formId}/settings/spam-filter
-    `,
+      href: `/${teamSlug}/${formId}/settings/spam-filter`,
     },
     {
       name: "Autoresponders",

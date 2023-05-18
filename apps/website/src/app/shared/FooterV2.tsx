@@ -52,22 +52,22 @@ const footerLinks = [
     list: [
       {
         label: "Wordpress",
-        href: "/for/wordpress",
+        href: "/platforms/wordpress",
         target: "_self",
       },
       {
         label: "Gatsby",
-        href: "/for/gatsby",
+        href: "/platforms/gatsby",
         target: "_self",
       },
       {
         label: "Nextjs",
-        href: "/for/nextjs",
+        href: "/platforms/nextjs",
         target: "_self",
       },
       {
         label: "Webflow",
-        href: "/for/webflow",
+        href: "/platforms/webflow",
         target: "_self",
       },
     ],
@@ -111,28 +111,33 @@ const footerLinks = [
     title: "Integrations",
     list: [
       {
-        label: "Slack",
-        href: "https://docs.formzillion.com/integrations/slack",
+        label: "Automate Slack Notifications for Form Submissions",
+        href: "https://docs.formzillion.com/integrations/automate-slack-notifications-for-form-submissions",
         target: "_blank",
       },
       {
-        label: "Sendgrid",
-        href: "https://docs.formzillion.com/integrations/sendgrid",
+        label: "Automate Sendgrid to Send Emails",
+        href: "https://docs.formzillion.com/integrations/automate-sendgrid-to-send-emails",
         target: "_blank",
       },
       {
-        label: "Webhooks",
-        href: "https://docs.formzillion.com/integrations/webhooks",
+        label: "Automate the Transfer of Form Data to Webhooks Endpoint",
+        href: "https://docs.formzillion.com/integrations/automate-the-transfer-of-form-data-to-webhooks-endpoint",
         target: "_blank",
       },
       {
-        label: "Mailerlite",
-        href: "https://docs.formzillion.com/integrations/mailerlite",
+        label: "Automate Subscriber Addition to Mailerlite",
+        href: "https://docs.formzillion.com/integrations/automate-subscriber-addition-to-mailerlite",
         target: "_blank",
       },
       {
-        label: "Airtable",
-        href: "https://docs.formzillion.com/integrations/airtable",
+        label: "Automate Ticket Creation in Freshdesk",
+        href: "https://docs.formzillion.com/integrations/automate-ticket-creation-in-freshdesk",
+        target: "_blank",
+      },
+      {
+        label: "Automate Record Creation in Airtable",
+        href: "https://docs.formzillion.com/integrations/automate-record-creation-in-airtable",
         target: "_blank",
       },
     ],

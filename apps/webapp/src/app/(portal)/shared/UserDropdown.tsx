@@ -27,6 +27,8 @@ export default function UserDropdown({ user }: any) {
   const userEmail = user?.email;
   const name = userEmail?.split("@")[0];
   const avatar = user?.avatar;
+const [firstName = "", lastName = ""] = userName?.split(".");
+const avatarName = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
 
   return (
     <DropdownMenu>
@@ -38,7 +40,7 @@ export default function UserDropdown({ user }: any) {
           {isEmpty(avatar) ? (
             <Avatar className="h-8 w-8">
               <AvatarImage src="https://avatar.vercel.sh/user.png" alt="User" />
-              <AvatarFallback>SC</AvatarFallback>
+              <AvatarFallback>{avatarName}</AvatarFallback>
             </Avatar>
           ) : (
             <Avatar className="h-8 w-8">
