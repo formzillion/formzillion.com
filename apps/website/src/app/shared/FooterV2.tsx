@@ -121,8 +121,8 @@ const footerLinks = [
         target: "_blank",
       },
       {
-        label: "Automate Transferring of Form Data to Webhooks Endpoint",
-        href: "https://docs.formzillion.com/integrations/automate-transferring-of-form-data-to-webhooks-endpoint",
+        label: "Automate the Transfer of Form Data to Webhooks Endpoint",
+        href: "https://docs.formzillion.com/integrations/automate-the-transfer-of-form-data-to-webhooks-endpoint",
         target: "_blank",
       },
       {
