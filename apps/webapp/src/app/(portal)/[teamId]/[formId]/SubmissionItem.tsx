@@ -40,7 +40,7 @@ export default function SubmissionItem({
   const excludeFields = ["name", "email", "message","g-recaptcha-response","platform"];
   return (
     <>
-      <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 mb-4">
+      <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 ">
         <div className="col-span-3 flex gap-3">
           <input
             type="checkbox"
@@ -60,15 +60,15 @@ export default function SubmissionItem({
                 </div>
               );
             })} */}
-            <div className="flex justify-between space-y-2">
+            <div className="flex space-y-2">
               <div>
-                <span className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-gray-800 mt-4">
+                <span className="inline-flex h-[50px] w-[50px] items-center justify-center rounded-full bg-gray-800 ">
                   <span className="text-lg font-medium leading-none text-white">
                     {name}
                   </span>
                 </span>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 ">
                 <div className=" ml-4 flex flex-row space-x-2">
                   <UserCircleIcon className="h-[20px] w-[18px] text-gray-500 " />
                   <p>{fields.name}</p>
@@ -88,10 +88,12 @@ export default function SubmissionItem({
         </div>
 
         <div className="flex col-span-3 space-y-2  ">
-          <div className="flex flex-row">
-            <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
-            <div>
+          <div className="flex flex-col">
+            <div className="flex">
+              <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
               <p className="text-black dark:text-gray-300 text-md">Message</p>
+            </div>
+            <div >
               <div className="flex flex-col">
                 <div className="flex items-start">
                   {showMore

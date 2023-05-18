@@ -37,7 +37,7 @@ export default function Subscription({ subscription }: any) {
                   {current_period_end !== 0 && "for"}
                 </span>
                 <span className="font-semibold text-gray-900 dark:text-white">
-                  {current_period_end !== 0 && `USD ${amount_decimal / 100}.00`}
+                  {current_period_end !== 0 && `USD $${amount_decimal / 100}.00`}
                 </span>
               </span>
             </div>
