@@ -1,6 +1,6 @@
 # Formzillion
 
-Instant backend for all your forms.
+The open-source form infrastructure for everyone.
 
 ## Technologies Used
 
