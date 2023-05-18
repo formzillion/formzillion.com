@@ -1,12 +1,10 @@
 import {
   ArrowRightOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
-  BellIcon,
   CreditCardIcon,
-  UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import { isEmpty, startCase } from "lodash";
+import { get, isEmpty, startCase } from "lodash";
 import { FiSlack } from "react-icons/fi";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
@@ -26,9 +24,15 @@ export default function UserDropdown({ user }: any) {
   const userName = user?.fullName;
   const userEmail = user?.email;
   const name = userEmail?.split("@")[0];
-  const avatar = user?.avatar;
-const [firstName = "", lastName = ""] = userName?.split(".");
-const avatarName = `${firstName.charAt(0)}${lastName.charAt(0)}`.toUpperCase();
+  const [firstName = "", lastName = ""] = userName?.split(".");
+  const avatarName = `${firstName.charAt(0)}${lastName.charAt(
+    0
+  )}`.toUpperCase();
+  const personalUser = user.teams.filter(
+    (user: any) => user.type === "personal"
+  );
+
+  const avatar = get(personalUser, "0.avatar", "");
 
   return (
     <DropdownMenu>
