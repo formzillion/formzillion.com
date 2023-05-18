@@ -20,7 +20,7 @@ const fertures = [
     icon: <EnvelopeIcon className="w-8 text-yellow-500" />,
   },
   {
-    title: "Submissions are saved to the to your Formzillion account.",
+    title: "Submissions are saved to your Formzillion account.",
     subtitle: "View submissions and export them as CSV or JSON files.",
     icon: <ListBulletIcon className="w-8" />,
   },
