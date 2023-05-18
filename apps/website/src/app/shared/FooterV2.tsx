@@ -112,27 +112,32 @@ const footerLinks = [
     list: [
       {
         label: "Slack",
-        href: "https://docs.formzillion.com/integrations/slack",
+        href: "https://docs.formzillion.com/integrations/send-slack-notification-on-channel",
         target: "_blank",
       },
       {
         label: "Sendgrid",
-        href: "https://docs.formzillion.com/integrations/sendgrid",
+        href: "https://docs.formzillion.com/integrations/send-emails-via-sendgrid",
         target: "_blank",
       },
       {
         label: "Webhooks",
-        href: "https://docs.formzillion.com/integrations/webhooks",
+        href: "https://docs.formzillion.com/integrations/send-from-data-to-webhooks-endpoint",
         target: "_blank",
       },
       {
         label: "Mailerlite",
-        href: "https://docs.formzillion.com/integrations/mailerlite",
+        href: "https://docs.formzillion.com/integrations/add-subscribers-to-mailerlite",
+        target: "_blank",
+      },
+      {
+        label: "Freshdesk",
+        href: "https://docs.formzillion.com/integrations/create-ticket-in-freshdesk",
         target: "_blank",
       },
       {
         label: "Airtable",
-        href: "https://docs.formzillion.com/integrations/airtable",
+        href: "https://docs.formzillion.com/integrations/add-record-in-airtable",
         target: "_blank",
       },
     ],
