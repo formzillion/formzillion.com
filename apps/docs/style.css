@@ -32,6 +32,10 @@ code.text-\[\.9em\] {
   font-size: 14px;
 }
 
+.nx-justify-around {
+  justify-content: space-around;
+}
+
 @media screen and (max-width: 1200px) {
   .home-content .hide-medium {
     display: none;
