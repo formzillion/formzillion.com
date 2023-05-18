@@ -13,6 +13,7 @@ export default function Logout() {
   const onClickLogout = async () => {
     await supabase.auth.signOut();
     router.push("/login");
+    sessionStorage.clear();
   };
 
   return (
