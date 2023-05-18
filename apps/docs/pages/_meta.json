@@ -4,14 +4,16 @@
   "features": "",
   "integrations": "",
   "platforms": "",
-  "about": {
-    "title": "About",
-    "type": "page"
-  },
-  "contact": {
-    "title": "Contact ↗",
+  "Community": {
+    "title": "Community Slack ↗",
     "type": "page",
-    "href": "https://github.com/formzillion",
+    "href": "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
+    "newWindow": true
+  },
+  "GitHub": {
+    "title": "GitHub ↗",
+    "type": "page",
+    "href": "https://github.com/formzillion/formzillion.com",
     "newWindow": true
   }
 }
