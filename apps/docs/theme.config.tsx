@@ -13,6 +13,10 @@ const config: DocsThemeConfig = {
     if (asPath !== "/") {
       return {
         titleTemplate: "%s – Formzillion",
+        ...(process.env?.NODE_ENV !== "production" && {
+          nofollow: true,
+          noindex: true,
+        }),
       };
     }
   },
