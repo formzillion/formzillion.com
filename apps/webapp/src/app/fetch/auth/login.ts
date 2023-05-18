@@ -1,7 +1,7 @@
 /**
- * This route creates a new team for a user within a certain organization.
- * @param {string} teamName - team Name
- * @param {string} teamSlug - team Slug
+ * This route Logins the user into the application
+ * @param {string} email
+ * @param {string} password
  * @returns
  */
 const login = async ({
