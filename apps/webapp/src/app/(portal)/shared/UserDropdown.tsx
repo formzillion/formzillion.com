@@ -1,11 +1,10 @@
 import {
   ArrowRightOnRectangleIcon,
   ArrowTopRightOnSquareIcon,
-  CreditCardIcon,
 } from "@heroicons/react/24/outline";
-import Link from "next/link";
 import { get, isEmpty, startCase } from "lodash";
 import { FiSlack } from "react-icons/fi";
+import { FiGithub } from "react-icons/fi";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/ui/Avatar";
 import Button from "@/ui/Buttons";
@@ -18,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/ui/DropdownMenu";
+import Settings from "./Settings";
 import Logout from "./Logout";
 
 export default function UserDropdown({ user }: any) {
@@ -39,7 +39,7 @@ export default function UserDropdown({ user }: any) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="relative h-8 w-8 focus-visible:rounded-full bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:border-0"
+          className="relative h-8 w-8 focus-visible:rounded-full bg-transparent hover:bg-transparent focus:bg-transparent focus-visible:border-0 focus-visible:outline-0"
         >
           {isEmpty(avatar) ? (
             <Avatar className="h-8 w-8">
@@ -66,22 +66,22 @@ export default function UserDropdown({ user }: any) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          {/* <Link href={`/settings`}>
-            <DropdownMenuItem className="cursor-pointer">
-              <UserCircleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
-              Profile
-            </DropdownMenuItem>
-          </Link> */}
-          <Link href={"/account/password"}>
-            <DropdownMenuItem className="cursor-pointer">
-              <CreditCardIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
-              Change Password
-            </DropdownMenuItem>
-          </Link>
+          <Settings />
           <a href="https://formzillion.com/" target="_blank" rel="noreferrer">
             <DropdownMenuItem className="cursor-pointer">
               <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
               Formzillion Homepage
+              <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
+            </DropdownMenuItem>
+          </a>
+          <a
+            href={"https://github.com/formzillion/formzillion.com/stargazers"}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <DropdownMenuItem className="cursor-pointer">
+              <FiGithub className="mr-2 h-3 w-3 text-gray-600" />
+              Star us
               <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
           </a>
@@ -93,8 +93,8 @@ export default function UserDropdown({ user }: any) {
             rel="noreferrer"
           >
             <DropdownMenuItem className="cursor-pointer">
-              <FiSlack className="mr-2 h-4 w-4 text-gray-600" />
-              Join our Slack
+              <FiSlack className="mr-2 h-3 w-3 text-gray-600" />
+              Join our Community
               <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
           </a>
