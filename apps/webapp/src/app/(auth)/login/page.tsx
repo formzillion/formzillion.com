@@ -59,6 +59,8 @@ export default function Login() {
             label: url,
             avatar,
             planName,
+            type: "personal",
+            value: url,
           })
         );
       }
