@@ -6,8 +6,7 @@ export const fzWebappConfig = {
   local: "http://localhost:3000",
 } as { [key: string]: string };
 
-export const FZ_WEBAPP_URL =
-  fzWebappConfig[NODE_ENV] || "https://app.formzillion.com";
+export const FZ_WEBAPP_URL = fzWebappConfig[NODE_ENV];
 
 export const bullMqConfig: any = {
   connection: {
