@@ -17,9 +17,13 @@ export async function middleware(req: any) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  const preloginUrls = ["/login", "/register", "/forgot-password", "/f"];
+  const preloginUrls = ["/login", "/register", "/forgot-password"];
 
-  if (!session && !preloginUrls.includes(req.nextUrl.pathname)) {
+  if (
+    !session &&
+    !preloginUrls.includes(req.nextUrl.pathname) &&
+    !req.nextUrl.pathname.startsWith("/f/")
+  ) {
     const redirectUrl = req.nextUrl.clone();
     redirectUrl.pathname = "/login";
     redirectUrl.searchParams.set(`redirectedFrom`, req.nextUrl.pathname);
