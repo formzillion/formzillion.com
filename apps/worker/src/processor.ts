@@ -35,10 +35,8 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
       .select("*")
       .where({ form_id: formId })
       .first();
-    // Fetching all the different Tasks Associated with the Workflows
 
-    // TODO: Need to implement the logic for processing the tasks using bull-mq flow producers
-    // For now, we are directly processing the tasks
+    // Fetching all the different Tasks Associated with the Workflows
     const tasks = await pg
       .from("tasks")
       .select("*")
