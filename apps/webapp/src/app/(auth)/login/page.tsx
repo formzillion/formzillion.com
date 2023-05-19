@@ -60,6 +60,7 @@ export default function Login() {
             avatar,
             planName,
             type: "personal",
+            value: url,
           })
         );
       }
