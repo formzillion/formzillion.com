@@ -4,5 +4,6 @@
   "automate-the-transfer-of-form-data-to-webhooks-endpoint": "Automate the Transfer of Form Data to Webhooks Endpoint",
   "automate-subscriber-addition-to-mailerlite": "Automate Subscriber Addition to Mailerlite",
   "automate-record-creation-in-airtable": "Automate Record Creation in Airtable",
-  "automate-ticket-creation-in-freshdesk": "Automate Ticket Creation in Freshdesk"
+  "automate-ticket-creation-in-freshdesk": "Automate Ticket Creation in Freshdesk",
+  "automate-subscriber-addition-to-convertKit":"Automate Subscriber Addition to ConvertKit"
 }
