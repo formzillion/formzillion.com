@@ -8,16 +8,15 @@ The open-source form infrastructure for everyone.
 2. React - Frontend & Backend Components
 3. TailwindCSS - Atomic CSS Framework
 4. Postgres - Storage
-5. Next Auth - Authentication
+5. Supabase Auth - Authentication
 6. React Hook Form - Forms
 7. Zod - Schema Validation
 8. Tremor - Charts & Dashboard
 9. Stripe - Billing & Invoice
 10. Resend - Transactional Mails
 11. Convertkit/Sendgrid - Marketing Mails
-12. Framer Motion - Animations
-13. Vercel - Hosting
-14. TurboRepo - Mono repository administration
+12. Vercel - Hosting
+13. TurboRepo - Mono repository administration
 
 ## Local Setup
 
@@ -47,5 +46,11 @@ LOCAL_AUTH_URL=
 4. Start the dev server
 
 ```
-pnpm run dev --filter=formzillion
+pnpm run dev
+```
+This will start all the apps like website, webapp and docs.
+If you wanted to run only one of that use the following command.
+
+```
+pnpm run dev --filter=webapp
 ```
