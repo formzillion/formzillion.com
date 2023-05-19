@@ -6,6 +6,7 @@ import {
   EnvelopeIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
+import { isEmpty } from "lodash";
 
 export default function SubmissionItem({
   submission,
@@ -97,8 +98,8 @@ export default function SubmissionItem({
               <div className="flex flex-col">
                 <div className="flex items-start">
                   {showMore
-                    ? fields.message
-                    : `${fields?.message?.substring(0, 30)}...`}
+                    ? fields?.message || ""
+                    : isEmpty(fields?.message)?"":`${fields?.message?.substring(0, 30)}...`}
                 </div>
                 <div>
                   <button
