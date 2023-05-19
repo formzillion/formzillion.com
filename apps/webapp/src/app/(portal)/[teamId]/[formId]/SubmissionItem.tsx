@@ -38,7 +38,13 @@ export default function SubmissionItem({
     console.log("error");
   }
 
-  const excludeFields = ["name", "email", "message","g-recaptcha-response","platform"];
+  const excludeFields = [
+    "name",
+    "email",
+    "message",
+    "g-recaptcha-response",
+    "platform",
+  ];
   return (
     <>
       <div className="w-full broder-[#444444] border dark:bg-black py-[30px] px-[22px] dark:text-white grid grid-cols-8 ">
@@ -94,12 +100,14 @@ export default function SubmissionItem({
               <ChatBubbleBottomCenterIcon className="h-[20px] w-[18px] text-gray-500" />
               <p className="text-black dark:text-gray-300 text-md">Message</p>
             </div>
-            <div >
+            <div>
               <div className="flex flex-col">
                 <div className="flex items-start">
                   {showMore
                     ? fields?.message || ""
-                    : isEmpty(fields?.message)?"":`${fields?.message?.substring(0, 30)}...`}
+                    : isEmpty(fields?.message)
+                    ? ""
+                    : `${fields?.message?.substring(0, 30)}...`}
                 </div>
                 <div>
                   <button
