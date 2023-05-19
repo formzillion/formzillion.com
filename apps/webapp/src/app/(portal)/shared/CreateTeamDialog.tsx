@@ -20,7 +20,7 @@ import Button2 from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { useRouter } from "next/navigation";
 import getSingleTeam from "@/app/fetch/teams/getSingleTeam";
-import { get } from "lodash";
+import { get, kebabCase } from "lodash";
 
 const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const router = useRouter();
@@ -35,7 +35,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
     const teamSlug = get(teamValues, "name", "");
 
     if (teamSlug.length > 5) {
-      const team = await getSingleTeam({ teamSlug: teamSlug });
+      const team = await getSingleTeam({ teamSlug: kebabCase(teamSlug) });
       if (team.success) {
         setIsTeamExist(true);
       } else {
@@ -68,6 +68,33 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
       [name]: value,
     });
   };
+
+  const plans = [
+    {
+      label: "Free",
+      value: "free",
+      price: "0",
+      details: "Trial for two weeks",
+    },
+    {
+      label: "Personal",
+      value: "personal",
+      price: "10",
+      details: "$10/month per user",
+    },
+    {
+      label: "Professional",
+      value: "professional",
+      price: "22",
+      details: "$22/month per user",
+    },
+    {
+      label: "Agency",
+      value: "agency",
+      price: "100",
+      details: "$100/month per user",
+    },
+  ];
   return (
     <DialogContent>
       <DialogHeader>
@@ -118,18 +145,16 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
                 />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem className={"dark:bg-black"} value="free">
-                  <span className="font-medium">Free</span> -{" "}
-                  <span className="text-muted-foreground">
-                    Trial for two weeks
-                  </span>
-                </SelectItem>
-                <SelectItem className={"dark:bg-black"} value="pro">
-                  <span className="font-medium">Pro</span> -{" "}
-                  <span className="text-muted-foreground">
-                    $9/month per user
-                  </span>
-                </SelectItem>
+                {plans.map((plan) => (
+                  <div key={plan.price}>
+                    <SelectItem className={"dark:bg-black"} value={plan.value}>
+                      <span className="font-medium">{plan.label}</span> -{" "}
+                      <span className="text-muted-foreground">
+                        {plan.details}
+                      </span>
+                    </SelectItem>
+                  </div>
+                ))}
               </SelectContent>
             </Select>
           </div>

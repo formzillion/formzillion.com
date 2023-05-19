@@ -18,6 +18,7 @@ import BlurDotGridBottom from "../showcase/BlurDotGridBottom";
 import { AuthLabel } from "../AuthLabel";
 import FormContainer from "../FormContainer";
 import { isEmpty } from "lodash";
+import login from "@/app/fetch/auth/login";
 
 export default function Login() {
   const [loading, setLoading] = useState(false);
@@ -49,15 +50,18 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const { url, avatar, planName, error } = await login({ email, password });
 
-      const { url, error } = await res.json();
+      if (avatar) {
+        sessionStorage.setItem(
+          "teamData",
+          JSON.stringify({
+            label: url,
+            avatar,
+            planName,
+          })
+        );
+      }
       if (error) {
         showErrorToast(error?.message);
         setLoading(false);

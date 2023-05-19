@@ -18,8 +18,8 @@ export default async function handler(
 
   //Using this if the user already has a session
   if (type === "hasSession") {
-    const teamSlug = await getTeams(loginEmail);
-    return res.status(200).json({ url: teamSlug });
+    const { teamSlug, avatar, planName }: any = await getTeams(loginEmail);
+    return res.status(200).json({ url: teamSlug, avatar, planName });
   }
 
   const { data, error } = await supabase.auth.signInWithPassword({
@@ -31,8 +31,8 @@ export default async function handler(
   }
   try {
     if (data) {
-      const teamSlug = await getTeams(email);
-      return res.status(200).json({ url: teamSlug });
+      const { teamSlug, avatar, planName }: any = await getTeams(email);
+      return res.status(200).json({ url: teamSlug, avatar, planName });
     }
   } catch (error: any) {
     console.log(error.message);
@@ -47,14 +47,19 @@ const getTeams = async (email: string) => {
 
   const teams = user?.teams;
   if (teams) {
-    let teamSlug = teams?.filter((team: any) => team.type === "personal");
+    let teamSlug: any = teams?.filter((team: any) => team.type === "personal");
 
+    let avatar: any = get(teamSlug, "0.avatar", "");
+    let planName: any = get(teamSlug, "0.planName", "");
     teamSlug = get(teamSlug, "0.slug", "dashboard");
 
     if (!teamSlug) {
       teamSlug = get(teams, "0.slug", "dashboard");
+      avatar = get(teams, "0.avatar", "");
+      planName = get(teams, "0.planName", "");
     }
-    return teamSlug;
+
+    return { teamSlug, avatar, planName };
   } else {
     return "dashboard";
   }

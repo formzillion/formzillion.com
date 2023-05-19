@@ -88,12 +88,18 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
         ]
       : [];
 
+  let teamData: any;
+  if (typeof window !== "undefined") {
+    const team: any = window.sessionStorage.getItem("teamData");
+    teamData = JSON.parse(team);
+  }
+
   const [selectedTeam, setSelectedTeam] = useState<any>(() => {
     return {
-      label: teamSlug,
+      label: teamData?.label || teamSlug,
       value: teamSlug,
-      planName: "",
-      avatar: "",
+      planName: teamData?.planName || "",
+      avatar: teamData?.avatar || "",
     };
   });
 
@@ -123,15 +129,19 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
               <CommandList>
                 <CommandInput placeholder="Search team..." />
                 <CommandEmpty>No team found.</CommandEmpty>
-                {groups?.map((group: any, index:number) => (
+                {groups?.map((group: any, index: number) => (
                   <CommandGroup key={index} heading={group.label}>
-                    {group?.teams?.map((team: any,idx: number) => (
+                    {group?.teams?.map((team: any, idx: number) => (
                       <CommandItem
                         key={idx}
                         onSelect={() => {
                           setSelectedTeam(team);
                           handleSelectTeam(team.value);
                           setOpen(false);
+                          sessionStorage.setItem(
+                            "teamData",
+                            JSON.stringify(team)
+                          );
                         }}
                         className="text-sm cursor-pointer"
                       >
@@ -153,9 +163,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
                           </Avatar>
                         )}
                         <div className="flex items-center justify-between w-[70%]">
-                          <p className="truncate"> 
-                          {team.label}{" "}
-                          </p>
+                          <p className="truncate">{team.label} </p>
                           <span className="bg-green-300 text-gray-600 px-2 text-xs rounded-full">
                             {team.planName}
                           </span>

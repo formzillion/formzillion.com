@@ -1,8 +1,8 @@
 {
-  "send-slack-notification-on-channel": "Send Slack Notification on Channel",
-  "send-emails-using-sendgrid": "Send Emails using Sendgrid",
-  "send-from-data-to-webhooks-endpoint": "Send Form Data to Webhooks Endpoint",
-  "add-subscribers-to-mailerlite": "Add Subscribers to Mailerlite",
-  "create-ticket-in-freshdesk": "Create Ticket in Freshdesk",
-  "add-record-in-airtable": "Add Record in Airtable"
+  "automate-slack-notifications-for-form-submissions": "Automate Slack Notifications for Form Submissions",
+  "automate-sendgrid-to-send-emails": "Automate Sendgrid to Send Emails",
+  "automate-the-transfer-of-form-data-to-webhooks-endpoint": "Automate the Transfer of Form Data to Webhooks Endpoint",
+  "automate-subscriber-addition-to-mailerlite": "Automate Subscriber Addition to Mailerlite",
+  "automate-record-creation-in-airtable": "Automate Record Creation in Airtable",
+  "automate-ticket-creation-in-freshdesk": "Automate Ticket Creation in Freshdesk"
 }
