@@ -61,6 +61,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
       value: team.slug,
       planName: team.planName,
       avatar: team.avatar,
+      type: "default",
     };
   });
   const loggedInUser = personalTeam?.map((team: any) => {
@@ -70,6 +71,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
         value: team.slug,
         planName: team.planName,
         avatar: team.avatar,
+        type: "personal",
       };
     }
   });
