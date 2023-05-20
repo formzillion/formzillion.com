@@ -1,6 +1,7 @@
 import {
   ArrowTopRightOnSquareIcon,
   ChevronRightIcon,
+  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 
 import TeamSwitcher from "@/app/(portal)/shared/TeamSwitcher";
@@ -8,6 +9,7 @@ import UserDropdown from "./UserDropdown";
 import { ModeToggle } from "./ModeToggle";
 import FormId from "../FormId";
 import AppLogo from "@/ui/AppLogo";
+import NavSettings from "./NavSettings";
 
 export function BreadcrumbSeparator() {
   return (
@@ -27,7 +29,8 @@ export default function Navbar({ teams, user }: any) {
           <BreadcrumbSeparator />
           {/*Team Logo Section*/}
           <TeamSwitcher teams={teams} />
-          <FormId />
+          <NavSettings />
+          {/* <FormId /> */}
         </div>
         <div className="sm:flex items-center space-x-2 mr-0 hidden">
           <div className="dark:text-gray-200 text-base space-x-4 flex items-center">
