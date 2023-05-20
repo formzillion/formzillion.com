@@ -1,7 +1,6 @@
 import {
   ArrowTopRightOnSquareIcon,
   ChevronRightIcon,
-  Cog6ToothIcon,
 } from "@heroicons/react/24/outline";
 
 import TeamSwitcher from "@/app/(portal)/shared/TeamSwitcher";
