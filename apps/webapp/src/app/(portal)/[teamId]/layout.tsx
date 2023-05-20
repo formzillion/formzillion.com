@@ -51,7 +51,7 @@ export default async function TeamLayout({ children, params }: any) {
  
   return (
     <>
-      <PrimaryNav tabs={tabs} finalTeamId={finalTeamId} formId={formId} />
+      {/* <PrimaryNav tabs={tabs} finalTeamId={finalTeamId} formId={formId} /> */}
       {children}
     </>
   );
