@@ -1,31 +1,68 @@
-import AppIcon from "@/ui/AppIcon";
-import BlogPreview from "./components/BlogPreview";
-import { getBlogMetadata } from "./components/getData";
+import Image from "next/image";
+import Link from "next/link";
+import { allPosts } from "contentlayer/generated";
+import { compareDesc } from "date-fns";
 
-export default function Blog() {
-  const postMetadata = getBlogMetadata();
-  const postPreviews = postMetadata.map((post) => (
-    <BlogPreview key={post.slug} {...post} />
-  ));
+import AppIcon from "@/ui/AppIcon";
+
+export const metadata = {
+  title: "Blog",
+};
+
+export default async function BlogPage() {
+  const posts = allPosts
+    .filter((post) => post.published)
+    .sort((a, b) => {
+      return compareDesc(new Date(a.date), new Date(b.date));
+    });
 
   return (
-    <>
-      <div className="py-8 sm:py-10">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center w-full flex flex-col space-y-6 items-center">
-            <h2 className="text-3xl font-bold tracking-tight flex items-center gap-2 sm:text-4xl">
-              <AppIcon src={"/logos/favicon.svg"} /> The Formzillion blog
-            </h2>
-            <p className="mt-2 text-lg leading-8 lg:max-w-2xl">
-              Explore the latest updates on Formzillion, in-depth tutorials on
-              building powerful forms for everyone.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:space-x-6 mt-8">
-            {postPreviews}
-          </div>
+    <div className="container max-w-5xl py-6 lg:py-10">
+      <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:gap-8">
+        <div className="flex-1 space-y-4">
+          <h1 className="text-3xl font-bold tracking-tight flex items-center gap-2 sm:text-4xl">
+            <AppIcon src={"/logos/favicon.svg"} /> The Formzillion blog
+          </h1>
+          <p className="text-xl text-muted-foreground">
+            Explore the latest updates on Formzillion, in-depth tutorials on
+            building powerful forms for everyone.
+          </p>
         </div>
       </div>
-    </>
+      <hr className="my-8" />
+      {posts?.length ? (
+        <div className="grid gap-10 sm:grid-cols-2">
+          {posts.map((post, index) => (
+            <article
+              key={post._id}
+              className="group relative flex flex-col space-y-2"
+            >
+              {post.image && (
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  width={804}
+                  height={452}
+                  className="rounded-md border bg-muted transition-colors"
+                  priority={index <= 1}
+                />
+              )}
+              <h2 className="text-2xl font-extrabold">{post.title}</h2>
+              {post.description && (
+                <p className="text-muted-foreground">{post.description}</p>
+              )}
+              {post.date && (
+                <p className="text-sm text-muted-foreground">{post.date}</p>
+              )}
+              <Link href={post.slug} className="absolute inset-0">
+                <span className="sr-only">View Article</span>
+              </Link>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>No posts published.</p>
+      )}
+    </div>
   );
 }
