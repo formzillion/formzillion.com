@@ -20,10 +20,10 @@ export default function SeeInAction() {
           forms
         </h1>
         <p className="text-base lg:text-xl leading-normal px-12 sm:max-w-4xl font-light text-gray-300">
-          Here's an example form integrated with Formzillion. After submitting
-          the form, you will be directed to our default thank you page.
-          Additionally, you will receive an autoresponse email response, which
-          should arrive in your inbox within a few seconds.
+          Here&abos;s an example form integrated with Formzillion. After
+          submitting the form, you will be directed to our default thank you
+          page. Additionally, you will receive an autoresponse email response,
+          which should arrive in your inbox within a few seconds.
         </p>
       </div>
       <h3 className="text-center text-2xl text-gray-200 mb-5">
