@@ -40,6 +40,7 @@ const availableActionsMap: any = {
   webhooks: ["postToWebhookEnpoint"],
   airtable: ["addRecord"],
   freshdesk: ["createTicket"],
+  convertkit:["addSubscriberToAForm"]
 };
 
 const taskTemplateConfig: any = {
