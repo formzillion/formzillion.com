@@ -8,8 +8,9 @@ import { thankYouTemplate } from "./apps/sendgrid/templates/thankYou";
 import { welcomeTemplate } from "./apps/sendgrid/templates/welcome";
 import { apiKey, fromEmailData } from "./config/sengrid";
 import { FZ_WEBAPP_URL } from "./config";
+import getTeamSlug from "./helpers/getTeamSlug";
 
-const teamIdToTeamSlugMap: any = {};
+let teamIdToTeamSlugMap = {} as { [key: string]: string };
 const emailTemplateMap: any = {
   welcome: welcomeTemplate,
   thankYou: thankYouTemplate,
@@ -17,18 +18,6 @@ const emailTemplateMap: any = {
 const emailSubject: any = {
   welcome: "Welcome to the Formzillion",
   thankYou: "Thank You for Submitting the Form",
-};
-
-const getTeamSlug = async ({ pg, teamId }: any) => {
-  if (teamIdToTeamSlugMap) {
-    const teams = await pg.from("teams").select("*");
-    teams.forEach((t: any) => (teamIdToTeamSlugMap[t.id] = t.slug));
-  } else {
-    const singleTeam = await pg.from("teams").where({ id: teamId }).first();
-    teamIdToTeamSlugMap[teamId] = singleTeam.slug;
-  }
-
-  return true;
 };
 
 const sendEmail = async ({ data, apiKey }: any) => {
@@ -43,13 +32,7 @@ const sendEmail = async ({ data, apiKey }: any) => {
   });
 };
 
-export const processDefaultActions = async ({
-  data,
-  pg,
-}: {
-  data: IEventData;
-  pg: any;
-}) => {
+export const processDefaultActions = async ({ data }: { data: IEventData }) => {
   const { formData, formSubmissionData, formId } = data.eventData;
   const {
     name: formName,
@@ -70,7 +53,7 @@ export const processDefaultActions = async ({
 
   let teamSlug = teamIdToTeamSlugMap[teamId];
   if (!teamSlug) {
-    await getTeamSlug({ pg, teamId });
+    teamIdToTeamSlugMap = await getTeamSlug({ teamId });
     teamSlug = teamIdToTeamSlugMap[teamId];
   }
 
@@ -81,7 +64,10 @@ export const processDefaultActions = async ({
     const emailsArr = get(sendToEmail, "0", "").includes(",")
       ? sendToEmail[0]?.split(",")
       : sendToEmail;
-    const toEmails = emailsArr.filter((e) => e !== "");
+    const filteredEmails = emailsArr.filter((e) => e !== "");
+    const toEmails = !isEmpty(filteredEmails)
+      ? filteredEmails
+      : [formOwnerEmail];
 
     if (!isEmpty(toEmails)) {
       const notificationData = {

@@ -37,7 +37,9 @@
         "NEXT_PUBLIC_MAILCHIMP_CLIENT_SECRET_ID",
         "FROM_EMAIL",
         "NEXT_PUBLIC_AIRTABLE_CLIENT_ID",
-        "NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID"
+        "NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID",
+        "REDIS_URI",
+        "REDIS_PORT"
       ]
     },
     "db:generate": {

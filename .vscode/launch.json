@@ -4,12 +4,25 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
     {
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
       "skipFiles": ["<node_internals>/**"],
       "program": "${file}"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug Worker",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}\\apps\\worker\\index.ts",
+      "sourceMaps": true,
+      "smartStep": true,
+      "console": "integratedTerminal",
+      "envFile": "${workspaceFolder}/apps/worker/.env",
+      "outFiles": ["${workspaceFolder}/apps/worker/build/**/*.js"]
     }
   ]
 }
