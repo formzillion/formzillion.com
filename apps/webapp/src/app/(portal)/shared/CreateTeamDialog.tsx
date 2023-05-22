@@ -77,16 +77,22 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
       details: "Trial for two weeks",
     },
     {
-      label: "Personal",
-      value: "personal",
+      label: "Basic",
+      value: "basic",
+      price: "5",
+      details: "$15/month per user",
+    },
+    {
+      label: "Standrad",
+      value: "standrad",
       price: "10",
       details: "$10/month per user",
     },
     {
-      label: "Professional",
-      value: "professional",
-      price: "22",
-      details: "$22/month per user",
+      label: "Premium",
+      value: "premium",
+      price: "25",
+      details: "$25/month per user",
     },
     {
       label: "Agency",
