@@ -1,17 +1,15 @@
 "use client";
-import React, { useState } from "react";
 import Image from "next/image";
-import CreateFormModal from "./CreateFormModal";
-import { useSupabase } from "@/components/SupbaseProvider";
 import { get } from "lodash";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
+import Button from "@/ui/Buttons";
 
-export default function EmptyForm() {
+export default function FromNotFound() {
   const pathName = usePathname();
-  const teamSlug = pathName?.split("/")[1];
-  const [showModal, setShowModal] = useState<any>(false);
-  const { session } = useSupabase();
-  const userEmail = get(session, "user.email", "");
+  const splittedPath = pathName?.split("/");
+  const teamSlug = get(splittedPath, "1", "");
+  const router = useRouter();
   return (
     <>
       <div className="flex mt-10 justify-center">
@@ -24,24 +22,11 @@ export default function EmptyForm() {
       </div>
 
       <h1 className="text-center mt-4 font-light text-2xl">{`Form not found!. Let's create a new form.`}</h1>
-      <div className="text-center mt-4">
-        <button
-          type="button"
-          className="text-center items-center border border-transparent bg-orange-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-orange-700 focus:outline-none  sm:ml-3"
-          onClick={() => setShowModal(true)}
-        >
-          Add New
-        </button>
+      <div className="flex justify-center mt-4">
+        <Button onClick={() => router.push(`/${teamSlug}`)}>
+          Back to Forms
+        </Button>
       </div>
-      {showModal && (
-        <CreateFormModal
-          closeModal={() => {
-            setShowModal(false);
-          }}
-          teamSlug={teamSlug}
-          userEmail={userEmail}
-        />
-      )}
     </>
   );
 }

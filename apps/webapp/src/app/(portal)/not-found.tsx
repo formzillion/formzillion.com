@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "@/ui/Buttons";
 
-export default function EmptyTeam() {
+export default function TeamNotFound() {
   const { session } = useSupabase();
   const router = useRouter();
   const userEmail: string = get(session, "user.email", "");
