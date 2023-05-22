@@ -4,7 +4,7 @@
  * @param {string} teamSlug - team Slug
  * @returns
  */
-const getSingleTeam = async ({ teamSlug }: { teamSlug?: string }) => {
+export const getSingleTeam = async ({ teamSlug }: { teamSlug?: string }) => {
   const response = await fetch("/api/teams/getTeam", {
     method: "POST",
     headers: {
@@ -18,4 +18,20 @@ const getSingleTeam = async ({ teamSlug }: { teamSlug?: string }) => {
   return res || {};
 };
 
-export default getSingleTeam;
+export const getTeamUsingEmail = async ({
+  userEmail,
+}: {
+  userEmail?: string;
+}) => {
+  const response = await fetch("/api/teams/getTeam", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ userEmail, type: "userEmail" }),
+  });
+
+  const res = await response.json();
+
+  return res || {};
+};
