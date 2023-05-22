@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -26,19 +26,33 @@ export default function Login() {
   const formMethods = useForm<any>();
   const router = useRouter();
 
-  if (!isEmpty(session)) {
-    (async () => {
-      const res = await fetch("/api/auth/login", {
+  useEffect(() => {
+    if (!isEmpty(session)) {
+      fetch("/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ type: "hasSession" }),
-      });
-      const { url } = await res.json();
-      router.push(`/${url}`);
-    })();
-  }
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ url, avatar, planName }) => {
+          sessionStorage.setItem(
+            "teamData",
+            JSON.stringify({
+              label: url,
+              avatar,
+              planName,
+              type: "personal",
+              value: url,
+            })
+          );
+          router.push(`/${url}`);
+        });
+    }
+  }, []);
 
   const onClickLogin = async (formValues: any) => {
     const { email, password } = formValues;
@@ -52,7 +66,7 @@ export default function Login() {
       setLoading(true);
       const { url, avatar, planName, error } = await login({ email, password });
 
-      if (avatar) {
+      if (url) {
         sessionStorage.setItem(
           "teamData",
           JSON.stringify({

@@ -1,13 +1,22 @@
-const teamIdToTeamSlugMap = {} as any;
+import { isEmpty } from "lodash";
 
-export const getTeamSlug = async ({ teamId }: { teamId: string }) => {
-  const pg = global?.pg;
+import { prisma } from "../../utils";
 
-  if (teamIdToTeamSlugMap) {
-    const teams = await pg.from("teams").select("*");
-    teams.forEach((t: any) => (teamIdToTeamSlugMap[t.id] = t.slug));
+const teamIdToTeamSlugMap = {} as { [key: string]: string };
+
+export const getTeamSlug = async ({ teamId }: any) => {
+  if (isEmpty(teamIdToTeamSlugMap)) {
+    const teams = await prisma.teams.findMany({
+      select: { id: true, slug: true },
+    });
+    teams.forEach(
+      (t: { id: string; slug: string }) => (teamIdToTeamSlugMap[t.id] = t.slug)
+    );
   } else {
-    const singleTeam = await pg.from("teams").where({ id: teamId }).first();
+    const singleTeam = await prisma.teams.findFirst({
+      where: { id: teamId },
+      select: { slug: true },
+    });
     teamIdToTeamSlugMap[teamId] = singleTeam.slug;
   }
 

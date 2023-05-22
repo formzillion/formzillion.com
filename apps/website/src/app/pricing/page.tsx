@@ -2,7 +2,6 @@ import React from "react";
 import type { Metadata } from "next";
 
 import PricingPlans from "./PricingPlans";
-import PriceComparison from "./PriceComparison";
 import Faq from "./Faq";
 
 export const metadata: Metadata = {
@@ -20,7 +19,6 @@ export default function Plans() {
   return (
     <>
       <PricingPlans />
-      <PriceComparison />
       <Faq />
     </>
   );

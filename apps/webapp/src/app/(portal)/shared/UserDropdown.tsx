@@ -31,8 +31,8 @@ export default function UserDropdown({ user }: any) {
   const personalUser = user.teams.filter(
     (user: any) => user.type === "personal"
   );
-
   const avatar = get(personalUser, "0.avatar", "");
+  const slug = get(personalUser, "0.slug", "");
 
   return (
     <DropdownMenu>
@@ -66,7 +66,7 @@ export default function UserDropdown({ user }: any) {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Settings />
+          <Settings slug={slug} />
           <a href="https://formzillion.com/" target="_blank" rel="noreferrer">
             <DropdownMenuItem className="cursor-pointer">
               <ArrowRightOnRectangleIcon className="mr-2 h-4 w-4 text-gray-700 dark:text-gray-500" />
@@ -81,7 +81,7 @@ export default function UserDropdown({ user }: any) {
           >
             <DropdownMenuItem className="cursor-pointer">
               <FiGithub className="mr-2 h-3 w-3 text-gray-600" />
-              Star us
+              Join our Github
               <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
             </DropdownMenuItem>
           </a>

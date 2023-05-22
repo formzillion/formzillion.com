@@ -5,30 +5,38 @@ import slackIcon from "public/brands/slackIcon.png";
 import githubIcon from "public/brands/githubIcon.png";
 import starIcon from "public/brands/starIcon.png";
 
-const cardData = [
-  {
-    count: "10+",
-    title: "Contributors",
-    buttonTitle: "Explore Github",
-    url: "https://github.com/formzillion/formzillion.com",
-    image: githubIcon,
-  },
-  {
-    count: "12+",
-    title: "Community Members",
-    buttonTitle: "Join our slack ",
-    url: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
-    image: slackIcon,
-  },
-  {
-    count: "10+",
-    title: "GitHub Stars",
-    buttonTitle: "Browse on github",
-    url: "https://github.com/formzillion/formzillion.com/stargazers",
-    image: starIcon,
-  },
-];
-export default function OpenSource() {
+interface OpenSourceProps{
+  starCount: number;
+  contributorCount: number;
+}
+
+export default function OpenSource(props: OpenSourceProps) {
+  const {starCount, contributorCount} = props;
+
+  const cardData = [
+    {
+      count: contributorCount,
+      title: "Contributors",
+      buttonTitle: "Explore Github",
+      url: "https://github.com/formzillion/formzillion.com",
+      image: githubIcon,
+    },
+    {
+      count: "20+",
+      title: "Community Members",
+      buttonTitle: "Join our slack ",
+      url: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
+      image: slackIcon,
+    },
+    {
+      count: starCount,
+      title: "GitHub Stars",
+      buttonTitle: "Browse on github",
+      url: "https://github.com/formzillion/formzillion.com/stargazers",
+      image: starIcon,
+    },
+  ];
+
   return (
     <div className="mx-auto max-w-5xl my-10 mt-20 md:mt-40">
       <div className="flex flex-col justify-center items-center w-full text-center space-y-5 text-white">

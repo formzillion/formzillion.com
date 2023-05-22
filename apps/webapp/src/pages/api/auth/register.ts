@@ -30,7 +30,11 @@ export default async function handler(
     email,
     password,
   });
-
+  if (error) {
+    return res.status(500).json({
+      error,
+    });
+  }
   // splitting email to form a TeamSlug
   const regex = /\.[^.]*$/;
   const splittedEmail = email.replace(regex, "");
