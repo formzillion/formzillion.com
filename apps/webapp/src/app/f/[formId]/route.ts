@@ -4,6 +4,7 @@ import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
 
 import { validateSpam } from "./spam";
+import fzProducer from "./fzProducer";
 
 export async function POST(
   req: Request,
@@ -37,25 +38,21 @@ export async function POST(
     data: { fields: formFields, formId, isSpam: isSpam },
   });
 
-  // Send to Webhooks
-  fetch(`${process.env.WB_WEBHOOK_URL}/formzillion/events`, {
-    cache: "no-cache",
-    method: "POST",
-    body: JSON.stringify({
-      eventName: "formSubmission",
-      eventData: {
-        formId,
-        formSubmissionData: formSubmission,
-        formData,
-      },
-    }),
-  });
-
   if (isSpam) {
     return NextResponse.redirect(
       `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?status=failed&referer=${referer}`
     );
   }
+
+  // Adding the Form Related Data to the fz_action Queue for processing
+  await fzProducer({
+    eventName: "formSubmission",
+    eventData: {
+      formId,
+      formSubmissionData: formSubmission,
+      formData,
+    },
+  });
 
   try {
     if (isEmpty(formData?.redirectUrl)) {
