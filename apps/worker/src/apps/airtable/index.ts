@@ -2,9 +2,8 @@ import { each, get, isEmpty, startCase } from "lodash";
 import qs from "querystring";
 
 import { IEventData } from "../../types";
-import { httpClient } from "../../../utils";
+import { httpClient, prisma } from "../../../utils";
 
-const pg = global.pg;
 const { AIRTABLE_CLIENT_ID, AIRTABLE_CLIENT_SECRET_ID } = process.env;
 
 const clientId = AIRTABLE_CLIENT_ID || "";
@@ -127,24 +126,26 @@ const refreshAccessToken = async ({
     };
   }
 
-  const tokens = response.data || {};
+  const tokens = response?.data || {};
 
   // Updating the tokens back to the connections
   try {
-    await pg("connections")
-      .where({ id: connId })
-      .update({
+    const parsedConnId = parseInt(connId);
+    await prisma.connections.update({
+      where: { id: parsedConnId },
+      data: {
         apiKeys: {
-          accessToken: tokens.access_token,
-          refreshToken: tokens.refresh_token,
+          accessToken: tokens?.access_token,
+          refreshToken: tokens?.refresh_token,
           additionalData: tokens,
         },
-      });
+      },
+    });
   } catch (e) {}
 
   return {
     success: true,
-    accessToken: tokens.access_token,
+    accessToken: tokens?.access_token,
   };
 };
 

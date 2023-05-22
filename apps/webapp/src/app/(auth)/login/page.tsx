@@ -38,7 +38,17 @@ export default function Login() {
         .then((res) => {
           return res.json();
         })
-        .then(({ url }) => {
+        .then(({ url, avatar, planName }) => {
+          sessionStorage.setItem(
+            "teamData",
+            JSON.stringify({
+              label: url,
+              avatar,
+              planName,
+              type: "personal",
+              value: url,
+            })
+          );
           router.push(`/${url}`);
         });
     }
@@ -56,7 +66,7 @@ export default function Login() {
       setLoading(true);
       const { url, avatar, planName, error } = await login({ email, password });
 
-      if (avatar) {
+      if (url) {
         sessionStorage.setItem(
           "teamData",
           JSON.stringify({

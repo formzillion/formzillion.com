@@ -34,12 +34,12 @@ export default function Register() {
         body: JSON.stringify({ email, password }),
       });
       let data = await res.json();
-      setMessage(data.message);
+      setMessage(data?.message);
       if (data.success) {
         showSuccessToast(data.message || toastMessages.success);
         return router.push("/login");
       } else {
-        handleErrors(data.message);
+        handleErrors(data?.error?.message);
       }
       setLoading(false);
     } catch (e) {

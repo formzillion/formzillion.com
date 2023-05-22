@@ -18,6 +18,7 @@ export async function middleware(req: any) {
   } = await supabase.auth.getSession();
 
   const preloginUrls = [
+    "/",
     "/login",
     "/register",
     "/forgot-password",

@@ -1,11 +1,7 @@
 import { isEmpty } from "lodash";
-import knex from "knex";
-// Initializing knex for Postgress
-const pg = knex({ client: "pg", connection: process.env.PG_URL });
-global.pg = pg;
 
 import * as apps from "./apps";
-import { Logger } from "../utils";
+import { Logger, prisma } from "../utils";
 import { IEventData } from "./types";
 import { processDefaultActions } from "./defaultActions";
 
@@ -20,43 +16,43 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
   try {
     // Creating an slug to app map for getting the app config
     if (isEmpty(appSlugToAppMap)) {
-      const getApps = await pg("apps").select("*");
+      const getApps = await prisma.apps.findMany();
       getApps.forEach((app) => {
         appSlugToAppMap[app.slug] = app;
       });
     }
 
     /* Performing Default action like sending email notification and autoresponding for a form submissions */
-    await processDefaultActions({ data, pg });
+    await processDefaultActions({ data });
 
     // Fetching the Workflows based on the formId
-    const workflow = await pg
-      .from("workflows")
-      .select("*")
-      .where({ form_id: formId })
-      .first();
+    const workflowData = await prisma.workflows.findFirst({
+      where: { formId },
+      include: {
+        tasks: {
+          where: { status: "active" },
+          include: {
+            connection: true,
+          },
+        },
+      },
+    });
 
-    // Fetching all the different Tasks Associated with the Workflows
-    const tasks = await pg
-      .from("tasks")
-      .select("*")
-      .where({ workflow_id: workflow.id, status: "active" });
+    if (!workflowData) {
+      return {
+        success: false,
+        message: `Workflow not found for formId: ${formId}`,
+      };
+    }
 
-    for await (const task of tasks) {
+    for await (const task of workflowData?.tasks) {
       // Fetching the connection details for connectionId
-      const conn =
-        (await pg
-          .from("connections")
-          .where({ id: task?.connection_id })
-          .first()) || {};
-
-      const { apiKeys, user_id: userId, appSlug, id: connId } = conn;
+      const { apiKeys, appSlug, id: connId } = task?.connection || {};
 
       // Sending the required data to the apps
       const app = appSlugToAppMap[appSlug] || {};
       const processedData = await allApps[appSlug]({
         actionSlug: task.slug || "",
-        userId,
         apiKeys,
         app,
         taskData: task,
