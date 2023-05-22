@@ -80,7 +80,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
       label: "Basic",
       value: "basic",
       price: "5",
-      details: "$15/month per user",
+      details: "$5/month per user",
     },
     {
       label: "Standrad",
@@ -91,8 +91,8 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
     {
       label: "Premium",
       value: "premium",
-      price: "25",
-      details: "$25/month per user",
+      price: "28",
+      details: "$28/month per user",
     },
     {
       label: "Agency",

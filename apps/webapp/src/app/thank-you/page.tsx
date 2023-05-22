@@ -3,6 +3,7 @@ import { useSearchParams } from "next/navigation";
 import { XCircleIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useEffect, useState } from "react";
 import { isEmpty } from "lodash";
+import Image from "next/image";
 
 export default function ThankYou() {
   const router = useSearchParams();
@@ -80,10 +81,12 @@ export default function ThankYou() {
           href={process.env.NEXT_PUBLIC_APP_URL}
           className="text-orange-500 hover:text-orange-600 hover:underline"
         >
-          <img
+          <Image
             src={"/logos/fz_logo_full.svg"}
+            width={150}
+            height={25}
             alt="Formzillion Logo"
-            className="w-auto h-6 object-contain"
+            className=" object-contain"
           />
         </a>
       </div>
