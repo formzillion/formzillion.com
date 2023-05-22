@@ -2,18 +2,23 @@
 // with Sentry.
 // https://nextjs.org/docs/api-reference/next.config.js/introduction
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
+const { PrismaPlugin } = require("@prisma/nextjs-monorepo-workaround-plugin");
 const { withSentryConfig } = require("@sentry/nextjs");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   transpilePackages: ["ui"],
   swcMinify: true,
   experimental: {
     appDir: true,
-    serverComponentsExternalPackages: ["@tremor/react"],
+    serverComponentsExternalPackages: ["@prisma/client", "@tremor/react"],
   },
-  webpack(config) {
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.plugins = [...config.plugins, new PrismaPlugin()];
+    }
+
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],

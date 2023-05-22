@@ -27,7 +27,7 @@ const footerLinks = [
     list: [
       {
         label: "Blog",
-        href: "#",
+        href: "/blog",
         target: "_self",
       },
       {

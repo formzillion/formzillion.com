@@ -38,7 +38,12 @@ const NavLink = (props: navProps) => {
 const MenuLink = (props: navProps) => {
   const { url, title } = props;
   return (
-    <a href={url} target="_blank" className="flex items-center">
+    <a
+      href={url}
+      rel="noreferrer"
+      target="_blank"
+      className="flex items-center"
+    >
       {title}
       <ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
     </a>
@@ -87,6 +92,7 @@ export default function Header() {
           <div className="border-r py-4 border-gray-800"></div>
           <a
             href={"https://docs.formzillion.com"}
+            rel="noreferrer"
             target="_blank"
             className="flex items-center py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200"
           >
