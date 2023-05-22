@@ -7,7 +7,7 @@ import {
 import React from "react";
 
 export default function Features() {
-  const fertures = [
+  const features = [
     {
       title: "Data validated, spam blocked.",
       subtitle:
@@ -46,19 +46,19 @@ export default function Features() {
       </div>
       <div className=" lg:col-span-3 mt-5">
         <div className=" gap-5 grid grid-cols-2">
-          {fertures.map((ferture, idx) => (
+          {features.map((feature, idx) => (
             <div
               key={idx}
               className="p-2 border rounded border-gray-900 space-y-4 hover-border"
             >
               <div className="bg-black p-4 rounded relative z-10 h-full space-y-5">
                 <div className=" space-y-5">
-                  {ferture.icon}
+                  {feature.icon}
                   <div>
                     <h2 className="text-lg my-1 font-semibold ">
-                      {ferture.title}
+                      {feature.title}
                     </h2>
-                    <p className="text-gray-400 text-sm">{ferture.subtitle}</p>
+                    <p className="text-gray-400 text-sm">{feature.subtitle}</p>
                   </div>
                 </div>
               </div>
