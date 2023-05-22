@@ -7,7 +7,6 @@ WORKDIR /usr/src/app
 
 # Copy root package.json and lockfile
 COPY package.json ./
-COPY pnpm-lock.yaml ./
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -15,7 +14,7 @@ COPY pnpm-lock.yaml ./
 COPY apps/worker/package.json ./apps/worker/package.json
 COPY apps/worker/.env .
 
-RUN pnpm install
+RUN npm install
 
 # Bundle app source
 COPY . .

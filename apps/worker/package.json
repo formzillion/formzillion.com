@@ -10,13 +10,13 @@
     "build": "rimraf ./build && tsc"
   },
   "dependencies": {
-    "@prisma/client": "latest",
     "axios": "^1.4.0",
     "bullmq": "^3.13.4",
-    "database": "workspace:*",
     "dotenv": "^16.0.3",
+    "knex": "^2.4.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
+    "pg": "^8.10.0",
     "pino": "^8.14.1"
   },
   "devDependencies": {

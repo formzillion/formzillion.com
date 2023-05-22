@@ -19,9 +19,9 @@
     "zod-prisma": "^0.5.4"
   },
   "devDependencies": {
+    "@formzillion/tsconfig": "workspace:*",
     "@types/node": "^20.2.3",
     "prisma": "latest",
-    "tsup": "^6.7.0",
-    "tsconfig": "workspace:*"
+    "tsup": "^6.7.0"
   }
 }
