@@ -52,7 +52,7 @@ export default function Login() {
       setLoading(true);
       const { url, avatar, planName, error } = await login({ email, password });
 
-      if (avatar) {
+      if (url) {
         sessionStorage.setItem(
           "teamData",
           JSON.stringify({
