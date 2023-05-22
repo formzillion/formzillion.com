@@ -11,49 +11,64 @@ const frequencies: any = [
 
 const tiers: any = [
   {
-    name: "Personal",
-    id: "tier-freelancer",
+    name: "Basic",
+    id: "tier-basic",
     href: "#",
-    price: { monthly: "$10", annually: "$8.33" },
-    description: "The essentials to provide your best work for clients.",
+    price: { monthly: "$5", annually: "$4.33" },
+    description: "A plan that works well with personal projects.",
     features: [
       "5 forms",
+      "Up to 250 submissions",
+      "Basic analytics",
+      "48-hour support response time",
+    ],
+    featured: false,
+    cta: "Select plan",
+  },
+  {
+    name: "Standard",
+    id: "tier-standard",
+    href: "#",
+    price: { monthly: "$10", annually: "$8" },
+    description: "A plan that works well with freelancers.",
+    features: [
+      "Unlimited forms",
       "Up to 1,000 submissions",
       "Basic analytics",
       "48-hour support response time",
     ],
     featured: false,
-    cta: "Buy plan",
+    cta: "Select plan",
   },
   {
-    name: "Professional",
-    id: "tier-startup",
+    name: "Premium",
+    id: "tier-premium",
     href: "#",
-    price: { monthly: "$22", annually: "$18.33" },
-    description: "A plan that scales with your rapidly growing business.",
+    price: { monthly: "$28", annually: "$25" },
+    description: "A plan that scales with your startups.",
     features: [
-      "25 forms",
-      "Up to 10,000 submissions",
+      "Unlimited forms",
+      "Up to 6,000 submissions",
       "Advanced analytics",
       "Quick-support  response time",
     ],
     featured: true,
-    cta: "Buy plan",
+    cta: "Select plan",
   },
   {
     name: "Agency",
     id: "tier-enterprise",
     href: "#",
     price: { monthly: "$100", annually: "$85" },
-    description: "Dedicated support and infrastructure for your company.",
+    description: "A plan that fit well for agencies.",
     features: [
       "Unlimited forms",
-      "Unlimited submissions",
+      "Up to 30,000 submissions",
       "Advanced analytics",
       "1-hour, dedicated support response time",
     ],
     featured: false,
-    cta: "Buy plan",
+    cta: "Select plan",
   },
 ];
 
@@ -103,10 +118,10 @@ export default function PricingPlans() {
             ))}
           </RadioGroup>
         </div>
-        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {tiers.map((tier: any) => (
+        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4  ">
+          {tiers.map((tier: any, idx: any) => (
             <div
-              key={tier.id}
+              key={idx}
               className={classNames(
                 tier.featured ? "bg-white ring-white" : "ring-gray-200",
                 "rounded-3xl p-8 ring-1 xl:p-10"
@@ -152,7 +167,7 @@ export default function PricingPlans() {
                 ) : null}
               </p>
               <a
-                href={tier.href}
+                href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
                 aria-describedby={tier.id}
                 className={classNames(
                   tier.featured
