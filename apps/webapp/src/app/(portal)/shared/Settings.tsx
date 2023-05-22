@@ -1,6 +1,7 @@
 "use client";
 import { DropdownMenuItem } from "@/ui/DropdownMenu";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
+import { get } from "lodash";
 import Link from "next/link";
 import React from "react";
 
@@ -10,13 +11,15 @@ const Settings = () => {
     const team: any = sessionStorage.getItem("teamData");
     teamData = JSON.parse(team);
   }
-  const type = teamData?.type;
+  const type = get(teamData, "type", "default");
+  const teamSlug = get(teamData, "value", "dashboard");
+
   return (
     <Link
       href={
         type === "personal"
-          ? `/${teamData.value}/settings`
-          : `/${teamData.value}/team/settings`
+          ? `/${teamSlug}/settings`
+          : `/${teamSlug}/team/settings`
       }
     >
       <DropdownMenuItem className="cursor-pointer">

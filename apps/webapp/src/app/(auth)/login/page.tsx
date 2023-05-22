@@ -35,7 +35,19 @@ export default function Login() {
         },
         body: JSON.stringify({ type: "hasSession" }),
       });
-      const { url } = await res.json();
+      const { url, avatar, planName } = await res.json();
+      if (url) {
+        sessionStorage.setItem(
+          "teamData",
+          JSON.stringify({
+            label: url,
+            avatar,
+            planName,
+            type: "personal",
+            value: url,
+          })
+        );
+      }
       router.push(`/${url}`);
     })();
   }
@@ -52,7 +64,13 @@ export default function Login() {
       setLoading(true);
       const { url, avatar, planName, error } = await login({ email, password });
 
-      if (avatar) {
+      if (error) {
+        showErrorToast(error?.message);
+        setLoading(false);
+        return;
+      }
+      if (url) {
+        showSuccessToast("Logged In Successfully.");
         sessionStorage.setItem(
           "teamData",
           JSON.stringify({
@@ -63,14 +81,6 @@ export default function Login() {
             value: url,
           })
         );
-      }
-      if (error) {
-        showErrorToast(error?.message);
-        setLoading(false);
-        return;
-      }
-      if (url) {
-        showSuccessToast("Logged In Successfully.");
         router.push(`/${url}`);
       }
 
