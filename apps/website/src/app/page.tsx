@@ -14,27 +14,26 @@ export const metadata: Metadata = {
     "Open source, headless forms, automate, email notification, spam, forms submission, integrations",
 };
 
-export default function page() {
+export default async function page() {
+
+  const url = "https://api.github.com/repos/formzillion/formzillion.com";
+  // To get a github stars count:
+  const gitHubStar = await fetch(url, { cache: 'force-cache' })
+  const data = await gitHubStar.json();
+  const starCount = data?.stargazers_count;
+
+  // To get a github contributors count:
+  const gitHubContributors = await fetch(`${url}/contributors`, { cache: 'force-cache'})
+  const contributorsData = await gitHubContributors.json();
+  const contributorsCount = contributorsData?.length
+
   return (
     <>
       <HeroSection />
       <FeaturesTab />
       <FeaturesOverviewNew />
-      <OpenSource />
+      <OpenSource starCount={starCount} contributorCount={contributorsCount}/>
 
-      {/*<SeeItInAction />
-      <div className="bg-white features-section">
-        <div className="mx-auto px-8 py-12" style={{ maxWidth: "1600px" }}>
-          <PlugAndPlay />
-          <div className="mb-12"></div>
-          <ViewSubmissions />
-          <div className="mb-16"></div>
-          <CustomizeSection />
-          <div className="mb-16"></div>
-          <ColloborateSection />
-        </div>
-      </div>
-      <CtaSection />*/}
     </>
   );
 }
