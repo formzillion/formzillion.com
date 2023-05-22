@@ -1,9 +1,15 @@
 {
   "name": "database",
   "version": "0.0.1",
-  "main": "index.ts",
-  "types": "index.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
   "scripts": {
+    "build": "tsup",
+    "clean": "rimraf .turbo node_modules dist",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate"
   },
@@ -13,6 +19,9 @@
     "zod-prisma": "^0.5.4"
   },
   "devDependencies": {
-    "prisma": "latest"
+    "@types/node": "^20.2.3",
+    "prisma": "latest",
+    "tsup": "^6.7.0",
+    "tsconfig": "workspace:*"
   }
 }

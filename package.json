@@ -2,10 +2,6 @@
   "name": "formzillion",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ],
   "scripts": {
     "predev": "rm -rf apps/webapp/.next && rm -rf apps/docs/.next && rm -rf apps/website/.next",
     "prebuild": "rm -rf apps/webapp/.next && rm -rf apps/docs/.next && rm -rf apps/website/.next",
@@ -23,7 +19,7 @@
     "@changesets/cli": "^2.26.1"
   },
   "devDependencies": {
-    "eslint-config-custom": "workspace:0.0.0",
+    "eslint-config-custom": "workspace:*",
     "prettier": "latest",
     "turbo": "^1.9.3"
   },

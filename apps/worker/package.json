@@ -2,7 +2,7 @@
   "name": "worker",
   "version": "0.1.0",
   "private": true,
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "dev": "npx nodemon",
     "start": "node build/index.js",
