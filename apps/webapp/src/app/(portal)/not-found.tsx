@@ -43,11 +43,11 @@ export default function TeamNotFound() {
       <h1 className="text-center font-light text-2xl">
         {`The team or account you're searching for is not available.`}
         <br />
-        Please proceed to the personal account page.
+        Please proceed to the account page.
       </h1>
       <div className="flex justify-center mt-4">
         <Button loading={loading} onClick={() => handleOnclick()}>
-          Go back to personal account
+          Back to account
         </Button>
       </div>
     </>

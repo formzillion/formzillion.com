@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Button from "@/ui/Buttons";
 
-export default function FromNotFound() {
+export default function FormNotFound() {
   const pathName = usePathname();
   const splittedPath = pathName?.split("/");
   const teamSlug = get(splittedPath, "1", "");
@@ -21,7 +21,7 @@ export default function FromNotFound() {
         />
       </div>
 
-      <h1 className="text-center mt-4 font-light text-2xl">{`Form not found!. Let's create a new form.`}</h1>
+      <h1 className="text-center mt-4 font-light text-2xl">{`Form not found!. Go back to Forms.`}</h1>
       <div className="flex justify-center mt-4">
         <Button onClick={() => router.push(`/${teamSlug}`)}>
           Back to Forms
