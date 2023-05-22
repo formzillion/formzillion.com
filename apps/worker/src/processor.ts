@@ -45,9 +45,9 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
       };
     }
 
-    for await (const task of workflowData.tasks) {
+    for await (const task of workflowData?.tasks) {
       // Fetching the connection details for connectionId
-      const { apiKeys, appSlug, id: connId } = task.connection || {};
+      const { apiKeys, appSlug, id: connId } = task?.connection || {};
 
       // Sending the required data to the apps
       const app = appSlugToAppMap[appSlug] || {};
