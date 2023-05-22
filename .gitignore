@@ -46,3 +46,6 @@ yarn-error.log*
 robots.txt
 sitemap-0.xml
 sitemap.xml
+
+.contentlayer
+dist
