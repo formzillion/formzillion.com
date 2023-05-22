@@ -13,7 +13,7 @@ const tiers: any = [
   {
     name: "Personal",
     id: "tier-freelancer",
-    href: "#",
+    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
     price: { monthly: "$10", annually: "$8.33" },
     description: "The essentials to provide your best work for clients.",
     features: [
@@ -28,7 +28,7 @@ const tiers: any = [
   {
     name: "Professional",
     id: "tier-startup",
-    href: "#",
+    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
     price: { monthly: "$22", annually: "$18.33" },
     description: "A plan that scales with your rapidly growing business.",
     features: [
@@ -43,7 +43,7 @@ const tiers: any = [
   {
     name: "Agency",
     id: "tier-enterprise",
-    href: "#",
+    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
     price: { monthly: "$100", annually: "$85" },
     description: "Dedicated support and infrastructure for your company.",
     features: [

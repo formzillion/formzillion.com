@@ -6,7 +6,7 @@ const tiers: any = [
   {
     name: "Personal",
     id: "basic",
-    href: "#",
+    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
     priceMonthly: "$10",
     description: "Quis suspendisse ut fermentum neque vivamus non tellus.",
     mostPopular: false,
@@ -14,7 +14,7 @@ const tiers: any = [
   {
     name: "Professional",
     id: "essential",
-    href: "#",
+    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
     priceMonthly: "$22",
     description: "Quis eleifend a tincidunt pellentesque. A tempor in sed.",
     mostPopular: true,
@@ -22,7 +22,7 @@ const tiers: any = [
   {
     name: "Agency",
     id: "premium",
-    href: "#",
+    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
     priceMonthly: "$100",
     description:
       "Orci volutpat ut sed sed neque, dui eget. Quis tristique non.",
