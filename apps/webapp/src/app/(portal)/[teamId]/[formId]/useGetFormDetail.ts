@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { notFound } from "next/navigation";
 
 export const useGetFormDetail = async (formId: any) => {
   if (!formId) {
@@ -9,5 +10,8 @@ export const useGetFormDetail = async (formId: any) => {
       id: formId,
     },
   });
+  if (!formDetail) {
+    notFound();
+  }
   return JSON.parse(JSON.stringify(formDetail));
 };

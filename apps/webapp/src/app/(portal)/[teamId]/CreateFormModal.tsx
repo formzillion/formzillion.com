@@ -16,6 +16,7 @@ import { Input } from "@/ui/Input/SimpleInput";
 import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { randJobTitle } from "@ngneat/falso";
+import { usePathname } from "next/navigation";
 
 export default function CreateFormModal({
   isOpen,
@@ -25,6 +26,8 @@ export default function CreateFormModal({
 }: any) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const pathName: any = usePathname();
+  const formId = pathName.split("/")[2];
   const [formValues, setFormValues] = useState<any>({
     name: randJobTitle(),
     sendToEmail: userEmail,
@@ -45,6 +48,9 @@ export default function CreateFormModal({
 
         if (jsonResponse.success === true) {
           setLoading(false);
+          if (formId) {
+            router.push(`/${teamSlug}`);
+          }
           router.refresh();
           closeModal();
           showSuccessToast("Form created successfully!");
