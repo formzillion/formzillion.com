@@ -70,6 +70,17 @@ const integrations = [
     isAvailable: true,
   },
   {
+    name: "ConvertKit",
+    formattedName: "convertkit",
+    slug: "convertkit",
+    icon: "/brands/convertkit.png",
+    description:
+      "Automatically add the form submission data to convertkit marketing platform",
+    status: "not_connected",
+    authType: "api_key",
+    isAvailable: true,
+  },
+  {
     name: "Mailchimp",
     formattedName: "mailchimp",
     slug: "mailchimp",
