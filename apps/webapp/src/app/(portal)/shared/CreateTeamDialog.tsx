@@ -19,7 +19,7 @@ import React, { useState } from "react";
 import Button2 from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { useRouter } from "next/navigation";
-import getSingleTeam from "@/app/fetch/teams/getSingleTeam";
+import { getSingleTeam } from "@/app/fetch/teams/getSingleTeam";
 import { get, kebabCase } from "lodash";
 
 const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
@@ -51,7 +51,18 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
         if (response.status === 201) {
           showSuccessToast("Created Team Successfully");
           setLoading(false);
-          const teamSlug = responseData.data.slug;
+          const teamSlug = get(responseData, "data.slug", "");
+          const teamName = get(responseData, "data.name", "");
+          sessionStorage.setItem(
+            "teamData",
+            JSON.stringify({
+              label: teamName,
+              avatar: "",
+              planName: "",
+              type: "default",
+              value: teamSlug,
+            })
+          );
           router.push(`/${teamSlug}`);
         } else {
           setLoading(false);
@@ -77,16 +88,22 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
       details: "Trial for two weeks",
     },
     {
-      label: "Personal",
-      value: "personal",
+      label: "Basic",
+      value: "basic",
+      price: "5",
+      details: "$5/month per user",
+    },
+    {
+      label: "Standrad",
+      value: "standrad",
       price: "10",
       details: "$10/month per user",
     },
     {
-      label: "Professional",
-      value: "professional",
-      price: "22",
-      details: "$22/month per user",
+      label: "Premium",
+      value: "premium",
+      price: "28",
+      details: "$28/month per user",
     },
     {
       label: "Agency",

@@ -110,24 +110,18 @@ export default function PriceComparison({ frequency }: any) {
               key={tier.id}
               className={classNames(
                 tier.mostPopular
-                  ? "rounded-xl bg-white ring-1 ring-inset ring-gray-200"
+                  ? "rounded-xl bg-gray-400/5 ring-1 ring-inset ring-gray-200"
                   : "rounded-xl  ring-1 ring-inset ring-gray-900",
                 "p-8"
               )}
             >
               <h3
                 id={tier.id}
-                className={`text-lg font-semibold leading-6 ${
-                  tier?.mostPopular ? "text-black" : "text-white"
-                }`}
+                className="text-lg font-semibold leading-6 text-white"
               >
                 {tier.name}
               </h3>
-              <p
-                className={`mt-2 flex items-baseline justify-center gap-x-1 ${
-                  tier?.mostPopular ? "text-black" : "text-white"
-                }`}
-              >
+              <p className="mt-2 flex items-baseline justify-center gap-x-1 text-white">
                 <span className="text-4xl font-bold">
                   {tier.priceMonthly[frequency?.value]}
                 </span>
@@ -154,12 +148,7 @@ export default function PriceComparison({ frequency }: any) {
                     <ul role="list" className="space-y-4">
                       {section.features.map((feature: any) =>
                         feature.tiers[startCase(tier.id)] ? (
-                          <li
-                            key={feature.name}
-                            className={`flex gap-x-3 ${
-                              tier?.mostPopular ? "text-black" : "text-white"
-                            }`}
-                          >
+                          <li key={feature.name} className="flex gap-x-3">
                             <CheckIcon
                               className="h-6 w-5 flex-none text-orange-600"
                               aria-hidden="true"
@@ -168,13 +157,7 @@ export default function PriceComparison({ frequency }: any) {
                               {feature.name}{" "}
                               {typeof feature.tiers[startCase(tier.id)] ===
                               "string" ? (
-                                <span
-                                  className={`text-sm leading-6 ${
-                                    tier?.mostPopular
-                                      ? "text-black"
-                                      : "text-white"
-                                  }`}
-                                >
+                                <span className="text-sm leading-6 text-white">
                                   ({feature.tiers[startCase(tier.id)]})
                                 </span>
                               ) : null}
@@ -192,8 +175,8 @@ export default function PriceComparison({ frequency }: any) {
 
         {/* lg+ */}
         <div className="isolate mt-20 hidden lg:block">
-          <div className={`relative -mx-8 `}>
-            <div className="absolute inset-y-0 inset-x-4 -z-10 flex ">
+          <div className="relative -mx-8">
+            <div className="absolute inset-y-0 inset-x-4 -z-10 flex">
               <div
                 className="flex w-1/5 px-4"
                 aria-hidden="true"
@@ -203,7 +186,7 @@ export default function PriceComparison({ frequency }: any) {
                   }%`,
                 }}
               >
-                <div className="w-full rounded-xl border-x border-y border-white/10 bg-white " />
+                <div className="w-full rounded-xl border-x border-y border-white/10 bg-gray-400/5" />
               </div>
             </div>
             <table className="w-full table-fixed border-separate border-spacing-8 text-left">
@@ -223,11 +206,7 @@ export default function PriceComparison({ frequency }: any) {
                       scope="col"
                       className="px-6 pt-6 xl:px-8 xl:pt-8"
                     >
-                      <div
-                        className={`text-lg font-semibold leading-7 text-center ${
-                          tier?.mostPopular ? "text-black" : "text-white"
-                        }`}
-                      >
+                      <div className="text-lg font-semibold leading-7 text-center text-white">
                         {tier.name}
                       </div>
                     </th>
@@ -240,12 +219,8 @@ export default function PriceComparison({ frequency }: any) {
                     <span className="sr-only">Price</span>
                   </th>
                   {tiers.map((tier: any) => (
-                    <td key={tier.id} className={`px-6 pt-2 xl:px-8 `}>
-                      <div
-                        className={`flex items-baseline justify-center gap-x-1 text-center ${
-                          tier?.mostPopular ? "text-black" : "text-white"
-                        }`}
-                      >
+                    <td key={tier.id} className="px-6 pt-2 xl:px-8">
+                      <div className="flex items-baseline justify-center gap-x-1 text-center text-white">
                         <span className="text-4xl font-bold">
                           {tier.priceMonthly[frequency?.value]}
                         </span>
@@ -295,13 +270,7 @@ export default function PriceComparison({ frequency }: any) {
                           <td key={tier.id} className="px-6 xl:px-8">
                             {typeof feature.tiers[startCase(tier.id)] ===
                             "string" ? (
-                              <div
-                                className={`text-center text-sm leading-6 ${
-                                  tier?.mostPopular
-                                    ? "text-black"
-                                    : "text-white"
-                                }`}
-                              >
+                              <div className="text-center text-sm leading-6 text-white">
                                 {feature.tiers[startCase(tier.id)]}
                               </div>
                             ) : (
