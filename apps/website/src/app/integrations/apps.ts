@@ -1,0 +1,32 @@
+export const apps = [
+  {
+    title:"Slack",
+    image:"/brands/slack.png",
+    url:"integrations/slack"
+  },
+  {
+    title:"Sendgrid",
+    image:"/brands/sendgrid.png",
+    url:"integrations/sendgrid"
+  },
+  {
+    title:"Webhooks",
+    image:"/brands/webhooks.png",
+    url:"integrations/webhooks"
+  },
+  {
+    title:"Mailerlite",
+    image:"/brands/mailerlite.png",
+    url:"integrations/mailerlite"
+  },
+  {
+    title:"Airtable",
+    image:"/brands/airtable.png",
+    url:"integrations/airtable"
+  },
+  {
+    title:"Freshdesk",
+    image:"/brands/freshdesk.png",
+    url:"integrations/freshdesk"
+  }
+]
