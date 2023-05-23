@@ -33,13 +33,13 @@ const addSubscriberToAForm = async ({
   accessToken,
   data,
   formId,
-  baseUrl = `https://api.convertkit.com/v3/forms/${formId}`,
+  baseUrl="https://api.convertkit.com/v3/forms",
 }: IAddSubscriberToAForm) => {
   const email = data.email;
   const api_key = accessToken;
   /* TODO: Handle Different types of Fields */
   const subscriperAdded = await httpClient({
-    endPoint: `${baseUrl}/subscribe`,
+    endPoint: `${baseUrl}/${formId}/subscribe`,
     method: "POST",
     body: { email, api_key },
     headers: {
