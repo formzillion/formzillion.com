@@ -93,6 +93,17 @@ export default async function handler(
           role: "OWNER",
         },
       });
+
+      // Initial entry for plan metering
+
+      const teamSlug = get(user, "teams[0].slug", "");
+      await prisma.plan_metering.create({
+        data: {
+          teamId: teamId,
+          teamSlug: teamSlug,
+          planId: planId,
+        },
+      });
     }
   }
 
