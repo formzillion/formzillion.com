@@ -34,7 +34,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const onClickCreateTeam = async () => {
     const teamSlug = get(teamValues, "name", "");
 
-    if (teamSlug.length > 5) {
+    if (teamSlug.length >= 5) {
       setLoading(true);
       const team = await getSingleTeam({ teamSlug: kebabCase(teamSlug) });
       if (team.success) {
@@ -71,6 +71,8 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
           showErrorToast(responseData.message);
         }
       }
+    } else {
+      showErrorToast("Team name must be atleast 5 characters");
     }
   };
   const onChangeField = async (e: any) => {
