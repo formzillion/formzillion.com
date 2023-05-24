@@ -46,12 +46,22 @@ export default function PriceComparison({ frequency }: any) {
       name: "Core Features",
       features: [
         {
-          name: "Integrations",
-          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+          name: "Form",
+          tiers: {
+            Basic: "1",
+            Standard: "Unlimited",
+            Premium: "Unlimited",
+            Agency: "Unlimited",
+          },
         },
         {
-          name: "Importing and exporting",
-          tiers: { Standard: true, Premium: true, Agency: true },
+          name: "Submissions",
+          tiers: {
+            Basic: "250",
+            Standard: "1,000",
+            Premium: "6,000",
+            Agency: "30,000",
+          },
         },
         {
           name: "Collaboration",
@@ -62,11 +72,60 @@ export default function PriceComparison({ frequency }: any) {
           },
         },
         {
-          name: "Custom thank-you page",
+          name: "File uploads",
+          tiers: {
+            Standard: "2GB",
+            Premium: "10GB",
+            Agency: "25GB",
+          },
+        },
+        {
+          name: "Emails Notification ",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Basic analytics",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Integrations",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Importing and exporting",
           tiers: { Standard: true, Premium: true, Agency: true },
         },
         {
-          name: "Spam Filtering",
+          name: "Custom thank-you page",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+      ],
+    },
+    {
+      name: "Spam Filtering",
+      features: [
+        {
+          name: "reCAPTCHA V2",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "reCAPTCHA V3",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "hCaptcha",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Botpoison",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Turnstile",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Honeypot",
           tiers: { Premium: true, Agency: true },
         },
       ],
@@ -79,12 +138,12 @@ export default function PriceComparison({ frequency }: any) {
           tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
         },
         {
-          name: "Quarterly product workshops",
-          tiers: { Premium: true, Agency: true },
-        },
-        {
           name: "Priority phone support",
           tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Quarterly product workshops",
+          tiers: { Premium: true, Agency: true },
         },
         { name: "1:1 onboarding tour", tiers: { Agency: true } },
       ],

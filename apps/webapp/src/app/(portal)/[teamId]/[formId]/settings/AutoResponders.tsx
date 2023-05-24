@@ -109,7 +109,7 @@ export default function AutoResponders({ formDetail }: any) {
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
         <Header title={"Autoresponders"} />
         <SwitchGroup
-          label="Autoresponders Enabled"
+          label="Autoresponders Enable / Disable"
           description="To set up an autoresponder, you can enable this button."
           checked={autoResponder}
           onChange={(value: boolean) => handleDisableAutoResponder(value)}

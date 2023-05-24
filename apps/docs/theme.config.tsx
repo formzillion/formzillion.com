@@ -12,7 +12,7 @@ const config: DocsThemeConfig = {
     const { asPath } = useRouter();
     if (asPath !== "/") {
       return {
-        titleTemplate: "%s – Formzillion",
+        titleTemplate: `%s - Formzillion`,
         ...(process?.env?.NODE_ENV !== "production" && {
           nofollow: true,
           noindex: true,

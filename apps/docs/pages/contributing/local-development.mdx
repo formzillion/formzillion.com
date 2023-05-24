@@ -1,4 +1,215 @@
+import { Tab, Tabs } from "nextra-theme-docs";
+
 # Local Development
 
+This document provides step-by-step instructions for setting up a local development environment for contributing to Formzillion using the PNPM package manager. By following these guidelines, you will be able to run Formzillion on your machine and make code contributions.
 
-We kindly assure you that we will update the local development guide as promptly as possible. Your patience is greatly appreciated, and we are committed to providing you with the most up-to-date and comprehensive information. Thank you for your understanding.
+## Prerequisites
+
+Before you begin, ensure that you have the following prerequisites installed on your system:
+
+1. **NodeJs**: Formzillion requires Node.js follow the instruction to install [NodeJs](https://nodejs.org).
+
+2. **PNPM**: Formzillion uses PNPM as package manager. Follow the instructions To install [PNPM](https://pnpm.io/installation).
+
+3. **Git**: Git is used for version control. Install Git by following the instructions for your operating system: [Git](https://git-scm.com/downloads).
+
+4. **Redis**: Formzillion uses Redis for run workflow actions. Follow the instructions to install [Redis](https://redis.io/docs/getting-started/installation/).
+
+5. **Supabase**: Formzillion uses Supabase for authentication. Follow the instructions to install [Supabase](https://supabase.com/docs/guides/getting-started/local-development).
+
+## Getting the Source Code
+
+To start contributing to Formzillion, you need to fork the project's repository on GitHub and clone it to your local machine. Follow these steps to get the source code:
+
+1. Visit the Formzillion repository on GitHub: [formzillion.com](https://github.com/formzillion/formzillion.com).
+
+2. Click the "[Fork](https://github.com/formzillion/formzillion.com/fork)" button in the top-right corner of the repository page. This will create a copy of the repository under your GitHub account.
+
+3. Once the forking process is complete, you will be redirected to your forked repository on GitHub. Copy the URL of your forked repository.
+
+4. Open a terminal or command prompt.
+
+5. Navigate to the directory where you want to store the Formzillion project.
+
+6. Run the following command to clone your forked repository:
+
+   ```shell
+   git clone <forked-repository-url>
+   ```
+
+   Replace `<forked-repository-url>` with the URL you copied in step **3**.
+
+7. Once the repository is cloned, navigate into the project directory:
+
+   ```shell
+   cd formzillion.com
+   ```
+
+## Setting Up the Development Environment
+
+After cloning the repository, you need to set up the development environment. Follow these steps to configure the necessary dependencies:
+
+- Install project dependencies by running the following command:
+
+  ```shell
+  pnpm install
+  ```
+
+## Packages Setup
+
+These are the supporting packages for running Formzillion.
+
+<Tabs items={["Database", "Email"]}>
+  <Tab>
+    **Database**: Formzillion uses Prisma ORM for database access.
+
+    1. Navigate to **packages -> database** directory. By running following command.
+    ``` shell
+    cd packages/database/
+    ```
+    2. Create a .env file with the following content:
+    ``` shell
+      DATABASE_URL=postgresql://postgres:postgres@localhost:54322/postgres
+    ```
+    3. Now Run the following commands to setup the database:
+
+      ``` shell
+      pnpm install
+      npx prisma migrate deploy # Only Once
+      npx prisma generate
+      ```
+
+    Ref: [Prisma CLI Docs](https://www.prisma.io/docs/reference/api-reference/command-reference)
+
+  </Tab>
+
+  <Tab>
+  **Email**: Formzillion uses React Email for generating the email templates.
+
+    Email templates server will be available on: http://localhost:3002.
+
+  </Tab>
+</Tabs>
+
+## Env Setup for Individual Apps
+
+<Tabs items={["Website", "Webapp", "Docs", "Worker"]}>
+  <Tab>
+    **Website**: consists of website app for Formzillion. to contribute under this to the following.
+        
+    Create a .env file with the following contents in **apps/website**:
+    ``` shell
+      NEXT_PUBLIC_APP_URL=http://localhost:3000
+    ```
+
+    Note: Website run on the port no: **4000**.
+
+  </Tab>
+  <Tab>
+    **Webapp** is a main app for Formzillion.
+    
+    Create a .env file with the following contents in **apps/webapp**:
+    ``` shell
+      NODE_ENV=development
+      NEXT_PUBLIC_APP_URL=http://localhost:3000
+      NEXT_PUBLIC_WEBSITE_URL=http://localhost:4000
+      DATABASE_URL=postgresql://postgres:postgres@localhost:54322/postgres
+      REDIS_URI=127.0.0.1
+      REDIS_PORT=6379
+      NEXT_PUBLIC_SUPABASE_URL=NEXT_PUBLIC_SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_ANON_KEY=NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+      # Not Mandatory Envs
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+      STRIPE_SECRET_KEY=STRIPE_SECRET_KEY
+      STRIPE_WEBHOOK_SECRET=STRIPE_WEBHOOK_SECRET
+
+      SLACK_CLIENT_ID=SLACK_CLIENT_ID
+      SLACK_CLIENT_SECRET_ID=SLACK_CLIENT_SECRET_ID
+      NEXT_PUBLIC_SLACK_CLIENT_ID=NEXT_PUBLIC_SLACK_CLIENT_ID
+    ```
+
+    Note: Webapp run on the port no: **3000**.
+
+  </Tab>
+  <Tab>
+    **Docs** is the documentation app for Formzillion.
+  
+    Note: Docs run on the port no: **3001**.
+  </Tab>
+  <Tab>
+    **Worker** is a worker app for Formzillion where all the post form submission actions are handled.
+
+    Create a .env file with the following contents in **apps/worker**:
+    ``` shell
+      NODE_ENV=development
+      REDIS_URI=127.0.0.1
+      REDIS_PORT=6379
+      SENDGRID_API=SENDGRID_API
+      PG_URL=postgresql://postgres:postgres@localhost:54322/postgres
+
+      # Not Mandatory Envs
+      AIRTABLE_CLIENT_ID=AIRTABLE_CLIENT_ID
+      AIRTABLE_CLIENT_SECRET_ID=AIRTABLE_CLIENT_SECRET_ID
+    ```
+
+  </Tab>
+</Tabs>
+
+## Running Formzillion Locally
+
+With the development environment set up, you can now run Formzillion on your local machine. Follow these steps to start the server:
+
+1. Open a terminal or command prompt.
+
+2. Navigate to the project directory if you are not already there.
+
+3. Run the following command to start the development server:
+
+   ```shell
+   pnpm run dev
+   ```
+
+4. All applications should now be operational on your local machine at the specified address..
+
+   | App     | Address               |
+   | ------- | --------------------- |
+   | Website | http://localhost:4000 |
+   | Webapp  | http://localhost:3000 |
+   | Docs    | http://localhost:3001 |
+   | Worker  | Backend               |
+
+## Making Code Contributions
+
+To contribute code to Formzillion, follow these guidelines:
+
+1. Create a new branch for your changes. You can do this using the following Git command:
+
+   ```shell
+   git checkout -b feature/my-new-feature
+   ```
+
+   Replace `feature/my-new-feature` with a descriptive branch name that reflects the purpose of your changes.
+
+2. Make the necessary code changes in your preferred code editor.
+
+3. Commit your changes using Git:
+
+   ```shell
+   git commit -m "Add a descriptive commit message"
+   ```
+
+   Provide a clear and concise commit message that summarizes your changes.
+
+4. Push your branch to the remote repository:
+
+   ```shell
+   git push origin feature/my-new-feature
+   ```
+
+5. Finally, open a pull request on the Formzillion repository on GitHub. Describe your changes, provide any relevant information, and submit the pull request for review.
+
+Congratulations! You have successfully set up your local development environment for Formzillion.
+
+Remember, every contribution, no matter how big or small, makes a difference. Your code, documentation, bug reports, feature suggestions, and feedback are all incredibly valuable. Together, we will build Formzillion into a remarkable platform that simplifies form management for users worldwide.
