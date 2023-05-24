@@ -1,8 +1,18 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Metadata } from "next";
 
 import { apps } from "./apps";
+
+export const metadata: Metadata = {
+  title: "Integrations - Formzillion",
+  description:
+    "Leverage our direct integrations and API to effortlessly route your form submission data to its designated destination. ",
+  alternates: {
+    canonical: "https://formzillion.com/integrations",
+  },
+};
 
 export default function Integrations() {
   return (
