@@ -2,12 +2,13 @@ import { each, get, isEmpty, startCase } from "lodash";
 import qs from "querystring";
 
 import { IEventData } from "../../types";
-import { httpClient, prisma } from "../../../utils";
+import { httpClient } from "../../../utils";
 
+const pg = global?.pg;
 const { AIRTABLE_CLIENT_ID, AIRTABLE_CLIENT_SECRET_ID } = process.env;
 
-const clientId = AIRTABLE_CLIENT_ID || "";
-const clientSecret = AIRTABLE_CLIENT_SECRET_ID || "";
+const clientId = AIRTABLE_CLIENT_ID;
+const clientSecret = AIRTABLE_CLIENT_SECRET_ID;
 const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString(
   "base64"
 );
@@ -47,7 +48,7 @@ const addRecord = async ({
   table,
   baseUrl = "https://api.airtable.com/v0",
 }: any) => {
-  const fields: any = {};
+  const fields = {};
   each(formValues, (value, key) => (fields[startCase(key)] = value));
 
   const addRecordInTable = await httpClient({
@@ -70,11 +71,6 @@ const createFields = async ({
   formValues,
   table,
   baseUrl = "https://api.airtable.com/v0",
-}: {
-  accessToken: string;
-  formValues: any;
-  table: any;
-  baseUrl: string;
 }) => {
   const response = await Promise.all(
     Object.keys(formValues).map(async (key) => {
@@ -98,13 +94,7 @@ const createFields = async ({
   return response;
 };
 
-const refreshAccessToken = async ({
-  refreshToken,
-  connId,
-}: {
-  refreshToken: string;
-  connId: string;
-}) => {
+const refreshAccessToken = async ({ refreshToken, connId }) => {
   const response = await httpClient({
     method: "POST",
     endPoint: `https://www.airtable.com/oauth2/v1/token`,
@@ -126,21 +116,19 @@ const refreshAccessToken = async ({
     };
   }
 
-  const tokens = response?.data || {};
+  const tokens = response.data || {};
 
   // Updating the tokens back to the connections
   try {
-    const parsedConnId = parseInt(connId);
-    await prisma.connections.update({
-      where: { id: parsedConnId },
-      data: {
+    await pg("connections")
+      .where({ id: connId })
+      .update({
         apiKeys: {
           accessToken: tokens?.access_token,
           refreshToken: tokens?.refresh_token,
           additionalData: tokens,
         },
-      },
-    });
+      });
   } catch (e) {}
 
   return {

@@ -47,6 +47,5 @@ robots.txt
 sitemap-0.xml
 sitemap.xml
 
-
-# Contentlayer
 .contentlayer
+dist

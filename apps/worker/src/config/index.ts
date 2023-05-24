@@ -12,7 +12,7 @@ export const bullMqConfig: any = {
   connection: {
     host: process.env.REDIS_URI || "",
     port: process.env.REDIS_PORT || 6379,
-    ...(process.env.REDIS_URI?.includes("cluster") && { tls: {} }),
+    ...(!process.env.REDIS_URI?.includes("127.0") && { tls: {} }),
   },
   prefix: "{fz}",
 };

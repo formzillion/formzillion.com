@@ -39,7 +39,7 @@ export default function Register() {
         showSuccessToast(data.message || toastMessages.success);
         return router.push("/login");
       } else {
-        handleErrors(data?.error?.message);
+        handleErrors(data?.message);
       }
       setLoading(false);
     } catch (e) {
