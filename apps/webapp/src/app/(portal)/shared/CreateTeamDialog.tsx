@@ -26,7 +26,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const router = useRouter();
   const [teamValues, setTeamValues] = useState<any>({
     name: "",
-    emailsToInvite: [""],
+    emailsToInvite: [],
   });
   const [loading, setLoading] = useState(false);
   const [isTeamExist, setIsTeamExist] = useState(false);
@@ -34,9 +34,11 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const onClickCreateTeam = async () => {
     const teamSlug = get(teamValues, "name", "");
 
-    if (teamSlug.length > 5) {
+    if (teamSlug.length >= 5) {
+      setLoading(true);
       const team = await getSingleTeam({ teamSlug: kebabCase(teamSlug) });
       if (team.success) {
+        setLoading(false);
         setIsTeamExist(true);
       } else {
         setIsTeamExist(false);
@@ -64,11 +66,14 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
             })
           );
           router.push(`/${teamSlug}`);
+          router.refresh();
         } else {
           setLoading(false);
           showErrorToast(responseData.message);
         }
       }
+    } else {
+      showErrorToast("Team name must be atleast 5 characters");
     }
   };
   const onChangeField = async (e: any) => {

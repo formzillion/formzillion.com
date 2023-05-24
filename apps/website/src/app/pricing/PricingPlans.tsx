@@ -79,11 +79,6 @@ function classNames(...classes: any) {
 
 export default function PricingPlans() {
   const [frequency, setFrequency] = useState(frequencies[0]);
-  console.log(
-    "%c 🍟 frequency: ",
-    "font-size:12px;background-color: #3F7CFF;color:#fff;",
-    frequency
-  );
 
   return (
     <>
