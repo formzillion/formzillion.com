@@ -26,7 +26,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const router = useRouter();
   const [teamValues, setTeamValues] = useState<any>({
     name: "",
-    emailsToInvite: [""],
+    emailsToInvite: [],
   });
   const [loading, setLoading] = useState(false);
   const [isTeamExist, setIsTeamExist] = useState(false);
@@ -35,8 +35,10 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
     const teamSlug = get(teamValues, "name", "");
 
     if (teamSlug.length > 5) {
+      setLoading(true);
       const team = await getSingleTeam({ teamSlug: kebabCase(teamSlug) });
       if (team.success) {
+        setLoading(false);
         setIsTeamExist(true);
       } else {
         setIsTeamExist(false);

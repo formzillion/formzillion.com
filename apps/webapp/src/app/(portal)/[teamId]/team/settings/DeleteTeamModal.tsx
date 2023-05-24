@@ -13,8 +13,9 @@ import Button from "@/ui/Buttons";
 import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
 import { Input } from "@/ui/Input/SimpleInput";
-import { showErrorToast } from "@/ui/Toast/Toast";
+import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { get } from "lodash";
+import { setItem } from "@/utils/sessionStorage";
 
 export default function DeleteTeamModal({
   closeModal,
@@ -23,17 +24,36 @@ export default function DeleteTeamModal({
 }: any) {
   const router = useRouter();
   const [isConfirmed, setIsConfirmed] = useState("");
-  const userAcc = JSON.parse(personalAccount);
+  const userAcc: any = JSON.parse(personalAccount);
+  const storageData = get(userAcc, "0", {});
   const userSlug = get(userAcc, "0.slug", "");
-  const onClickDeleteTeam = () => {
+  const [loading, setLoading] = useState(false);
+  const onClickDeleteTeam = async () => {
     if (isConfirmed === teamSlug.name) {
-      updateTeam({
+      setLoading(true);
+      const res = await updateTeam({
         teamName: teamSlug.name,
         teamSlug: teamSlug.slug,
         type: "deleteTeam",
       });
-      closeModal();
-      router.push(`/${userSlug}`);
+      if (res) {
+        setLoading(false);
+        closeModal();
+        showSuccessToast("Deleted Team Successfully");
+        setItem({
+          name: "teamData",
+          value: {
+            label: storageData.name || "",
+            value: storageData.slug || "",
+            type: storageData.type || "",
+            planName: storageData.planName || "",
+            avatar: storageData.avatar || "",
+          },
+        });
+        router.push(`/${userSlug}`);
+        router.refresh();
+      }
+      setLoading(false);
     } else {
       showErrorToast("Please type-in the correct team name");
     }
@@ -72,6 +92,7 @@ export default function DeleteTeamModal({
         </div>
         <DialogFooter>
           <Button
+            loading={loading}
             className="bg-red-600  text-white rounded-none"
             onClick={onClickDeleteTeam}
             type="submit"
