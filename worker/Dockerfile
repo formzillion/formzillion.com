@@ -4,15 +4,15 @@ FROM node:bullseye-slim
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY worker/package.json ./worker/package.json
-COPY worker/package-lock.json ./worker/package-lock.json
+COPY worker/package.json ./package.json
+COPY worker/package-lock.json ./package-lock.json
 COPY worker/.env .
 
-RUN cd worker && npm install
+RUN npm install
 
 # Bundle worker app source
-COPY worker/ ./worker
+COPY worker/ ./
 
-RUN cd worker && npm run build
+RUN npm run build
 
-CMD [ "node", "worker/build/index.js" ]
+CMD [ "node", "build/index.js" ]
