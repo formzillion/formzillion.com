@@ -80,7 +80,7 @@ export default function FormEmails({ formDetail }: any) {
               <Heading
                 title="Emails"
                 description="Get notification to these emails when new form submission is
-                recived."
+                recived (Enter multiple email addresses separated by commas)."
               />
             </Label>
             <Input
