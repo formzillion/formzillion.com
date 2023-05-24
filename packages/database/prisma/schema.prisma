@@ -76,6 +76,7 @@ model forms {
   workflows           workflows[]
   autoResponder       Boolean            @default(false)
   autoResponderConfig Json?
+  plan_metering       plan_metering[]
 
   @@index([teamId])
   @@index([workflowId])
@@ -118,6 +119,7 @@ model teams {
   workflows         workflows[]
   users             users[]            @relation("teamsTousers")
   avatar            String?
+  plan_metering     plan_metering[]
 
   @@index([slug])
   @@map("teams")
@@ -247,6 +249,19 @@ model tokens {
   email     String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model plan_metering {
+  id                Int    @id @default(autoincrement())
+  submissionCounter Int    @default(0) @map("submission_counter")
+  memeberCounter    Int    @default(0) @map("member_counter")
+  team              teams  @relation(fields: [teamId], references: [id])
+  teamId            String
+  form              forms  @relation(fields: [formId], references: [id])
+  formId            String
+
+  @@index([teamId, formId])
+  @@map("plan_metering")
 }
 
 enum membershipRole {
