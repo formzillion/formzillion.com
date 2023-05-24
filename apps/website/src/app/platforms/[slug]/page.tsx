@@ -1,6 +1,19 @@
 import React from "react";
 import Image from "next/image";
 import Example from "./Example";
+import { startCase } from "lodash";
+
+export async function generateMetadata({ params }: any) {
+  const { slug } = params;
+  const slugTitle = startCase(slug);
+
+  return {
+    title: `${slugTitle} - Formzillion`,
+    alternates: {
+      canonical: `https://formzillion.com/integrations/${slug}`,
+    },
+  };
+}
 
 export default function DynamicSection({
   params,
