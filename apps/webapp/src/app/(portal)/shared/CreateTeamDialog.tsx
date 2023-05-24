@@ -66,6 +66,7 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
             })
           );
           router.push(`/${teamSlug}`);
+          router.refresh();
         } else {
           setLoading(false);
           showErrorToast(responseData.message);
