@@ -14,7 +14,7 @@ export const bullMqConfig: any = {
     port: process.env.REDIS_PORT || 6379,
     ...(!process.env.REDIS_URI?.includes("127.0") && { tls: {} }),
   },
-  prefix: "{fz}",
+  prefix: `{${NODE_ENV === "production" ? "prod" : "dev"}}-{fz}`,
 };
 
 export const fzQueues = ["fz_actions"];
