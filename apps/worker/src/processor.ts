@@ -1,13 +1,14 @@
 import { isEmpty } from "lodash";
+import knex from "knex";
+// Initializing knex for Postgress
+const pg = knex({ client: "pg", connection: process.env.PG_URL });
+global.pg = pg;
 
 import * as apps from "./apps";
-import { Logger, prisma } from "../utils";
 import { IEventData } from "./types";
 import { processDefaultActions } from "./defaultActions";
 
-const appSlugToAppMap = {} as { [key: string]: any };
-
-const allApps: any = apps;
+const appSlugToAppMap = {};
 
 const processFormEvents = async ({ data }: { data: IEventData }) => {
   const { eventName, eventData } = data;
@@ -16,8 +17,8 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
   try {
     // Creating an slug to app map for getting the app config
     if (isEmpty(appSlugToAppMap)) {
-      const getApps = await prisma.apps.findMany();
-      getApps.forEach((app) => {
+      const getApps = await pg("apps").select("*");
+      getApps.forEach((app: any) => {
         appSlugToAppMap[app.slug] = app;
       });
     }
@@ -26,33 +27,35 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
     await processDefaultActions({ data });
 
     // Fetching the Workflows based on the formId
-    const workflowData = await prisma.workflows.findFirst({
-      where: { formId },
-      include: {
-        tasks: {
-          where: { status: "active" },
-          include: {
-            connection: true,
-          },
-        },
-      },
-    });
+    const workflow = await pg
+      .from("workflows")
+      .select("*")
+      .where({ form_id: formId })
+      .first();
+    // Fetching all the different Tasks Associated with the Workflows
 
-    if (!workflowData) {
-      return {
-        success: false,
-        message: `Workflow not found for formId: ${formId}`,
-      };
-    }
+    // TODO: Need to implement the logic for processing the tasks using bull-mq flow producers
+    // For now, we are directly processing the tasks
+    const tasks = await pg
+      .from("tasks")
+      .select("*")
+      .where({ workflow_id: workflow.id, status: "active" });
 
-    for await (const task of workflowData?.tasks) {
+    for await (const task of tasks) {
       // Fetching the connection details for connectionId
-      const { apiKeys, appSlug, id: connId } = task?.connection || {};
+      const conn =
+        (await pg
+          .from("connections")
+          .where({ id: task?.connection_id })
+          .first()) || {};
+
+      const { apiKeys, user_id: userId, appSlug, id: connId } = conn;
 
       // Sending the required data to the apps
       const app = appSlugToAppMap[appSlug] || {};
-      const processedData = await allApps[appSlug]({
+      const processedData = await apps[appSlug]({
         actionSlug: task.slug || "",
+        userId,
         apiKeys,
         app,
         taskData: task,
@@ -67,8 +70,8 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
       success: true,
       message: `For submission id: ${formSubmissionData.id} event processed successfully!`,
     };
-  } catch (error: any) {
-    Logger.error(`${JSON.stringify(error, null, 2)}`);
+  } catch (error) {
+    console.log(error);
 
     return {
       success: false,
