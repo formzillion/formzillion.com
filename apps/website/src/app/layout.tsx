@@ -21,6 +21,12 @@ export const metadata: Metadata = {
     url: "https://formzillion.com/",
     siteName: "Formzillion - The open-source form infrastructure for everyone",
     type: "website",
+    images: [
+      {
+        url: "og-image.png",
+        alt: "Formzillion",
+      },
+    ],
   },
 };
 
