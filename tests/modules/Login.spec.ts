@@ -2,7 +2,7 @@
 import { expect, test } from "@playwright/test";
 //login test
 test.describe('Login Testing', () => {
-    test.beforeEach(async ({ page }) => {
+    test('hardcoded email and password',async ({ page }) => {
         await page.goto('https://dev-app.formzillion.com/login');
         await page.locator('input[type="email"]').click({ timeout: 10000 });
         await page.locator('input[type="email"]').press('Control+a');
