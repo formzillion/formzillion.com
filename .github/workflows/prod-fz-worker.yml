@@ -5,7 +5,7 @@ on:
   push:
     branches: ["main"]
     paths:
-      - apps/worker/**
+      - worker/**
 
 env:
   AWS_REGION: ap-southeast-1
@@ -42,7 +42,7 @@ jobs:
         id: param-store
         run: |
           aws ssm get-parameters-by-path --region ap-southeast-1 --path /production/fz-worker --with-decryption |  jq -r '.Parameters[]|((.Name|capture(".*/(?<a>.*)").a+"=")+.Value)' > .envplaceholder
-          cp .envplaceholder ./apps/worker/.env
+          cp .envplaceholder ./worker/.env
 
       - name: Login to Amazon ECR
         id: login-ecr
@@ -59,7 +59,7 @@ jobs:
           # be deployed to ECS.
           npm install
           npm run build
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./apps/worker/Dockerfile .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./worker/Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
 

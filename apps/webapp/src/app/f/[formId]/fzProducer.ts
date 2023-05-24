@@ -7,7 +7,7 @@ const bullConfig = {
     port: Number(process.env.REDIS_PORT),
     ...(!process.env.REDIS_URI?.includes("127.0") && { tls: {} }),
   },
-  prefix: "{fz}",
+  prefix: `{${process.env.NODE_ENV === "production" ? "prod" : "dev"}}-{fz}`,
 };
 
 const fzQueue = new Queue(queueName, bullConfig);
