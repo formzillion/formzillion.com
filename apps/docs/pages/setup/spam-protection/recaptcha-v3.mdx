@@ -13,11 +13,25 @@ First, you need to grab an **API key** from Google reCAPTCHA console [clicking h
 
 After you login to Google reCAPTCHA Concole, create a new site. Select reCAPTCHA v3 and add your domains.
 
-![image](https://www.cluemediator.com/wp-content/uploads/2020/10/reCAPTCHA-how-to-implement-recaptcha-v3-in-react-clue-mediator-710x1024.png)
+<br />
+<p align="center">
+  <img
+    src="/setup/spam-protection/re-captcha-v3-setup.png"
+    alt="recaptcha-v3-setup"
+    width="720px"
+  />
+</p>
+Afer adding your website and clicking the "Submit" button, Google will create
+API Keys for you.
 
-Afer adding your website and clicking the "Submit" button, Google will create API Keys for you.
-
-![image](https://is.docs.wso2.com/en/6.0.0/assets/img/fragments/copy-key.png)
+<br />
+<p align="center">
+  <img
+    src="/setup/spam-protection/re-captcha-creds.png"
+    alt="recaptcha-creds"
+    width="720px"
+  />
+</p>
 
 ### Step 2- Add reCAPTCHA Library
 
@@ -26,7 +40,7 @@ There are 2 keys generated for you Site Key and Secret Key. For this step, we wi
 Add reCAPTCHA library into your `<head/>` tags.
 
 ```js copy
-  <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
 ```
 
 ### Step 3 - Add Hidden Element
@@ -34,8 +48,7 @@ Add reCAPTCHA library into your `<head/>` tags.
 Add hidden reCAPTCHA `<input/>` into your form.
 
 ```html copy
-  <input type="hidden" id="captchaResponse" name="g-recaptcha-response">
-
+<input type="hidden" id="captchaResponse" name="g-recaptcha-response" />
 ```
 
 ### Step 4 - Insert Token to our Hidden Element

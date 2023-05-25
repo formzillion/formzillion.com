@@ -27,12 +27,18 @@ export default function HeroLeft() {
           Instant backend for all your forms while maintaining complete control
           over their appearance and style.
         </p>
-        <div>
+        <div className="flex space-x-5">
           <Link
             href={`${process.env.NEXT_PUBLIC_APP_URL}/login`}
             className="mt-0 flex h-[44px] w-fit items-center justify-center rounded bg-orange-600 py-2.5 px-4 text-white hover:bg-orange-700"
           >
             {`Try Formzillion - It's free!`}
+          </Link>
+          <Link
+            href={`/demo`}
+            className="mt-0 flex h-[44px] w-fit items-center justify-center rounded border border-orange-600 py-2.5 px-4 hover:text-white hover:bg-orange-600 text-orange-600"
+          >
+            {`Try Demo`}
           </Link>
         </div>
       </div>

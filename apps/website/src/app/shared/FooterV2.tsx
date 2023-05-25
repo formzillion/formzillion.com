@@ -1,10 +1,16 @@
 import AppLogo from "@/ui/AppLogo";
+import Link from "next/link";
 import { FiGithub, FiLinkedin, FiSlack } from "react-icons/fi";
 
 const footerLinks = [
   {
     title: "Product",
     list: [
+      {
+        label: "Blog",
+        href: "/blog",
+        target: "_self",
+      },
       {
         label: "Documentation",
         href: "https://docs.formzillion.com",
@@ -16,34 +22,14 @@ const footerLinks = [
         target: "_self",
       },
       {
-        label: "Status",
-        href: "https://formzillion.github.io/status/",
-        target: "_blank",
-      },
-    ],
-  },
-  {
-    title: "Company",
-    list: [
-      {
-        label: "Blog",
-        href: "#",
-        target: "_self",
-      },
-      {
         label: "Roadmap",
         href: "https://github.com/orgs/formzillion/projects/1",
         target: "_blank",
       },
       {
-        label: "Terms",
-        href: "/terms",
-        target: "_self",
-      },
-      {
-        label: "Privacy",
-        href: "/privacy",
-        target: "_self",
+        label: "Status",
+        href: "https://formzillion.github.io/status/",
+        target: "_blank",
       },
     ],
   },
@@ -68,6 +54,42 @@ const footerLinks = [
       {
         label: "Webflow",
         href: "/platforms/webflow",
+        target: "_self",
+      },
+    ],
+  },
+  {
+    title: "Integrations",
+    href: "/integrations",
+    list: [
+      {
+        label: "Airtable",
+        href: "/integrations/airtable",
+        target: "_self",
+      },
+      {
+        label: "Freshdesk",
+        href: "/integrations/freshdesk",
+        target: "_self",
+      },
+      {
+        label: "Mailerlite",
+        href: "/integrations/mailerlite",
+        target: "_self",
+      },
+      {
+        label: "Sendgrid",
+        href: "/integrations/sendgrid",
+        target: "_self",
+      },
+      {
+        label: "Slack",
+        href: "/integrations/slack",
+        target: "_self",
+      },
+      {
+        label: "Webhooks",
+        href: "/integrations/webhooks",
         target: "_self",
       },
     ],
@@ -107,41 +129,6 @@ const footerLinks = [
       },
     ],
   },
-  {
-    title: "Integrations",
-    list: [
-      {
-        label: "Automate Slack Notifications for Form Submissions",
-        href: "https://docs.formzillion.com/integrations/automate-slack-notifications-for-form-submissions",
-        target: "_blank",
-      },
-      {
-        label: "Automate Sendgrid to Send Emails",
-        href: "https://docs.formzillion.com/integrations/automate-sendgrid-to-send-emails",
-        target: "_blank",
-      },
-      {
-        label: "Automate the Transfer of Form Data to Webhooks Endpoint",
-        href: "https://docs.formzillion.com/integrations/automate-the-transfer-of-form-data-to-webhooks-endpoint",
-        target: "_blank",
-      },
-      {
-        label: "Automate Subscriber Addition to Mailerlite",
-        href: "https://docs.formzillion.com/integrations/automate-subscriber-addition-to-mailerlite",
-        target: "_blank",
-      },
-      {
-        label: "Automate Ticket Creation in Freshdesk",
-        href: "https://docs.formzillion.com/integrations/automate-ticket-creation-in-freshdesk",
-        target: "_blank",
-      },
-      {
-        label: "Automate Record Creation in Airtable",
-        href: "https://docs.formzillion.com/integrations/automate-record-creation-in-airtable",
-        target: "_blank",
-      },
-    ],
-  },
 ];
 
 const FooterIcons = [
@@ -152,7 +139,7 @@ const FooterIcons = [
   },
   {
     icon: <FiGithub className="text-gray-400 hover:text-white" />,
-    url: "https://github.com/formzillion",
+    url: "https://github.com/formzillion/formzillion.com",
     hoverColor: "hover:border-white",
   },
   {
@@ -166,12 +153,20 @@ export default function Footer() {
   return (
     <div className="relative border-t border-gray-800 bg-gray-900/20">
       <div className="mx-auto max-w-7xl px-4 lg:px-2">
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mt-8 text-white">
+        <div className="grid grid-cols-2 md:grid-cols-4 mt-8 text-white justify-between">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
-              <p className="text-gray-300 text-base font-medium">
-                {data.title}
-              </p>
+              {data.href ? (
+                <Link href={data.href}>
+                  <p className="text-gray-300 text-base font-medium hover:text-gray-100">
+                    {data.title}
+                  </p>
+                </Link>
+              ) : (
+                <p className="text-gray-300 text-base font-medium">
+                  {data.title}
+                </p>
+              )}
               <div className="gap-2 text-sm flex flex-col mt-4 text-gray-400">
                 {data.list.map((item: any, index: number) => (
                   <a
@@ -207,6 +202,14 @@ export default function Footer() {
           <p className="text-gray-300 leading-normal md:text-end text-sm sm::text-base">
             Copyright © 2023 Zillionstack Inc. All rights reserved.
           </p>
+          <div className="flex space-x-2">
+            <Link href={"/privacy"} className="underline text-gray-300 text-sm">
+              Privacy
+            </Link>
+            <Link href={"/terms"} className="underline text-gray-300 text-sm">
+              Terms
+            </Link>
+          </div>
         </div>
       </div>
     </div>

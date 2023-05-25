@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { kebabCase } from "lodash";
+import { isEmpty, kebabCase } from "lodash";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
 import { createBillingUserAndSubscription } from "../auth/register";
@@ -12,8 +12,13 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { currentUser = {} } = await getUserSession(req, res);
-  const { currentUserEmail, fullName } = currentUser;
-  const { name, emailsToInvite } = JSON.parse(req.body);
+  const { email: currentUserEmail, fullName } = currentUser;
+
+  let { name, emailsToInvite } = JSON.parse(req.body);
+  if (isEmpty(emailsToInvite)) {
+    emailsToInvite = currentUserEmail;
+  }
+
   const emails = emailsToInvite.includes(",")
     ? emailsToInvite.split(",")
     : [emailsToInvite];

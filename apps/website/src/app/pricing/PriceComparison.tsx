@@ -2,76 +2,154 @@ import { Fragment } from "react";
 import { CheckIcon, MinusIcon } from "@heroicons/react/20/solid";
 import { startCase } from "lodash";
 
-const tiers: any = [
-  {
-    name: "Personal",
-    id: "basic",
-    href: "#",
-    priceMonthly: "$10",
-    description: "Quis suspendisse ut fermentum neque vivamus non tellus.",
-    mostPopular: false,
-  },
-  {
-    name: "Professional",
-    id: "essential",
-    href: "#",
-    priceMonthly: "$22",
-    description: "Quis eleifend a tincidunt pellentesque. A tempor in sed.",
-    mostPopular: true,
-  },
-  {
-    name: "Agency",
-    id: "premium",
-    href: "#",
-    priceMonthly: "$100",
-    description:
-      "Orci volutpat ut sed sed neque, dui eget. Quis tristique non.",
-    mostPopular: false,
-  },
-];
-const sections: any = [
-  {
-    name: "Features",
-    features: [
-      {
-        name: "Integrations",
-        tiers: { Basic: true, Essential: true, Premium: true },
-      },
-      {
-        name: "Importing and exporting",
-        tiers: { Essential: true, Premium: true },
-      },
-      {
-        name: "Collaboration",
-        tiers: { Essential: "Up to 20 users", Premium: "Up to 50 users" },
-      },
-    ],
-  },
-  {
-    name: "Support",
-    features: [
-      {
-        name: "Online support",
-        tiers: { Basic: true, Essential: true, Premium: true },
-      },
-      {
-        name: "Quarterly product workshops",
-        tiers: { Essential: true, Premium: true },
-      },
-      {
-        name: "Priority phone support",
-        tiers: { Essential: true, Premium: true },
-      },
-      { name: "1:1 onboarding tour", tiers: { Premium: true } },
-    ],
-  },
-];
-
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function PriceComparison() {
+export default function PriceComparison({ frequency }: any) {
+  const tiers: any = [
+    {
+      name: "Basic",
+      id: "basic",
+      href: "#",
+      priceMonthly: { monthly: "$5", annually: "$4.33" },
+      description: "A plan that works well with personal projects.",
+      mostPopular: false,
+    },
+    {
+      name: "Standard",
+      id: "standard",
+      href: "#",
+      priceMonthly: { monthly: "$10", annually: "$8" },
+      description: "A plan that works well with freelancers.",
+      mostPopular: false,
+    },
+    {
+      name: "Premium",
+      id: "premium",
+      href: "#",
+      priceMonthly: { monthly: "$28", annually: "$25" },
+      description: "A plan that scales with your startups.",
+      mostPopular: true,
+    },
+    {
+      name: "Agency",
+      id: "agency",
+      href: "#",
+      priceMonthly: { monthly: "$100", annually: "$85" },
+      description: "A plan that fit well for agencies.",
+      mostPopular: false,
+    },
+  ];
+  const sections: any = [
+    {
+      name: "Core Features",
+      features: [
+        {
+          name: "Form",
+          tiers: {
+            Basic: "5",
+            Standard: "Unlimited",
+            Premium: "Unlimited",
+            Agency: "Unlimited",
+          },
+        },
+        {
+          name: "Submissions",
+          tiers: {
+            Basic: "250",
+            Standard: "1,000",
+            Premium: "6,000",
+            Agency: "30,000",
+          },
+        },
+        {
+          name: "Collaboration",
+          tiers: {
+            Standard: "up to 10 users",
+            Premium: "Up to 20 users",
+            Agency: "Up to 50 users",
+          },
+        },
+        {
+          name: "File uploads",
+          tiers: {
+            Standard: "2GB",
+            Premium: "10GB",
+            Agency: "25GB",
+          },
+        },
+        {
+          name: "Emails Notification ",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Basic analytics",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Integrations",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Importing and exporting",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Custom thank-you page",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+      ],
+    },
+    {
+      name: "Spam Filtering",
+      features: [
+        {
+          name: "reCAPTCHA V2",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "reCAPTCHA V3",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "hCaptcha",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Botpoison",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Turnstile",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Honeypot",
+          tiers: { Premium: true, Agency: true },
+        },
+      ],
+    },
+    {
+      name: "Support",
+      features: [
+        {
+          name: "Online support",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Priority phone support",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Quarterly product workshops",
+          tiers: { Premium: true, Agency: true },
+        },
+        { name: "1:1 onboarding tour", tiers: { Agency: true } },
+      ],
+    },
+  ];
+
   return (
     <div className="bg-black py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -103,7 +181,9 @@ export default function PriceComparison() {
                 {tier.name}
               </h3>
               <p className="mt-2 flex items-baseline justify-center gap-x-1 text-white">
-                <span className="text-4xl font-bold">{tier.priceMonthly}</span>
+                <span className="text-4xl font-bold">
+                  {tier.priceMonthly[frequency?.value]}
+                </span>
                 <span className="text-sm font-semibold">/month</span>
               </p>
               <a
@@ -157,11 +237,11 @@ export default function PriceComparison() {
           <div className="relative -mx-8">
             <div className="absolute inset-y-0 inset-x-4 -z-10 flex">
               <div
-                className="flex w-1/4 px-4"
+                className="flex w-1/5 px-4"
                 aria-hidden="true"
                 style={{
                   marginLeft: `${
-                    (tiers.findIndex((tier: any) => tier.mostPopular) + 1) * 25
+                    (tiers.findIndex((tier: any) => tier.mostPopular) + 1) * 20
                   }%`,
                 }}
               >
@@ -171,10 +251,10 @@ export default function PriceComparison() {
             <table className="w-full table-fixed border-separate border-spacing-8 text-left">
               <caption className="sr-only">Pricing plan comparison</caption>
               <colgroup>
-                <col className="w-1/4" />
-                <col className="w-1/4" />
-                <col className="w-1/4" />
-                <col className="w-1/4" />
+                <col className="w-1/5" />
+                <col className="w-1/5" />
+                <col className="w-1/5" />
+                <col className="w-1/5" />
               </colgroup>
               <thead>
                 <tr>
@@ -201,14 +281,14 @@ export default function PriceComparison() {
                     <td key={tier.id} className="px-6 pt-2 xl:px-8">
                       <div className="flex items-baseline justify-center gap-x-1 text-center text-white">
                         <span className="text-4xl font-bold">
-                          {tier.priceMonthly}
+                          {tier.priceMonthly[frequency?.value]}
                         </span>
                         <span className="text-sm font-semibold leading-6">
                           /month
                         </span>
                       </div>
                       <a
-                        href={tier.href}
+                        href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
                         className={classNames(
                           tier.mostPopular
                             ? "bg-orange-600 text-white hover:bg-orange-500"

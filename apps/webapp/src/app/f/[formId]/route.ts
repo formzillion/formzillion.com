@@ -4,6 +4,7 @@ import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
 
 import { validateSpam } from "./spam";
+import fzProducer from "./fzProducer";
 
 export async function POST(
   req: Request,
@@ -37,23 +38,35 @@ export async function POST(
     data: { fields: formFields, formId, isSpam: isSpam },
   });
 
-  // Send to Webhooks
-  fetch(`${process.env.WB_WEBHOOK_URL}/formzillion/events`, {
-    cache: "no-cache",
-    method: "POST",
-    body: JSON.stringify({
+  if (isSpam) {
+    return NextResponse.redirect(
+      `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?status=failed&referer=${referer}`
+    );
+  }
+
+  // Send form data to webhooks if not local environment
+  try {
+    const queueData = {
       eventName: "formSubmission",
       eventData: {
         formId,
         formSubmissionData: formSubmission,
         formData,
       },
-    }),
-  });
-
-  if (isSpam) {
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?status=failed&referer=${referer}`
+    };
+    if (["development", "production"].includes(process.env.NODE_ENV)) {
+      fetch(`${process.env.WB_WEBHOOK_URL}/formzillion/events`, {
+        cache: "no-cache",
+        method: "POST",
+        body: JSON.stringify(queueData),
+      });
+    } else {
+      await fzProducer(queueData);
+    }
+  } catch (e: any) {
+    console.log(
+      "Error occured for pushing the form submission data to fz_action Queue",
+      e.message
     );
   }
 

@@ -18,9 +18,9 @@ const login = async ({
     },
     body: JSON.stringify({ email, password }),
   });
-  const { url, error } = await response.json();
+  const { url, avatar, planName, error } = await response.json();
 
-  return { url, error } || {};
+  return { url, avatar, planName, error } || {};
 };
 
 export default login;

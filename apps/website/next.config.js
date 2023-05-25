@@ -1,9 +1,12 @@
-/** @type {import('next').NextConfig} */
+const { withContentlayer } = require("next-contentlayer");
+
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
   experimental: {
     appDir: true,
+    serverActions: true,
+    serverComponentsExternalPackages: ["@prisma/client"],
   },
   webpack(config) {
     config.module.rules.push({
@@ -15,4 +18,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withContentlayer(nextConfig);

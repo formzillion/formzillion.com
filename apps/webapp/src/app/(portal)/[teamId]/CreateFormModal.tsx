@@ -45,6 +45,7 @@ export default function CreateFormModal({
 
         if (jsonResponse.success === true) {
           setLoading(false);
+
           router.refresh();
           closeModal();
           showSuccessToast("Form created successfully!");

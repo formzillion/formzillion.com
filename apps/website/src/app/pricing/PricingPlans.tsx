@@ -3,6 +3,7 @@ import { useState } from "react";
 import { RadioGroup } from "@headlessui/react";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import FreePlan from "./FreePlan";
+import PriceComparison from "./PriceComparison";
 
 const frequencies: any = [
   { value: "monthly", label: "Monthly", priceSuffix: "/month" },
@@ -11,49 +12,64 @@ const frequencies: any = [
 
 const tiers: any = [
   {
-    name: "Personal",
-    id: "tier-freelancer",
+    name: "Basic",
+    id: "tier-basic",
     href: "#",
-    price: { monthly: "$10", annually: "$8.33" },
-    description: "The essentials to provide your best work for clients.",
+    price: { monthly: "$5", annually: "$4.33" },
+    description: "A plan that works well with personal projects.",
     features: [
       "5 forms",
+      "Up to 250 submissions",
+      "Basic analytics",
+      "48-hour support response time",
+    ],
+    featured: false,
+    cta: "Select plan",
+  },
+  {
+    name: "Standard",
+    id: "tier-standard",
+    href: "#",
+    price: { monthly: "$10", annually: "$8" },
+    description: "A plan that works well with freelancers.",
+    features: [
+      "Unlimited forms",
       "Up to 1,000 submissions",
       "Basic analytics",
       "48-hour support response time",
     ],
     featured: false,
-    cta: "Buy plan",
+    cta: "Select plan",
   },
   {
-    name: "Professional",
-    id: "tier-startup",
+    name: "Premium",
+    id: "tier-premium",
     href: "#",
-    price: { monthly: "$22", annually: "$18.33" },
-    description: "A plan that scales with your rapidly growing business.",
+    price: { monthly: "$28", annually: "$25" },
+    description: "A plan that scales with your startups.",
     features: [
-      "25 forms",
-      "Up to 10,000 submissions",
+      "Unlimited forms",
+      "Up to 6,000 submissions",
       "Advanced analytics",
       "Quick-support  response time",
     ],
     featured: true,
-    cta: "Buy plan",
+    cta: "Select plan",
   },
   {
     name: "Agency",
     id: "tier-enterprise",
     href: "#",
     price: { monthly: "$100", annually: "$85" },
-    description: "Dedicated support and infrastructure for your company.",
+    description: "A plan that fit well for agencies.",
     features: [
       "Unlimited forms",
-      "Unlimited submissions",
+      "Up to 30,000 submissions",
       "Advanced analytics",
       "1-hour, dedicated support response time",
     ],
     featured: false,
-    cta: "Buy plan",
+    cta: "Select plan",
   },
 ];
 
@@ -62,131 +78,134 @@ function classNames(...classes: any) {
 }
 
 export default function PricingPlans() {
-  const [frequency, setFrequency] = useState(frequencies[1]);
+  const [frequency, setFrequency] = useState(frequencies[0]);
 
   return (
-    <div className="bg-black py-8 sm:py-16 text-white">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Plans and Pricing
-          </p>
-        </div>
-        <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-white">
-          {`Whether you're building a personal portfolio website or managing
+    <>
+      <div className="bg-black py-8 sm:py-16 text-white">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-4xl text-center">
+            <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+              Plans and Pricing
+            </p>
+          </div>
+          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-white">
+            {`Whether you're building a personal portfolio website or managing
           client projects, Formzillion has an affordable plans to meet your
           needs.`}
-        </p>
-        <FreePlan />
-        <div className="mt-16 flex justify-center">
-          <RadioGroup
-            value={frequency}
-            onChange={setFrequency}
-            className="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
-          >
-            <RadioGroup.Label className="sr-only">
-              Payment frequency
-            </RadioGroup.Label>
-            {frequencies.map((option: any) => (
-              <RadioGroup.Option
-                key={option.value}
-                value={option}
-                className={({ checked }) =>
-                  classNames(
-                    checked ? "bg-orange-600 text-white" : "text-white",
-                    "cursor-pointer rounded-full py-1 px-2.5"
-                  )
-                }
-              >
-                <span>{option.label}</span>
-              </RadioGroup.Option>
-            ))}
-          </RadioGroup>
-        </div>
-        <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {tiers.map((tier: any) => (
-            <div
-              key={tier.id}
-              className={classNames(
-                tier.featured ? "bg-white ring-white" : "ring-gray-200",
-                "rounded-3xl p-8 ring-1 xl:p-10"
-              )}
+          </p>
+          <FreePlan />
+          <div className="mt-16 flex justify-center">
+            <RadioGroup
+              value={frequency}
+              onChange={setFrequency}
+              className="grid grid-cols-2 gap-x-1 rounded-full p-1 text-center text-xs font-semibold leading-5 ring-1 ring-inset ring-gray-200"
             >
-              <h3
-                id={tier.id}
+              <RadioGroup.Label className="sr-only">
+                Payment frequency
+              </RadioGroup.Label>
+              {frequencies.map((option: any) => (
+                <RadioGroup.Option
+                  key={option.value}
+                  value={option}
+                  className={({ checked }) =>
+                    classNames(
+                      checked ? "bg-orange-600 text-white" : "text-white",
+                      "cursor-pointer rounded-full py-1 px-2.5"
+                    )
+                  }
+                >
+                  <span>{option.label}</span>
+                </RadioGroup.Option>
+              ))}
+            </RadioGroup>
+          </div>
+          <div className="isolate mx-auto mt-10 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-4  ">
+            {tiers.map((tier: any, idx: any) => (
+              <div
+                key={idx}
                 className={classNames(
-                  tier.featured ? "text-black" : "text-white",
-                  "text-lg font-semibold leading-8"
+                  tier.featured ? "bg-white ring-white" : "ring-gray-200",
+                  "rounded-3xl p-8 ring-1 xl:p-10"
                 )}
               >
-                {tier.name}
-              </h3>
-              <p
-                className={classNames(
-                  tier.featured ? "text-black" : "text-white",
-                  "mt-4 text-sm leading-6"
-                )}
-              >
-                {tier.description}
-              </p>
-              <p className="mt-6 flex items-baseline gap-x-1">
-                <span
+                <h3
+                  id={tier.id}
                   className={classNames(
                     tier.featured ? "text-black" : "text-white",
-                    "text-4xl font-bold tracking-tight"
+                    "text-lg font-semibold leading-8"
                   )}
                 >
-                  {typeof tier.price === "string"
-                    ? tier.price
-                    : tier.price[frequency.value]}
-                </span>
-                {typeof tier.price !== "string" ? (
+                  {tier.name}
+                </h3>
+                <p
+                  className={classNames(
+                    tier.featured ? "text-black" : "text-white",
+                    "mt-4 text-sm leading-6"
+                  )}
+                >
+                  {tier.description}
+                </p>
+                <p className="mt-6 flex items-baseline gap-x-1">
                   <span
                     className={classNames(
                       tier.featured ? "text-black" : "text-white",
-                      "text-sm font-semibold leading-6"
+                      "text-4xl font-bold tracking-tight"
                     )}
                   >
-                    {frequency.priceSuffix}
+                    {typeof tier.price === "string"
+                      ? tier.price
+                      : tier.price[frequency.value]}
                   </span>
-                ) : null}
-              </p>
-              <a
-                href={tier.href}
-                aria-describedby={tier.id}
-                className={classNames(
-                  tier.featured
-                    ? "text-black focus-visible:outline-white bordered border-orange-600 border-2"
-                    : "bg-orange-600 text-white shadow-sm hover:bg-orange-500 focus-visible:outline-orange-600",
-                  "mt-6 block rounded-md py-2 px-3 text-center text-sm leading-6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                )}
-              >
-                {tier.cta}
-              </a>
-              <ul
-                role="list"
-                className={classNames(
-                  tier.featured ? "text-black" : "text-white",
-                  "mt-8 space-y-3 text-sm leading-6 xl:mt-10"
-                )}
-              >
-                {tier.features.map((feature: any) => (
-                  <li key={feature} className="flex gap-x-3">
-                    <CheckIcon
+                  {typeof tier.price !== "string" ? (
+                    <span
                       className={classNames(
-                        tier.featured ? "text-black" : "text-orange-600",
-                        "h-6 w-5 flex-none"
+                        tier.featured ? "text-black" : "text-white",
+                        "text-sm font-semibold leading-6"
                       )}
-                      aria-hidden="true"
-                    />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+                    >
+                      {frequency.priceSuffix}
+                    </span>
+                  ) : null}
+                </p>
+                <a
+                  href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
+                  aria-describedby={tier.id}
+                  className={classNames(
+                    tier.featured
+                      ? "text-black focus-visible:outline-white bordered border-orange-600 border-2"
+                      : "bg-orange-600 text-white shadow-sm hover:bg-orange-500 focus-visible:outline-orange-600",
+                    "mt-6 block rounded-md py-2 px-3 text-center text-sm leading-6 font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  )}
+                >
+                  {tier.cta}
+                </a>
+                <ul
+                  role="list"
+                  className={classNames(
+                    tier.featured ? "text-black" : "text-white",
+                    "mt-8 space-y-3 text-sm leading-6 xl:mt-10"
+                  )}
+                >
+                  {tier.features.map((feature: any) => (
+                    <li key={feature} className="flex gap-x-3">
+                      <CheckIcon
+                        className={classNames(
+                          tier.featured ? "text-black" : "text-orange-600",
+                          "h-6 w-5 flex-none"
+                        )}
+                        aria-hidden="true"
+                      />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+      <PriceComparison frequency={frequency} />
+    </>
   );
 }

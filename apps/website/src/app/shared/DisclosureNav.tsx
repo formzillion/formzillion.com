@@ -1,20 +1,18 @@
 "use client";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import {
   BanknotesIcon,
+  Bars3Icon,
   BookOpenIcon,
-  UserCircleIcon,
-} from "@heroicons/react/24/solid";
+  MapIcon,
+  PuzzlePieceIcon,
+  WrenchScrewdriverIcon,
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
+import { FiSlack } from "react-icons/fi";
 
 const navigation = [
-  {
-    name: "Docs",
-    href: "https://docs.formzillion.com",
-    current: true,
-    icon: <BookOpenIcon className="inline h-4 w-4 text-gray-300" />,
-  },
   {
     name: "Pricing",
     href: "/pricing",
@@ -22,10 +20,34 @@ const navigation = [
     icon: <BanknotesIcon className="inline h-4 w-4 text-gray-300" />,
   },
   {
-    name: "Login",
-    href: `${process.env.NEXT_PUBLIC_APP_URL}/login`,
+    name: "Docs",
+    href: "https://docs.formzillion.com",
     current: true,
-    icon: <UserCircleIcon className="inline h-4 w-4 text-gray-300" />,
+    icon: <BookOpenIcon className="inline h-4 w-4 text-gray-300" />,
+  },
+  {
+    name: "Community Slack",
+    href: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
+    current: true,
+    icon: <FiSlack className="inline h-4 w-4 text-gray-300" />,
+  },
+  {
+    name: "Roadmap",
+    href: `https://github.com/orgs/formzillion/projects/1`,
+    current: true,
+    icon: <MapIcon className="inline h-4 w-4 text-gray-300" />,
+  },
+  {
+    name: "Setup Formzillion",
+    href: `https://docs.formzillion.com/setup`,
+    current: true,
+    icon: <WrenchScrewdriverIcon className="inline h-4 w-4 text-gray-300" />,
+  },
+  {
+    name: "Integrations",
+    href: `https://docs.formzillion.com/integrations`,
+    current: true,
+    icon: <PuzzlePieceIcon className="inline h-4 w-4 text-gray-300" />,
   },
 ];
 
@@ -56,10 +78,10 @@ export default function DisclosureNav() {
               </div>
               <div className="relative z-10 flex space-x-2 items-center">
                 <a
-                  href={`${process.env.NEXT_PUBLIC_APP_URL}/register`}
+                  href={`${process.env.NEXT_PUBLIC_APP_URL}/login`}
                   className="bg-orange-600 text-orange-50 px-3 py-1 text-sm rounded hover:bg-orange-700"
                 >
-                  Sign up
+                  Get Started
                 </a>
                 {/* Mobile menu button */}
                 <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-1 text-gray-400 hover:bg-gray-950 focus:bg-gray-950 hover:text-gray-500 focus:outline-none focus:ring-1 focus:ring-inset focus:ring-gray-800">

@@ -42,6 +42,9 @@ next-env.d.ts
 # Sentry
 next.config.original.js
 
+# Content Layer
+.contentlayer
+
 # sitemap
 robots.txt
 sitemap-0.xml

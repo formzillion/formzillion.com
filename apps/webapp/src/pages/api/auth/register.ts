@@ -26,11 +26,31 @@ export default async function handler(
     return;
   }
 
+  try {
+    const checkUser = await prisma.users.findUniqueOrThrow({
+      where: {
+        email,
+      },
+    });
+    if (checkUser) {
+      return res.status(500).json({
+        success: false,
+        message: "User already registered.",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
   });
-
+  if (error) {
+    return res.status(500).json({
+      error,
+    });
+  }
   // splitting email to form a TeamSlug
   const regex = /\.[^.]*$/;
   const splittedEmail = email.replace(regex, "");

@@ -61,6 +61,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
       value: team.slug,
       planName: team.planName,
       avatar: team.avatar,
+      type: "default",
     };
   });
   const loggedInUser = personalTeam?.map((team: any) => {
@@ -70,6 +71,7 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
         value: team.slug,
         planName: team.planName,
         avatar: team.avatar,
+        type: "personal",
       };
     }
   });
@@ -88,19 +90,18 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
         ]
       : [];
 
-  let avatar: any;
-  let team: any;
+  let teamData: any;
   if (typeof window !== "undefined") {
-    team = window.sessionStorage.getItem("selectedTeam");
-    avatar = window.sessionStorage.getItem("avatar");
+    const team: any = window.sessionStorage.getItem("teamData");
+    teamData = JSON.parse(team);
   }
 
   const [selectedTeam, setSelectedTeam] = useState<any>(() => {
     return {
-      label: team || teamSlug,
+      label: teamData?.label || teamSlug,
       value: teamSlug,
-      planName: "",
-      avatar: avatar || "",
+      planName: teamData?.planName || "",
+      avatar: teamData?.avatar || "",
     };
   });
 
@@ -139,8 +140,10 @@ export default function TeamSwitcher({ className, teams }: TeamSwitcherProps) {
                           setSelectedTeam(team);
                           handleSelectTeam(team.value);
                           setOpen(false);
-                          sessionStorage.setItem("selectedTeam", team.value);
-                          sessionStorage.setItem("avatar", team.avatar);
+                          sessionStorage.setItem(
+                            "teamData",
+                            JSON.stringify(team)
+                          );
                         }}
                         className="text-sm cursor-pointer"
                       >
