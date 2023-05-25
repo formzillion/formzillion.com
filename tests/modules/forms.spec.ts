@@ -78,7 +78,7 @@ test.describe("Forms page", async () => {
         console.log("Page not available.");
       }
     } catch (error) {
-      if (error instanceof playwright.errors.name)
+      if (error instanceof playwright.errors.TimeoutError)
         console.log("please check the form name...");
     }
   });
@@ -155,7 +155,7 @@ test.describe("team forms testing", async () => {
         console.log("Page not available.");
       }
     } catch (error) {
-      if (error instanceof playwright.errors.name)
+      if (error instanceof playwright.errors.TimeoutError)
         console.log("please check the form name...");
     }
   });
