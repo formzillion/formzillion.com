@@ -129,6 +129,36 @@ const footerLinks = [
       },
     ],
   },
+  {
+    title: "Features",
+    list: [
+      {
+        label: "Formspree",
+        href: "/features/formspree",
+        target: "_self",
+      },
+      {
+        label: "getform",
+        href: "/features/getform",
+        target: "_self",
+      },
+      {
+        label: "Basin",
+        href: "/features/basin",
+        target: "_self",
+      },
+      {
+        label: "Formspark",
+        href: "/features/formspark",
+        target: "_self",
+      },
+      {
+        label: "Formcarry",
+        href: "/features/formcarry",
+        target: "_self",
+      },
+    ],
+  },
 ];
 
 const FooterIcons = [
@@ -153,14 +183,15 @@ export default function Footer() {
   return (
     <div className="relative border-t border-gray-800 bg-gray-900/20">
       <div className="mx-auto max-w-7xl px-4 lg:px-2">
-        <div className="grid grid-cols-2 md:grid-cols-4 mt-8 text-white justify-between">
+        <div className="grid grid-cols-2 md:grid-cols-5 mt-8 text-white justify-between">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
               {data.href ? (
-                <Link href={data.href}>
-                  <p className="text-gray-300 text-base font-medium hover:text-gray-100">
-                    {data.title}
-                  </p>
+                <Link
+                  href={data.href}
+                  className="text-gray-300 text-base font-medium hover:text-gray-100"
+                >
+                  {data.title}
                 </Link>
               ) : (
                 <p className="text-gray-300 text-base font-medium">

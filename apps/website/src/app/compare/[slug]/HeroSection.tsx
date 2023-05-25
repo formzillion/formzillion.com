@@ -4,11 +4,11 @@ import { startCase } from "lodash";
 
 export default function HeroSection({ slug }: any) {
   return (
-    <div className="w-full h-[400px] bg-gray-400/5 flex justify-center items-center">
+    <div className="w-full min-h-[400px] bg-gray-400/5 flex justify-center items-center">
       <div className="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto ">
-        <div className="mb-5 text-center space-y-5">
+        <div className="mb-5 text-center space-y-5 max-w-4xl mx-auto">
           <h1 className="text-5xl mb-2 font-normal leading-snug">
-            Looking For{" "}
+            Looking for{" "}
             <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
               open source alternative
             </span>{" "}
