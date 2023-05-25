@@ -2,13 +2,10 @@ import { CheckIcon, MinusIcon } from "@heroicons/react/24/solid";
 import { camelCase, startCase, toLower } from "lodash";
 import React, { Fragment } from "react";
 
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(" ");
-}
 export default function CompareSection({ slug }: any) {
   const dynamicData = [
     {
-      slug: "FormSpree",
+      slug: "Formspree",
       imageUrl: "/logos/wordpress.png",
     },
     {
@@ -60,7 +57,7 @@ export default function CompareSection({ slug }: any) {
           name: "Price",
           apps: {
             Formzillion: "5-100 $/month",
-            FormSpree: "10-102 $ /month",
+            Formspree: "10-102 $ /month",
             Formcarry: "19-99 $ /month",
             Basin: "12-108 $ /month",
             Getform: "12-99 $ /month",
@@ -71,7 +68,7 @@ export default function CompareSection({ slug }: any) {
           name: "Monthly Submissions",
           apps: {
             Formzillion: "5 to Unlimited",
-            FormSpree: "5 to 100",
+            Formspree: "5 to 100",
             Formcarry: "Unlimited",
             Basin: "10-250",
             Getform: "5 to Unlimited",
@@ -82,7 +79,7 @@ export default function CompareSection({ slug }: any) {
           name: "Monthly Submissions",
           apps: {
             Formzillion: "Up to 30,000",
-            FormSpree: "Up to 10,000",
+            Formspree: "Up to 10,000",
             Formcarry: "Up to 40,000",
             Basin: "Up to 25,000",
             Getform: "Up to 100,000",
@@ -93,7 +90,7 @@ export default function CompareSection({ slug }: any) {
           name: "File Uploads",
           apps: {
             Formzillion: "Up to 25GB",
-            FormSpree: "Up to 10GB",
+            Formspree: "Up to 10GB",
             Formcarry: "Up to 15GB",
             Basin: "Up to 50GB",
             Getform: "Up to 10GB",
@@ -103,7 +100,7 @@ export default function CompareSection({ slug }: any) {
           name: "Submission Export",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -114,7 +111,7 @@ export default function CompareSection({ slug }: any) {
           name: "Autoresponses",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -125,7 +122,7 @@ export default function CompareSection({ slug }: any) {
           name: "Form Sharing",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -136,7 +133,7 @@ export default function CompareSection({ slug }: any) {
           name: "Advanced Spam Filtering",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -147,7 +144,7 @@ export default function CompareSection({ slug }: any) {
           name: "Custom Honeypot",
           apps: {
             Formzillion: "All paid plans",
-            FormSpree: "Business plan",
+            Formspree: "Business plan",
             Basin: "All paid plans",
             Formspark: "All plans",
           },
@@ -156,7 +153,7 @@ export default function CompareSection({ slug }: any) {
           name: "Custom Redirect",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -167,7 +164,7 @@ export default function CompareSection({ slug }: any) {
           name: "Ajax Forms",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -178,7 +175,7 @@ export default function CompareSection({ slug }: any) {
           name: "Third-party Integrations",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -189,7 +186,7 @@ export default function CompareSection({ slug }: any) {
           name: "Custom Webhooks",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: "Zapier only",
             Basin: true,
             Getform: true,
@@ -200,7 +197,7 @@ export default function CompareSection({ slug }: any) {
           name: "Submissions API",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -211,7 +208,7 @@ export default function CompareSection({ slug }: any) {
           name: "Priority Support",
           apps: {
             Formzillion: true,
-            FormSpree: true,
+            Formspree: true,
             Formcarry: true,
             Basin: true,
             Getform: true,
@@ -232,7 +229,7 @@ export default function CompareSection({ slug }: any) {
               {" "}
               Formzillion
             </span>{" "}
-            is a better alternative to {startCase(slug)}?
+            is a better alternative compare to {startCase(slug)}?
           </h1>
         </div>
         <div className="isolate mt-20 ">
