@@ -1,35 +1,36 @@
 import { CheckIcon, MinusIcon } from "@heroicons/react/24/solid";
 import { camelCase, startCase, toLower } from "lodash";
+import Image from "next/image";
 import React, { Fragment } from "react";
 
 export default function CompareSection({ slug }: any) {
   const dynamicData = [
     {
       slug: "Formspree",
-      imageUrl: "/logos/wordpress.png",
+      imageUrl: "/brands/formspree.png",
     },
     {
       slug: "Basin",
-      imageUrl: "/logos/gatsby.png",
+      imageUrl: "/brands/basin.png",
     },
     {
       slug: "Formcarry",
-      imageUrl: "/logos/nextjs.png",
+      imageUrl: "/brands/formcarry.svg",
     },
     {
       slug: "Getform",
-      imageUrl: "/logos/webflow.svg",
+      imageUrl: "/brands/getform.svg",
     },
     {
       slug: "Formspark",
-      imageUrl: "/logos/webflow.svg",
+      imageUrl: "/brands/Formspark.webp",
     },
   ];
   const application: any = [
     {
       name: "Formzillion",
       id: "formzillion",
-      imageUrl: "/logos/webflow.svg",
+      imageUrl: "/logos/favicon.svg",
       mostPopular: true,
     },
   ];
@@ -223,13 +224,9 @@ export default function CompareSection({ slug }: any) {
     <div className="bg-black py-8 lg:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl font-normal leading-snug">
-            Why is
-            <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
-              {" "}
-              Formzillion
-            </span>{" "}
-            is a better alternative compare to {startCase(slug)}?
+          <h1 className="text-4xl font-normal leading-snug">
+            Why is Formzillion is a better alternative compare to{" "}
+            {startCase(slug)}?
           </h1>
         </div>
         <div className="isolate mt-20 ">
@@ -265,8 +262,14 @@ export default function CompareSection({ slug }: any) {
                       scope="col"
                       className="px-6 pt-6 xl:px-8 xl:pt-8"
                     >
-                      <div className="text-lg font-semibold leading-7 text-center text-white">
-                        {app.name}
+                      <div className="text-lg font-semibold leading-7  w-full justify-center text-white flex space-x-2">
+                        <Image
+                          src={app.imageUrl}
+                          alt={`app.name logo`}
+                          height={30}
+                          width={30}
+                        />{" "}
+                        <div>{app.name}</div>
                       </div>
                     </th>
                   ))}
