@@ -48,7 +48,7 @@ export default function PriceComparison({ frequency }: any) {
         {
           name: "Form",
           tiers: {
-            Basic: "1",
+            Basic: "5",
             Standard: "Unlimited",
             Premium: "Unlimited",
             Agency: "Unlimited",

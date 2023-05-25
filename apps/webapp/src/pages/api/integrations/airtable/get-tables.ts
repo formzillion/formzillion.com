@@ -3,12 +3,8 @@ import prisma from "@/lib/prisma";
 import { get } from "lodash";
 import qs from "querystring";
 
-const clientId =
-  process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_ID ||
-  "b07ba18d-b66a-43ca-a024-b03ade0d8b1f";
-const clientSecret =
-  process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID ||
-  "4d78e8cf42bfb15bc5c3f40327f5cd3b2f31fd487715fb5b447bcae5019b4a2e";
+const clientId = process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_ID || "";
+const clientSecret = process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID || "";
 
 const encodedCredentials = Buffer.from(`${clientId}:${clientSecret}`).toString(
   "base64"

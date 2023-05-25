@@ -21,7 +21,7 @@ export const getAccessToken = async (code: any) => {
 
   try {
     const response = await fetch(
-      "https://oauth2.googleapis.com/token",
+      `https://oauth2.googleapis.com/token`,
       requestOptions
     );
     const result = await response.json();

@@ -5,6 +5,20 @@ import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import HowToConnect from "./HowToConnect";
 import AppsLogo from "./AppsLogo";
 import { heroSection } from "./content/heroSection";
+import { startCase } from "lodash";
+
+export async function generateMetadata({ params }: any) {
+  const { slug } = params;
+  const slugTitle = startCase(slug);
+
+  return {
+    title: `${slugTitle} Integration - Formzillion`,
+    description: `Integrate ${slugTitle} with Formzillion Forms.`,
+    alternates: {
+      canonical: `https://formzillion.com/integrations/${slug}`,
+    },
+  };
+}
 
 export default function page({ params }: { params: { slug: string } }) {
   const slug = params?.slug;
