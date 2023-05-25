@@ -65,8 +65,13 @@ const RedirectPageSetting = ({ formDetail }: any) => {
   };
 
   const plan: string = get(formDetail, "team.planName", "Free");
+  const teamSlug: string = get(formDetail, "team.slug", "");
+  const teamType: string = get(formDetail, "team.type", "");
   const disabled = plan === "Free" ? true : false;
-
+  const url =
+    teamType === "default"
+      ? `/${teamSlug}/team/settings/billing`
+      : `/${teamSlug}/settings/billing`;
   return (
     <form onSubmit={handleSubmit}>
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
@@ -115,7 +120,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               <label htmlFor={"customContent"} className="w-full">
                 <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-white">
                   Custom Page Content{""}
-                  {plan === "Free" && <UpgradePlan plan={plan} />}
+                  {plan === "Free" && <UpgradePlan url={url} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will able to see custom message
@@ -221,7 +226,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               <label htmlFor={"redirectionUrl"} className="w-full">
                 <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-gray-300">
                   Custom redirection URL
-                  {plan === "Free" && <UpgradePlan plan={plan} />}
+                  {plan === "Free" && <UpgradePlan url={url} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will be sent here after a successful submission.
