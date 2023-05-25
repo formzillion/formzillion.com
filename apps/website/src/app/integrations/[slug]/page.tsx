@@ -6,6 +6,7 @@ import HowToConnect from "./HowToConnect";
 import AppsLogo from "./AppsLogo";
 import { heroSection } from "./content/heroSection";
 import { startCase } from "lodash";
+import PopularUseCases from "./PopularUseCases";
 
 export async function generateMetadata({ params }: any) {
   const { slug } = params;
@@ -83,6 +84,7 @@ export default function page({ params }: { params: { slug: string } }) {
       </div>
       <div className="border-b border-gray-800 border-dashed my-10"></div>
       <HowToConnect slug={slug} />
+      <PopularUseCases slug={slug} />
     </div>
   );
 }

@@ -1,32 +1,32 @@
 export const apps = [
   {
-    title:"Slack",
-    image:"/brands/slack.png",
-    url:"integrations/slack"
+    title: "Airtable",
+    image: "/brands/airtable.png",
+    url: "integrations/airtable",
   },
   {
-    title:"Sendgrid",
-    image:"/brands/sendgrid.png",
-    url:"integrations/sendgrid"
+    title: "Freshdesk",
+    image: "/brands/freshdesk.png",
+    url: "integrations/freshdesk",
   },
   {
-    title:"Webhooks",
-    image:"/brands/webhooks.png",
-    url:"integrations/webhooks"
+    title: "Mailerlite",
+    image: "/brands/mailerlite.png",
+    url: "integrations/mailerlite",
   },
   {
-    title:"Mailerlite",
-    image:"/brands/mailerlite.png",
-    url:"integrations/mailerlite"
+    title: "Sendgrid",
+    image: "/brands/sendgrid.png",
+    url: "integrations/sendgrid",
   },
   {
-    title:"Airtable",
-    image:"/brands/airtable.png",
-    url:"integrations/airtable"
+    title: "Slack",
+    image: "/brands/slack.png",
+    url: "integrations/slack",
   },
   {
-    title:"Freshdesk",
-    image:"/brands/freshdesk.png",
-    url:"integrations/freshdesk"
-  }
-]
+    title: "Webhooks",
+    image: "/brands/webhooks.png",
+    url: "integrations/webhooks",
+  },
+];

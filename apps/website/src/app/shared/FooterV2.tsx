@@ -1,6 +1,6 @@
-import AppLogo from "@/ui/AppLogo";
 import Link from "next/link";
 import { FiGithub, FiLinkedin, FiSlack } from "react-icons/fi";
+import AppIcon from "@/ui/AppIcon";
 
 const footerLinks = [
   {
@@ -228,16 +228,24 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <div className="flex flex-col items-center space-y-2 sm:flex-row justify-center sm:justify-between w-full text-white py-3 mt-4 lg:mt-8 mb-8">
-          <AppLogo />
-          <p className="text-gray-300 leading-normal md:text-end text-sm sm::text-base">
-            Copyright © 2023 Zillionstack Inc. All rights reserved.
-          </p>
-          <div className="flex space-x-2">
-            <Link href={"/privacy"} className="underline text-gray-300 text-sm">
+        <div className="flex items-center w-full text-white py-3 mt-4 lg:mt-8 mb-8">
+          <div className="hidden sm:block">
+            <AppIcon src={"/logos/favicon.svg"} />
+          </div>
+          <div className="divide-x divide-gray-800 flex items-center space-x-4">
+            <p className="text-gray-300 leading-normal md:text-end text-sm sm::text-base pl-2 w-full">
+              Copyright © 2023 Zillionstack Inc. All rights reserved.{" "}
+            </p>
+            <Link
+              href={"/privacy"}
+              className="hover:underline text-gray-300 text-sm pl-4"
+            >
               Privacy
             </Link>
-            <Link href={"/terms"} className="underline text-gray-300 text-sm">
+            <Link
+              href={"/terms"}
+              className="hover:underline text-gray-300 text-sm pl-4"
+            >
               Terms
             </Link>
           </div>
