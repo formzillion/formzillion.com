@@ -7,3 +7,5 @@ export { default as webhooks } from "public/brands/webhooks.png";
 export { default as freshdesk } from "public/brands/freshdesk.png";
 export { default as airtable } from "public/brands/airtable.png";
 export { default as convertkit } from "public/brands/convertkit.png";
+export { default as klaviyo } from "public/brands/klaviyo.png";
+

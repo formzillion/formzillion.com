@@ -40,7 +40,8 @@ const availableActionsMap: any = {
   webhooks: ["postToWebhookEnpoint"],
   airtable: ["addRecord"],
   freshdesk: ["createTicket"],
-  convertkit:["addSubscriberToAForm"]
+  convertkit:["addSubscriberToAForm"],
+  klaviyo:["addProfiles"],
 };
 
 const taskTemplateConfig: any = {

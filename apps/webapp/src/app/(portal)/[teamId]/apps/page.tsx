@@ -81,6 +81,17 @@ const integrations = [
     isAvailable: true,
   },
   {
+    name: "Klaviyo",
+    formattedName: "klaviyo",
+    slug: "klaviyo",
+    icon: "/brands/klaviyo.png",
+    description:
+      "Automatically add the form submission data to klaviyo email marketing platform.",
+    status: "not_connected",
+    authType: "api_key",
+    isAvailable: true,
+  },
+  {
     name: "Mailchimp",
     formattedName: "mailchimp",
     slug: "mailchimp",
