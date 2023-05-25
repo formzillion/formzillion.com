@@ -66,6 +66,8 @@ export default async function callBackHelper({
       },
     });
 
+    console.log(`${appSlug} Connection existingConnId: `, existingConnId);
+
     return {
       success: true,
       teamId: teamId,
