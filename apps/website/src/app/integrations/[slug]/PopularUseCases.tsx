@@ -28,9 +28,9 @@ export default function PopularUseCases({ slug }: any) {
             className="w-full object-contain"
           />
         </div>
-        <div className="space-y-3 bg-gray-400/10 rounded-lg p-5">
+        <div className="space-y-3">
           {pageContent?.points.map((point: any, idx: number) => (
-            <div key={idx} className="text-gray-400 p-2 flex items-center">
+            <div key={idx} className="text-gray-100 p-3 flex items-center bg-gray-400/10 rounded-lg">
               <CheckCircleIcon className="w-6 h-6 text-orange-600 mr-2" />
               <p className="w-full">{point.list}</p>
             </div>
