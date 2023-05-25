@@ -22,6 +22,7 @@ export async function middleware(req: any) {
     "/login",
     "/register",
     "/forgot-password",
+    "/reset-password",
     "/thank-you",
   ];
 
