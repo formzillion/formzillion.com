@@ -53,10 +53,15 @@ const RedirectPageSetting = ({ formDetail }: any) => {
         body: JSON.stringify({ ...redirectData, formId: formDetail.id, plan }),
       }
     );
+    const data = await response.json();
 
-    response?.status === 201
-      ? showSuccessToast("Redirect details saved successfully")
-      : showErrorToast("some thing went wrong");
+    if (response?.status === 201) {
+      showSuccessToast("Redirect details saved successfully");
+    } else if (response?.status === 400) {
+      showErrorToast(data.message);
+    } else {
+      showErrorToast("Something went wrong");
+    }
     setLoading(false);
     router.refresh();
   };
