@@ -66,6 +66,7 @@ export default function PriceComparison({ frequency }: any) {
         {
           name: "Collaboration",
           tiers: {
+            Basic: "up to 5 users",
             Standard: "up to 10 users",
             Premium: "Up to 20 users",
             Agency: "Up to 50 users",
