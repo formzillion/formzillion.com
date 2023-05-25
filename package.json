@@ -9,8 +9,8 @@
   "scripts": {
     "predev": "rm -rf apps/webapp/.next && rm -rf apps/docs/.next && rm -rf apps/website/.next",
     "prebuild": "rm -rf apps/webapp/.next && rm -rf apps/docs/.next && rm -rf apps/website/.next",
-    "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build": "dotenv -- turbo run build",
+    "dev": "dotenv -- turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "changeset:add": "changeset",
@@ -23,6 +23,7 @@
     "@changesets/cli": "^2.26.1"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.2.1",
     "eslint-config-custom": "workspace:0.0.0",
     "prettier": "latest",
     "turbo": "^1.9.3"
