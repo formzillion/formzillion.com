@@ -126,8 +126,9 @@ export async function createBillingUserAndSubscription({
   });
   //Step 3: Get the plan name from Stripe
   const productId = get(subscription, "plan.product", "").toString();
-  const productdetails = await stripeApi.productDetail({ productId });
-  const planName = get(productdetails, "name", "");
+  const productDetails = await stripeApi.productDetail({ productId });
+  const planName = get(productDetails, "name", "");
+
   return {
     customerId: stripeCustomer?.id,
     planName,

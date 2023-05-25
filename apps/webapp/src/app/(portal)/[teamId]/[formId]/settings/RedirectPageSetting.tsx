@@ -11,7 +11,9 @@ import UpgradePlan from "@/components/UpgradePlan";
 
 const RedirectPageSetting = ({ formDetail }: any) => {
   const router = useRouter();
+  const plan: string = get(formDetail, "team.planName", "Free");
   let previousSelectedValue;
+
   if (isEmpty(formDetail?.redirectData) && isEmpty(formDetail?.redirectUrl)) {
     previousSelectedValue = "default";
   } else if (!isEmpty(formDetail.redirectData)) {
@@ -21,7 +23,6 @@ const RedirectPageSetting = ({ formDetail }: any) => {
   }
 
   const [selectedValue, setSelectedValue] = useState(previousSelectedValue);
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
@@ -49,7 +50,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
       `${process.env.NEXT_PUBLIC_APP_URL}/api/form/redirect-data`,
       {
         method: "POST",
-        body: JSON.stringify({ ...redirectData, formId: formDetail.id }),
+        body: JSON.stringify({ ...redirectData, formId: formDetail.id, plan }),
       }
     );
 
@@ -64,7 +65,6 @@ const RedirectPageSetting = ({ formDetail }: any) => {
     setSelectedValue(event.target.value);
   };
 
-  const plan: string = get(formDetail, "team.planName", "Free");
   const teamSlug: string = get(formDetail, "team.slug", "");
   const teamType: string = get(formDetail, "team.type", "");
   const disabled = plan === "Free" ? true : false;
@@ -72,6 +72,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
     teamType === "default"
       ? `/${teamSlug}/team/settings/billing`
       : `/${teamSlug}/settings/billing`;
+
   return (
     <form onSubmit={handleSubmit}>
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
