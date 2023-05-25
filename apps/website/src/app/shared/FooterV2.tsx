@@ -13,7 +13,7 @@ const footerLinks = [
       },
       {
         label: "Documentation",
-        href: "https://docs.formzillion.com",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}`,
         target: "_blank",
       },
       {
@@ -99,62 +99,62 @@ const footerLinks = [
     list: [
       {
         label: "Spam Filtering",
-        href: "https://docs.formzillion.com/features/spam-filtering",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/spam-filtering`,
         target: "_blank",
       },
       {
         label: "Redirects",
-        href: "https://docs.formzillion.com/features/redirects",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/redirects`,
         target: "_blank",
       },
       {
         label: "Collaboration",
-        href: "https://docs.formzillion.com/features/collaboration",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/collaboration`,
         target: "_blank",
       },
       {
         label: "Exports",
-        href: "https://docs.formzillion.com/features/exports",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/exports`,
         target: "_blank",
       },
       {
         label: "Email Notifications",
-        href: "https://docs.formzillion.com/features/email-notifications",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/email-notifications`,
         target: "_blank",
       },
       {
         label: "Autoresponders",
-        href: "https://docs.formzillion.com/features/autoresponders",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/autoresponders`,
         target: "_blank",
       },
     ],
   },
   {
-    title: "Features",
+    title: "Compare",
     list: [
       {
         label: "Formspree",
-        href: "/features/formspree",
+        href: "/compare/formspree",
         target: "_self",
       },
       {
         label: "getform",
-        href: "/features/getform",
+        href: "/compare/getform",
         target: "_self",
       },
       {
         label: "Basin",
-        href: "/features/basin",
+        href: "/compare/basin",
         target: "_self",
       },
       {
         label: "Formspark",
-        href: "/features/formspark",
+        href: "/compare/formspark",
         target: "_self",
       },
       {
         label: "Formcarry",
-        href: "/features/formcarry",
+        href: "/compare/formcarry",
         target: "_self",
       },
     ],
