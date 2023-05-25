@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { isEmpty } from "lodash";
+import { get, isEmpty } from "lodash";
 
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input } from "@/ui/Input/SimpleInput";
@@ -64,8 +64,8 @@ const RedirectPageSetting = ({ formDetail }: any) => {
     setSelectedValue(event.target.value);
   };
 
-  const plan: any = "free";
-  const disabled = plan === "free" ? true : false;
+  const plan: string = get(formDetail, "team.planName", "Free");
+  const disabled = plan === "Free" ? true : false;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -115,7 +115,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               <label htmlFor={"customContent"} className="w-full">
                 <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-white">
                   Custom Page Content{""}
-                  {plan === "free" && <UpgradePlan plan={plan} />}
+                  {plan === "Free" && <UpgradePlan plan={plan} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will able to see custom message
@@ -221,7 +221,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               <label htmlFor={"redirectionUrl"} className="w-full">
                 <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-gray-300">
                   Custom redirection URL
-                  {plan === "free" && <UpgradePlan plan={plan} />}
+                  {plan === "Free" && <UpgradePlan plan={plan} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will be sent here after a successful submission.

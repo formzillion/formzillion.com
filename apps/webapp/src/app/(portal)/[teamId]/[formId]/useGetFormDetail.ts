@@ -9,6 +9,9 @@ export const useGetFormDetail = async (formId: any) => {
     where: {
       id: formId,
     },
+    include: {
+      team: true,
+    },
   });
   if (!formDetail) {
     notFound();
