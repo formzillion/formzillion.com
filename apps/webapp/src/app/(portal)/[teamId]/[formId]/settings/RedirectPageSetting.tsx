@@ -11,7 +11,7 @@ import UpgradePlan from "@/components/UpgradePlan";
 
 const RedirectPageSetting = ({ formDetail }: any) => {
   const router = useRouter();
-  const plan: string = get(formDetail, "team.planName", "Free");
+  const plan: string = get(formDetail, "team.planName", "free");
   let previousSelectedValue;
 
   if (isEmpty(formDetail?.redirectData) && isEmpty(formDetail?.redirectUrl)) {
@@ -72,7 +72,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
 
   const teamSlug: string = get(formDetail, "team.slug", "");
   const teamType: string = get(formDetail, "team.type", "");
-  const disabled = plan === "Free" ? true : false;
+  const disabled = plan === "free" ? true : false;
   const url =
     teamType === "default"
       ? `/${teamSlug}/team/settings/billing`
@@ -126,7 +126,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               <label htmlFor={"customContent"} className="w-full">
                 <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-white">
                   Custom Page Content{""}
-                  {plan === "Free" && <UpgradePlan url={url} />}
+                  {plan === "free" && <UpgradePlan url={url} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will able to see custom message
@@ -232,7 +232,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
               <label htmlFor={"redirectionUrl"} className="w-full">
                 <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-gray-300">
                   Custom redirection URL
-                  {plan === "Free" && <UpgradePlan url={url} />}
+                  {plan === "free" && <UpgradePlan url={url} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will be sent here after a successful submission.
