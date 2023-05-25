@@ -110,7 +110,7 @@ model teams {
   theme             String?
   billingCustomerId String?            @unique @map("billing_customer_id")
   planId            String?            @map("plan_id")
-  planName          String?            @map("plan_name")
+  planName          String?            @default("free") @map("plan_name")
   connections       connections[]
   forms             forms[]
   members           memberships[]
