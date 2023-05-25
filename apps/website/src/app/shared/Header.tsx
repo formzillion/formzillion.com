@@ -63,17 +63,17 @@ const MenuList = [
   },
   {
     title: "Setup Formzillion",
-    url: "https://docs.formzillion.com/setup",
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}setup`,
     icon: <WrenchScrewdriverIcon className="h-4 w-4 mr-2" />,
   },
   {
     title: "Features",
-    url: "https://docs.formzillion.com/features",
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}features`,
     icon: <BoltIcon className="h-4 w-4 mr-2" />,
   },
   {
     title: "Integrations",
-    url: "https://docs.formzillion.com/integrations",
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}integrations`,
     icon: <PuzzlePieceIcon className="h-4 w-4 mr-2" />,
   },
 ];
@@ -91,7 +91,7 @@ export default function Header() {
           <NavLink url={"/pricing"} title={"Pricing"} />
           <div className="border-r py-4 border-gray-800"></div>
           <a
-            href={"https://docs.formzillion.com"}
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
             rel="noreferrer"
             target="_blank"
             className="flex items-center py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200"

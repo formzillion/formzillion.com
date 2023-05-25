@@ -89,7 +89,9 @@ export default function DynamicSection({
                   Try Formzillion its free
                 </a>
                 <a
-                  href="https://docs.formzillion.com/"
+                  href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
+                  target="_blank"
+                  rel="noreferrer"
                   className="cursor-pointer ml-8 inline-flex text-center text-sm px-4 py-2 leading-none border text-white border-white hover:text-orange-600 mt-4 lg:mt-0 w-[150px] h-[40px] hover:border-orange-600 items-center justify-center"
                 >
                   Learn more

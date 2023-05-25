@@ -1,8 +1,6 @@
 export default function SpamFiltersDescription() {
   return (
-    <div
-      className={`flex flex-col justify-center text-white text-left`}
-    >
+    <div className={`flex flex-col justify-center text-white text-left`}>
       <p
         className={`font-bold font-['Space_Grotesk'] text-4xl leading-[normal]`}
       >
@@ -16,7 +14,9 @@ export default function SpamFiltersDescription() {
         }
       </p>
       <a
-        href="https://docs.formzillion.com/docs/features/spam-filtering"
+        href={`${process.env.NEXT_PUBLIC_DOCS_URL}docs/features/spam-filtering`}
+        target="_blank"
+        rel="noreferrer"
         className="flex justify-center items-center text-white text-left font-bold w-[210px] h-[59px] bg-orange-600 font-['Satoshi'] hover:bg-orange-800"
       >
         Learn More
