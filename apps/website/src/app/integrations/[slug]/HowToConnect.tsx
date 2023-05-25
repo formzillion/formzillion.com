@@ -7,7 +7,7 @@ export default function HowToConnect({ slug }: any) {
   );
 
   return (
-    <div className="mt-20 rounded bg-gray-900/50 py-6 px-10">
+    <div className="mt-20 rounded-2xl bg-gray-400/10 py-6 ">
       <div className="text-center space-y-4">
         <p className="text-2xl sm:text-3xl font-normal">
           How to{" "}
