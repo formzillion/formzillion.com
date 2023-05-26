@@ -31,7 +31,9 @@ export default function ExportModal({ formId, closeModal, userEmail }: any) {
     const res = await exportSubmissions({ formId, exportDays, userEmail });
     if (res.success) {
       setLoading(false);
-      showSuccessToast("Submissions sent to your Email Successfully");
+      showSuccessToast(
+        "Successfully exported data. You should receive an email shortly with your data."
+      );
     } else {
       setLoading(false);
       showErrorToast(res.message);
@@ -78,13 +80,23 @@ export default function ExportModal({ formId, closeModal, userEmail }: any) {
         <div>
           <div className="space-y-4 py-2 pb-4">
             <div className="space-y-2">
-              <p className="text-sm ">Select Date Range</p>
+              <ul className="list-disc text-sm text-gray-600">
+                <li>
+                  The data will be sent to your registered email in a
+                  downloadable file.
+                </li>
+                <li>
+                  Processing may take some time. You'll be notified when it's
+                  ready.
+                </li>
+              </ul>
+              <p className="text-sm mt-4">Select Date Range</p>
               <Select
                 defaultValue={""}
                 onValueChange={(value) => handleOnSelect(value)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select App" />
+                  <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent>
                   {dateOptions?.map((option: any) => {
