@@ -183,7 +183,7 @@ export default function Footer() {
   return (
     <div className="relative border-t border-gray-800 bg-gray-900/20">
       <div className="mx-auto max-w-7xl px-4 lg:px-2">
-        <div className="grid grid-cols-2 md:grid-cols-5 mt-8 text-white justify-between">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex mt-8 text-white justify-between">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
               {data.href ? (

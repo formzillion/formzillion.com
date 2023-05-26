@@ -5,6 +5,7 @@ import {
   BanknotesIcon,
   Bars3Icon,
   BookOpenIcon,
+  ChatBubbleBottomCenterTextIcon,
   MapIcon,
   PuzzlePieceIcon,
   WrenchScrewdriverIcon,
@@ -24,6 +25,12 @@ const navigation = [
     href: `/integrations`,
     current: true,
     icon: <PuzzlePieceIcon className="inline h-4 w-4 text-gray-400" />,
+  },
+  {
+    name: "Blog",
+    href: `/blog`,
+    current: true,
+    icon: <ChatBubbleBottomCenterTextIcon className="inline h-4 w-4 text-gray-400" />,
   },
   {
     name: "Docs",
