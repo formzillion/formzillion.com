@@ -99,32 +99,32 @@ const footerLinks = [
     list: [
       {
         label: "Spam Filtering",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/spam-filtering`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/spam-filtering`,
         target: "_blank",
       },
       {
         label: "Redirects",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/redirects`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/redirects`,
         target: "_blank",
       },
       {
         label: "Collaboration",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/collaboration`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/collaboration`,
         target: "_blank",
       },
       {
         label: "Exports",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/exports`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/exports`,
         target: "_blank",
       },
       {
         label: "Email Notifications",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/email-notifications`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/email-notifications`,
         target: "_blank",
       },
       {
         label: "Autoresponders",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/autoresponders`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/autoresponders`,
         target: "_blank",
       },
     ],

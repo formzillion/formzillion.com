@@ -18,7 +18,7 @@ export default function RedirectsDescription() {
             }
           </p>
           <a
-            href={`${process.env.NEXT_PUBLIC_DOCS_URL}docs/features/redirects`}
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}/docs/features/redirects`}
             target="_blank"
             rel="noreferrer"
             className="flex justify-center items-center text-white text-left font-bold w-[210px] h-[59px] bg-orange-600 font-['Satoshi'] hover:bg-orange-800"

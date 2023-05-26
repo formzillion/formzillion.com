@@ -28,7 +28,7 @@ export default function page() {
           illustration={<BotpoisonIllustration />}
           reverse={true}
           className="md:mb-0"
-          action={`${process.env.NEXT_PUBLIC_DOCS_URL}spam-protection/botpoison`}
+          action={`${process.env.NEXT_PUBLIC_DOCS_URL}/spam-protection/botpoison`}
         />
         <FeatureSection
           title="Privacy-friendly, meet plug-and-play"
@@ -36,7 +36,7 @@ export default function page() {
           illustration={<HcaptchaIllustration />}
           reverse={false}
           className="md:mb-0"
-          action={`${process.env.NEXT_PUBLIC_DOCS_URL}spam-protection/hcaptcha`}
+          action={`${process.env.NEXT_PUBLIC_DOCS_URL}/spam-protection/hcaptcha`}
         />
         <FeatureSection
           title="Google provides spam protection as a courtesy to users"
@@ -44,7 +44,7 @@ export default function page() {
           illustration={<RecaptchaIllustration />}
           reverse={true}
           className="md:mt-0"
-          action={`${process.env.NEXT_PUBLIC_DOCS_URL}spam-protection/recaptcha-v2`}
+          action={`${process.env.NEXT_PUBLIC_DOCS_URL}/spam-protection/recaptcha-v2`}
         />
         <FeatureSection
           title="A user-friendly, privacy-preserving alternative to CAPTCHA"
@@ -52,7 +52,7 @@ export default function page() {
           illustration={<TurnstileIllustration />}
           reverse={false}
           className="md:mt-0 mb-5 "
-          action={`${process.env.NEXT_PUBLIC_DOCS_URL}spam-protection/turnstile`}
+          action={`${process.env.NEXT_PUBLIC_DOCS_URL}/spam-protection/turnstile`}
         />
       </div>
     </>
