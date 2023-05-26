@@ -18,7 +18,7 @@ export default function Integrations() {
   return (
     <div className="container py-10 max-w-7xl flex flex-col justify-center">
       <div className="my-4 space-y-4 text-center">
-        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-normal px-20">
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-normal sm:px-20">
           The Formzillion{" "}
           <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
             Integrations
@@ -30,7 +30,7 @@ export default function Integrations() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 mt-16 place-content-center justify-center px-16">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16 place-content-center justify-center sm:px-16">
         {apps.map((app: any, idx: number) => (
           <Link href={app.url} key={idx}>
             <div className="rounded bg-gray-900/20 border border-gray-900 hover:border-gray-700 flex flex-col items-center py-8 space-y-4">

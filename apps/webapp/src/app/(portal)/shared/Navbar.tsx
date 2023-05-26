@@ -6,7 +6,6 @@ import {
 import TeamSwitcher from "@/app/(portal)/shared/TeamSwitcher";
 import UserDropdown from "./UserDropdown";
 import { ModeToggle } from "./ModeToggle";
-import FormId from "../FormId";
 import AppLogo from "@/ui/AppLogo";
 
 export function BreadcrumbSeparator() {
@@ -19,7 +18,7 @@ export function BreadcrumbSeparator() {
 
 export default function Navbar({ teams, user }: any) {
   return (
-    <div className="dark:bg-black mx-auto sm:px-6 py-3 relative hidden sm:block">
+    <div className="dark:bg-black mx-auto sm:px-6 py-3 border-b relative hidden sm:block">
       {/* Static Navbar for desktop */}
       <div className="flex items-center justify-between">
         <div className="flex flex-row items-center space-x-2 sm:space-x-6 ml-1 sm:ml-0">
@@ -27,7 +26,6 @@ export default function Navbar({ teams, user }: any) {
           <BreadcrumbSeparator />
           {/*Team Logo Section*/}
           <TeamSwitcher teams={teams} />
-          <FormId />
         </div>
         <div className="sm:flex items-center space-x-2 mr-0 hidden">
           <div className="dark:text-gray-200 text-base space-x-4 flex items-center">
