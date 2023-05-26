@@ -7,6 +7,7 @@ global.pg = pg;
 import * as apps from "./apps";
 import { IEventData } from "./types";
 import { processDefaultActions } from "./defaultActions";
+import exportSubmissions from "./exports";
 
 const appSlugToAppMap = {};
 
@@ -15,6 +16,9 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
   const { formSubmissionData, formId } = eventData || {};
 
   try {
+    if (eventName === "export-submissions") {
+      return await exportSubmissions(eventData);
+    }
     // Creating an slug to app map for getting the app config
     if (isEmpty(appSlugToAppMap)) {
       const getApps = await pg("apps").select("*");
@@ -27,11 +31,7 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
     await processDefaultActions({ data });
 
     // Fetching the Workflows based on the formId
-    const workflow = await pg
-      .from("workflows")
-      .select("*")
-      .where({ form_id: formId })
-      .first();
+    const workflow = await pg.from("workflows").select("*").where({ form_id: formId }).first();
     // Fetching all the different Tasks Associated with the Workflows
 
     // TODO: Need to implement the logic for processing the tasks using bull-mq flow producers
@@ -43,11 +43,7 @@ const processFormEvents = async ({ data }: { data: IEventData }) => {
 
     for await (const task of tasks) {
       // Fetching the connection details for connectionId
-      const conn =
-        (await pg
-          .from("connections")
-          .where({ id: task?.connection_id })
-          .first()) || {};
+      const conn = (await pg.from("connections").where({ id: task?.connection_id }).first()) || {};
 
       const { apiKeys, user_id: userId, appSlug, id: connId } = conn;
 
