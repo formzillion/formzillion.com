@@ -16,7 +16,7 @@ export default function HeroSection({ slug }: any) {
           </h1>
           <p className="text-gray-400">
             {
-              "Are you looking for open source solution where You have full control application"
+              "Are you looking for open source solution where you have full control application"
             }
           </p>
           <div className="flex justify-center w-full">
