@@ -33,26 +33,16 @@ export default async function TeamLayout({ children, params }: any) {
       targetSegment: "apps",
     },
     {
-      name: "Usage",
-      path: "usage",
-      targetSegment: "usage",
-    },
-    {
-      name: "Activity",
-      path: "activity",
-      targetSegment: "activity",
-    },
-    {
       name: "Settings",
       path: teamType === "personal" ? `settings` : `team/settings`,
       targetSegment: teamType === "personal" ? `settings` : `team`,
     },
   ];
- 
+
   return (
-    <>
+    <div className="mx-auto max-w-7xl">
       <PrimaryNav tabs={tabs} finalTeamId={finalTeamId} formId={formId} />
       {children}
-    </>
+    </div>
   );
 }
