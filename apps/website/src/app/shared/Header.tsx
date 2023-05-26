@@ -86,20 +86,9 @@ export default function Header() {
           <div>
             <AppLogo />
           </div>
-        </div>
-        <div className="flex items-center space-x-4">
           <NavLink url={"/pricing"} title={"Pricing"} />
-          <div className="border-r py-4 border-gray-800"></div>
-          <a
-            href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
-            rel="noreferrer"
-            target="_blank"
-            className="flex items-center py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200"
-          >
-            Docs
-            <ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
-          </a>
-          <div className="border-r py-4 border-gray-800"></div>
+          <NavLink url={"/integrations"} title={"Integrations"} />
+          <NavLink url={"/blog"} title={"Blog"} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="border-0">
               <div className="py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200 flex items-center">
@@ -120,6 +109,17 @@ export default function Header() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+        <div className="flex items-center space-x-4">
+          <a
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
+            rel="noreferrer"
+            target="_blank"
+            className="flex items-center py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200"
+          >
+            Docs
+            <ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+          </a>
           <GithubStar />
           <a
             href={`${process.env.NEXT_PUBLIC_APP_URL}/login`}
