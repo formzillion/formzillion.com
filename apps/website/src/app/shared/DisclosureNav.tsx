@@ -21,7 +21,7 @@ const navigation = [
   },
   {
     name: "Docs",
-    href: `${process.env.NEXT_PUBLIC_DOCS_URL}`,
+    href: `${process.env.NEXT_PUBLIC_DOCS_URL}/`,
     current: true,
     icon: <BookOpenIcon className="inline h-4 w-4 text-gray-300" />,
   },
@@ -39,13 +39,13 @@ const navigation = [
   },
   {
     name: "Setup Formzillion",
-    href: `${process.env.NEXT_PUBLIC_DOCS_URL}setup`,
+    href: `${process.env.NEXT_PUBLIC_DOCS_URL}/setup`,
     current: true,
     icon: <WrenchScrewdriverIcon className="inline h-4 w-4 text-gray-300" />,
   },
   {
     name: "Integrations",
-    href: `${process.env.NEXT_PUBLIC_DOCS_URL}integrations`,
+    href: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations`,
     current: true,
     icon: <PuzzlePieceIcon className="inline h-4 w-4 text-gray-300" />,
   },

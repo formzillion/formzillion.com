@@ -63,17 +63,17 @@ const MenuList = [
   },
   {
     title: "Setup Formzillion",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}setup`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/setup`,
     icon: <WrenchScrewdriverIcon className="h-4 w-4 mr-2" />,
   },
   {
     title: "Features",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}features`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/features`,
     icon: <BoltIcon className="h-4 w-4 mr-2" />,
   },
   {
     title: "Integrations",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}integrations`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations`,
     icon: <PuzzlePieceIcon className="h-4 w-4 mr-2" />,
   },
 ];
