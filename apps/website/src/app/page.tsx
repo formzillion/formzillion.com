@@ -33,7 +33,6 @@ export default async function page() {
       <FeaturesTab />
       <FeaturesOverviewNew />
       <OpenSource starCount={starCount} contributorCount={contributorsCount}/>
-
     </>
   );
 }
