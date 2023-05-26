@@ -1,8 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import {
+  ArrowTopRightOnSquareIcon,
+  BoltIcon,
+  ChevronDownIcon,
+  MapIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/outline";
+import { FiSlack } from "react-icons/fi";
 
 import AppLogo from "@/ui/AppLogo";
-import GithubStar from "./GithubStar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,15 +17,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/ui/DropdownMenu";
-import {
-  ArrowTopRightOnSquareIcon,
-  BoltIcon,
-  ChevronDownIcon,
-  MapIcon,
-  PuzzlePieceIcon,
-  WrenchScrewdriverIcon,
-} from "@heroicons/react/24/outline";
-import { FiSlack } from "react-icons/fi";
+import GithubStar from "./GithubStar";
+
 interface navProps {
   url: string;
   title: string;
