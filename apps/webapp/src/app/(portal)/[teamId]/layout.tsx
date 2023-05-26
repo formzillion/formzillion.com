@@ -28,11 +28,6 @@ export default async function TeamLayout({ children, params }: any) {
   const tabs = [
     { name: "Forms", path: `/`, targetSegment: null },
     {
-      name: "Apps",
-      path: "apps",
-      targetSegment: "apps",
-    },
-    {
       name: "Settings",
       path: teamType === "personal" ? `settings` : `team/settings`,
       targetSegment: teamType === "personal" ? `settings` : `team`,

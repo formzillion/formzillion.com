@@ -15,12 +15,12 @@ import {
 import { Input } from "@/ui/Input/SimpleInput";
 import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import addConnection from "../../../fetch/connections/addConnection";
+import addConnection from "../../../../fetch/connections/addConnection";
 
 const appConfigFields = {
   webhooks: ["connectionName", "webhooksEndpoint"],
   freshdesk: ["connectionName", "freshdeskSubDomain", "apiKey", "ccEmails"],
-  convertkit: ["connectionName", "apiKey",'formId'],
+  convertkit: ["connectionName", "apiKey", "formId"],
 } as { [key: string]: string[] };
 
 export default function AddApiConfigModal({
