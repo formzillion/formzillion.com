@@ -71,16 +71,11 @@ const MenuList = [
     url: `${process.env.NEXT_PUBLIC_DOCS_URL}/features`,
     icon: <BoltIcon className="h-4 w-4 mr-2" />,
   },
-  {
-    title: "Integrations",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations`,
-    icon: <PuzzlePieceIcon className="h-4 w-4 mr-2" />,
-  },
 ];
 
 export default function Header() {
   return (
-    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden border-b border-gray-800">
+    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 lg:block hidden border-b border-gray-800">
       <div className="mx-auto max-w-7xl px-4 lg:px-2 xl:py-2.5 flex justify-between py-2 h-[60px] xl:h-[65px]">
         <div className="flex items-center space-x-8">
           <div>
