@@ -12,7 +12,7 @@ const config: DocsThemeConfig = {
     const { asPath } = useRouter();
 
     const addNoIndexNoFollow =
-      process?.env?.NODE_ENV !== "production"
+      process?.env?.NEXT_PUBLIC_NODE_ENV !== "production"
         ? {
             noindex: true,
             nofollow: true,
