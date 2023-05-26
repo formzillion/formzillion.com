@@ -10,13 +10,22 @@ const config: DocsThemeConfig = {
     "https://github.com/formzillion/formzillion.com/blob/main/apps/docs",
   useNextSeoProps() {
     const { asPath } = useRouter();
+
+    const addNoIndexNoFollow =
+      process?.env?.NODE_ENV !== "production"
+        ? {
+            noindex: true,
+            nofollow: true,
+          }
+        : {};
     if (asPath !== "/") {
       return {
         titleTemplate: `%s - Formzillion`,
-        ...(process?.env?.NODE_ENV !== "production" && {
-          nofollow: true,
-          noindex: true,
-        }),
+        ...addNoIndexNoFollow,
+      };
+    } else {
+      return {
+        ...addNoIndexNoFollow,
       };
     }
   },
