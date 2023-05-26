@@ -10,7 +10,7 @@ import EmptySubmissions from "./EmptySubmissions";
 import SubmissionItem from "./SubmissionItem";
 import TestFormModal from "./settings/TestFormModal";
 import ArrayOperations from "./ArrayOperations";
-import ExportModal from "./ExportModel";
+import ExportModal from "./ExportModal";
 
 export default function FormsOverviewPage({
   formId,

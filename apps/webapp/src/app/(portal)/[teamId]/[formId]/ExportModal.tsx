@@ -86,8 +86,8 @@ export default function ExportModal({ formId, closeModal, userEmail }: any) {
                   downloadable file.
                 </li>
                 <li>
-                  Processing may take some time. You'll be notified when it's
-                  ready.
+                  {`Processing may take some time. You'll be notified when it's
+                  ready.`}
                 </li>
               </ul>
               <p className="text-sm mt-4">Select Date Range</p>
