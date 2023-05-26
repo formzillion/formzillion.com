@@ -14,8 +14,8 @@ const NavSettings = () => {
     <Link
       href={
         type === "personal"
-          ? `/${teamData.value}/settings`
-          : `/${teamData.value}/team/settings`
+          ? `/${teamData?.value}/settings`
+          : `/${teamData?.value}/team/settings`
       }
     >
       <Cog6ToothIcon className="h-4 w-4" />
