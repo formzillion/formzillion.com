@@ -1,16 +1,19 @@
 "use client";
 import { useState } from "react";
-import { isEmpty } from "lodash";
+import { get, isEmpty } from "lodash";
 
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { Input } from "@/ui/Input/SimpleInput";
 import Header from "@/ui/Header";
 import CardFooter from "@/ui/CardFooter";
 import { useRouter } from "next/navigation";
+import UpgradePlan from "@/components/UpgradePlan";
 
 const RedirectPageSetting = ({ formDetail }: any) => {
   const router = useRouter();
+  const plan: string = get(formDetail, "team.planName", "free");
   let previousSelectedValue;
+
   if (isEmpty(formDetail?.redirectData) && isEmpty(formDetail?.redirectUrl)) {
     previousSelectedValue = "default";
   } else if (!isEmpty(formDetail.redirectData)) {
@@ -20,7 +23,6 @@ const RedirectPageSetting = ({ formDetail }: any) => {
   }
 
   const [selectedValue, setSelectedValue] = useState(previousSelectedValue);
-
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: any) => {
@@ -48,13 +50,18 @@ const RedirectPageSetting = ({ formDetail }: any) => {
       `${process.env.NEXT_PUBLIC_APP_URL}/api/form/redirect-data`,
       {
         method: "POST",
-        body: JSON.stringify({ ...redirectData, formId: formDetail.id }),
+        body: JSON.stringify({ ...redirectData, formId: formDetail.id, plan }),
       }
     );
+    const data = await response.json();
 
-    response?.status === 201
-      ? showSuccessToast("Redirect details saved successfully")
-      : showErrorToast("some thing went wrong");
+    if (response?.status === 201) {
+      showSuccessToast("Redirect details saved successfully");
+    } else if (response?.status === 400) {
+      showErrorToast(data.message);
+    } else {
+      showErrorToast("Something went wrong");
+    }
     setLoading(false);
     router.refresh();
   };
@@ -62,6 +69,14 @@ const RedirectPageSetting = ({ formDetail }: any) => {
   const handleRadioChange = (event: any) => {
     setSelectedValue(event.target.value);
   };
+
+  const teamSlug: string = get(formDetail, "team.slug", "");
+  const teamType: string = get(formDetail, "team.type", "");
+  const disabled = plan === "free" ? true : false;
+  const url =
+    teamType === "default"
+      ? `/${teamSlug}/team/settings/billing`
+      : `/${teamSlug}/settings/billing`;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -94,6 +109,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                 </p>
               </label>
             </div>
+
             <div className="py-4 flex">
               <div>
                 <input
@@ -104,11 +120,13 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                   defaultChecked={!isEmpty(formDetail?.redirectData)}
                   onChange={handleRadioChange}
                   className="mr-3"
+                  disabled={disabled}
                 />
               </div>
               <label htmlFor={"customContent"} className="w-full">
-                <b className=" w-full flex justify-between text-start text-sm font-medium text-gray-900 dark:text-white">
-                  Custom Page Content
+                <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-white">
+                  Custom Page Content{""}
+                  {plan === "free" && <UpgradePlan url={url} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will able to see custom message
@@ -132,7 +150,9 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                       name="title"
                       type="text"
                       defaultValue={formDetail?.redirectData?.title}
-                      disabled={!(selectedValue === "customContent")}
+                      disabled={
+                        !(selectedValue === "customContent") && disabled
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -149,7 +169,9 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                       name="message"
                       defaultValue={formDetail?.redirectData?.message}
                       type="text"
-                      disabled={!(selectedValue === "customContent")}
+                      disabled={
+                        !(selectedValue === "customContent") && disabled
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -166,7 +188,9 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                       name="buttonText"
                       type="text"
                       defaultValue={formDetail?.redirectData?.button}
-                      disabled={!(selectedValue === "customContent")}
+                      disabled={
+                        !(selectedValue === "customContent") && disabled
+                      }
                     />
                   </div>
                   <div className="space-y-2">
@@ -184,7 +208,9 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                       name="buttonUrl"
                       defaultValue={formDetail?.redirectData?.buttonUrl}
                       type="text"
-                      disabled={!(selectedValue === "customContent")}
+                      disabled={
+                        !(selectedValue === "customContent") && disabled
+                      }
                     />
                   </div>
                 </div>
@@ -200,11 +226,13 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                   defaultChecked={!isEmpty(formDetail?.redirectUrl)}
                   onChange={handleRadioChange}
                   className="mr-3"
+                  disabled={disabled}
                 />
               </div>
               <label htmlFor={"redirectionUrl"} className="w-full">
-                <b className=" w-full flex justify-between text-start text-sm font-medium text-gray-900 dark:text-gray-300">
+                <b className=" w-full flex text-start text-sm font-medium text-gray-900 dark:text-gray-300">
                   Custom redirection URL
+                  {plan === "free" && <UpgradePlan url={url} />}
                 </b>
                 <p className="text-sm text-gray-500 dark:text-gray-400">
                   Users will be sent here after a successful submission.
@@ -216,7 +244,7 @@ const RedirectPageSetting = ({ formDetail }: any) => {
                   className={
                     !(selectedValue === "redirectionUrl") ? "opacity-60" : ""
                   }
-                  disabled={!(selectedValue === "redirectionUrl")}
+                  disabled={!(selectedValue === "redirectionUrl") && disabled}
                   defaultValue={formDetail?.redirectUrl}
                 />
               </label>

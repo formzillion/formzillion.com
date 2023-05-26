@@ -38,7 +38,7 @@ export default function CTASection() {
             forms data.
           </p>
           <a
-            href="https://docs.formzillion.com/"
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
             target="_blank"
             rel="noreferrer"
           >

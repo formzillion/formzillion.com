@@ -9,7 +9,7 @@ import Loader from "@/ui/Loader";
 const headerItems = [
   {
     title: "Docs",
-    href: "https://docs.formzillion.com",
+    href: `${process.env.NEXT_PUBLIC_DOCS_URL}`,
   },
   {
     title: "Pricing",
