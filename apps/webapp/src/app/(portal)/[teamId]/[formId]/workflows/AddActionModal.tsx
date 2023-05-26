@@ -25,6 +25,7 @@ import {
 import { Input } from "@/ui/Input/SimpleInput";
 
 import getTablesFromAirtable from "@/app/fetch/integrations/airtable/getTables";
+import getTagsFromConvertkit from "@/app/fetch/integrations/convertkit/getTags";
 
 interface IAddActionModal {
   workflowId: number | string;
@@ -40,12 +41,13 @@ const availableActionsMap: any = {
   webhooks: ["postToWebhookEnpoint"],
   airtable: ["addRecord"],
   freshdesk: ["createTicket"],
-  convertkit:["addSubscriberToAForm"]
+  convertkit: ["addSubscriberToAForm"],
 };
 
 const taskTemplateConfig: any = {
   sendgrid: { fromEmail: "formEmail", name: "name" },
   airtable: { table: [] },
+  convertkit: { tag: [] },
 };
 
 const AddActionModal = ({
@@ -86,6 +88,21 @@ const AddActionModal = ({
     }
   }, [actionSetup.connectionId, appSlug]);
 
+  const processConvertkit = useCallback(async () => {
+    if (!isEmpty(actionSetup.connectionId)) {
+      if (appSlug === "convertkit") {
+        const allTags = await getTagsFromConvertkit({
+          connectionId: actionSetup.connectionId,
+        });
+        const tables = allTags.tags.map((tag: any) => ({
+          label: tag.name,
+          value: tag.id,
+        }));
+        setTaskTemplate({ tag: tables });
+      }
+    }
+  }, [actionSetup.connectionId, appSlug]);
+
   const getAppsList = useCallback(async () => {
     const apps = await getApps();
     setAppsList(apps);
@@ -117,6 +134,7 @@ const AddActionModal = ({
       getConnectionsList(slug);
     }
 
+    processConvertkit();
     processAirtable();
   }, [
     actionSetup.appId,
@@ -124,6 +142,7 @@ const AddActionModal = ({
     appsList,
     getAppsList,
     getConnectionsList,
+    processConvertkit,
     processAirtable,
   ]);
 
@@ -168,7 +187,7 @@ const AddActionModal = ({
     });
   };
 
-  const handleAirtableConfig = (value: any, name: string, tables: any) => {
+  const handleCommonConfig = (value: any, name: string, tables: any) => {
     setTemplate({
       [`${name}Id`]: value,
       tables,
@@ -287,7 +306,7 @@ const AddActionModal = ({
                           </span>
                           <Select
                             onValueChange={(value) =>
-                              handleAirtableConfig(
+                              handleCommonConfig(
                                 value,
                                 templateFieldKey,
                                 templateField
