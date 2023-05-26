@@ -74,7 +74,7 @@ export default async function handler(
             type: "personal",
             slug: kebabCase(splittedEmail),
             billingCustomerId: customerId,
-            planName,
+            planName: planName || "free",
             planId,
           },
         },
@@ -83,7 +83,7 @@ export default async function handler(
         teams: true,
       },
     });
-    const teamId = get(user, "teams[0].id", "");
+    const teamId = get(user, "teams.0.id", "");
     if (teamId) {
       await prisma.memberships.create({
         data: {
@@ -95,13 +95,13 @@ export default async function handler(
       });
 
       // Initial entry for plan metering
-
-      const teamSlug = get(user, "teams[0].slug", "");
+      const teamSlug = get(user, "teams.0.slug", "");
       await prisma.plan_metering.create({
         data: {
           teamId: teamId,
           teamSlug: teamSlug,
           planId: planId,
+          planName: planName || "free",
         },
       });
     }

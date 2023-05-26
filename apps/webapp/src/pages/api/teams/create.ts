@@ -20,8 +20,12 @@ export default async function handler(
   }
 
   const emails = emailsToInvite.includes(",")
-    ? emailsToInvite.split(",")
+    ? emailsToInvite
+        .split(",")
+        .map((e: string) => e.trim())
+        .filter((e: string) => e !== "")
     : [emailsToInvite];
+
   try {
     const existingUsers = await prisma.users.findMany({
       where: {
@@ -46,7 +50,7 @@ export default async function handler(
         name,
         slug: kebabCase(name),
         billingCustomerId: customerId,
-        planName,
+        planName: planName || "Free",
         planId,
         users: {
           connect: [
@@ -102,6 +106,17 @@ export default async function handler(
         });
       }
     }
+
+    // Adding Entry in Plan Metering
+    await prisma.plan_metering.create({
+      data: {
+        teamId: team.id,
+        teamSlug: team.slug,
+        planId: planId,
+        planName: planName || "Free",
+        memeberCounter: emails.length,
+      },
+    });
 
     res.status(201).json({ success: true, data: team });
   } catch (error: any) {

@@ -148,7 +148,23 @@ async function removeMember(teamSlug: string, teamName: string) {
       },
     },
   });
+
   if (updatedTeam.id) {
+    // get current memeber count
+    const currentMemeberCount: any = await prisma.plan_metering.findFirst({
+      where: { teamId: updatedTeam.id },
+      select: {
+        memeberCounter: true,
+        id: true,
+      },
+    });
+
+    // decrement current memeber count
+    await prisma.plan_metering.update({
+      where: { id: currentMemeberCount.id },
+      data: { memeberCounter: currentMemeberCount.memeberCounter - 1 },
+    });
+
     return await prisma.memberships.deleteMany({
       where: { teamId: updatedTeam.id, userId: teamName },
     });

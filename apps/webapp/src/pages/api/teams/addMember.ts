@@ -15,7 +15,10 @@ export default async function handler(
     const { email: currentUserEmail, fullName } = currentUser;
 
     const emails = emailsToInvite.includes(",")
-      ? emailsToInvite.split(",")
+      ? emailsToInvite
+          .split(",")
+          .map((e: string) => e.trim())
+          .filter((e: string) => e !== "")
       : [emailsToInvite];
     const existingUsers = await prisma.users.findMany({
       where: {
@@ -74,6 +77,18 @@ export default async function handler(
         });
       }
     }
+
+    // Incrementing the memberCounter by no of entered emails
+    await prisma.plan_metering.update({
+      where: {
+        teamId: updatedTeam.id,
+      },
+      data: {
+        memeberCounter: {
+          increment: emails.length,
+        },
+      },
+    });
     res.status(201).json({ success: true, data: updatedTeam });
   } catch (error: any) {
     console.log(error);
