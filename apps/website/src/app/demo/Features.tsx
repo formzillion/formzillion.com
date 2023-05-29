@@ -50,7 +50,7 @@ export default function Features() {
         </p>
       </div>
       <div className=" lg:col-span-3 mt-5">
-        <div className=" gap-5 grid grid-cols-2">
+        <div className=" gap-5 grid grid-cols-1 md:grid-cols-2">
           {features.map((feature, idx) => (
             <Link
               href={feature.docsUrl}
