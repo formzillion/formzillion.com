@@ -23,8 +23,9 @@ export default async function TeamLayout({ children, params }: any) {
     notFound();
   }
 
-  const team = user?.teams?.filter((team: any) => team.slug === finalTeamId);
-  const teamType = get(team, "0.type", "");
+  const team = user?.teams?.find((team: any) => team.slug === finalTeamId);
+
+  const teamType = get(team, "type", "");
   const tabs = [
     { name: "Forms", path: `/`, targetSegment: null },
     {
@@ -36,7 +37,11 @@ export default async function TeamLayout({ children, params }: any) {
 
   return (
     <div className="mx-auto max-w-7xl">
-      <PrimaryNav tabs={tabs} finalTeamId={finalTeamId} formId={formId} />
+      <PrimaryNav
+        tabs={tabs}
+        team={team}
+        formId={formId}
+      />
       {children}
     </div>
   );
