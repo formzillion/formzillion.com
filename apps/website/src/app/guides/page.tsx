@@ -9,7 +9,7 @@ export default function page() {
     <div className="container py-10 max-w-7xl ">
       <div className="my-4 space-y-4 text-center w-full">
         <h1 className="text-2xl sm:text-3xl lg:text-5xl font-normal sm:px-20">
-          FormBackend with Any{" "}
+          Formzillion with Any{" "}
           <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
             Technology Stack
           </span>

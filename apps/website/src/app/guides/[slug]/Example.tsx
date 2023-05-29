@@ -30,7 +30,7 @@ export default function App() {
     Object.entries(query).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    fetch("https://formzillion.com/f/{unique-form-id}", {
+    fetch("https://formzillion.com/f/{form-id}", {
       method: "POST",
       body: formData
     }).then(() => setQuery({ name: "", email: "", message: "" }));
@@ -108,7 +108,7 @@ export default function MyForm () {
     setServerState({ submitting: true });
     axios({
       method: "post",
-      url: "https://getform.io/f/{unique-endpoint-generated-on-step-1}",
+      url: "https://formzillion.com/f/{unique-endpoint-generated-on-step-1}",
       data: new FormData(form)
     })
       .then(res => {
@@ -122,7 +122,7 @@ export default function MyForm () {
     <Layout>
       <div>
           <div className="col-md-8 mt-5">
-              <h3>Getform.io Gatsby Form Example</h3>
+              <h3>Formzillion Gatsby Form Example</h3>
               <form onSubmit={handleOnSubmit}>
                 <input type="email" name="email" placeholder="Your Email">
                 <input type="text" name="name" placeholder="Your Name">
@@ -161,7 +161,7 @@ export default function App() {
     Object.entries(query).forEach(([key, value]) => {
       formData.append(key, value);
     });
-    fetch("https://formzillion.com/f/{unique-form-id}", {
+    fetch("https://formzillion.com/f/{form-id}", {
       method: "POST",
       body: formData
     }).then(() => setQuery({ name: "", email: "", message: "" }));

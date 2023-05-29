@@ -37,11 +37,6 @@ const footerLinks = [
     title: "Guides",
     list: [
       {
-        label: "Wordpress",
-        href: "/guides/wordpress",
-        target: "_self",
-      },
-      {
         label: "Gatsby",
         href: "/guides/gatsby",
         target: "_self",
@@ -54,6 +49,11 @@ const footerLinks = [
       {
         label: "Webflow",
         href: "/guides/webflow",
+        target: "_self",
+      },
+      {
+        label: "Wordpress",
+        href: "/guides/wordpress",
         target: "_self",
       },
     ],
