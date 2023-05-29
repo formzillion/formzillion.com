@@ -46,3 +46,16 @@ yarn-error.log*
 robots.txt
 sitemap-0.xml
 sitemap.xml
+
+#playwright 
+/node_modules
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/.env
