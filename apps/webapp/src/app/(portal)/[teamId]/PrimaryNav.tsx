@@ -5,7 +5,7 @@ import { Tab } from "./[formId]/Tab";
 import { usePathname } from "next/navigation";
 import { get } from "lodash";
 
-export default function PrimaryNav({ tabs, finalTeamId, team, formId }: any) {
+export default function PrimaryNav({ tabs, team, formId }: any) {
   const teamName = get(team, "name", "");
   const teamSlug = get(team, "slug", "");
   const pathName = usePathname();
@@ -26,7 +26,7 @@ export default function PrimaryNav({ tabs, finalTeamId, team, formId }: any) {
                 <Tab
                   name={tab?.name}
                   targetSegment={tab?.targetSegment}
-                  href={`/${finalTeamId}/${tab?.path}`}
+                  href={`/${teamSlug}/${tab?.path}`}
                   key={idx}
                 />
               ))}

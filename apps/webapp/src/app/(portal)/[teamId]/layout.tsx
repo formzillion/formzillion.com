@@ -39,7 +39,6 @@ export default async function TeamLayout({ children, params }: any) {
     <div className="mx-auto max-w-7xl">
       <PrimaryNav
         tabs={tabs}
-        finalTeamId={finalTeamId}
         team={team}
         formId={formId}
       />
