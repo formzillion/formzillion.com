@@ -12,10 +12,10 @@ const routes = [
   "compare/formcarry",
   "compare/formspark",
   "compare/basin",
-  "platforms/wordpress",
-  "platforms/gatsby",
-  "platforms/nextjs",
-  "platforms/webflow",
+  "guides/wordpress",
+  "guides/gatsby",
+  "guides/nextjs",
+  "guides/webflow",
 ];
 
 module.exports = {

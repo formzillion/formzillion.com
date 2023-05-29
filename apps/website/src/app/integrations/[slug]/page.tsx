@@ -54,7 +54,7 @@ export default function page({ params }: { params: { slug: string } }) {
         </Link>
         <Link
           href={pageContent?.docsLink}
-          className="mt-0 flex items-center justify-center rounded border border-gray-400 py-2 px-4 hover:text-orange-600"
+          className="rounded border border-orange-600 py-2 px-4 hover:text-white hover:bg-orange-600 text-orange-600"
         >
           Learn more
         </Link>

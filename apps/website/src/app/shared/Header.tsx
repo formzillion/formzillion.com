@@ -83,7 +83,7 @@ export default function Header() {
           </div>
           <NavLink url={"/pricing"} title={"Pricing"} />
           <NavLink url={"/integrations"} title={"Integrations"} />
-          <NavLink url={"/blog"} title={"Blog"} />
+          <NavLink url={"/guides"} title={"Guides"} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="border-0">
               <div className="py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200 flex items-center">

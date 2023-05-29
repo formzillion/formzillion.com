@@ -34,26 +34,26 @@ const footerLinks = [
     ],
   },
   {
-    title: "Platforms",
+    title: "Guides",
     list: [
       {
-        label: "Wordpress",
-        href: "/platforms/wordpress",
-        target: "_self",
-      },
-      {
         label: "Gatsby",
-        href: "/platforms/gatsby",
+        href: "/guides/gatsby",
         target: "_self",
       },
       {
         label: "Nextjs",
-        href: "/platforms/nextjs",
+        href: "/guides/nextjs",
         target: "_self",
       },
       {
         label: "Webflow",
-        href: "/platforms/webflow",
+        href: "/guides/webflow",
+        target: "_self",
+      },
+      {
+        label: "Wordpress",
+        href: "/guides/wordpress",
         target: "_self",
       },
     ],
