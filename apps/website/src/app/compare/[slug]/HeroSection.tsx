@@ -7,14 +7,14 @@ export default function HeroSection({ slug }: any) {
     <div className="w-full min-h-[400px] bg-gray-400/5 flex justify-center items-center">
       <div className="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto ">
         <div className="mb-5 text-center space-y-5 max-w-4xl mx-auto">
-          <h1 className="text-5xl mb-2 font-normal leading-snug">
+          <h1 className="text-2xl sm:text-3xl lg:text-5xl mb-2 font-normal lg:leading-snug">
             Looking for{" "}
             <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
               open source alternative
             </span>{" "}
             for {startCase(slug)}
           </h1>
-          <p className="text-gray-400">
+          <p className="text-base lg:text-xl text-gray-400">
             {
               "Are you looking for open source solution where you have full control application"
             }
