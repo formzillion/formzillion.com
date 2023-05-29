@@ -8,6 +8,15 @@ interface IConvertKitData extends IEventData {
     additionalData: any;
     accessToken: string;
   };
+  taskData: {
+    slug: string;
+    template: {
+      tagId(arg0: string, tagId: any): unknown;
+      tableId: string;
+      tables: object[];
+    };
+    [key: string]: any;
+  };
   app: {
     slug: string;
     name: string;
@@ -22,26 +31,22 @@ interface IConvertKitData extends IEventData {
 
 interface IAddSubscriberToAForm {
   accessToken: string;
-  formId: string;
+  tag: string;
+  apiSecret: string;
   baseUrl: string;
   data: {
     [key: string]: any;
   };
 }
 
-const addSubscriberToAForm = async ({
-  accessToken,
-  data,
-  formId,
-  baseUrl="https://api.convertkit.com/v3/forms",
-}: IAddSubscriberToAForm) => {
+const addSubscriberToAForm = async ({ apiSecret, data, tag, baseUrl = "https://api.convertkit.com/v3/tags" }: IAddSubscriberToAForm) => {
   const email = data.email;
-  const api_key = accessToken;
+  const api_secret = apiSecret;
   /* TODO: Handle Different types of Fields */
   const subscriperAdded = await httpClient({
-    endPoint: `${baseUrl}/${formId}/subscribe`,
+    endPoint: `${baseUrl}/${tag}/subscribe`,
     method: "POST",
-    body: { email, api_key },
+    body: { email, api_secret },
     headers: {
       "Content-Type": "application/json",
     },
@@ -51,15 +56,16 @@ const addSubscriberToAForm = async ({
 };
 
 const processConvertkit = async (data: IConvertKitData) => {
-  const { actionSlug, eventData, apiKeys, app } = data;
-  const { formId } = apiKeys.additionalData;
+  const { actionSlug, eventData, apiKeys, app,taskData} = data;
+  const  tagIds  = taskData.template;
+  const tag = tagIds?.tagId;
   const { fields: formValues } = eventData.formSubmissionData;
-  const { accessToken } = apiKeys;
+  const { apiSecret } = apiKeys.additionalData;
   const { baseUrl } = app.appConfig;
 
   const actionMap: any = { addSubscriberToAForm };
 
-  const response = await actionMap[actionSlug]({ accessToken, formId, baseUrl, data: formValues });
+  const response = await actionMap[actionSlug]({ apiSecret, tag, baseUrl, data: formValues });
 
   return response;
 };

@@ -20,7 +20,7 @@ import addConnection from "../../../../fetch/connections/addConnection";
 const appConfigFields = {
   webhooks: ["connectionName", "webhooksEndpoint"],
   freshdesk: ["connectionName", "freshdeskSubDomain", "apiKey", "ccEmails"],
-  convertkit: ["connectionName", "apiKey", "formId"],
+  convertkit: ["connectionName", "apiKey","apiSecret"],
 } as { [key: string]: string[] };
 
 export default function AddApiConfigModal({
