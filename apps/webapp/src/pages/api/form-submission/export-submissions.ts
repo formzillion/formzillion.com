@@ -1,3 +1,4 @@
+import checkPlan from "@/utils/checkPlan";
 import { NextApiRequest, NextApiResponse } from "next";
 
 const { WB_WEBHOOK_URL } = process.env;
@@ -8,8 +9,15 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    const { formId, exportDays, userEmail } = req.body;
+    const { formId, exportDays, userEmail, plan } = req.body;
+    
+    const toProceed = checkPlan(plan);
 
+    if (!toProceed) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please upgrade plan" });
+    }
     const response = await fetch(webhookUrl, {
       cache: "no-cache",
       method: "POST",

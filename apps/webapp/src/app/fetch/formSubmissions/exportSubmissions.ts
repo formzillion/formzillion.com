@@ -10,17 +10,19 @@ const exportSubmissions = async ({
   formId,
   exportDays,
   userEmail,
+  plan,
 }: {
   formId: string;
   exportDays: string;
   userEmail: string;
+  plan: string;
 }) => {
   const response = await fetch("/api/form-submission/export-submissions", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ formId, exportDays, userEmail }),
+    body: JSON.stringify({ formId, exportDays, userEmail, plan }),
   });
 
   const submissions = await response.json();
