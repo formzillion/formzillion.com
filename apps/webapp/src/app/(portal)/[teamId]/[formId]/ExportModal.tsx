@@ -21,14 +21,28 @@ import {
 } from "@/ui/Select";
 import exportSubmissions from "@/app/fetch/formSubmissions/exportSubmissions";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import { usePathname } from "next/navigation";
+import { getExportModelData } from "@/utils/getTeamDetails";
+import UpgradePlan from "@/components/UpgradePlan";
 
-export default function ExportModal({ formId, closeModal, userEmail }: any) {
+export default function ExportModal({ formId, closeModal, userData }: any) {
+  const pathName = usePathname();
+  const parsedUserData = JSON.parse(userData);
+
+  let { disabled, url, plan } = getExportModelData(parsedUserData, pathName);
+
+  const { email } = parsedUserData;
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const [exportDays, setExportDays] = useState("");
   const onClickExport = async () => {
     setLoading(true);
-    const res = await exportSubmissions({ formId, exportDays, userEmail });
+    const res = await exportSubmissions({
+      formId,
+      exportDays,
+      userEmail: email,
+      plan,
+    });
     if (res.success) {
       setLoading(false);
       showSuccessToast(
@@ -90,10 +104,14 @@ export default function ExportModal({ formId, closeModal, userEmail }: any) {
                   ready.`}
                 </li>
               </ul>
-              <p className="text-sm mt-4">Select Date Range</p>
+              <div className="flex mt-4">
+                <p className="text-sm">Select Date Range</p>
+                {plan === "free" && <UpgradePlan url={url} />}
+              </div>
               <Select
                 defaultValue={""}
                 onValueChange={(value) => handleOnSelect(value)}
+                disabled={disabled}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select" />
@@ -117,6 +135,7 @@ export default function ExportModal({ formId, closeModal, userEmail }: any) {
             className="bg-orange-600 text-white rounded-none min-w-[80px]"
             onClick={onClickExport}
             type="submit"
+            disabled={disabled}
           >
             Export
           </Button>

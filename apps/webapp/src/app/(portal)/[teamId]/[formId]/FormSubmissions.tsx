@@ -15,7 +15,7 @@ import ExportModal from "./ExportModal";
 export default function FormsOverviewPage({
   formId,
   formSubmissions,
-  userEmail,
+  userData,
 }: any) {
   const [showTestFormModal, setShowTestFormModal] = useState(false);
   const toggleTestFormModal = () => setShowTestFormModal(!showTestFormModal);
@@ -243,7 +243,7 @@ export default function FormsOverviewPage({
               formId={formId}
               isOpen={showExportModal}
               closeModal={toggleExportModal}
-              userEmail={userEmail}
+              userData={userData}
             />
           )}
         </div>

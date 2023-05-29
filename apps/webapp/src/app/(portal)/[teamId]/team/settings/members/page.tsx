@@ -8,16 +8,17 @@ import { getUserDetail } from "@/utils/getUserDetail";
 const MembersPage = async ({ params }: any) => {
   const { teamId: teamSlug } = params;
   const user = await getUserDetail();
-  const currentuser = user.email;
+  const currentUser = user.email;
   const teams = await prisma.memberships.findMany({
     where: { team: { slug: teamSlug } },
     include: { user: true, team: true },
   });
-  const userEmail = JSON.stringify(currentuser);
+  const userEmail = JSON.stringify(currentUser);
   const serializedTeams = JSON.stringify(teams);
+
   return (
     <div className="w-full space-y-4">
-      <AddMember teamSlug={teamSlug} />
+      <AddMember teamSlug={teamSlug} teams={serializedTeams} />
       <MembersList teams={serializedTeams} currentUserEmail={userEmail} />
     </div>
   );

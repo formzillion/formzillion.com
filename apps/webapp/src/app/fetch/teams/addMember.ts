@@ -10,10 +10,12 @@ const addMember = async ({
   emailsToInvite,
   teamSlug,
   role,
+  plan,
 }: {
   emailsToInvite?: string;
   teamSlug?: string;
   role?: string;
+  plan?: string;
 }) => {
   const response = await fetch("/api/teams/addMember", {
     method: "POST",
@@ -24,6 +26,7 @@ const addMember = async ({
       emailsToInvite,
       teamSlug,
       role,
+      plan,
     }),
   });
   const res = await response.json();
