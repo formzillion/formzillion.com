@@ -1,3 +1,9 @@
+---
+title: File Uploads
+description: File Uploads of Formzillion
+tags: file uploads, basic setup, form, submission, automate, backend, open-source, integrations, Formzillion
+---
+
 # File Uploads
 
 ## Uploadcare
@@ -25,14 +31,7 @@ To incorporate the Uploadcare widget into your HTML file, it is recommended to p
 To incorporate an upload feature, create a hidden input element and designate its role as "uploadcare-uploader". Then, include your Uploadcare public key as the value for the "data-public-key" attribute.
 
 ```html copy
-<label for="image">Name</label>
-<input
-  type="hidden"
-  id="image"
-  name="image"
-  role="uploadcare-uploader"
-  data-public-key="your-public-uploadcare-id"
-/>
+<label for="image">Name</label> <input type="hidden" id="image" name="image" role="uploadcare-uploader" data-public-key="your-public-uploadcare-id" />
 ```
 
 ### Example
@@ -42,10 +41,7 @@ To incorporate an upload feature, create a hidden input element and designate it
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Formzillion with Uploadcare</title>
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
@@ -55,13 +51,7 @@ To incorporate an upload feature, create a hidden input element and designate it
       <label for="name">Name</label>
       <input type="text" id="name" name="name" placeholder="Name" required="" />
       <label for="image">Image</label>
-      <input
-        type="hidden"
-        id="image"
-        name="image"
-        role="uploadcare-uploader"
-        data-public-key="ec75cecb2431ad84b8e3"
-      />
+      <input type="hidden" id="image" name="image" role="uploadcare-uploader" data-public-key="ec75cecb2431ad84b8e3" />
 
       <button type="submit">Send</button>
     </form>

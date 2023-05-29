@@ -1,3 +1,9 @@
+---
+title: Axios
+description: Axios is a lightweight HTTP client library used for making HTTP requests in both browser and node.js environments. It is a popular choice for handling HTTP communication and is often utilized in various applications. Axios can also be integrated with Formzillion to facilitate form submissions.
+tags: axios, HTTP client, promise-based, lightweight, browser, node.js, HTTP requests, form, submission, automate, backend, open-source, integrations, Formzillion
+---
+
 # Forms Using Axios
 
 Axios is a popular, lightweight, promise-based HTTP client library that can be used in both the browser and node.js environments for making HTTP requests. It's commonly used for this purpose. Additionally, if you want to submit your forms, you can use Axios with Formzillion.
@@ -15,15 +21,15 @@ Axios is a popular, lightweight, promise-based HTTP client library that can be u
   <body>
     <script>
       axios
-        .post('https://formzillion.com//f/your-form-id', {
-          message: 'Hello, World',
+        .post("https://formzillion.com//f/your-form-id", {
+          message: "Hello, World",
         })
         .then(function (response) {
-          console.log(response)
+          console.log(response);
         })
         .catch(function (response) {
-          console.error(response)
-        })
+          console.error(response);
+        });
     </script>
   </body>
 </html>
@@ -48,29 +54,23 @@ Axios is a popular, lightweight, promise-based HTTP client library that can be u
       <button type="submit">Send</button>
     </form>
     <script>
-      var form = document.getElementById('form')
-      form.addEventListener('submit', formSubmit)
+      var form = document.getElementById("form");
+      form.addEventListener("submit", formSubmit);
 
       function formSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const formData = new FormData()
-        formData.append(
-          'name',
-          document.querySelector('input[name="name"]').value
-        )
-        formData.append(
-          'email',
-          document.querySelector('input[name="email"]').value
-        )
+        const formData = new FormData();
+        formData.append("name", document.querySelector('input[name="name"]').value);
+        formData.append("email", document.querySelector('input[name="email"]').value);
 
         axios({
-          method: 'post',
-          url: 'https://formzillion.com//f/your-form-id',
+          method: "post",
+          url: "https://formzillion.com//f/your-form-id",
           data: formData,
         })
           .then((response) => console.log(response))
-          .catch((error) => console.log(error))
+          .catch((error) => console.log(error));
       }
     </script>
   </body>
