@@ -1,40 +1,33 @@
 import React, { Suspense } from "react";
-import {
-  BuildingOfficeIcon,
-  CreditCardIcon,
-  UserIcon,
-  UsersIcon,
-} from "@heroicons/react/20/solid";
-
 import { Tab } from "./Tab";
-
 import { useGetFormDetail } from "./useGetFormDetail";
 import FzLoader from "@/components/FzLoader";
 
 const tabs = [
-  { name: "Submissions", path: "/", icon: UserIcon, targetSegment: null },
+  { name: "Submissions", path: "/", targetSegment: null },
   {
     name: "Reports",
     path: "reports",
-    icon: UserIcon,
     targetSegment: "reports",
   },
   {
     name: "Setup",
     path: "setup",
-    icon: BuildingOfficeIcon,
     targetSegment: "setup",
+  },
+  {
+    name: "Apps",
+    path: "apps",
+    targetSegment: "apps",
   },
   {
     name: "Workflows",
     path: "workflows",
-    icon: CreditCardIcon,
     targetSegment: "workflows",
   },
   {
     name: "Settings",
     path: "settings",
-    icon: UsersIcon,
     targetSegment: "settings",
   },
 ];
