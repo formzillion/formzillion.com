@@ -16,7 +16,7 @@ export default function page() {
         </h1>
         <p className="text-base lg:text-xl text-center font-light text-gray-300 mx-auto max-w-3xl">
           Explore the following written guides to learn how to effectively
-          employ FormBackend with various frameworks.
+          employ Formzillion with various frameworks.
         </p>
       </div>
 
