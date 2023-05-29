@@ -25,7 +25,7 @@ export default async function TeamLayout({ children, params }: any) {
 
   const team = user?.teams?.find((team: any) => team.slug === finalTeamId);
 
-  const teamType = get(team, "0.type", "");
+  const teamType = get(team, "type", "");
   const tabs = [
     { name: "Forms", path: `/`, targetSegment: null },
     {
