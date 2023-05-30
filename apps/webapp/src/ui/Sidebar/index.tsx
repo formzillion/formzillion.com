@@ -18,8 +18,14 @@ export default function Sidebar() {
   ];
 
   return (
-    <nav className="w-40" aria-label="Sidebar">
-      <ul role="list" className="space-y-1 w-40">
+    <nav
+      className="w-full sm:w-40 overflow-x-scroll sm:overflow-auto"
+      aria-label="Sidebar "
+    >
+      <ul
+        role="list"
+        className="space-x-1 sm:space-x-0 sm:space-y-1 flex sm:block w-full"
+      >
         {navigation.map((item) => (
           <li
             key={item.name}
@@ -31,7 +37,7 @@ export default function Sidebar() {
                 path === item.href
                   ? " dark:text-white text-gray-900 font-medium bg-slate-100 rounded dark:bg-gray-900 dark:hover:bg-gray-900 "
                   : "text-gray-500 hover:text-gray-900 dark:hover:text-white dark:hover:bg-gray-900 hover:rounded-md",
-                "group flex gap-x-3 p-2 pl-3 text-sm leading-6"
+                "group flex gap-x-3 p-2 px-3 text-sm leading-6"
               )}
             >
               {item.name}

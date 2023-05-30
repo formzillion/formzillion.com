@@ -32,7 +32,7 @@ export default function Billing(props: BillingProps) {
               />
               <div>
                 <a href={billingSessionLink} target="_blank" rel="noreferrer">
-                  <Button>
+                  <Button className={"min-w-[150px]"}>
                     Billing Portal &nbsp;
                     <ArrowTopRightOnSquareIcon className="w-4 text-white" />
                   </Button>
