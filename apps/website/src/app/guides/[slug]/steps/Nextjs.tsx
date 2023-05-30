@@ -28,21 +28,23 @@ export default function Nextjs() {
       </p>
       <h4> Step 2 — Create a new NextJS project</h4>
       <p className="para">
-        To initiate the project setup, let's follow the instructions provided in
-        the Next.js{" "}
+        {`To initiate the project setup, let's follow the instructions provided in
+        the Next.j`}
+        s{" "}
         <a
           href="https://nextjs.org/docs/getting-started/installation"
           target="_blank"
           rel="noreferrer"
           className="text-orange-500 hover:text-orange-600"
         >
-          Getting Started<ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />
+          Getting Started
+          <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />
         </a>{" "}
         documentation. Open your terminal and execute the following command to
         create a new site:
       </p>
       <CodeBlock content={"npx create-next-app@latest"} />
-      <p className="para">On installation, you'll see the following prompts:</p>
+      <p className="para">{`On installation, you'll see the following prompts:`}</p>
       <CodeBlock
         content={`1. What is your project named? my-app
 2. Would you like to use TypeScript with this project? No / Yes0
@@ -73,8 +75,8 @@ export default function Nextjs() {
         />
       </div>
       <p className="para">
-        Great job! You have successfully created a new Next.js site. Now, let's
-        proceed to learn how to add a contact form into your project.
+        {`Great job! You have successfully created a new Next.js site. Now, let's
+        proceed to learn how to add a contact form into your project.`}
       </p>
       <h4>Step 4 — Create a Contact Form</h4>
       <CodeBlock
