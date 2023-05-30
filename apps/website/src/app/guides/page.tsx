@@ -1,8 +1,18 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
 
 import { platforms } from "./content";
+
+export const metadata: Metadata = {
+  title: "Guides - Formzillion",
+  description:
+    "Utilize our installation guides to acquire the necessary knowledge on seamlessly integrating our forms into your website or application",
+  alternates: {
+    canonical: "https://formzillion.com/guides",
+  },
+};
 
 export default function page() {
   return (

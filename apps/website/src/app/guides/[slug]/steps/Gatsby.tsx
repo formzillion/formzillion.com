@@ -9,7 +9,7 @@ import thankYou from "public/guides/default-thank-you.png";
 
 export default function Gatsby({ slug }: any) {
   return (
-    <div className="max-w-5xl mx-auto steps">
+    <>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name
@@ -94,6 +94,6 @@ export default function Gatsby({ slug }: any) {
         Congratulations! Your Gatsby site now has the contact form powered by
         Formzillion!
       </p>
-    </div>
+    </>
   );
 }
