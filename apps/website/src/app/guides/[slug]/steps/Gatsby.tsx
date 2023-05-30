@@ -45,7 +45,6 @@ export default function Gatsby() {
           href="https://www.gatsbyjs.com/docs/reference/gatsby-cli/"
           target="_blank"
           rel="noreferrer"
-          className="text-orange-500 hover:text-orange-600"
         >
           Know more <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />
         </a>

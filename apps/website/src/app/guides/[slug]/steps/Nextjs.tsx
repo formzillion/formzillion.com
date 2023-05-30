@@ -35,7 +35,6 @@ export default function Nextjs() {
           href="https://nextjs.org/docs/getting-started/installation"
           target="_blank"
           rel="noreferrer"
-          className="text-orange-500 hover:text-orange-600"
         >
           Getting Started
           <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />

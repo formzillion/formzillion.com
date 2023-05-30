@@ -22,3 +22,11 @@
   margin-bottom: 32px;
   font-weight: 400;
 }
+
+.steps a{
+  color: #f97316;
+}
+
+.steps a:hover{
+  color: #ea580c;
+}
