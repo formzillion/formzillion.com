@@ -13,7 +13,7 @@ export default function Gatsby({ slug }: any) {
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name
-        <b>"Gatsby Contact Form"</b> or a similar identifier. Formzillion will
+        <b>Gatsby Contact Form</b> or a similar identifier. Formzillion will
         assign a unique form ID specifically for identifying your Gatsby form.
       </p>
       <h4> Step 2 — Get your Gatsby form ready for your website</h4>
@@ -79,9 +79,9 @@ export default function Gatsby({ slug }: any) {
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       ></iframe>
       <p className="para">
-        To successfully submit your form to Formzillion, ensure that you include
+        {`To successfully submit your form to Formzillion, ensure that you include
         the 'FORM_ID' in the provided form code. This 'FORM_ID' should
-        correspond to the ID assigned to your specific Formzillion form.
+        correspond to the ID assigned to your specific Formzillion form.`}
       </p>
       <p className="para">
         And there you have it! Once you fill out and submit the form, you will
