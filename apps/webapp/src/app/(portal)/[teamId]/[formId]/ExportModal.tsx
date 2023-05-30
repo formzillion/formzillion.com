@@ -20,7 +20,11 @@ import {
   SelectValue,
 } from "@/ui/Select";
 import exportSubmissions from "@/app/fetch/formSubmissions/exportSubmissions";
-import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
+import {
+  showErrorToast,
+  showSuccessToast,
+  toastMessages,
+} from "@/ui/Toast/Toast";
 import { usePathname } from "next/navigation";
 import { getExportModelData } from "@/utils/getTeamDetails";
 import UpgradePlan from "@/components/UpgradePlan";
@@ -50,7 +54,7 @@ export default function ExportModal({ formId, closeModal, userData }: any) {
       );
     } else {
       setLoading(false);
-      showErrorToast(res.message);
+      showErrorToast(res.message || toastMessages.error);
     }
     router.refresh();
   };
@@ -106,7 +110,7 @@ export default function ExportModal({ formId, closeModal, userData }: any) {
               </ul>
               <div className="flex mt-4">
                 <p className="text-sm">Select Date Range</p>
-                {plan === "free" && <UpgradePlan url={url} />}
+                {plan === ("free" || "basic") && <UpgradePlan url={url} />}
               </div>
               <Select
                 defaultValue={""}

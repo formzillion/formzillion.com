@@ -6,13 +6,17 @@ import Header from "@/ui/Header";
 import Heading from "../Heading";
 import CardFooter from "@/ui/CardFooter";
 import { useRouter } from "next/navigation";
-import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import { getTeamDetails } from "@/utils/getTeamDetails";
+import {
+  showErrorToast,
+  showSuccessToast,
+  toastMessages,
+} from "@/ui/Toast/Toast";
+import { teamDetails } from "@/utils/getTeamDetails";
 import UpgradePlan from "@/components/UpgradePlan";
 
 const AddMember = ({ teamSlug, teams }: any) => {
   const parsedTeams = JSON.parse(teams);
-  const { plan, url, disabled } = getTeamDetails(parsedTeams);
+  const { plan, url, disabled } = teamDetails(parsedTeams);
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("MEMBER");
@@ -35,6 +39,9 @@ const AddMember = ({ teamSlug, teams }: any) => {
         role,
         plan,
       });
+      if (!res.success) {
+        showErrorToast(res.message);
+      }
       if (res.success) {
         setLoading(false);
         setEmail("");
@@ -43,8 +50,12 @@ const AddMember = ({ teamSlug, teams }: any) => {
           "Member added successfully if not formzillion user email invitations are sent."
         );
         router.refresh();
+      } else {
+        setLoading(false);
+        showErrorToast(res.message || toastMessages.error);
       }
     } else {
+      setLoading(false);
       showErrorToast("Please enter a valid email address.");
     }
   };

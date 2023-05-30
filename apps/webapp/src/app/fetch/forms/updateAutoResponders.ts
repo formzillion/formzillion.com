@@ -7,9 +7,11 @@
 const updateAutoResponder = async ({
   formId,
   autoResponderConfig,
+  plan,
 }: {
   formId: string;
   autoResponderConfig: any;
+  plan: string;
 }) => {
   const response = await fetch("/api/form/update-auto-responders", {
     method: "POST",
@@ -18,6 +20,7 @@ const updateAutoResponder = async ({
     body: JSON.stringify({
       formId,
       autoResponderConfig,
+      plan,
     }),
   });
 
