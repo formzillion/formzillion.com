@@ -6,7 +6,7 @@ import { compareDesc } from "date-fns";
 import AppIcon from "@/ui/AppIcon";
 
 export const metadata = {
-  title: "Blog",
+  title: "Blog - Formzillion",
 };
 
 export default async function BlogPage() {

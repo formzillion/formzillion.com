@@ -112,7 +112,7 @@ const TeamsList = ({ teams }: any) => {
                               <div
                                 className={
                                   team.role === "OWNER"
-                                    ? `space-x-2 mr-[2.2rem]`
+                                    ? `space-x-2 sm:mr-[2.2rem]`
                                     : `space-x-2`
                                 }
                               >

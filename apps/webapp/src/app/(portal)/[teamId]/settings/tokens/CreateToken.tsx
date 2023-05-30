@@ -76,16 +76,16 @@ const CreateToken = () => {
               description="Enter a unique name for your token to differentiate it from other tokens.
 Then select the scope for the token."
             />
-            <div className="flex items-center space-x-2">
+            <div className="sm:flex items-center space-y-2 sm:space-y-0 sm:space-x-2">
               <Input
                 type="text"
                 placeholder="New Token"
-                className="border px-3 py-2 w-[35%] dark:bg-black dark:border-gray-800"
+                className="border px-3 py-2 sm:w-[35%] dark:bg-black dark:border-gray-800"
                 value={name}
                 onChange={handleNameChange}
               />
               <select
-                className="appearance-none w-[35%] border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+                className="appearance-none sm:w-[35%] block border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
                 name="scope"
                 id="scope"
                 value={scope}
@@ -97,7 +97,7 @@ Then select the scope for the token."
                 <option value="TEAM">Team 3</option>
               </select>
               <select
-                className="appearance-none w-[30%] border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
+                className="appearance-none sm:w-[30%] block border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
                 name="expiration"
                 id="expiration"
                 value={expiry}
