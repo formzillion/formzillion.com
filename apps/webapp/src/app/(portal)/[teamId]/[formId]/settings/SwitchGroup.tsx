@@ -9,6 +9,7 @@ interface ISwitchGroup {
   checked: boolean;
   onChange: (value: boolean) => void;
   showSwitch?: boolean;
+  plan?: any;
 }
 
 export default function SwitchGroup({
@@ -17,16 +18,18 @@ export default function SwitchGroup({
   checked,
   onChange,
   showSwitch = true,
+  plan,
 }: ISwitchGroup) {
   return (
     <Switch.Group as="li" className="flex items-center justify-between py-4">
       <div className="flex flex-col">
         <Switch.Label
           as="p"
-          className="text-sm font-medium text-gray-900 dark:text-white"
+          className="text-sm font-medium text-gray-900 dark:text-white flex"
           passive
         >
           {label}
+          {plan ? plan : ""}
         </Switch.Label>
         <Switch.Description className="text-sm text-gray-500 dark:text-gray-400">
           {description}

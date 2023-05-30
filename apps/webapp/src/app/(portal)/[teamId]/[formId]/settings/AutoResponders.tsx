@@ -12,10 +12,12 @@ import Header from "@/ui/Header";
 import SwitchGroup from "./SwitchGroup";
 import FzLoader from "@/components/FzLoader";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { getTeamDetails } from "@/utils/getTeamDetails";
+import UpgradePlan from "@/components/UpgradePlan";
 
 const availableTemplates = ["thankYou", "welcome"];
 
-const SelectTemplete = ({
+const SelectTemplate = ({
   selectedTemplate,
   setSelectedTemplate,
 }: {
@@ -50,9 +52,10 @@ export default function AutoResponders({ formDetail }: any) {
   const [selectedTemplate, setSelectedTemplate] = useState(
     autoResponderConfig?.template || ""
   );
-  const [isTempleteEnable, setIsTempleteEnable] = useState(
+  const [isTemplateEnable, setIsTemplateEnable] = useState(
     selectedTemplate !== ""
   );
+  const { plan, url, disabled } = getTeamDetails(formDetail.team);
 
   const [loading, setLoading] = useState(false);
   const router = useRouter();
@@ -62,7 +65,7 @@ export default function AutoResponders({ formDetail }: any) {
 
     let currentConfig = {};
 
-    if (isTempleteEnable) {
+    if (isTemplateEnable) {
       currentConfig = {
         template:
           selectedTemplate !== "" ? selectedTemplate : availableTemplates[0],
@@ -73,6 +76,7 @@ export default function AutoResponders({ formDetail }: any) {
     const response = await updateAutoResponder({
       formId,
       autoResponderConfig: currentConfig,
+      plan,
     });
 
     if (response.success) {
@@ -92,24 +96,27 @@ export default function AutoResponders({ formDetail }: any) {
     const response = await toggleAutoResponders({
       formId,
       isEnable,
+      plan,
     });
 
     if (!response.success) {
       showErrorToast(
         `Error while toggling auto responder due to ${response?.message}`
       );
+    } else {
+      showSuccessToast("Auto responder updated");
     }
-
     router.refresh();
     setLoading(false);
-    showSuccessToast("Auto responder updated");
   };
+
   return (
     <>
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
         <Header title={"Autoresponders"} />
         <SwitchGroup
           label="Autoresponders Enable / Disable"
+          plan={plan === ("free" || "basic") && <UpgradePlan url={url} />}
           description="To set up an autoresponder, you can enable this button."
           checked={autoResponder}
           onChange={(value: boolean) => handleDisableAutoResponder(value)}
@@ -120,18 +127,18 @@ export default function AutoResponders({ formDetail }: any) {
             <SwitchGroup
               label="Use Template"
               description="Predefined templates are available you can use in your autoresponder."
-              checked={isTempleteEnable}
-              onChange={(value: boolean) => setIsTempleteEnable(value)}
+              checked={isTemplateEnable}
+              onChange={(value: boolean) => setIsTemplateEnable(value)}
             />
-            {isTempleteEnable ? (
-              <SelectTemplete
+            {isTemplateEnable ? (
+              <SelectTemplate
                 selectedTemplate={selectedTemplate}
                 setSelectedTemplate={setSelectedTemplate}
               />
             ) : (
               <div className="dark:text-gray-500 text-base">
                 Custom auto responders coming soon! For now please utilize the
-                templetes
+                templates
               </div>
             )}
           </div>

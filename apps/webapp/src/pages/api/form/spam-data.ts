@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
+import checkPlan from "@/utils/checkPlan";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,7 +12,15 @@ export default async function handler(
   }
 
   const reqBody = JSON.parse(req.body);
-  const { spamProvider, spamConfig, formId } = reqBody;
+  const { spamProvider, spamConfig, formId, plan } = reqBody;
+
+  const toProceed = checkPlan(plan);
+
+  if (!toProceed) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Please upgrade plan" });
+  }
 
   const response = await prisma.forms.update({
     where: {
