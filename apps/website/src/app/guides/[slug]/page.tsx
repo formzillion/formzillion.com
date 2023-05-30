@@ -3,33 +3,55 @@ import { startCase } from "lodash";
 import Link from "next/link";
 
 import AppsLogo from "@/app/integrations/[slug]/AppsLogo";
+import Gatsby from "./steps/Gatsby";
+import Wordpress from "./steps/Wordpress";
+import Nextjs from "./steps/Nextjs";
+import Webflow from "./steps/Webflow";
 
-export default function Banner({ slug }: any) {
- 
+export async function generateMetadata({ params }: any) {
+  const { slug } = params;
+  const slugTitle = startCase(slug);
+
+  return {
+    title: `${slugTitle} - Formzillion`,
+    description: `This guide will demonstrate the quick process of adding a contact form to your ${slugTitle} project and connecting it to Formzillion for submission handling`,
+    alternates: {
+      canonical: `https://formzillion.com/guides/${slug}`,
+    },
+  };
+}
+
+export default function Banner({ params }: { params: { slug: string } }) {
   const platformsData = [
     {
       slug: "wordpress",
       image: "/guides/wordpress.png",
       title: "Wordpress",
+      steps: <Wordpress />,
     },
     {
       slug: "gatsby",
       image: "/guides/gatsby.png",
       title: "Gatsby",
+      steps: <Gatsby />,
     },
     {
       slug: "nextjs",
       image: "/guides/next.png",
       title: "Next.js",
+      steps: <Nextjs />,
     },
     {
       slug: "webflow",
       image: "/guides/webflow.svg",
       title: "Webflow",
+      steps: <Webflow />,
     },
   ];
 
-  const pageContent = platformsData.find((content) => content.slug === slug);
+  const pageContent = platformsData.find(
+    (content) => content.slug === params?.slug
+  );
 
   return (
     <>
@@ -79,6 +101,7 @@ export default function Banner({ slug }: any) {
         </div>
       </section>
       <div className="border-b border-gray-800 border-dashed my-10 mx-auto max-w-5xl"></div>
+      <div className="max-w-5xl mx-auto steps">{pageContent?.steps}</div>
     </>
   );
 }
