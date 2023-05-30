@@ -16,3 +16,9 @@
   padding: 6px 14px;
   border-radius: 4px;
 }
+
+.steps h2{
+  font-size: 20px;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
