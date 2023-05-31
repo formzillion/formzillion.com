@@ -6,6 +6,7 @@ import wordpressPage from "public/guides/wordpress-page.png";
 import contactPage from "public/guides/contact-page.png";
 import customHtml from "public/guides/custom-html.png";
 import wpContactForm from "public/guides/wp-contact-form.png";
+import thankYou from "public/guides/default-thank-you.png";
 
 export default function WordPress() {
   return (
@@ -27,7 +28,7 @@ export default function WordPress() {
         assign a unique form ID specifically for identifying your WordPress
         form.
       </p>
-      <h4>Step 2 — Create WordPress page to your Contact Form</h4>
+      <h4>Step 2 — Create WordPress page for your Contact Form</h4>
       <p className="para">
         Once you have completed the setup of your WordPress site, you will see
         below screen:
@@ -39,23 +40,13 @@ export default function WordPress() {
         Follow the simple steps for adding an HTML form code on a WordPress
         page:
       </h4>
-      <ol className="list-decimal list-inside">
+      <ol >
         <li>
           {`Sign in to your WordPress dashboard, navigate to the "Pages" section, and click on "Add New" to create a new page.`}
           <div className="flex justify-center my-6">
             <Image
               src={wordpressPage}
               alt="wordpressPage"
-              className="object-contain"
-            />
-          </div>
-        </li>
-        <li>
-          Pick a pre-defined contact us layout or you can select blank page.
-          <div className="flex justify-center my-6">
-            <Image
-              src={contactPage}
-              alt="contactPage"
               className="object-contain"
             />
           </div>
@@ -81,7 +72,32 @@ export default function WordPress() {
             />
           </div>
         </li>
+      </ol >
+      <h4>
+        Step 3 — Publishing Your Website and Testing the Form
+      </h4>
+      <ol className="list-decimal list-inside space-y-2 my-8">
+        <li>
+          Publish your WordPress website to make the changes live. Ensure that all modifications, including the newly added contact form, are included in the published version.
+        </li>
+        <li>
+          Visit the specific page on your website where the contact form is located.
+        </li>
+        <li>
+          Kindly fill out the form with test data, submit the form to verify its proper functionality.
+        </li>
       </ol>
+      <p className="para">
+        And there you have it! Once you fill out and submit the form, you will
+        be able to view the default submission thank you page.
+      </p>
+      <div className="flex justify-center mt-6">
+        <Image src={thankYou} alt="Thank you" className="object-contain" />
+      </div>
+      <p className="para text-center mt-6">
+        Congratulations! Your Wordpress site now has the contact form powered by
+        Formzillion!
+      </p>
     </>
   );
 }
