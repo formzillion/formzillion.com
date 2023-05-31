@@ -8,10 +8,13 @@ import Header from "@/ui/Header";
 import CardFooter from "@/ui/CardFooter";
 import Heading from "../../settings/Heading";
 import { useRouter } from "next/navigation";
+import { getTeamDetails } from "@/utils/getTeamDetails";
+import UpgradePlan from "@/components/UpgradePlan";
 
 export default function SpamFilter({ formDetail }: any) {
   const router = useRouter();
   const { spamProvider = "none", spamConfig = {} } = formDetail || {};
+  const { plan, url, disabled } = getTeamDetails(formDetail.team);
 
   let secretKey;
   if (spamConfig !== null && spamConfig !== undefined) {
@@ -41,12 +44,16 @@ export default function SpamFilter({ formDetail }: any) {
             spamProvider: selectedSpamFilter,
             spamConfig: spamData,
             formId: formDetail.id,
+            plan,
           }),
         }
       );
 
       const data = await response.json();
       setLoading(false);
+      if (!data.success) {
+        showErrorToast(data.message || "Error while updating spam provider");
+      }
       if (data.success === true) {
         showSuccessToast("Updated spam provider successfully");
         router.refresh();
@@ -76,18 +83,22 @@ export default function SpamFilter({ formDetail }: any) {
       <div className="p-4 px-6 divide-y divide-gray-300 dark:divide-gray-700">
         <Header title={"Spam Filtering"} />
         <div>
-          <Label htmlFor="spamFilter" className="mt-4 ">
-            <Heading
-              title="Spam Provider"
-              description="Filter your submissions for spam using the chosen provider."
-            />
-          </Label>
+          <div className="flex items-end">
+            <Label htmlFor="spamFilter" className="mt-4 ">
+              <Heading
+                title="Spam Provider"
+                description="Filter your submissions for spam using the chosen provider."
+                plan={plan === ("free" || "basic") && <UpgradePlan url={url} />}
+              />
+            </Label>
+          </div>
           <select
             className="mt-2 appearance-none w-full border h-[44px] dark:bg-black dark:border-gray-900 border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:outline-none focus:ring-gray-500 sm:text-sm dark:text-gray-200"
             name="spamFilter"
             id="spamFilter"
             value={selectedSpamFilter}
             onChange={handleSpamFilterChange}
+            disabled={disabled}
           >
             <option value="none">None</option>
             <option value="botpoison">Botpoison</option>
@@ -123,6 +134,7 @@ export default function SpamFilter({ formDetail }: any) {
         btnText={"Save"}
         onClick={handleSubmit}
         loading={loading}
+        disabled={disabled}
       />
     </>
   );

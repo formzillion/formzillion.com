@@ -25,7 +25,7 @@ const featuresData = [
     title: "Safeguard your forms from spam.",
     description:
       "Formzillion employs a combination of machine learning and human review to ensure that your form submissions are free of spam. Just enable the filters you need and we'll take care of the rest.",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}features/spam-filtering`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/spam-filtering`,
   },
   {
     tabName: "User Redirects",
@@ -34,7 +34,7 @@ const featuresData = [
     title: "Impress your users with an amazing after-submission experience.",
     description:
       "Redirect your users to a custom URL after they submit your form. Or use our built-in thank you page to show custom messages to your users.",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}features/redirects`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/redirects`,
   },
   {
     tabName: "Collabration",
@@ -43,7 +43,7 @@ const featuresData = [
     title: "Collaborate with your teams and clients.",
     description:
       "Create teams, share forms and user submissions with your team members and clients. You can also set up custom roles and permissions to control who can access what.",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}features/collaboration`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/collaboration`,
   },
   {
     tabName: "Integrations",
@@ -52,7 +52,7 @@ const featuresData = [
     title: "Keep your clients and team members in sync and stay productive.",
     description:
       "Connect your favorite tools to Formzillion and automate your communication with clients and team members. Autoreply to your users, send notifications to your team members and clients, and much more.",
-    url: `${process.env.NEXT_PUBLIC_DOCS_URL}integrations`,
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations`,
   },
 ];
 export default function FeaturesTab() {

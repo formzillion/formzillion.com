@@ -31,8 +31,11 @@ export default function Sidebar() {
   ];
 
   return (
-    <nav aria-label="Sidebar" className="w-40">
-      <ul role="list" className="space-y-1 w-40">
+    <nav
+      aria-label="Sidebar"
+      className="w-full sm:w-40 overflow-x-scroll sm:overflow-auto"
+    >
+      <ul role="list" className="space-y-1  w-full sm:w-40">
         {navigation.map((item) => (
           <li
             key={item.name}

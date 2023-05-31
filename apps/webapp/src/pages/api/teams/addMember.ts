@@ -4,13 +4,21 @@ import { sendEmail } from "@/lib/sendEmail";
 import { invitationEmail } from "./invitationEmail";
 import getUserSession from "../userSession/getUserSession";
 import { getToken } from "@/utils/tokenService";
+import checkPlan from "@/utils/checkPlan";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   try {
-    const { emailsToInvite, teamSlug, role } = req.body;
+    const { emailsToInvite, teamSlug, role, plan } = req.body;
+    const toProceed = checkPlan(plan);
+
+    if (!toProceed) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please upgrade plan" });
+    }
     const { currentUser } = await getUserSession(req, res);
     const { email: currentUserEmail, fullName } = currentUser;
 

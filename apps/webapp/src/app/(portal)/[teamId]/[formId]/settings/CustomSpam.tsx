@@ -9,6 +9,8 @@ import CardFooter from "@/ui/CardFooter";
 import Heading from "../../settings/Heading";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
+import { getTeamDetails } from "@/utils/getTeamDetails";
+import UpgradePlan from "@/components/UpgradePlan";
 
 export default function CustomSpam({ formDetail }: any) {
   const router = useRouter();
@@ -16,6 +18,7 @@ export default function CustomSpam({ formDetail }: any) {
   const [honeypot, setHoneypot] = useState(customHoneypot);
   const [spamWords, setSpamWords] = useState(customSpamWords || []);
   const [loading, setLoading] = useState(false);
+  const { plan, url, disabled } = getTeamDetails(formDetail.team);
 
   const updateCustomSpam = async (event: any) => {
     event.preventDefault();
@@ -30,6 +33,7 @@ export default function CustomSpam({ formDetail }: any) {
             customHoneypot: honeypot,
             customSpamWords: spamWords,
             formId: formDetail.id,
+            plan,
           }),
         }
       );
@@ -37,6 +41,12 @@ export default function CustomSpam({ formDetail }: any) {
       const data = await response.json();
       setLoading(false);
       router.refresh();
+      if (!data.success) {
+        setLoading(false);
+        showErrorToast(
+          data.message || "Error while updating custom spam filter"
+        );
+      }
       if (data.success === true) {
         showSuccessToast("Updated custom spam filter successfully");
       }
@@ -54,19 +64,22 @@ export default function CustomSpam({ formDetail }: any) {
             htmlFor="customHoneypot"
             className="mt-4 text-sm font-medium text-gray-900 dark:text-white"
           >
-            <b className="text-sm font-medium text-gray-900 dark:text-white">
-              Custom Honeypot
-              <a
-                className="underline hover:text-gray-700 dark:hover:text-gray-300"
-                href={
-                  "https://docs.formzillion.com/setup/spam-protection/honeypot"
-                }
-                target="_blank"
-                rel="noreferrer"
-              >
-                <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
-              </a>
-            </b>
+            <div className="flex">
+              <p className="text-sm font-medium text-gray-900 dark:text-white">
+                Custom Honeypot
+                <a
+                  className="underline hover:text-gray-700 dark:hover:text-gray-300"
+                  href={
+                    "https://docs.formzillion.com/setup/spam-protection/honeypot"
+                  }
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ArrowTopRightOnSquareIcon className="inline h-4 w-4 ml-1" />
+                </a>
+              </p>
+              {plan === ("free" || "basic") && <UpgradePlan url={url} />}
+            </div>
           </Label>
           <Input
             name="customHoneypot"
@@ -75,13 +88,17 @@ export default function CustomSpam({ formDetail }: any) {
             className="mt-1 "
             value={honeypot}
             onChange={(e: any) => setHoneypot(e.target.value)}
+            disabled={disabled}
           />
 
           <Label
             htmlFor="spamWords"
             className="mt-4 text-sm font-medium text-gray-900 dark:text-white"
           >
-            <Heading title="Custom Spam Words (comma-separated)" />
+            <Heading
+              title="Custom Spam Words (comma-separated)"
+              plan={plan === ("free" || "basic") && <UpgradePlan url={url} />}
+            />
           </Label>
           <Input
             name="spamWords"
@@ -91,6 +108,7 @@ export default function CustomSpam({ formDetail }: any) {
             placeholder="risk-free, spam, crypto"
             value={spamWords}
             onChange={(e: any) => setSpamWords(e.target.value)}
+            disabled={disabled}
           />
         </div>
       </div>
@@ -101,6 +119,7 @@ export default function CustomSpam({ formDetail }: any) {
         btnText={"Save"}
         onClick={updateCustomSpam}
         loading={loading}
+        disabled={disabled}
       />
     </>
   );

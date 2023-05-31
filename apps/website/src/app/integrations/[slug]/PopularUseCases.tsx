@@ -18,8 +18,8 @@ export default function PopularUseCases({ slug }: any) {
           use cases
         </span>
       </p>
-      <div className="grid grid-cols-2 space-x-4 mt-2 items-center">
-        <div className="">
+      <div className="md:grid grid-cols-2 space-x-4 mt-8 md:mt-2 items-center">
+        <div className="hidden md:block">
           <Image
             src="/integrations/useCase.svg"
             alt="use-case"
@@ -28,7 +28,7 @@ export default function PopularUseCases({ slug }: any) {
             className="w-full object-contain"
           />
         </div>
-        <div className="space-y-3">
+        <div className="space-y-6 md:space-y-3">
           {pageContent?.points.map((point: any, idx: number) => (
             <div key={idx} className="text-gray-100 p-3 flex items-center bg-gray-400/10 rounded-lg">
               <CheckCircleIcon className="w-6 h-6 text-orange-600 mr-2" />

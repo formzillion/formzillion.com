@@ -3,8 +3,11 @@
 import React from "react";
 import { Tab } from "./[formId]/Tab";
 import { usePathname } from "next/navigation";
+import { get } from "lodash";
 
-export default function PrimaryNav({ tabs, finalTeamId, formId }: any) {
+export default function PrimaryNav({ tabs, team, formId }: any) {
+  const teamName = get(team, "name", "");
+  const teamSlug = get(team, "slug", "");
   const pathName = usePathname();
   const data: any = pathName?.split("/");
   const primary = formId?.includes(data[2]);
@@ -13,19 +16,22 @@ export default function PrimaryNav({ tabs, finalTeamId, formId }: any) {
     <>
       {!primary && (
         <div className="border-b border-gray-200 dark:border-gray-800 ">
-          <nav
-            className="-mb-2 sm:px-6 flex space-x-3  overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"
-            aria-label="Tabs"
-          >
-            {tabs.map((tab: any, idx: number) => (
-              <Tab
-                name={tab?.name}
-                targetSegment={tab?.targetSegment}
-                href={`/${finalTeamId}/${tab?.path}`}
-                key={idx}
-              />
-            ))}
-          </nav>
+          <div className="flex items-center justify-between py-4">
+            <h1 className="text-xl font-normal">{teamName}</h1>
+            <nav
+              className="-mb-2 flex space-x-3 overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"
+              aria-label="Tabs"
+            >
+              {tabs.map((tab: any, idx: number) => (
+                <Tab
+                  name={tab?.name}
+                  targetSegment={tab?.targetSegment}
+                  href={`/${teamSlug}/${tab?.path}`}
+                  key={idx}
+                />
+              ))}
+            </nav>
+          </div>
         </div>
       )}
     </>

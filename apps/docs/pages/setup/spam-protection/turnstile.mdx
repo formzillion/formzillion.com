@@ -1,3 +1,9 @@
+---
+title: Turnstile
+description: Discover Turnstile, a cutting-edge CAPTCHA alternative developed by Cloudflare. Seamlessly integrated with Formzillion, Turnstile offers an intelligent and user-friendly solution to verify human users while protecting websites from malicious bots. Enhance your website's security and user experience with Turnstile's advanced technology, eliminating the need for traditional CAPTCHAs. Stay one step ahead of online threats and ensure a smooth and secure browsing experience for your visitors with Turnstile and Formzillion integration.
+tags: Turnstile, Cloudflare, intelligent CAPTCHA alternative,user authentication, anti-bot measures, form, submission, automate, backend, open-source, integrations, Formzillion
+---
+
 # Turnstile
 
 Turnstile, Cloudflare's intelligent CAPTCHA alternative, is seamlessly integrated with Formzillion.
@@ -26,38 +32,18 @@ If you wish to discontinue using Turnstile, simply disable your Spam Protection 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FormZillion - Turnstile Form Submit Example</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script
-      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-      async
-      defer
-    ></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
   <body>
     <div class="mx-auto flex h-[100vh] max-w-7xl items-center justify-center">
       <div class="w-[400px] border border-gray-100 px-10 py-8 shadow">
         <div class="flex justify-center">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png"
-            alt="email"
-            class="h-20 w-20"
-          />
+          <img src="https://cdn-icons-png.flaticon.com/512/5087/5087579.png" alt="email" class="h-20 w-20" />
         </div>
         <h1 class="text-center text-3xl text-gray-700">Login</h1>
-        <h4 class="text-center text-base text-gray-500">
-          Safely Access Your Online Account or System with Login
-        </h4>
-        <form
-          id="form"
-          class="my-6"
-          action="https://www.formzillion.com/f/your-form-id"
-          method="POST"
-        >
-          <label
-            class="mb-2 block text-sm font-bold text-gray-500"
-            for="username"
-          >
-            User Name
-          </label>
+        <h4 class="text-center text-base text-gray-500">Safely Access Your Online Account or System with Login</h4>
+        <form id="form" class="my-6" action="https://www.formzillion.com/f/your-form-id" method="POST">
+          <label class="mb-2 block text-sm font-bold text-gray-500" for="username"> User Name </label>
           <input
             class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="username"
@@ -66,12 +52,7 @@ If you wish to discontinue using Turnstile, simply disable your Spam Protection 
             required
             name="username"
           />
-          <label
-            class="mb-2 block text-sm font-bold text-gray-500"
-            for="username"
-          >
-            Password
-          </label>
+          <label class="mb-2 block text-sm font-bold text-gray-500" for="username"> Password </label>
           <input
             class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="password"
@@ -82,13 +63,7 @@ If you wish to discontinue using Turnstile, simply disable your Spam Protection 
           />
           <div class="cf-turnstile" data-sitekey="Your site key"></div>
           <div class="w-full">
-            <button
-              id="button"
-              class="mt-4 w-full rounded bg-orange-500 px-4 py-2 font-bold text-white"
-              type="submit"
-            >
-              Login
-            </button>
+            <button id="button" class="mt-4 w-full rounded bg-orange-500 px-4 py-2 font-bold text-white" type="submit">Login</button>
           </div>
         </form>
       </div>

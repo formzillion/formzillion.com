@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import { isEmpty } from "lodash";
+import checkPlan from "@/utils/checkPlan";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,8 +13,12 @@ export default async function handler(
       return;
     }
 
-    const { autoResponderConfig, formId } = req.body;
+    const { autoResponderConfig, formId, plan } = req.body;
+    const toProceed = checkPlan(plan);
 
+    if (!toProceed) {
+      return res.status(400).json({ success: false, message: "Invalid plan" });
+    }
     const response = await prisma.forms.update({
       where: { id: formId },
       data: {

@@ -221,19 +221,19 @@ export default function CompareSection({ slug }: any) {
   ];
 
   return (
-    <div className="bg-black py-8 lg:py-16">
+    <div className="bg-black py-8 lg:py-16 w-full">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl font-normal leading-snug">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-normal leading-snug">
             Why is Formzillion is a better alternative compare to{" "}
             {startCase(slug)}?
           </h1>
         </div>
-        <div className="isolate mt-20 ">
-          <div className="relative -mx-8">
+        <div className="isolate md:mt-20 ">
+          <div className="relative -mx-8 ">
             <div className="absolute inset-y-0 inset-x-4 -z-10 flex">
               <div
-                className="flex w-1/3 px-4"
+                className="md:flex md:w-1/3 px-4 hidden"
                 aria-hidden="true"
                 style={{
                   marginLeft: `${
@@ -245,87 +245,89 @@ export default function CompareSection({ slug }: any) {
                 <div className="w-full rounded-xl border-x border-y border-white/10 bg-gray-400/5" />
               </div>
             </div>
-            <table className="w-full table-fixed border-separate border-spacing-8 text-left">
-              <caption className="sr-only">Pricing plan comparison</caption>
-              <colgroup>
-                <col className="w-1/3" />
-                <col className="w-1/3" />
-                <col className="w-1/3" />
-                {/* <col className="w-1/3" /> */}
-              </colgroup>
-              <thead>
-                <tr>
-                  <td />
-                  {application.map((app: any) => (
-                    <th
-                      key={app.id}
-                      scope="col"
-                      className="px-6 pt-6 xl:px-8 xl:pt-8"
-                    >
-                      <div className="text-lg font-semibold leading-7  w-full justify-center text-white flex space-x-2">
-                        <Image
-                          src={app.imageUrl}
-                          alt={`app.name logo`}
-                          height={30}
-                          width={30}
-                        />{" "}
-                        <div>{app.name}</div>
-                      </div>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {sections.map((section: any, sectionIdx: any) => (
-                  <Fragment key={section.name}>
-                    {section.features.map((feature: any) => (
-                      <tr key={feature.name}>
-                        <th
-                          scope="row"
-                          className=" text-sm font-normal leading-6 text-gray-400 flex justify-center"
-                        >
-                          {feature.name}
-                          <div className="absolute inset-x-8 h-px bg-black/5" />
-                        </th>
-                        {application.map((app: any) => (
-                          <td key={app.id} className="px-6 xl:px-8">
-                            {typeof feature.apps[startCase(app.id)] ===
-                            "string" ? (
-                              <div className="text-center text-sm leading-6 text-white">
-                                {feature.apps[startCase(app.id)]}
-                              </div>
-                            ) : (
-                              <>
-                                {feature.apps[startCase(app.id)] === true ? (
-                                  <>
-                                    <CheckIcon
-                                      className="mx-auto h-5 w-5 text-orange-600"
+            <div className="overflow-x-auto">
+              <table className="w-full md:table-fixed border-separate border-spacing-8 text-left overflow-x-scroll overflow-hidden">
+                <caption className="sr-only">Pricing plan comparison</caption>
+                <colgroup>
+                  <col className="w-1/3" />
+                  <col className="w-1/3" />
+                  <col className="w-1/3" />
+                  {/* <col className="w-1/3" /> */}
+                </colgroup>
+                <thead>
+                  <tr>
+                    <td />
+                    {application.map((app: any) => (
+                      <th
+                        key={app.id}
+                        scope="col"
+                        className="px-6 pt-6 xl:px-8 xl:pt-8"
+                      >
+                        <div className="text-lg font-semibold leading-7  w-full justify-center text-white flex space-x-2">
+                          <Image
+                            src={app.imageUrl}
+                            alt={`app.name logo`}
+                            height={30}
+                            width={30}
+                          />{" "}
+                          <div>{app.name}</div>
+                        </div>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {sections.map((section: any, sectionIdx: any) => (
+                    <Fragment key={section.name}>
+                      {section.features.map((feature: any) => (
+                        <tr key={feature.name}>
+                          <th
+                            scope="row"
+                            className="text-sm text-center font-normal leading-6 text-gray-400 flex justify-center"
+                          >
+                            {feature.name}
+                            <div className="absolute inset-x-8 h-px bg-black/5" />
+                          </th>
+                          {application.map((app: any) => (
+                            <td key={app.id} className="px-6 xl:px-8">
+                              {typeof feature.apps[startCase(app.id)] ===
+                              "string" ? (
+                                <div className="text-center text-sm leading-6 text-white">
+                                  {feature.apps[startCase(app.id)]}
+                                </div>
+                              ) : (
+                                <>
+                                  {feature.apps[startCase(app.id)] === true ? (
+                                    <>
+                                      <CheckIcon
+                                        className="mx-auto h-5 w-5 text-orange-600"
+                                        aria-hidden="true"
+                                      />
+                                    </>
+                                  ) : (
+                                    <MinusIcon
+                                      className="mx-auto h-5 w-5 text-white"
                                       aria-hidden="true"
                                     />
-                                  </>
-                                ) : (
-                                  <MinusIcon
-                                    className="mx-auto h-5 w-5 text-white"
-                                    aria-hidden="true"
-                                  />
-                                )}
+                                  )}
 
-                                <span className="sr-only">
-                                  {feature.apps[startCase(app.id)] === true
-                                    ? "Included"
-                                    : "Not included"}{" "}
-                                  in {app.name}
-                                </span>
-                              </>
-                            )}
-                          </td>
-                        ))}
-                      </tr>
-                    ))}
-                  </Fragment>
-                ))}
-              </tbody>
-            </table>
+                                  <span className="sr-only">
+                                    {feature.apps[startCase(app.id)] === true
+                                      ? "Included"
+                                      : "Not included"}{" "}
+                                    in {app.name}
+                                  </span>
+                                </>
+                              )}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

@@ -34,26 +34,26 @@ const footerLinks = [
     ],
   },
   {
-    title: "Platforms",
+    title: "Guides",
     list: [
       {
-        label: "Wordpress",
-        href: "/platforms/wordpress",
-        target: "_self",
-      },
-      {
         label: "Gatsby",
-        href: "/platforms/gatsby",
+        href: "/guides/gatsby",
         target: "_self",
       },
       {
         label: "Nextjs",
-        href: "/platforms/nextjs",
+        href: "/guides/nextjs",
         target: "_self",
       },
       {
         label: "Webflow",
-        href: "/platforms/webflow",
+        href: "/guides/webflow",
+        target: "_self",
+      },
+      {
+        label: "Wordpress",
+        href: "/guides/wordpress",
         target: "_self",
       },
     ],
@@ -99,32 +99,32 @@ const footerLinks = [
     list: [
       {
         label: "Spam Filtering",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/spam-filtering`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/spam-filtering`,
         target: "_blank",
       },
       {
         label: "Redirects",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/redirects`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/redirects`,
         target: "_blank",
       },
       {
         label: "Collaboration",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/collaboration`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/collaboration`,
         target: "_blank",
       },
       {
         label: "Exports",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/exports`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/exports`,
         target: "_blank",
       },
       {
         label: "Email Notifications",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/email-notifications`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/email-notifications`,
         target: "_blank",
       },
       {
         label: "Autoresponders",
-        href: `${process.env.NEXT_PUBLIC_DOCS_URL}features/autoresponders`,
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/autoresponders`,
         target: "_blank",
       },
     ],
@@ -183,7 +183,7 @@ export default function Footer() {
   return (
     <div className="relative border-t border-gray-800 bg-gray-900/20">
       <div className="mx-auto max-w-7xl px-4 lg:px-2">
-        <div className="grid grid-cols-2 md:grid-cols-5 mt-8 text-white justify-between">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex mt-8 text-white justify-between">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
               {data.href ? (

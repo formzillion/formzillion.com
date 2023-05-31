@@ -1,0 +1,32 @@
+.steps .para {
+  line-height: 25px;
+  margin-bottom: 16px;
+  color: #d1d5db;
+}
+.steps h4 {
+  font-size: 18px !important;
+  margin-bottom: 13px !important;
+  margin-top: 40px !important;
+  font-weight: 500;
+}
+
+.steps .code {
+  width: 100%;
+  background-color: rgb(30, 30, 30);
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+.steps h2{
+  font-size: 20px;
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.steps a{
+  color: #f97316;
+}
+
+.steps a:hover{
+  color: #ea580c;
+}

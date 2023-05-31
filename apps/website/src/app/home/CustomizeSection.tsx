@@ -25,7 +25,7 @@ export default function CustomizeSection() {
             <div>
               <a
                 className="link"
-                href={`${process.env.NEXT_PUBLIC_DOCS_URL}customization/redirection.html`}
+                href={`${process.env.NEXT_PUBLIC_DOCS_URL}/customization/redirection.html`}
                 target="_blank"
                 rel="noreferrer"
               >

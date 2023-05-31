@@ -1,3 +1,9 @@
+---
+title: Local Development
+description: Local Development for Formzillion
+tags: local development, docs, forms, submission, automate, backend, opensource, integrations, formzillion
+---
+
 import { Tab, Tabs } from "nextra-theme-docs";
 
 # Local Development
@@ -141,7 +147,7 @@ These are the supporting packages for running Formzillion.
   <Tab>
     **Worker** is a worker app for Formzillion where all the post form submission actions are handled.
 
-    Create a .env file with the following contents in **apps/worker**:
+    Create a .env file with the following contents in **/worker**:
     ``` shell
       NODE_ENV=development
       REDIS_URI=127.0.0.1
@@ -152,6 +158,16 @@ These are the supporting packages for running Formzillion.
       # Not Mandatory Envs
       AIRTABLE_CLIENT_ID=AIRTABLE_CLIENT_ID
       AIRTABLE_CLIENT_SECRET_ID=AIRTABLE_CLIENT_SECRET_ID
+    ```
+
+    Install the dependencies by running the following command:
+    ``` shell
+    npm install
+    ```
+
+    Run Worker by running the following command:
+    ``` shell
+    npm run start
     ```
 
   </Tab>
