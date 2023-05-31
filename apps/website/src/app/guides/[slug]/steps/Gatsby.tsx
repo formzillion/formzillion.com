@@ -30,7 +30,7 @@ export default function Gatsby() {
         It is a basic contact form with name, email address and message fields:
       </p>
       <CodeBlock
-        content={`<form action="https://formzillion.com/f/{form_id}">
+        content={`<form action="https://app.formzillion.com/f/{form_id}">
   <input type="text" name="name" placeholder="Your Name">
   <input type="email" name="email" placeholder="Your Email">
   <input type="text" name="message" placeholder="Your Message">
