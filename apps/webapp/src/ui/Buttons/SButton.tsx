@@ -2,13 +2,15 @@ import * as React from "react";
 import { VariantProps, cva } from "class-variance-authority";
 
 import { cn } from "@/utils";
+import Loader from "../Loader";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ring-offset-background",
   {
     variants: {
       variant: {
-        default: "bg-transparent dark:text-white text-black hover:bg-transparent hover:text-black",
+        default:
+          "bg-transparent dark:text-white text-black hover:bg-transparent hover:text-black",
         black: "bg-black text-destructive-foreground hover:bg-black/90",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
@@ -38,14 +40,21 @@ export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {}
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+interface CustomButtonProps extends ButtonProps {
+  children: React.ReactNode;
+  isLoading?: boolean;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, CustomButtonProps>(
+  ({ className, variant, size, isLoading, children, ...props }, ref) => {
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        {isLoading ? <Loader /> : children}
+      </button>
     );
   }
 );
