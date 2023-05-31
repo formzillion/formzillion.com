@@ -26,7 +26,8 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
   const router = useRouter();
   const [teamValues, setTeamValues] = useState<any>({
     name: "",
-    emailsToInvite: [],
+    emailsToInvite: "",
+    plan: "free",
   });
   const [loading, setLoading] = useState(false);
   const [isTeamExist, setIsTeamExist] = useState(false);
@@ -159,7 +160,15 @@ const CreateTeamDialog = ({ setShowNewTeamDialog }: any) => {
           </div>
           <div className="space-y-2">
             <label htmlFor="plan">Subscription plan</label>
-            <Select>
+            <Select
+              defaultValue={"free"}
+              onValueChange={(plan) =>
+                setTeamValues({
+                  ...teamValues,
+                  plan,
+                })
+              }
+            >
               <SelectTrigger className="rounded-none">
                 <SelectValue
                   className="text-gray-600"

@@ -58,6 +58,12 @@ export default async function handler(
       },
     });
 
+    // Incrementing the form counter by one for the plan
+    await prisma.plan_metering.update({
+      where: { teamId },
+      data: { formCounter: { increment: 1 } },
+    });
+
     /* Creating a Default Workflow for created Form */
     await prisma.workflows.create({
       data: {

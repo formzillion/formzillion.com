@@ -97,9 +97,9 @@ export default async function handler(
         },
       },
     });
-    res.status(201).json({ success: true, data: updatedTeam });
+    return res.status(201).json({ success: true, data: updatedTeam });
   } catch (error: any) {
     console.log(error);
-    res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message });
   }
 }

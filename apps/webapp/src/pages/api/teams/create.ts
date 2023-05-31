@@ -14,7 +14,7 @@ export default async function handler(
   const { currentUser = {} } = await getUserSession(req, res);
   const { email: currentUserEmail, fullName } = currentUser;
 
-  let { name, emailsToInvite } = JSON.parse(req.body);
+  let { name, emailsToInvite, plan } = JSON.parse(req.body);
   if (isEmpty(emailsToInvite)) {
     emailsToInvite = currentUserEmail;
   }
@@ -50,7 +50,7 @@ export default async function handler(
         name,
         slug: kebabCase(name),
         billingCustomerId: customerId,
-        planName: planName || "Free",
+        planName: planName || "free",
         planId,
         users: {
           connect: [
@@ -118,9 +118,9 @@ export default async function handler(
       },
     });
 
-    res.status(201).json({ success: true, data: team });
+    return res.status(201).json({ success: true, data: team });
   } catch (error: any) {
     console.log(error);
-    res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message });
   }
 }

@@ -23,7 +23,12 @@ export default async function handler(
         where: {
           id: formId,
         },
-        
+      });
+
+      // Decrementing the forms counter for the Plan
+      await prisma.plan_metering.update({
+        where: { teamId: formData.teamId },
+        data: { formCounter: { decrement: 1 } },
       });
       console.log(`Form id ${formId} deleted successfully`);
     } else {
