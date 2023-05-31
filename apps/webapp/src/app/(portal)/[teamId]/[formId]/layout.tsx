@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Tab } from "./Tab";
 import { useGetFormDetail } from "./useGetFormDetail";
 import FzLoader from "@/components/FzLoader";
+import { startCase } from "lodash";
 
 const tabs = [
   { name: "Submissions", path: "/", targetSegment: null },
@@ -57,9 +58,9 @@ export default async function FormDetailLayout({
     <div className="mx-auto max-w-7xl">
       <div className="border-b border-gray-200 dark:border-gray-800">
         <div className="flex justify-between items-center py-4">
-          <h1 className="text-xl font-light">{formDetail.name}</h1>
+          <h1 className="text-xl font-light">{startCase(formDetail.name)}</h1>
           <nav
-            className="-mb-2 flex space-x-3  overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"
+            className="-mb-2 flex space-x-3 max-w-[70%] overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"
             aria-label="Tabs"
           >
             {tabs.map((tab, idx) => (
