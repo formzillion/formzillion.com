@@ -17,15 +17,20 @@ const tabs = [
     targetSegment: "setup",
   },
   {
-    name: "Apps",
-    path: "apps",
-    targetSegment: "apps",
+    name: "Automations",
+    path: "automations",
+    targetSegment: "automations",
   },
-  {
-    name: "Workflows",
-    path: "workflows",
-    targetSegment: "workflows",
-  },
+  // {
+  //   name: "Apps",
+  //   path: "apps",
+  //   targetSegment: "apps",
+  // },
+  // {
+  //   name: "Workflows",
+  //   path: "workflows",
+  //   targetSegment: "workflows",
+  // },
   {
     name: "Settings",
     path: "settings",
