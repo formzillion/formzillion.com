@@ -31,30 +31,29 @@ export default function Sidebar() {
   ];
 
   return (
-    <nav
-      aria-label="Sidebar"
-      className="w-full sm:w-40 overflow-x-scroll sm:overflow-auto"
-    >
-      <ul role="list" className="space-y-1  w-full sm:w-40">
-        {navigation.map((item) => (
-          <li
-            key={item.name}
-            className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900"
-          >
-            <Link
-              href={item.href}
-              className={classNames(
-                path === item.href
-                  ? " dark:text-white text-gray-900 font-medium bg-slate-100 rounded dark:bg-gray-900 dark:hover:bg-gray-900 "
-                  : "text-gray-500 hover:text-gray-900 dark:hover:text-white dark:hover:bg-gray-900 hover:rounded-md",
-                "group flex gap-x-3 p-2 pl-3 text-sm leading-6"
-              )}
+    <div>
+      <nav aria-label="Sidebar" className="w-full sm:w-40 ">
+        <ul role="list" className="space-y-1  w-full sm:w-40">
+          {navigation.map((item) => (
+            <li
+              key={item.name}
+              className="hover:bg-slate-100 hover:text-gray-600 transition-all rounded dark:hover:bg-gray-900"
             >
-              {item.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </nav>
+              <Link
+                href={item.href}
+                className={classNames(
+                  path === item.href
+                    ? " dark:text-white text-gray-900 font-medium bg-slate-100 rounded dark:bg-gray-900 dark:hover:bg-gray-900 "
+                    : "text-gray-500 hover:text-gray-900 dark:hover:text-white dark:hover:bg-gray-900 hover:rounded-md",
+                  "group flex gap-x-3 p-2 pl-3 text-sm leading-6"
+                )}
+              >
+                {item.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
   );
 }
