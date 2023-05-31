@@ -79,7 +79,7 @@ export default function Webflow() {
         <Image src={thankYou} alt="Thank you" className="object-contain" />
       </div>
       <p className="para text-center mt-6">
-        Congratulations! Your Webflow site now has the contact form powered by
+        Congratulations! Your Gatsby site now has the contact form powered by
         Formzillion!
       </p>
     </div>
