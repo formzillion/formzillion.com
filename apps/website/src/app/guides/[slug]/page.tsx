@@ -7,6 +7,7 @@ import Gatsby from "./steps/Gatsby";
 import Wordpress from "./steps/Wordpress";
 import Nextjs from "./steps/Nextjs";
 import Webflow from "./steps/Webflow";
+import "./steps/steps.css";
 
 export async function generateMetadata({ params }: any) {
   const { slug } = params;
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }: any) {
 
   return {
     title: `${slugTitle} - Formzillion`,
-    description: `This guide will demonstrate the quick process of adding a contact form to your ${slugTitle} project and connecting it to Formzillion for submission handling`,
+    description: `This guide will demonstrate the quick process of adding a contact form to your ${slugTitle} project and connecting it to Formzillion for submission handling.`,
     alternates: {
       canonical: `https://formzillion.com/guides/${slug}`,
     },

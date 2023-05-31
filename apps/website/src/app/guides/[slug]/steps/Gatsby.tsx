@@ -7,12 +7,21 @@ import "./steps.css";
 import gatsbySite from "public/guides/gatsby-localhost.png";
 import thankYou from "public/guides/default-thank-you.png";
 
-export default function Gatsby({ slug }: any) {
+export default function Gatsby() {
   return (
     <>
+      <h2>
+        Gatsby is a modern web development framework that enables the creation
+        of fast, optimized, and content-rich websites.
+      </h2>
+      <p className="para">
+        This guide will demonstrate the quick process of adding a contact form
+        to your Gatsby project and connecting it to Formzillion for submission
+        handling.
+      </p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
-        Sign in to your Formzillion account and create a new form with name
+        Sign in to your Formzillion account and create a new form with name{" "}
         <b>Gatsby Contact Form</b> or a similar identifier. Formzillion will
         assign a unique form ID specifically for identifying your Gatsby form.
       </p>
@@ -36,7 +45,6 @@ export default function Gatsby({ slug }: any) {
           href="https://www.gatsbyjs.com/docs/reference/gatsby-cli/"
           target="_blank"
           rel="noreferrer"
-          className="text-gray-300 hover:text-gray-100"
         >
           Know more <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />
         </a>
