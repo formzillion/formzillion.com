@@ -4,6 +4,8 @@ description: The "Custom Spam Words" feature allows users to prevent the submiss
 tags: custom spam words, block submissions, specific words, form, submission, automate, backend, open-source, integrations, Formzillion
 ---
 
+import { Callout } from "nextra/components";
+
 # Custom Spam Words
 
 Custom spam words let you block submissions that contain specific words.
@@ -34,9 +36,18 @@ Example
       <div class="w-[600px] border border-gray-100 px-10 py-8 shadow">
         <div class="flex justify-center"></div>
         <h1 class="text-center text-3xl text-gray-700 font-bold ">Form Zillion</h1>
-        <h4 class="text-center text-base text-gray-500 mt-4">Formzillion.com HTML Form with Google invisible reCaptcha(v3)</h4>
-        <form id="form" class="my-6" action="http://localhost:3000/f/clgqj0fyo0003v56wz5vtkjcp" method="POST">
-          <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress"> Email Address </label>
+        <h4 class="text-center text-base text-gray-500 mt-4">
+          Formzillion.com HTML Form with Google invisible reCaptcha(v3)
+        </h4>
+        <form
+          id="form"
+          class="my-6"
+          action="http://localhost:3000/f/clgqj0fyo0003v56wz5vtkjcp"
+          method="POST"
+        >
+          <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress">
+            Email Address
+          </label>
           <input
             class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="emailaddress"
@@ -45,7 +56,9 @@ Example
             required
             name="emailaddress"
           />
-          <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress"> Full Name </label>
+          <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress">
+            Full Name
+          </label>
           <input
             class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
             id="fullname"
@@ -54,9 +67,21 @@ Example
             required
             name="fullname"
           />
-          <input type="checkbox" name="Paste your custom honeypot here" style="display:none" tabindex="-1" autocomplete="off" />
+          <input
+            type="checkbox"
+            name="Paste your custom honeypot here"
+            style="display:none"
+            tabindex="-1"
+            autocomplete="off"
+          />
           <div class="w-full">
-            <button id="button" class="mt-4 w-full rounded bg-orange-500 px-4 py-2 font-bold text-white" type="submit">Submit</button>
+            <button
+              id="button"
+              class="mt-4 w-full rounded bg-orange-500 px-4 py-2 font-bold text-white"
+              type="submit"
+            >
+              Submit
+            </button>
           </div>
         </form>
       </div>
@@ -64,3 +89,8 @@ Example
   </body>
 </html>
 ```
+
+<Callout type="info" emoji="ℹ️">
+  **Info**: Custom Spam Words is available on [Basic, Standard, Premium and Agency
+  plans.](https://formzillion.com/pricing)
+</Callout>
