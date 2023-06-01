@@ -17,7 +17,7 @@ To avail of Uploadcare's free plan, sign up for a free account at [Upload Care](
 Start by creating a basic form using Formzillion.
 
 ```html copy
-<form action="https://formzillion.com/f/your-form-id">
+<form action="https://app.formzillion.com/f/your-form-id">
   <label for="name">Name</label>
   <input type="text" id="name" name="name" placeholder="Name" required="" />
   <button type="submit">Send</button>
@@ -32,7 +32,7 @@ To incorporate the Uploadcare widget into your HTML file, it is recommended to p
 
 To incorporate an upload feature, create a hidden input element and designate its role as "uploadcare-uploader". Then, include your Uploadcare public key as the value for the "data-public-key" attribute.
 
-```html copy
+```html copy {7}
 <label for="image">Name</label>
 <input
   type="hidden"
@@ -45,8 +45,7 @@ To incorporate an upload feature, create a hidden input element and designate it
 
 ### Example
 
-```html copy
-<!DOCTYPE html>
+```html copy {10,22}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -59,7 +58,7 @@ To incorporate an upload feature, create a hidden input element and designate it
     <script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js"></script>
   </head>
   <body>
-    <form action="https://formzillion.com/f/your-form-id" method="POST">
+    <form action="https://app.formzillion.com/f/your-form-id" method="POST">
       <label for="name">Name</label>
       <input type="text" id="name" name="name" placeholder="Name" required="" />
       <label for="image">Image</label>
@@ -68,9 +67,8 @@ To incorporate an upload feature, create a hidden input element and designate it
         id="image"
         name="image"
         role="uploadcare-uploader"
-        data-public-key="ec75cecb2431ad84b8e3"
+        data-public-key="YOUR_PUBLIC_KEY"
       />
-
       <button type="submit">Send</button>
     </form>
   </body>
