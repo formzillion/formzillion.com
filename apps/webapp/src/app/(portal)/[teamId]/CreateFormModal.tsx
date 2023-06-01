@@ -51,7 +51,10 @@ export default function CreateFormModal({
           showSuccessToast("Form created successfully!");
         } else {
           setLoading(false);
-          showErrorToast("Form creation failed! make sure you are in a team.");
+          showErrorToast(
+            jsonResponse.message ||
+              "Form creation failed! make sure you are in a team."
+          );
         }
       } catch (e) {
         showErrorToast("Error while creating a new form");

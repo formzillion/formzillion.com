@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { showErrorToast } from "@/ui/Toast/Toast";
+import { planFormLimit } from "@/utils/plans.constants";
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,6 +25,8 @@ export default async function handler(
           where: { slug: teamSlug },
           select: {
             id: true,
+            planId: true,
+            planName: true,
           },
         },
       },
@@ -39,6 +42,34 @@ export default async function handler(
     if (teamId === "") {
       showErrorToast("Team not found");
       return res.status(404).end();
+    }
+
+    // Fetch the current form created count
+    let currentFormCount = await prisma.plan_metering.findFirst({
+      where: { teamId },
+      select: { id: true, planName: true, formCounter: true },
+    });
+
+    if (isEmpty(currentFormCount)) {
+      currentFormCount = await prisma.plan_metering.create({
+        data: {
+          teamId,
+          planId: get(user, "teams.0.planId", ""),
+          planName: get(user, "teams.0.planName", "free"),
+          teamSlug: teamSlug,
+          formCounter: 1,
+        },
+      });
+    }
+
+    const limit = planFormLimit[currentFormCount.planName];
+    const isAllowed = currentFormCount.formCounter < limit;
+
+    if (!isAllowed) {
+      return res.status(200).json({
+        success: false,
+        message: `Form creation limit reached! Please upgrade your plan to continue.`,
+      });
     }
 
     const form = await prisma.forms.create({
@@ -58,6 +89,16 @@ export default async function handler(
       },
     });
 
+    // Increment form counter
+    await prisma.plan_metering.update({
+      where: { id: currentFormCount.id },
+      data: {
+        formCounter: {
+          increment: 1,
+        },
+      },
+    });
+
     /* Creating a Default Workflow for created Form */
     await prisma.workflows.create({
       data: {
@@ -69,7 +110,9 @@ export default async function handler(
       },
     });
 
-    res.status(201).json({ success: true, data: form });
+    res
+      .status(201)
+      .json({ success: true, data: form, message: "Form created" });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ success: false, error: error.message });
