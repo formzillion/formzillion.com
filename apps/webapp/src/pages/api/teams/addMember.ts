@@ -38,7 +38,7 @@ export default async function handler(
       });
     }
 
-    const limit = planMemberLimit[plan];
+    const limit = planMemberLimit[plan?.toLowerCase()];
     const isAllowed = currentMemebersCount.memeberCounter < limit;
 
     if (!isAllowed) {
