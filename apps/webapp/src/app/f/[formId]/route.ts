@@ -69,7 +69,8 @@ export async function POST(
   });
 
   const { planName, submissionCounter } = updatedCounter || {};
-  const isAllowed = submissionCounter < planSubmissionLimit[planName];
+  const isAllowed =
+    submissionCounter < planSubmissionLimit[planName.toLowerCase()];
 
   if (isAllowed) {
     const spamProvider = formData?.spamProvider;

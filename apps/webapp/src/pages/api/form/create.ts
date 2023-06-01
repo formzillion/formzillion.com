@@ -62,7 +62,7 @@ export default async function handler(
       });
     }
 
-    const limit = planFormLimit[currentFormCount.planName];
+    const limit = planFormLimit[currentFormCount?.planName?.toString()];
     const isAllowed = currentFormCount.formCounter < limit;
 
     if (!isAllowed) {
