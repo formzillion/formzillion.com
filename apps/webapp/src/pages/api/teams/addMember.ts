@@ -1,10 +1,19 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
 import { sendEmail } from "@/lib/sendEmail";
-import { invitationEmail } from "./invitationEmail";
-import getUserSession from "../userSession/getUserSession";
 import { getToken } from "@/utils/tokenService";
 import checkPlan from "@/utils/checkPlan";
+import getUserSession from "../userSession/getUserSession";
+import { invitationEmail } from "./invitationEmail";
+
+export const planMemberLimit = {
+  free: 0,
+  basic: 4,
+  standard: 9,
+  premium: 19,
+  agency: 49,
+} as { [key: string]: number };
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,15 +28,48 @@ export default async function handler(
         .status(400)
         .json({ success: false, message: "Please upgrade plan" });
     }
+
+    let currentMemebersCount = await prisma.plan_metering.findFirst({
+      where: { teamSlug },
+    });
+
+    if (isEmpty(currentMemebersCount)) {
+      currentMemebersCount = await prisma.plan_metering.create({
+        data: {
+          teamId: teamSlug,
+          planId: plan,
+          planName: plan || "free",
+          teamSlug: teamSlug,
+          memeberCounter: 1,
+        },
+      });
+    }
+
+    const limit = planMemberLimit[plan];
+    const isAllowed = currentMemebersCount.memeberCounter < limit;
+
+    if (!isAllowed) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Please upgrade plan" });
+    }
+
+    const emails = emailsToInvite
+      .split(",")
+      .map((e: string) => e.trim())
+      .filter((e: string) => e !== "");
+
+    // Check for Entered emails exceeds the plan limits
+    if (emails.length > limit) {
+      return res.status(400).json({
+        success: false,
+        message: `Exceeded the limit of ${limit} members! Please upgrade your plan`,
+      });
+    }
+
     const { currentUser } = await getUserSession(req, res);
     const { email: currentUserEmail, fullName } = currentUser;
 
-    const emails = emailsToInvite.includes(",")
-      ? emailsToInvite
-          .split(",")
-          .map((e: string) => e.trim())
-          .filter((e: string) => e !== "")
-      : [emailsToInvite];
     const existingUsers = await prisma.users.findMany({
       where: {
         email: {

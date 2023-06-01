@@ -19,12 +19,10 @@ export default async function handler(
     emailsToInvite = currentUserEmail;
   }
 
-  const emails = emailsToInvite.includes(",")
-    ? emailsToInvite
-        .split(",")
-        .map((e: string) => e.trim())
-        .filter((e: string) => e !== "")
-    : [emailsToInvite];
+  const emails = emailsToInvite
+    .split(",")
+    .map((e: string) => e.trim())
+    .filter((e: string) => e !== "");
 
   try {
     const existingUsers = await prisma.users.findMany({
