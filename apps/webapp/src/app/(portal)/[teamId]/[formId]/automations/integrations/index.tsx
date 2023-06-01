@@ -3,6 +3,7 @@ import IntegrationItem from "./IntegrationItem";
 interface IIntegationsProps {
   integrations: IIntegration[];
   teamSlug: string;
+  formId: string;
 }
 
 export interface IIntegration {
@@ -16,17 +17,18 @@ export interface IIntegration {
   isAvailable: boolean;
 }
 
-export default function Integrations({
-  teamSlug,
-  integrations,
-}: IIntegationsProps) {
+export default function Integrations({ teamSlug, integrations, formId }: IIntegationsProps) {
   return (
     <div>
       <h2>Integrations</h2>
       <section className="my-4">
         {integrations.map((integration) => (
           <div key={integration.slug} className="flex space-x-4 items-center">
-            <IntegrationItem integration={integration} teamSlug={teamSlug} />
+            <IntegrationItem
+              integration={integration}
+              teamSlug={teamSlug}
+              formId={formId}
+            />
           </div>
         ))}
       </section>
