@@ -13,11 +13,7 @@ To safeguard your website from spammers and malicious bots, you can employ honey
 To enable this feature, add a field with the name `_honeypot` to your form and hide it with CSS (see example below). The submission will be silently ignored when a spam bot enters a value.
 
 ```html copy
-<form action="https://submit-form.com/your-form-id">
-  <input type="checkbox" name="_honeypot" style="display:none" tabindex="-1" autocomplete="off" />
-  <input type="email" name="email" />
-  <button type="submit">Subscribe</button>
-</form>
+  <input type="hidden" name="_honeypot" style="display:none" />
 ```
 
 Example
@@ -26,45 +22,18 @@ Example
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FormZillion -honeypot Form Submit Example</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>FormZillion -Honeypot Spam Provider</title>
   </head>
-
   <body>
-    <div class="mx-auto flex h-[100vh] max-w-7xl items-center justify-center">
-      <div class="w-[600px] border border-gray-100 px-10 py-8 shadow">
-        <div class="flex justify-center"></div>
-        <h1 class="text-center text-3xl text-gray-700 font-bold ">Form Zillion</h1>
-        <h4 class="text-center text-base text-gray-500 mt-4">Formzillion.com HTML Form with honeypot</h4>
-        <form id="form" class="my-6" action="https://formzillion.com/f/your-form-id" method="POST">
-          <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress"> Email Address </label>
-          <input
-            class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-            id="emailaddress"
-            type="emailaddress"
-            placeholder="Enter Email Address"
-            required
-            name="emailaddress"
-          />
-          <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress"> Full Name </label>
-          <input
-            class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-            id="fullname"
-            type="fullname"
-            placeholder="Enter your Fullname"
-            required
-            name="fullname"
-          />
-          <input type="text" id="_honeypot" name="_honeypot" style="display: none;" />
-          <div class="w-full">
-            <button id="button" class="mt-4 w-full rounded bg-orange-500 px-4 py-2 font-bold text-white" type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <h4>Form with honeypot</h4>
+    <form id="form" action="https://app.formzillion.com/f/your-form-id" method="POST">
+       <label for="email">Email Address</label>
+      <input id="email" type="email" placeholder="Enter your email" name="email" />
+      <label for="name">Full Name</label>
+      <input id="name" type="text" placeholder="Enter your FullName" name="name" />
+      <input type="text" id="_honeypot" name="_honeypot" style="display: none;" />
+      <button id="button" type="submit">Submit</button>
+    </form>
   </body>
 </html>
 ```

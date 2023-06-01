@@ -29,8 +29,11 @@ export default function WordPress() {
       </p>
       <h4>Step 2 — Create WordPress page for your Contact Form</h4>
       <p className="para">
-        Once you have completed the setup of your WordPress site, you will see
-        below screen:
+        Once you have completed the setup of your{" "}
+        <a href="https://wordpress.com/" target="_blank" rel="noreferrer">
+          WordPress site
+        </a>
+        , you will see below screen:
       </p>
       <div className="flex justify-center my-6">
         <Image src={dashboard} alt="dashboard" className="object-contain" />

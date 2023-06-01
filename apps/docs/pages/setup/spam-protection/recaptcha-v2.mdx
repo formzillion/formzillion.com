@@ -1,6 +1,6 @@
 ---
 title: reCAPTCHA v2
-description: Discover the best solution, Google reCAPTCHA, for preventing web spams. This description highlights the support for both clickable (v2) and invisible (v3) versions, providing effective protection against spam activities on websites.
+description: Discover the best solution, Google reCAPTCHA, for preventing web spams. In reCAPTCHA v2, users are typically asked to select specific images or solve puzzles to prove their human identity. This version is widely used and known for its I'm not a robot checkbox.
 tags: Google reCAPTCHA, web spam prevention, clickable reCAPTCHA, invisible reCAPTCHA, v2, spam protection, online security, form, submission, automate, backend, open-source, integrations, Formzillion
 ---
 
@@ -8,42 +8,53 @@ import { Callout } from "nextra/components";
 
 # reCAPTCHA v2
 
-Google reCAPTCHA is the one of the best solutions to prevent web spams. There are two versions of Google reCAPTCHA and
-we support both clickable (v2) and invisible reCAPTCHA (v3).
+Google reCAPTCHA is a security service provided by Google that helps protect websites and online platforms from automated spam, abuse, and malicious activities. reCAPTCHA offers two versions: **clickable reCAPTCHA (v2)** and **invisible reCAPTCHA (v3)**, both of which we fully support.
 
-Here are the steps to integrate Google reCaptcha v2 to your form endpoint.
+In reCAPTCHA v2, users are typically asked to select specific images or solve puzzles to prove their human identity. This version is widely used and known for its **I'm not a robot** checkbox.
+
+To integrate Google reCAPTCHA v2 into your form endpoint, follow these steps:
 
 ## Setting up reCAPTCHA v2
 
 <br />
-<img src="/setup/spam-protection/re-captcha-on-click.gif" alt="recaptcha" width="300px" />
+<img
+  src="/setup/spam-protection/re-captcha-on-click.gif"
+  alt="reCAPTCHA"
+  width="300px"
+/>
 
 ### Step 1 - Get API Keys
 
-First, you need to grab an **API key** from Google reCAPTCHA console [clicking here](https://www.google.com/recaptcha/about/), you can login with your Google Account.
+To begin, obtain an **API key** from the Google reCAPTCHA console by [clicking here](https://www.google.com/recaptcha/about/). You will need to log in using your Google Account credentials.
 
-After you login to Google reCAPTCHA Console, create a new site. Select reCAPTCHA v2 and add your domains.
-
-<br />
-<p align="center">
-  <img src="/setup/spam-protection/re-captcha-v2-setup.png" alt="recaptcha-v2-setup" width="720px" />
-</p>
-
-Afer adding your website and clicking the "Submit" button, Google will create API Keys for you.
+Once you have logged in to the Google reCAPTCHA Console, proceed by creating a new site. Choose the reCAPTCHA v2 option and proceed to add the domains associated with your website.
 
 <br />
 <p align="center">
-  <img src="/setup/spam-protection/re-captcha-creds.png" alt="recaptcha-creds" width="720px" />
+  <img
+    src="/setup/spam-protection/re-captcha-v2-setup.png"
+    alt="reCAPTCHA-v2-setup"
+    width="720px"
+  />
 </p>
 
 ### Step 2- Add reCAPTCHA Library
 
-There are 2 keys generated for you Site Key and Secret Key. For this step, we will be using the Site Key.
+There are 2 keys generated for you **Site Key** and **Secret Key**.
+
+<br />
+<p align="center">
+  <img
+    src="/setup/spam-protection/re-captcha-creds.png"
+    alt="recaptcha-creds"
+    width="720px"
+  />
+</p>
 
 Add reCAPTCHA library into your `<head/>` tags.
 
 ```js copy
-<script src="https://www.google.com/recaptcha/api.js"> </script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
 ```
 
 ### Step 3 - Add Hidden Element
@@ -54,74 +65,50 @@ Add hidden reCAPTCHA `<input/>` into your form.
 <div class="g-recaptcha" data-sitekey="YOUR reCAPTCHA SITE KEY"></div>
 ```
 
-### Step 4 - Insert Token to our Hidden Element
+### Example
 
-This step is where we use the "Secret Key". In order to add your Secret Key.
+```html copy /YOUR_SITE_KEY/
+<html lang="en">
+  <head>
+    <title>FormZillion -reCAPTCHA v2 Spam Protection</title>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+  </head>
+  <body>
+    <form action="http://app.formzillion.com/f/{form_id}" method="post">
+      <h1 >Formzillion HTML Form Example</h1>
+      <label for="exampleInputEmail1">Email address</label>
+      <input id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" required="" />
+      <label for="exampleInputName">Name</label>
+      <input id="exampleInputName" type="text" name="name" placeholder="Enter your name" required="" />
+      <div class="g-recaptcha" data-sitekey="YOUR_SITE_KEY" data-callback="enableBtn"></div>
+      <button type="submit" id="submit-btn" disabled>Send</button>
+      <script>
+        function enableBtn() {
+          document.getElementById("submit-btn").disabled = false;
+        }
+        document.getElementById("submit-btn").disabled = true;
+      </script>
+    </form>
+  </body>
+</html>
+```
 
-In your form settings, select the Google reCAPTCHA v2 under Spam Protection Paste the Secret Key into the reCAPTCHA v2
-secret key field
+### Step 4 - Setup Spam Protection for your Form
 
-your form is now protected by reCAPTCHA.
+In order to add your **Secret Key** follow the below steps:
+
+1. Login to your [Formzillion App](http://app.formzillion.com/).
+2. Select your particular form to which the spam protection need to be enabled.
+3. Navigate to form's settings, select Spam Filtering in the sidebar. Select the Google reCAPTCHA v2 from the dropdown and add a secret key.
+4. Paste the secret key into the Google reCAPTCHA v2 secret key field.
+
+Your form is now protected by reCAPTCHA.
 
 To stop using reCAPTCHA, change your Spam Protection to none.
 
-### Example
-
-```html copy
-<html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FormZillion - Spam Filter</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://www.google.com/recaptcha/api.js"></script>
-</head>
-<body>
-  <form action="http://localhost:3000/f/clgme12ac000ct4xs5k1oon1p" method="post">
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-      <h1 class="text-3xl text-center font-bold">Formzillion HTML Form Example</h1>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleInputEmail1">Email address</label>
-        <input
-          class=" justify-center align-center shadow appearance-none border rounded w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" required="" />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleInputName">Name</label>
-        <input
-          class="shadow appearance-none border rounded  w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="exampleInputName" type="text" name="name" placeholder="Enter your name" required="" />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleFormControlSelect1">Favourite
-          Platform</label>
-        <div class="relative">
-          <select
-            class="block appearance-none  w-[50%] border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="exampleFormControlSelect1" name="platform" required="">
-            <option>Google reCAPTCHA V3</option>
-            <option>Google reCAPTCHA V3</option>
-            <option>Akismet</option>
-          </select>
-        </div>
-      </div>
-      <div class="g-recaptcha" data-sitekey="6LdfJJglAAAAAFDJWKQqis8f8_6L_XDVsLN_fDAx" data-callback="enableBtn"></div>
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit" id="submit-btn" disabled>Send</button>
-    <script>
-      function enableBtn() {
-        document.getElementById("submit-btn").disabled = false;
-      }
-      document.getElementById("submit-btn").disabled = true;
-    </script>
-  </form>
-</body>
-
-</html>
-```
 <Callout type="info" emoji="ℹ️">
   **Info**: reCAPTCHA-v2 is available on [Standard, Premium and Agency
   plans.](https://formzillion.com/pricing)
 </Callout>
+
+
