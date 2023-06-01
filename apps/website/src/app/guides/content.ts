@@ -19,4 +19,24 @@ export const platforms = [
     image: "/guides/wordpress.png",
     url: "guides/wordpress",
   },
+  {
+    title: "React",
+    image: "/guides/react.svg",
+    url: "guides/react",
+  },
+  {
+    title: "Vuejs",
+    image: "/guides/vuejs.svg",
+    url: "guides/vuejs",
+  },
+  {
+    title: "Shopify",
+    image: "/guides/shopify.svg",
+    url: "guides/shopify",
+  },
+  {
+    title: "Ghost",
+    image: "/guides/ghost-l.png",
+    url: "guides/ghost",
+  },
 ];
