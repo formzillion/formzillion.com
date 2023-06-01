@@ -2,9 +2,17 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
-
+import { planSubmissionLimit } from "@/utils/plans.constants";
 import { validateSpam } from "./spam";
 import fzProducer from "./fzProducer";
+
+type FormDataType = {
+  spamProvider: string;
+  spamConfig: {};
+  redirectUrl: string;
+  teamId: string;
+  team: any;
+};
 
 export async function POST(
   req: Request,
@@ -24,66 +32,109 @@ export async function POST(
     where: {
       id: formId,
     },
-  })) || { redirectUrl: "", spamProvider: "", spamConfig: {} };
+    include: {
+      team: {
+        select: {
+          id: true,
+          slug: true,
+          planId: true,
+          planName: true,
+        },
+      },
+    },
+  })) as FormDataType;
 
-  const spamProvider = formData?.spamProvider;
-  const spamConfig = formData?.spamConfig;
-  let isSpam = false;
-
-  if (!isEmpty(spamProvider)) {
-    isSpam = await validateSpam(formFields, spamConfig, spamProvider);
-  }
-
-  const formSubmission = await prisma.form_submissions.create({
-    data: { fields: formFields, formId, isSpam: isSpam },
+  const updatedCounter: any = await prisma.plan_metering.upsert({
+    where: {
+      teamId: formData.teamId,
+    },
+    update: {
+      submissionCounter: {
+        increment: 1,
+      },
+    },
+    create: {
+      teamId: formData?.teamId,
+      planId: formData?.team?.planId,
+      planName: formData?.team?.planName || "free",
+      teamSlug: formData?.team?.slug,
+      submissionCounter: 1,
+      formCounter: 1,
+      memeberCounter: 1,
+    },
+    select: {
+      planName: true,
+      submissionCounter: true,
+    },
   });
 
-  if (isSpam) {
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?status=failed&referer=${referer}`
-    );
-  }
+  const { planName, submissionCounter } = updatedCounter || {};
+  const isAllowed = submissionCounter < planSubmissionLimit[planName];
 
-  // Send form data to webhooks if not local environment
-  try {
-    const queueData = {
-      eventName: "formSubmission",
-      eventData: {
-        formId,
-        formSubmissionData: formSubmission,
-        formData,
-      },
-    };
-    if (["development", "production"].includes(process.env.NODE_ENV)) {
-      fetch(`${process.env.WB_WEBHOOK_URL}/formzillion/events`, {
-        cache: "no-cache",
-        method: "POST",
-        body: JSON.stringify(queueData),
-      });
-    } else {
-      await fzProducer(queueData);
+  if (isAllowed) {
+    const spamProvider = formData?.spamProvider;
+    const spamConfig = formData?.spamConfig;
+    let isSpam = false;
+
+    if (!isEmpty(spamProvider)) {
+      isSpam = await validateSpam(formFields, spamConfig, spamProvider);
     }
-  } catch (e: any) {
-    console.log(
-      "Error occured for pushing the form submission data to fz_action Queue",
-      e.message
-    );
-  }
 
-  try {
-    if (isEmpty(formData?.redirectUrl)) {
+    const formSubmission = await prisma.form_submissions.create({
+      data: { fields: formFields, formId, isSpam: isSpam },
+    });
+
+    if (isSpam) {
       return NextResponse.redirect(
-        `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?formSubmission=${formSubmission.id}&status=OK&referer=${referer}&formId=${formId}`
-      );
-    } else {
-      return NextResponse.redirect(
-        `${formData?.redirectUrl}?formSubmission=${formSubmission.id}&status=OK&referer=${referer}`
+        `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?status=failed&referer=${referer}`
       );
     }
-  } catch (e) {
-    console.log(e);
+
+    // Send form data to webhooks if not local environment
+    try {
+      const queueData = {
+        eventName: "formSubmission",
+        eventData: {
+          formId,
+          formSubmissionData: formSubmission,
+          formData,
+        },
+      };
+      if (["development", "production"].includes(process.env.NODE_ENV)) {
+        fetch(`${process.env.WB_WEBHOOK_URL}/formzillion/events`, {
+          cache: "no-cache",
+          method: "POST",
+          body: JSON.stringify(queueData),
+        });
+      } else {
+        await fzProducer(queueData);
+      }
+    } catch (e: any) {
+      console.log(
+        "Error occured for pushing the form submission data to fz_action Queue",
+        e.message
+      );
+    }
+
+    try {
+      if (isEmpty(formData?.redirectUrl)) {
+        return NextResponse.redirect(
+          `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?formSubmission=${formSubmission.id}&status=OK&referer=${referer}&formId=${formId}`
+        );
+      } else {
+        return NextResponse.redirect(
+          `${formData?.redirectUrl}?formSubmission=${formSubmission.id}&status=OK&referer=${referer}`
+        );
+      }
+    } catch (e) {
+      console.log(e);
+      return NextResponse.redirect(
+        `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?formId=${formSubmission.id}&status=failed&referer=${referer}`
+      );
+    }
+  } else {
     return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?formId=${formSubmission.id}&status=failed&referer=${referer}`
+      `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?formId=${formId}&status=failed&referer=${referer}`
     );
   }
 }
