@@ -3,14 +3,7 @@ import { get, isEmpty } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { showErrorToast } from "@/ui/Toast/Toast";
-
-const planFormLimit = {
-  free: 1,
-  basic: 5,
-  standard: Infinity,
-  premium: Infinity,
-  agency: Infinity,
-} as { [key: string]: number };
+import { planFormLimit } from "@/utils/plans.constants";
 
 export default async function handler(
   req: NextApiRequest,

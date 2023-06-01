@@ -6,14 +6,7 @@ import { getToken } from "@/utils/tokenService";
 import checkPlan from "@/utils/checkPlan";
 import getUserSession from "../userSession/getUserSession";
 import { invitationEmail } from "./invitationEmail";
-
-export const planMemberLimit = {
-  free: 0,
-  basic: 4,
-  standard: 9,
-  premium: 19,
-  agency: 49,
-} as { [key: string]: number };
+import { planMemberLimit } from "@/utils/plans.constants";
 
 export default async function handler(
   req: NextApiRequest,

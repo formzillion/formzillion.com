@@ -2,7 +2,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
-
+import { planSubmissionLimit } from "@/utils/plans.constants";
 import { validateSpam } from "./spam";
 import fzProducer from "./fzProducer";
 
@@ -13,14 +13,6 @@ type FormDataType = {
   teamId: string;
   team: any;
 };
-
-const planSubmissionLimit = {
-  free: 50,
-  basic: 250,
-  standard: 1000,
-  premium: 6000,
-  agency: 30000,
-} as { [key: string]: number };
 
 export async function POST(
   req: Request,
@@ -115,7 +107,7 @@ export async function POST(
           body: JSON.stringify(queueData),
         });
       } else {
-        // await fzProducer(queueData);
+        await fzProducer(queueData);
       }
     } catch (e: any) {
       console.log(
