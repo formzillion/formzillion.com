@@ -1,8 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { showErrorToast } from "@/ui/Toast/Toast";
+
+const planFormLimit = {
+  free: 1,
+  basic: 5,
+  standard: Infinity,
+  premium: Infinity,
+  agency: Infinity,
+} as { [key: string]: number };
 
 export default async function handler(
   req: NextApiRequest,
@@ -43,6 +51,34 @@ export default async function handler(
       return res.status(404).end();
     }
 
+    // Fetch the current form created count
+    let currentFormCount = await prisma.plan_metering.findFirst({
+      where: { teamId },
+      select: { id: true, planName: true, formCounter: true },
+    });
+
+    if (isEmpty(currentFormCount)) {
+      currentFormCount = await prisma.plan_metering.create({
+        data: {
+          teamId,
+          planId: get(user, "teams.0.planId", ""),
+          planName: get(user, "teams.0.planName", "free"),
+          teamSlug: teamSlug,
+          formCounter: 1,
+        },
+      });
+    }
+
+    const limit = planFormLimit[currentFormCount.planName];
+    const isAllowed = currentFormCount.formCounter < limit;
+
+    if (!isAllowed) {
+      return res.status(200).json({
+        success: false,
+        message: `Form creation limit reached! Please upgrade your plan to continue.`,
+      });
+    }
+
     const form = await prisma.forms.create({
       data: {
         name,
@@ -60,16 +96,13 @@ export default async function handler(
       },
     });
 
-    // we'll upsert (update or insert) a plan metering record with formCounter updating or setting by 1
-    const planUpsert = await prisma.plan_metering.upsert({
-      where: { teamId },
-      update: { formCounter: { increment: 1 } },
-      create: {
-        planId: get(user, "teams.0.planId", ""),
-        planName: get(user, "teams.0.planName", "free"),
-        teamSlug,
-        teamId,
-        formCounter: 1,
+    // Increment form counter
+    await prisma.plan_metering.update({
+      where: { id: currentFormCount.id },
+      data: {
+        formCounter: {
+          increment: 1,
+        },
       },
     });
 
@@ -84,7 +117,9 @@ export default async function handler(
       },
     });
 
-    res.status(201).json({ success: true, data: form });
+    res
+      .status(201)
+      .json({ success: true, data: form, message: "Form created" });
   } catch (error: any) {
     console.log(error.message);
     return res.status(500).json({ success: false, error: error.message });
