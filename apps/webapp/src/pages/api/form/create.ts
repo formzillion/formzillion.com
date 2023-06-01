@@ -24,6 +24,8 @@ export default async function handler(
           where: { slug: teamSlug },
           select: {
             id: true,
+            planId: true,
+            planName: true,
           },
         },
       },
@@ -58,10 +60,17 @@ export default async function handler(
       },
     });
 
-    // Incrementing the form counter by one for the plan
-    await prisma.plan_metering.update({
+    // we'll upsert (update or insert) a plan metering record with formCounter updating or setting by 1
+    const planUpsert = await prisma.plan_metering.upsert({
       where: { teamId },
-      data: { formCounter: { increment: 1 } },
+      update: { formCounter: { increment: 1 } },
+      create: {
+        planId: get(user, "teams.0.planId", ""),
+        planName: get(user, "teams.0.planName", "free"),
+        teamSlug,
+        teamId,
+        formCounter: 1,
+      },
     });
 
     /* Creating a Default Workflow for created Form */

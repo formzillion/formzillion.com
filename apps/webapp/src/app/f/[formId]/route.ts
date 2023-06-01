@@ -11,6 +11,7 @@ type FormDataType = {
   spamConfig: {};
   redirectUrl: string;
   teamId: string;
+  team: any;
 };
 
 const planSubmissionLimit = {
@@ -39,20 +40,43 @@ export async function POST(
     where: {
       id: formId,
     },
+    include: {
+      team: {
+        select: {
+          id: true,
+          slug: true,
+          planId: true,
+          planName: true,
+        },
+      },
+    },
   })) as FormDataType;
 
-  const currentPlanInfo: any = await prisma.plan_metering.findFirst({
+  const updatedCounter: any = await prisma.plan_metering.upsert({
     where: {
       teamId: formData.teamId,
     },
+    update: {
+      submissionCounter: {
+        increment: 1,
+      },
+    },
+    create: {
+      teamId: formData?.teamId,
+      planId: formData?.team?.planId,
+      planName: formData?.team?.planName || "free",
+      teamSlug: formData?.team?.slug,
+      submissionCounter: 1,
+      formCounter: 1,
+      memeberCounter: 1,
+    },
     select: {
-      planId: true,
       planName: true,
       submissionCounter: true,
     },
   });
 
-  const { planName, submissionCounter } = currentPlanInfo || {};
+  const { planName, submissionCounter } = updatedCounter || {};
   const isAllowed = submissionCounter < planSubmissionLimit[planName];
 
   if (isAllowed) {
@@ -66,12 +90,6 @@ export async function POST(
 
     const formSubmission = await prisma.form_submissions.create({
       data: { fields: formFields, formId, isSpam: isSpam },
-    });
-
-    // Incrementing the submission counter in plan metering
-    await prisma.plan_metering.update({
-      where: { teamId: formData.teamId },
-      data: { submissionCounter: { increment: 1 } },
     });
 
     if (isSpam) {
@@ -97,7 +115,7 @@ export async function POST(
           body: JSON.stringify(queueData),
         });
       } else {
-        await fzProducer(queueData);
+        // await fzProducer(queueData);
       }
     } catch (e: any) {
       console.log(

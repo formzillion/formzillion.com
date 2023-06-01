@@ -113,7 +113,7 @@ export default async function handler(
         teamId: team.id,
         teamSlug: team.slug,
         planId: planId,
-        planName: planName || "Free",
+        planName: planName || "free",
         memeberCounter: emails.length,
       },
     });

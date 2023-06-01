@@ -41,7 +41,7 @@ export default async function handler(
       (email: any) => !existingEmails.includes(email)
     );
 
-    const updatedTeam = await prisma.teams.update({
+    const updatedTeam: any = await prisma.teams.update({
       where: { slug: teamSlug },
       data: {
         users: {
@@ -86,15 +86,22 @@ export default async function handler(
       }
     }
 
-    // Incrementing the memberCounter by no of entered emails
-    await prisma.plan_metering.update({
+    // Inserting or Updating the Plan Metering for membersCounter
+    await prisma.plan_metering.upsert({
       where: {
         teamId: updatedTeam.id,
       },
-      data: {
+      update: {
         memeberCounter: {
           increment: emails.length,
         },
+      },
+      create: {
+        teamSlug: updatedTeam.slug,
+        planId: updatedTeam.planId,
+        planName: updatedTeam.planName || "free",
+        teamId: updatedTeam.id,
+        memeberCounter: emails.length,
       },
     });
     return res.status(201).json({ success: true, data: updatedTeam });
