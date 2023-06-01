@@ -16,7 +16,10 @@ export default function Sidebar() {
 
   return (
     <div>
-      <nav className="w-full sm:w-40 overflow-x-scroll " aria-label="Sidebar ">
+      <nav
+        className="w-full sm:w-40 overflow-x-scroll sm:overflow-x-hidden"
+        aria-label="Sidebar "
+      >
         <ul
           role="list"
           className="space-x-1 sm:space-x-0 sm:space-y-1 flex sm:block w-full"
