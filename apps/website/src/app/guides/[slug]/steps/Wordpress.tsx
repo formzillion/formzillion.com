@@ -1,4 +1,3 @@
-import React from "react";
 import Image from "next/image";
 
 import dashboard from "public/guides/wordpress-dashboard.png";
