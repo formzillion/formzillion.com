@@ -77,9 +77,9 @@ export default function Nextjs() {
         {`Great job! You have successfully created a new Next.js site. Now, let's
         proceed to learn how to add a contact form into your project.`}
       </p>
-      <h4>Step 4 — Create a Contact Form</h4>
+      <h4>Step 3 — Create a Contact Form</h4>
       <CodeBlock
-        content={`<form action="https://formzillion.com/f/{form_id}">
+        content={`<form action="https://app.formzillion.com/f/{form_id}">
   <input type="text" name="name" placeholder="Your Name">
   <input type="email" name="email" placeholder="Your Email">
   <input type="text" name="message" placeholder="Your Message">
