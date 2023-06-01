@@ -28,6 +28,7 @@ export default function AddApiConfigModal({
   teamSlug,
   appName,
   appSlug,
+  formId,
 }: any) {
   const configFields: any = {};
   const currentConfig = appConfigFields[appSlug] || [
@@ -50,6 +51,7 @@ export default function AddApiConfigModal({
         connectionConfig,
         appSlug,
         teamSlug,
+        formId,
       });
 
       if (response.success) {
