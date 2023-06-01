@@ -7,9 +7,9 @@ import { startCase } from "lodash";
 const tabs = [
   { name: "Submissions", path: "/", targetSegment: null },
   {
-    name: "Reports",
-    path: "reports",
-    targetSegment: "reports",
+    name: "Analytics",
+    path: "analytics",
+    targetSegment: "analytics",
   },
   {
     name: "Setup",
@@ -21,16 +21,6 @@ const tabs = [
     path: "automations",
     targetSegment: "automations",
   },
-  // {
-  //   name: "Apps",
-  //   path: "apps",
-  //   targetSegment: "apps",
-  // },
-  // {
-  //   name: "Workflows",
-  //   path: "workflows",
-  //   targetSegment: "workflows",
-  // },
   {
     name: "Settings",
     path: "settings",
@@ -58,7 +48,9 @@ export default async function FormDetailLayout({
     <div className="mx-auto max-w-7xl">
       <div className="border-b border-gray-200 dark:border-gray-800">
         <div className="flex justify-between items-center py-4">
-          <h1 className="text-xl font-light">{startCase(formDetail.name)}</h1>
+          <h1 className="text-xl font-light flex items-center">
+            {startCase(formDetail.name)}&nbsp;<span className="bg-orange-200 text-xs px-3 py-[2px] rounded-full ">Form</span>
+          </h1>
           <nav
             className="-mb-2 flex space-x-3 max-w-[70%] overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"
             aria-label="Tabs"
