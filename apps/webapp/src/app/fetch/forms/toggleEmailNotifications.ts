@@ -7,9 +7,11 @@
 const toggleEmailNotifications = async ({
   formId,
   isEnable,
+  plan,
 }: {
   formId: string;
   isEnable: boolean;
+  plan: string;
 }) => {
   const response = await fetch("/api/form/toggle-email-notifications", {
     method: "POST",
@@ -18,6 +20,7 @@ const toggleEmailNotifications = async ({
     body: JSON.stringify({
       formId,
       isEnable,
+      plan,
     }),
   });
 
