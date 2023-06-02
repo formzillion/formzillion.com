@@ -30,3 +30,10 @@
 .steps a:hover{
   color: #ea580c;
 }
+
+.bg-highlight{
+  background-color: #fd931852;
+  color:#ea580c;
+  border-radius: 4px;
+  padding: 0px 4px 3px 4px;
+}
