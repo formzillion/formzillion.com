@@ -25,7 +25,7 @@ export default function Svelte() {
         to your Svelte project and connecting it to Formzillion for submission
         handling.
       </p>
-      <p className="heading">How to create a Next.js Contact Form</p>
+      <p className="heading">How to create a Svelte Contact Form</p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name{" "}

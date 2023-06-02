@@ -2,20 +2,8 @@ import { startCase } from "lodash";
 import Link from "next/link";
 
 import AppsLogo from "@/app/integrations/[slug]/AppsLogo";
-import Gatsby from "./steps/Gatsby";
-import Wordpress from "./steps/Wordpress";
-import Nextjs from "./steps/Nextjs";
-import Webflow from "./steps/Webflow";
 import "./steps/steps.css";
-import Vuejs from "./steps/Vuejs";
-import React from "./steps/React";
-import Ghost from "./steps/Ghost";
-import Shopfiy from "./steps/Shopfiy";
-import Nuxtjs from "./steps/Nuxtjs";
-import Svelte from "./steps/Svelte";
-import Eleventy from "./steps/Eleventy";
-import Gridsome from "./steps/Gridsome";
-
+import { platformsData } from "./platformsData";
 
 export async function generateMetadata({ params }: any) {
   const { slug } = params;
@@ -31,81 +19,6 @@ export async function generateMetadata({ params }: any) {
 }
 
 export default function Banner({ params }: { params: { slug: string } }) {
-  const platformsData = [
-    {
-      slug: "wordpress",
-      image: "/guides/wordpress.png",
-      title: "Wordpress",
-      steps: <Wordpress />,
-    },
-    {
-      slug: "gatsby",
-      image: "/guides/gatsby.png",
-      title: "Gatsby",
-      steps: <Gatsby />,
-    },
-    {
-      slug: "nextjs",
-      image: "/guides/next.png",
-      title: "Next.js",
-      steps: <Nextjs />,
-    },
-    {
-      slug: "webflow",
-      image: "/guides/webflow.svg",
-      title: "Webflow",
-      steps: <Webflow />,
-    },
-    {
-      slug: "react",
-      image: "/guides/react.svg",
-      title: "React",
-      steps: <React />,
-    },
-    {
-      slug: "vuejs",
-      image: "/guides/vuejs.svg",
-      title: "Vue.js",
-      steps: <Vuejs />,
-    },
-    {
-      slug: "ghost",
-      image: "/guides/ghost.png",
-      title: "Ghost",
-      steps: <Ghost />,
-    },
-    {
-      slug: "shopify",
-      image: "/guides/shopify.svg",
-      title: "Shopify",
-      steps: <Shopfiy />,
-    },
-    {
-      slug: "svelte",
-      image: "/guides/svelte.svg",
-      title: "Svelte",
-      steps: <Svelte />,
-    },
-    {
-      slug: "nuxtjs",
-      image: "/guides/nuxtjs.svg",
-      title: "Nuxtjs.js",
-      steps: <Nuxtjs />,
-    },
-    {
-      slug: "eleventy",
-      image: "/guides/11ty.svg",
-      title: "11ty",
-      steps: <Eleventy/>,
-    },
-    {
-      slug: "gridsome",
-      image: "/guides/gridsome.svg",
-      title: "Gridsome",
-      steps: <Gridsome />,
-    }
-  ];
-
   const pageContent = platformsData.find(
     (content) => content.slug === params?.slug
   );
@@ -158,7 +71,7 @@ export default function Banner({ params }: { params: { slug: string } }) {
         </div>
       </section>
       <div className="border-b border-gray-800 border-dashed my-10 mx-auto max-w-5xl"></div>
-      <div className="max-w-5xl mx-auto steps">{pageContent?.steps}</div>
+      <div className="max-w-5xl mx-auto steps my-10">{pageContent?.steps}</div>
     </>
   );
 }
