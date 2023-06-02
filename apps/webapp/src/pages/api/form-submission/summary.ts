@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getUserDetails } from "@/lib/getUserDetails";
+import { get } from "lodash";
 
 export default async function handler(
   req: NextApiRequest,
@@ -69,6 +70,7 @@ export default async function handler(
       },
     });
   }
+  summaryData = get(summaryData, "0", []);
 
   return res.status(201).json({ success: true, data: summaryData });
 }

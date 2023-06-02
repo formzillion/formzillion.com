@@ -36,8 +36,8 @@ export default function FormSummary({
 
   const formattedData: any = [
     {
-      _id: get(summaryData, "0._count.formId", ""),
-      Total_Submissions: get(summaryData, "0._count.formId", ""),
+      _id: get(summaryData, "_count.formId", ""),
+      totalSubmissions: get(summaryData, "_count.formId", ""),
     },
   ];
 
@@ -49,7 +49,7 @@ export default function FormSummary({
         className="h-72 mt-4 dark:text-gray-200"
         data={formattedData}
         index="_id"
-        categories={["Total_Submissions"]}
+        categories={["totalSubmissions"]}
         colors={["orange"]}
         yAxisWidth={12}
       />
