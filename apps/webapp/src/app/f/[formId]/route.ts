@@ -5,6 +5,8 @@ import prisma from "@/lib/prisma";
 
 import { validateSpam } from "./spam";
 import fzProducer from "./fzProducer";
+import honeypot from "./spam/honeypot";
+import customHoneypots from "./spam/customHoneypot";
 
 export async function POST(
   req: Request,
@@ -24,14 +26,29 @@ export async function POST(
     where: {
       id: formId,
     },
-  })) || { redirectUrl: "", spamProvider: "", spamConfig: {} };
-
+  })) || {
+    redirectUrl: "",
+    spamProvider: "",
+    spamConfig: {},
+    customSpamWords: [],
+    customHoneypot: "",
+  };
   const spamProvider = formData?.spamProvider;
   const spamConfig = formData?.spamConfig;
+  const customSpamWords = formData?.customSpamWords;
+  const customHoneypot = formData?.customHoneypot;
   let isSpam = false;
-
+  if (!isEmpty(customSpamWords)) {
+    isSpam = await validateSpam(formFields, customSpamWords, "customWords");
+  }
+  if (!isEmpty(customHoneypot)) {
+    isSpam = await customHoneypots(formFields, customHoneypot);
+  }
   if (!isEmpty(spamProvider)) {
     isSpam = await validateSpam(formFields, spamConfig, spamProvider);
+  }
+  if ("_honeypot" in formFields) {
+    isSpam = await honeypot(formFields);
   }
 
   const formSubmission = await prisma.form_submissions.create({
