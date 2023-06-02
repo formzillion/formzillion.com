@@ -39,4 +39,24 @@ export const platforms = [
     image: "/guides/ghost-l.png",
     url: "guides/ghost",
   },
+  {
+    title: "Svelte",
+    image: "/guides/svelte.svg",
+    url: "guides/svelte",
+  },
+  {
+    title: "Nuxtjs",
+    image: "/guides/nuxtjs.svg",
+    url: "guides/nuxtjs",
+  },
+  {
+    title: "11ty",
+    image: "/guides/11ty-l.png",
+    url: "guides/eleventy",
+  },
+  {
+    title: "Gridsome",
+    image: "/guides/gridsome.svg",
+    url: "guides/gridsome",
+  },
 ];
