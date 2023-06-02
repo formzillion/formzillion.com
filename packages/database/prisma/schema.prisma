@@ -253,7 +253,7 @@ model tokens {
 model plan_metering {
   id                Int    @id @default(autoincrement())
   submissionCounter Int    @default(0) @map("submission_counter")
-  memberCounter    Int    @default(0) @map("member_counter")
+  memberCounter     Int    @default(0) @map("member_counter")
   formCounter       Int    @default(0) @map("form_counter")
   planId            String
   planName          String
