@@ -14,7 +14,7 @@ import updateTeam from "@/app/fetch/teams/updateTeam";
 import { useRouter } from "next/navigation";
 import { Input } from "@/ui/Input/SimpleInput";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
-import { get } from "lodash";
+import { get, snakeCase } from "lodash";
 import { setItem } from "@/utils/sessionStorage";
 
 export default function DeleteTeamModal({
@@ -46,7 +46,7 @@ export default function DeleteTeamModal({
             label: storageData.name || "",
             value: storageData.slug || "",
             type: storageData.type || "",
-            planName: storageData.planName || "",
+            planName: snakeCase(storageData.planName) || "",
             avatar: storageData.avatar || "",
           },
         });

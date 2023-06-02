@@ -17,7 +17,7 @@ import { Checkbox } from "@/ui/Checkbox";
 import BlurDotGridBottom from "../showcase/BlurDotGridBottom";
 import { AuthLabel } from "../AuthLabel";
 import FormContainer from "../FormContainer";
-import { isEmpty } from "lodash";
+import { isEmpty, snakeCase } from "lodash";
 import login from "@/app/fetch/auth/login";
 
 export default function Login() {
@@ -44,7 +44,7 @@ export default function Login() {
             JSON.stringify({
               label: url,
               avatar,
-              planName,
+              planName: snakeCase(planName),
               type: "personal",
               value: url,
             })
@@ -72,7 +72,7 @@ export default function Login() {
           JSON.stringify({
             label: url,
             avatar,
-            planName,
+            planName: snakeCase(planName),
             type: "personal",
             value: url,
           })

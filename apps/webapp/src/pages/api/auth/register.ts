@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { get, kebabCase } from "lodash";
+import { get, kebabCase, snakeCase } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import stripeApi from "@/lib/stripe/stripe-api";
@@ -60,11 +60,13 @@ export default async function handler(
       await postRegisterActions({
         email,
       });
+
+    const formattedPlanName = snakeCase(planName);
     const user = await prisma.users.create({
       data: {
         email,
         billingCustomerId: customerId,
-        planName,
+        planName: formattedPlanName,
         planId,
         fullName,
         // Create a new team entry and associate it with the user
@@ -74,7 +76,7 @@ export default async function handler(
             type: "personal",
             slug: kebabCase(splittedEmail),
             billingCustomerId: customerId,
-            planName: planName || "free",
+            planName: formattedPlanName || "free",
             planId,
           },
         },
@@ -101,7 +103,7 @@ export default async function handler(
           teamId: teamId,
           teamSlug: teamSlug,
           planId: planId,
-          planName: planName || "free",
+          planName: formattedPlanName || "free",
         },
       });
     }
@@ -139,7 +141,7 @@ export async function createBillingUserAndSubscription({
   const productId = get(subscription, "plan.product", "").toString();
   const productDetails = await stripeApi.productDetail({ productId });
   const planName = get(productDetails, "name", "free");
-  const formattedPlanName = planName.toLowerCase();
+  const formattedPlanName = snakeCase(planName);
   return {
     customerId: stripeCustomer?.id,
     planName: formattedPlanName,
