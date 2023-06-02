@@ -5,8 +5,12 @@ import prisma from "@/lib/prisma";
 import { planSubmissionLimit } from "@/utils/plans.constants";
 import { validateSpam } from "./spam";
 import fzProducer from "./fzProducer";
+import honeypot from "./spam/honeypot";
+import customHoneypots from "./spam/customHoneypot";
 
 type FormDataType = {
+  customHoneypot: string;
+  customSpamWords: string[];
   spamProvider: string;
   spamConfig: {};
   redirectUrl: string;
@@ -76,9 +80,20 @@ export async function POST(
     const spamProvider = formData?.spamProvider;
     const spamConfig = formData?.spamConfig;
     let isSpam = false;
+    const customSpamWords = formData?.customSpamWords;
+    const customHoneypot = formData?.customHoneypot;
 
+    if (!isEmpty(customSpamWords)) {
+      isSpam = await validateSpam(formFields, customSpamWords, "customWords");
+    }
+    if (!isEmpty(customHoneypot)) {
+      isSpam = await customHoneypots(formFields, customHoneypot);
+    }
     if (!isEmpty(spamProvider)) {
       isSpam = await validateSpam(formFields, spamConfig, spamProvider);
+    }
+    if ("_honeypot" in formFields) {
+      isSpam = await honeypot(formFields);
     }
 
     const formSubmission = await prisma.form_submissions.create({

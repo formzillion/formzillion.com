@@ -1,7 +1,8 @@
-export default async function honeypot(reqBody: any) {
-  let { _honeypot } = reqBody;
-
-  if (!_honeypot) {
+export default async function customHoneypots(
+  reqBody: any,
+  customHoneypot: any
+) {
+  if (!reqBody[customHoneypot]) {
     console.log("Form submission success!");
     return false;
   }
