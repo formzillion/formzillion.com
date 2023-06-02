@@ -1,7 +1,7 @@
 import { PageProps } from "@/types/PageProps";
 import Integrations, { IIntegration } from "./integrations";
 import integrationMap from "./integrations/integrationMap";
-import Workflows from "./automations";
+import Workflows from "./workflows";
 
 export default async function ({ params }: PageProps) {
   const { teamId: teamSlug, formId } = params;
