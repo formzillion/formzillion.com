@@ -1,4 +1,4 @@
-import { get, lowerCase } from "lodash";
+import { get, snakeCase } from "lodash";
 
 export const teamDetails = (teams: any) => {
   teams = teams.find((team: any) => team.team.type === "default");
@@ -39,19 +39,20 @@ export const getTeamDetails = (teams: any) => {
   const teamName = get(teams, "name", "");
   const teamAvatar = get(teams, "avatar", "");
   const plan = get(teams, "planName", "");
+  const formatedPlanName = snakeCase(plan);
   const teamType = get(teams, "type", "");
   const url =
     teamType === "default"
       ? `/${teamSlug}/team/settings/billing`
       : `/${teamSlug}/settings/billing`;
-  const disabled = lowerCase(plan) === "free" ? true : false;
+  const disabled = formatedPlanName === "free" ? true : false;
 
   return {
     teamSlug,
     teamId,
     teamName,
     teamAvatar,
-    plan: lowerCase(plan),
+    plan: formatedPlanName,
     url,
     disabled,
     teamType,

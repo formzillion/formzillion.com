@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
-import { get } from "lodash";
+import { get, snakeCase } from "lodash";
 
 export default async function handler(
   req: NextApiRequest,
@@ -67,7 +67,7 @@ const getTeams = async (email: string) => {
       console.log("Personal Slug", teamSlug);
     }
 
-    return { teamSlug, avatar, planName };
+    return { teamSlug, avatar, planName: snakeCase(planName) };
   } else {
     return "dashboard";
   }

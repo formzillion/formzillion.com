@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { get, isEmpty } from "lodash";
+import { get, isEmpty, lowerCase } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { showErrorToast } from "@/ui/Toast/Toast";
@@ -62,7 +62,7 @@ export default async function handler(
       });
     }
 
-    const limit = planFormLimit[currentFormCount?.planName?.toString()];
+    const limit = planFormLimit[lowerCase(currentFormCount?.planName)];
     const isAllowed = currentFormCount.formCounter < limit;
 
     if (!isAllowed) {
