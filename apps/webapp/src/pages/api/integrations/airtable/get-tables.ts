@@ -16,11 +16,11 @@ export default async function handler(
 ) {
   try {
     if (req.method === "POST") {
-      const { connectionId, teamId } = req.body;
+      const { connectionId, teamSlug } = req.body;
 
       const whereQuery = !isEmpty(connectionId)
         ? { id: parseInt(connectionId) }
-        : { team: { slug: teamId }, appSlug: "airtable" };
+        : { team: { slug: teamSlug }, appSlug: "airtable" };
 
       const connection = (await prisma.connections.findFirst({
         where: whereQuery,

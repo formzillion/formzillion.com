@@ -17,7 +17,7 @@ export default async function ({ params }: PageProps) {
         />
       </div>
       <div className="col-span-4 pl-4">
-        <Content params={params} />
+        <Content teamSlug={teamSlug} formId={formId} />
       </div>
     </div>
   );

@@ -1,6 +1,5 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import getTables from "@/app/fetch/integrations/airtable/getTables";
 import { isEmpty, startCase } from "lodash";
 import {
   Select,
@@ -10,27 +9,28 @@ import {
   SelectTrigger,
 } from "@/ui/Select";
 import { Button } from "@/ui/Buttons/SButton";
+import getTables from "@/app/fetch/integrations/airtable/getTables";
 
 // TODO: Remove this after confirming the data is correct
 const mockData = {
   tables: [
     {
-      label: "Forms",
-      value: "tableId",
-      baseId: "baseId",
+      label: "Table Name",
+      value: "tableIdxxx",
+      baseId: "baseIdxxx",
     },
   ],
-  tableId: "tableId",
+  tableId: "tableIdxxx",
 };
 
-export default function ({ params }: any) {
+export default function ({ teamSlug, formId }: { teamSlug: string, formId: string }) {
+  console.log("teamSlug: ", teamSlug);
   const [tables, setTables] = useState<any>(mockData.tables);
   const [template, setTemplate] = useState(mockData);
-
   const isTablesEmpty = isEmpty(tables);
 
   const fetchTables = useCallback(async () => {
-    const tablesResp = await getTables(params);
+    const tablesResp = await getTables({ teamSlug });
     setTables(tablesResp);
   }, []);
 
@@ -38,8 +38,7 @@ export default function ({ params }: any) {
   //   fetchTables();
   // }, [fetchTables]);
 
-  const handleOnSave = async () => {
-  };
+  const handleOnSave = async () => {};
 
   return (
     <div className="w-full">
