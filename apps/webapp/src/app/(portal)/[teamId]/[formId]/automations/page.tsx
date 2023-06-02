@@ -10,7 +10,11 @@ export default async function ({ params }: PageProps) {
   return (
     <div className="grid grid-cols-5 gap-4 divide-x divide-gray-200">
       <div className="col-span-1">
-        <Integrations teamSlug={teamSlug} integrations={finalIntegrations} />
+        <Integrations
+          teamSlug={teamSlug}
+          integrations={finalIntegrations}
+          formId={formId}
+        />
       </div>
       <div className="col-span-4 pl-4">
         <Workflows teamSlug={teamSlug} formId={formId} />

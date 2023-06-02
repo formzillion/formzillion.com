@@ -1,38 +1,49 @@
 ---
 title: reCAPTCHA v3
-description: Discover the best solution, Google reCAPTCHA, for preventing web spams. This description highlights the support for both clickable (v2) and invisible (v3) versions, providing effective protection against spam activities on websites.
+description: Discover the best solution, Google reCAPTCHA, for preventing web spams. reCAPTCHA v3 operates in the background without requiring any user interaction. It assigns a risk score to each user based on their behavior patterns and provides website administrators with an assessment of the likelihood that the user is a bot.
 tags: Google reCAPTCHA, web spam prevention, clickable reCAPTCHA, invisible reCAPTCHA, v3, spam protection, online security, form, submission, automate, backend, open-source, integrations, Formzillion
 ---
 
-# reCAPTCHA V3
+import { Callout } from "nextra/components";
 
-Google reCAPTCHA is the one of the best solutions to prevent web spams. There are two versions of Google reCAPTCHA and
-we support both clickable (v3) and invisible reCAPTCHA (v3).
+# reCAPTCHA v3
 
-Here are the steps tp integrate Google reCaptcha v3 to your form endpoint.
+Google reCAPTCHA is a security service provided by Google that helps protect websites and online platforms from automated spam, abuse, and malicious activities. reCAPTCHA offers two versions: <b>clickable reCAPTCHA (v2)</b> and <b>invisible reCAPTCHA (v3)</b>, both of which we fully support.
+
+reCAPTCHA v3 operates in the background without requiring any user interaction. It assigns a risk score to each user based on their behavior patterns and provides website administrators with an assessment of the likelihood that the user is a bot.
+
+To integrate Google reCAPTCHA v3 into your form endpoint, follow these steps:
 
 ## Setting up reCAPTCHA v3
 
 ### Step 1 - Get API Keys
 
-First, you need to grab an **API key** from Google reCAPTCHA console [clicking here](https://www.google.com/recaptcha/about/), you can login with your Google Account.
+To begin, obtain an **API key** from the Google reCAPTCHA console by [clicking here](https://www.google.com/recaptcha/about/). You will need to log in using your Google Account credentials.
 
-After you login to Google reCAPTCHA Concole, create a new site. Select reCAPTCHA v3 and add your domains.
-
-<br />
-<p align="center">
-  <img src="/setup/spam-protection/re-captcha-v3-setup.png" alt="recaptcha-v3-setup" width="720px" />
-</p>
-Afer adding your website and clicking the "Submit" button, Google will create API Keys for you.
+Once you have logged in to the Google reCAPTCHA Console, proceed by creating a new site. Choose the reCAPTCHA v3 option and proceed to add the domains associated with your website.
 
 <br />
 <p align="center">
-  <img src="/setup/spam-protection/re-captcha-creds.png" alt="recaptcha-creds" width="720px" />
+  <img
+    src="/setup/spam-protection/re-captcha-v3-setup.png"
+    alt="reCAPTCHA-v3-setup"
+    width="720px"
+  />
 </p>
+Afer adding your website and clicking the "Submit" button, Google will create
+API Keys for you.
+
+<br />
+<p align="center">
+  <img
+    src="/setup/spam-protection/re-captcha-creds.png"
+    alt="reCAPTCHA-creds"
+    width="720px"
+  />
+</p>
+There are 2 keys generated for you **Site Key** and **Secret Key**. The Site key will be added in the form.
 
 ### Step 2- Add reCAPTCHA Library
-
-There are 2 keys generated for you Site Key and Secret Key. For this step, we will be using the Site Key.
 
 Add reCAPTCHA library into your `<head/>` tags.
 
@@ -45,12 +56,12 @@ Add reCAPTCHA library into your `<head/>` tags.
 Add hidden reCAPTCHA `<input/>` into your form.
 
 ```html copy
-<input type="hidden" id="captchaResponse" name="g-recaptcha-response" />
+<input type="hidden" id="captchaResponse" name="g-reCAPTCHA-response" />
 ```
 
 ### Step 4 - Insert Token to our Hidden Element
 
-Insert the code below between the `<script/>` tags. The grecaptcha.ready() function will make a request to Google and return a token. Then you need to send the token to your back-end to check if it's a spam.
+Insert the following code snippet between the `<script/>` tags. The **grecaptcha.ready()** function will initiate a request to Google, which will generate a token. This token needs to be sent to your back-end for verification to determine if it corresponds to a legitimate user or potential spam.
 
 ```js copy
 <script>
@@ -65,39 +76,50 @@ Insert the code below between the `<script/>` tags. The grecaptcha.ready() funct
 
 ### Example
 
-```html copy
+```html copy /reCAPTCHA_site_key/ {15}
 
-<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FormZillion -Spam Filter</title>
-<script src="https://www.google.com/recaptcha/api.js?render=6LdfJJglAAAAAFDJWKQqis8f8_6L_XDVsLN_fDAx"></script>
-</head>
-<body>
-  <form action="http://localhost:3000/f/LNPkFyR" method="post">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" placeholder="Name" required="" />
-    <label for="email">Email</label>
-    <input type="email" id="email" name="email" placeholder="Email" required="" />
-    <label for="message">Message</label>
-    <textarea id="message" name="message" placeholder="Message" required=""></textarea>
-    <input type="hidden" id="captchaResponse" name="g-recaptcha-response">
-    <button type="submit" id="submit-btn" >Send</button>
-    <script>
+  <head>
+    <title>FormZillion -reCAPTCHA v3 Spam Protection</title>
+    <script src="https://www.google.com/recaptcha/api.js?render=reCAPTCHA_site_key"></script>
+  </head>
+  <body>
+    <form action="http://app.formzillion.com/f/{form_id}" method="post">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Name" />
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Email" />
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Message"></textarea>
+      <input type="hidden" id="captchaResponse" name="g-recaptcha-response">
+      <button type="submit" id="submit-btn" >Send</button>
+      <script>
         grecaptcha.ready(function() {
-          grecaptcha.execute('6LdfJJglAAAAAFDJWKQqis8f8_6L_XDVsLN_fDAx', { action: 'homepage' })
-            .then(function (token) {
+            grecaptcha.execute('YOUR_SITE_KEY', {action: 'homepage'})
+            .then(function(token) {
               document.getElementById('captchaResponse').value = token;
-        });
-     });
-    </script>
-    </script>
-  </form>
-</body>
-
+            });
+          });
+      </script>
+    </form>
+  </body>
 </html>
 
 ```
+### Step 5 - Setup Spam Protection for your Form
+
+In order to add your **Secret Key** follow the below steps:
+
+1. Login to your [Formzillion App](http://app.formzillion.com/).
+2. Select your particular form to which the spam protection need to be enabled.
+3. Navigate to form's settings, select Spam Filtering in the sidebar. Select the Google reCAPTCHA v3 from the dropdown and add a secret key.
+4. Paste the secret key into the Google reCAPTCHA v3 secret key field.
+
+Your form is now protected by reCAPTCHA.
+
+To stop using reCAPTCHA, change your Spam Protection to none.
+
+<Callout type="info" emoji="ℹ️">
+  **Info**: reCAPTCHA-v3 is available on [Standard, Premium and Agency
+  plans.](https://formzillion.com/pricing)
+</Callout>

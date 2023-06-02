@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { isEmpty, kebabCase } from "lodash";
+import { isEmpty, kebabCase, snakeCase } from "lodash";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
 import { createBillingUserAndSubscription } from "../auth/register";
@@ -14,14 +14,16 @@ export default async function handler(
   const { currentUser = {} } = await getUserSession(req, res);
   const { email: currentUserEmail, fullName } = currentUser;
 
-  let { name, emailsToInvite } = JSON.parse(req.body);
+  let { name, emailsToInvite, plan } = JSON.parse(req.body);
   if (isEmpty(emailsToInvite)) {
     emailsToInvite = currentUserEmail;
   }
 
-  const emails = emailsToInvite.includes(",")
-    ? emailsToInvite.split(",")
-    : [emailsToInvite];
+  const emails = emailsToInvite
+    .split(",")
+    .map((e: string) => e.trim())
+    .filter((e: string) => e !== "");
+
   try {
     const existingUsers = await prisma.users.findMany({
       where: {
@@ -40,13 +42,13 @@ export default async function handler(
         email: currentUser?.email,
         fullName: `${name}-${currentUser.fullName}`,
       });
-
+    const formattedPlanName = snakeCase(plan);
     const team = await prisma.teams.create({
       data: {
         name,
         slug: kebabCase(name),
         billingCustomerId: customerId,
-        planName,
+        planName: formattedPlanName || "free",
         planId,
         users: {
           connect: [
@@ -103,9 +105,20 @@ export default async function handler(
       }
     }
 
-    res.status(201).json({ success: true, data: team });
+    // Adding Entry in Plan Metering
+    await prisma.plan_metering.create({
+      data: {
+        teamId: team.id,
+        teamSlug: team.slug,
+        planId: planId,
+        planName: formattedPlanName || "free",
+        memeberCounter: emails.length,
+      },
+    });
+
+    return res.status(201).json({ success: true, data: team });
   } catch (error: any) {
     console.log(error);
-    res.status(500).json({ success: false, message: error.message });
+    return res.status(500).json({ success: false, message: error.message });
   }
 }

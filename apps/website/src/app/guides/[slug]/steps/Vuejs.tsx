@@ -1,38 +1,36 @@
+import React from 'react'
 import CodeBlock from "@/ui/Code";
 import Image from "next/image";
-import React from "react";
 
-import nextjsSite from "public/guides/nextjs-localhost.png";
+import vuejsSite from "public/guides/vuejsSite.png";
 import thankYou from "public/guides/default-thank-you.png";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 
-export default function Nextjs() {
+export default function Vuejs() {
   return (
-    <>
+    <div>
       <h2>
-        Next.js is a powerful framework for building server-rendered React
-        applications with seamless routing and server-side rendering
-        capabilities.
+        Vue.js is a JavaScript framework for building dynamic and interactive user interfaces with a component-based architecture and reactive data binding. It provides developers with an effortless and intuitive development experience, enabling the creation of scalable and maintainable web applications.
       </h2>
 
       <p className="para">
         This guide will demonstrate the quick process of adding a contact form
-        to your Next.js project and connecting it to Formzillion for submission
+        to your Vue.js project and connecting it to Formzillion for submission
         handling.
       </p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name{" "}
-        <b>Next.js Contact Form</b> or a similar identifier. Formzillion will
-        assign a unique form ID specifically for identifying your Next.js form.
+        <b>Vue.js Contact Form</b> or a similar identifier. Formzillion will
+        assign a unique form ID specifically for identifying your Vue.js form.
       </p>
-      <h4> Step 2 — Create a new NextJS project</h4>
+      <h4> Step 2 — Create a new VueJS project</h4>
       <p className="para">
         {`To initiate the project setup, let's follow the instructions provided in
-        the Next.j`}
+        the Vue.j`}
         s{" "}
         <a
-          href="https://nextjs.org/docs/getting-started/installation"
+          href="https://vuejs.org/"
           target="_blank"
           rel="noreferrer"
         >
@@ -42,23 +40,24 @@ export default function Nextjs() {
         documentation. Open your terminal and execute the following command to
         create a new site:
       </p>
-      <CodeBlock content={"npx create-next-app@latest"} />
-      <p className="para">{`On installation, you'll see the following prompts:`}</p>
+      <CodeBlock content={"npm init vue@latest"} />
+      <p className="para">{`To initialize a Vue project, execute the "create-vue" command, which is the official Vue project scaffolding tool. During the setup process, you will be presented with prompts to configure various optional features, including TypeScript and testing support:`}</p>
       <CodeBlock
-        content={`1. What is your project named? my-app
-2. Would you like to use TypeScript with this project? No / Yes
-3. Would you like to use ESLint with this project? No / Yes
-4. Would you like to use Tailwind CSS with this project? No / Yes
-5. Would you like to use "src/" directory with this project? No / Yes
-6. Use App Router (recommended)? No / Yes
-7. Would you like to customize the default import alias? No / Yes`}
+        content={`1. Project name: … <your-project-name>
+2. Add TypeScript? … No / Yes
+3. Add JSX Support? … No / Yes
+4. Add Vue Router for Single Page Application development? … No / Yes
+5. Add Pinia for state management? … No / Yes
+6. Add Vitest for Unit testing? … No / Yes
+7. Add an End-to-End Testing Solution? … No / Cypress / Playwright
+8. Add ESLint for code quality? … No / Yes
+9. Add Prettier for code formatting? … No / Yes`}
       />
       <p className="para">
-        After the successful installation, a terminal message will appear
-        containing instructions on how to access and run your site locally.
-        Navigate to the newly created directory for your website:
+        {`If you're uncertain about an option, you can simply press Enter to choose the default, which is usually "No" for now. After successfully creating the project, refer to the provided instructions to install the necessary dependencies and initiate the development server.`}
       </p>
-      <CodeBlock content={`cd your-folder-name`} />
+      <CodeBlock content={`cd <your-project-name>
+npm install`} />
       <p className="para">Run the development server</p>
       <CodeBlock content={`npm run dev`} />
       <p className="para">
@@ -68,13 +67,13 @@ export default function Nextjs() {
       </p>
       <div className="flex justify-center my-6">
         <Image
-          src={nextjsSite}
+          src={vuejsSite}
           alt="nextjs site"
           className=" w-[80%] object-contain"
         />
       </div>
       <p className="para">
-        {`Great job! You have successfully created a new Next.js site. Now, let's
+        {`Great job! You have successfully created a new Vue.js site. Now, let's
         proceed to learn how to add a contact form into your project.`}
       </p>
       <h4>Step 3 — Create a Contact Form</h4>
@@ -87,14 +86,13 @@ export default function Nextjs() {
 </form>`}
       />
       <p className="para">
-        To incorporate a contact form into your Next.js site, you can either add
-        it to the existing <b>app/pages.tsx</b> file or create a new page called{" "}
-        <b>app/contact/page.tsx</b>. Then, simply insert the given code block
-        into the chosen file:
+        To incorporate a contact form into your Vue.js site, you can either add
+        it to the existing <b>src/App.vue</b> file.
       </p>
       <iframe
-        className="w-full my-10 h-[600px] rounded-xl scroll-m-1 overflow-scroll max-h-screen scrollbar-thin scrollbar-track-rounded-full scrollbar-thumb-rounded-md scrollbar-h-[1px] scrollbar-thumb-gray-700"
-        src="https://codesandbox.io/p/sandbox/formzillion-nextjs-demo-pzkc3m?embed=1"
+        src="https://codesandbox.io/embed/formzillion-basic-vue-form-ilixsd?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
+        className="w-full h-[600px] rounded-xl my-8"
+        title="Formzillion - Basic Vue form"
         allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       ></iframe>
@@ -111,9 +109,10 @@ export default function Nextjs() {
         <Image src={thankYou} alt="Thank you" className="object-contain" />
       </div>
       <p className="para text-center mt-6">
-        Congratulations! Your Next.js site now has the contact form powered by
+        Congratulations! Your Vue.js site now has the contact form powered by
         Formzillion!
       </p>
-    </>
-  );
+
+    </div>
+  )
 }

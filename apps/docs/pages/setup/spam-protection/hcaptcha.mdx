@@ -4,21 +4,20 @@ description: hCaptcha is a leading CAPTCHA provider, offering an extensive selec
 tags: hCaptcha, CAPTCHA provider, website security, spam protection, abuse prevention, hCaptcha types, form, submission, automate, backend, open-source, integrations, Formzillion
 ---
 
+import { Callout } from "nextra/components";
+
 # hCaptcha
 
-hCaptcha is a CAPTCHA provider that offers a wide range of CAPTCHA types to protect your website from spam and abuse. It is easy to use and offers a variety of features to make your website more secure.
+hCaptcha is a CAPTCHA service that provides website owners with a reliable method to prevent spam, abuse, and malicious activities. hCaptcha provides a user-friendly experience and a wide range of features to enhance the security of your website, making it both easy to use and effective in safeguarding against threats.
 
-Here are the steps to integrate hCaptcha to your form
+To integrate Google hCaptcha into your form endpoint, follow these steps:
 
 ### Step 1 - Get Sitekey and Secret key
 
-First, you need to grab an API keys from hCaptcha Dashboard by [clicking here](https://dashboard.hcaptcha.com/sites/new), you can login with your Google Account.
+To begin, obtain an API key from hCaptcha Dashboard by [clicking here](https://dashboard.hcaptcha.com/sites/new), you can login with your Google Account.
 
-After logging into the hCaptcha Dashboard, create a new site and choose hCaptcha and add your domains.
-
-After adding your website and clicking the "Save" button, get your hCaptcha Sitekey:
-
-After adding your website and clicking the "Save" button, get your hCaptcha Sitekey:
+1. Log into the hCaptcha Dashboard, create a new site and choose hCaptcha and add your domains.
+2. After adding your website and clicking the "Save" button, get your hCaptcha Sitekey.
 
 ### Step 2- Add hCaptcha Library
 
@@ -36,66 +35,43 @@ Add empty hCaptcha `<div>` into your form. Make sure you add hCaptcha sitekey yo
 <div class="h-captcha" data-sitekey="Add sitekey you get previous step"></div>
 ```
 
-### Step 4 - Setup Secret Key
-
-This step is where we use the "Secret Key". In order to add your Secret Key.
-
-In your form settings, select the hcaptcha under Spam Protection Paste the Secret Key into the hcaptcha
-secret key field
-
-your form is now protected by hcaptcha.
-
-To stop using hcaptcha, change your Spam Protection to none.
-
 ### Example
 
-```html copy
+```html copy {14}
 <html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FormZillion - Spam Filter</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
-</head>
-
-<body>
-  <form action="http://localhost:3000/f/clgme12ac000ct4xs5k1oon1p" method="post">
-    <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+  <head>
+    <title>FormZillion - hCaptcha Spam Protection</title>
+    <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
+  </head>
+  <body>
+    <form action="https://app.formzillion.com/f/your-form-id" method="post">
       <h1 class="text-3xl text-center font-bold">Formzillion HTML Form Example</h1>
-
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleInputEmail1">Email address</label>
-        <input
-          class=" justify-center align-center shadow appearance-none border rounded w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" required="" />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleInputName">Name</label>
-        <input
-          class="shadow appearance-none border rounded  w-[50%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          id="exampleInputName" type="text" name="name" placeholder="Enter your name" required="" />
-      </div>
-      <div class="mb-4">
-        <label class="block text-gray-700 text-sm font-bold mb-2" for="exampleFormControlSelect1">Favourite
-          Platform</label>
-        <div class="relative">
-          <select
-            class="block appearance-none  w-[50%] border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="exampleFormControlSelect1" name="platform" required="">
-            <option>Google reCAPTCHA V3</option>
-            <option>Google reCAPTCHA V3</option>
-            <option>hcaptcha</option>
-          </select>
-        </div>
-      </div>
-      <div class="h-captcha" data-sitekey="040497bd-71de-44f4-8b6a-7a54156ca1a5"></div>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit"
-        id="submit-btn">Send</button>
-  </form>
-</body>
-
+      <label for="exampleInputEmail1">Email address</label>
+      <input id="exampleInputEmail1" type="email" name="email" placeholder="Enter email" required="" />
+      <label for="exampleInputName">Name</label>
+      <input id="exampleInputName" type="text" name="name" placeholder="Enter your name" required="" />
+      <div class="h-captcha" data-sitekey="YOUR_SITE_KEY"></div>
+      <button type="submit" id="submit-btn">Send</button>
+    </form>
+  </body>
 </html>
 ```
+
+### Step 4 - Setup hCaptcha Spam Protection for your Form
+
+In order to add your **Secret Key** follow the below steps:
+
+1. Login to your [Formzillion App](http://app.formzillion.com/).
+2. Select your particular form to which the spam protection need to be enabled.
+3. Navigate to form's settings, select Spam Filtering in the sidebar. Select the Google hCaptcha from the dropdown and add a secret key.
+4. Paste the secret key into the Google hCaptcha secret key field.
+
+Your form is now protected by hCaptcha.
+
+To stop using hCaptcha, change your Spam Protection to none.
+
+<Callout type="info" emoji="ℹ️">
+  **Info**: hCaptcha is available on [Standard, Premium and Agency
+  plans.](https://formzillion.com/pricing)
+</Callout>

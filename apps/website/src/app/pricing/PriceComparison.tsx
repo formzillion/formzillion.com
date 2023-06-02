@@ -93,7 +93,11 @@ export default function PriceComparison({ frequency }: any) {
           tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
         },
         {
-          name: "Importing and exporting",
+          name: "Submission Export",
+          tiers: { Standard: true, Premium: true, Agency: true },
+        },
+        {
+          name: "Autoresponders",
           tiers: { Standard: true, Premium: true, Agency: true },
         },
         {
@@ -105,6 +109,10 @@ export default function PriceComparison({ frequency }: any) {
     {
       name: "Spam Filtering",
       features: [
+        {
+          name: "Custom Spam Words",
+          tiers: { Basic: true, Standard: true, Premium: true, Agency: true },
+        },
         {
           name: "reCAPTCHA V2",
           tiers: { Standard: true, Premium: true, Agency: true },

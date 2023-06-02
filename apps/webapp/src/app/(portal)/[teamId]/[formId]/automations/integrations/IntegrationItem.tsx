@@ -32,7 +32,15 @@ const ReconnectButton = ({ status }: IButtonProps) => {
   );
 };
 
-export default function IntegrationItem({ integration, teamSlug }: any) {
+export default function IntegrationItem({
+  integration,
+  teamSlug,
+  formId,
+}: {
+  integration: any;
+  teamSlug: string;
+  formId: string;
+}) {
   const { icon, name, status, slug, authType } = integration;
   const [showApiKeyModal, setShowApiKeyModal] = useState(false);
   const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
@@ -110,6 +118,7 @@ export default function IntegrationItem({ integration, teamSlug }: any) {
           teamSlug={teamSlug}
           appName={name}
           appSlug={slug}
+          formId={formId}
         />
       )}
       {showDeleteConfirmModal && (

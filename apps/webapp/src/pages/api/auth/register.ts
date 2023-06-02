@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { get, kebabCase } from "lodash";
+import { get, kebabCase, snakeCase } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import stripeApi from "@/lib/stripe/stripe-api";
@@ -60,11 +60,13 @@ export default async function handler(
       await postRegisterActions({
         email,
       });
+
+    const formattedPlanName = snakeCase(planName);
     const user = await prisma.users.create({
       data: {
         email,
         billingCustomerId: customerId,
-        planName,
+        planName: formattedPlanName,
         planId,
         fullName,
         // Create a new team entry and associate it with the user
@@ -74,7 +76,7 @@ export default async function handler(
             type: "personal",
             slug: kebabCase(splittedEmail),
             billingCustomerId: customerId,
-            planName,
+            planName: formattedPlanName || "free",
             planId,
           },
         },
@@ -83,7 +85,7 @@ export default async function handler(
         teams: true,
       },
     });
-    const teamId = get(user, "teams[0].id", "");
+    const teamId = get(user, "teams.0.id", "");
     if (teamId) {
       await prisma.memberships.create({
         data: {
@@ -91,6 +93,17 @@ export default async function handler(
           userId: user.id,
           accepted: true,
           role: "OWNER",
+        },
+      });
+
+      // Initial entry for plan metering
+      const teamSlug = get(user, "teams.0.slug", "");
+      await prisma.plan_metering.create({
+        data: {
+          teamId: teamId,
+          teamSlug: teamSlug,
+          planId: planId,
+          planName: formattedPlanName || "free",
         },
       });
     }
@@ -127,8 +140,8 @@ export async function createBillingUserAndSubscription({
   //Step 3: Get the plan name from Stripe
   const productId = get(subscription, "plan.product", "").toString();
   const productDetails = await stripeApi.productDetail({ productId });
-  const planName = get(productDetails, "name", "");
-  const formattedPlanName = planName.toLowerCase();
+  const planName = get(productDetails, "name", "free");
+  const formattedPlanName = snakeCase(planName);
   return {
     customerId: stripeCustomer?.id,
     planName: formattedPlanName,

@@ -7,6 +7,7 @@ export const fzWebappConfig = {
 } as { [key: string]: string };
 
 export const FZ_WEBAPP_URL = fzWebappConfig[NODE_ENV];
+const QUEUE_PREFIX = process.env.NODE_ENV === "production" ? "prod" : "dev";
 
 export const bullMqConfig: any = {
   connection: {
@@ -14,7 +15,7 @@ export const bullMqConfig: any = {
     port: process.env.REDIS_PORT || 6379,
     ...(!process.env.REDIS_URI?.includes("127.0") && { tls: {} }),
   },
-  prefix: `{${NODE_ENV === "production" ? "prod" : "dev"}}-{fz}`,
+  prefix: `{${QUEUE_PREFIX}}-{fz}`,
 };
 
 export const fzQueues = ["fz_actions"];
