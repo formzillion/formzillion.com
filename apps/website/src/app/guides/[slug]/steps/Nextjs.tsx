@@ -46,7 +46,7 @@ export default function Nextjs() {
       <p className="para">{`On installation, you'll see the following prompts:`}</p>
       <CodeBlock
         content={`1. What is your project named? my-app
-2. Would you like to use TypeScript with this project? No / Yes0
+2. Would you like to use TypeScript with this project? No / Yes
 3. Would you like to use ESLint with this project? No / Yes
 4. Would you like to use Tailwind CSS with this project? No / Yes
 5. Would you like to use "src/" directory with this project? No / Yes

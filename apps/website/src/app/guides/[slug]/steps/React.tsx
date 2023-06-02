@@ -80,8 +80,9 @@ export default function React() {
         into the chosen file:
       </p>
       <iframe
-        className="w-full my-10 h-[600px] rounded-xl scroll-m-1 overflow-scroll max-h-screen scrollbar-thin scrollbar-track-rounded-full scrollbar-thumb-rounded-md scrollbar-h-[1px] scrollbar-thumb-gray-700"
-        src="https://codesandbox.io/embed/tender-sanderson-n295vy?fontsize=14&hidenavigation=1&theme=dark"
+        src="https://codesandbox.io/embed/green-leaf-usev4d?fontsize=14&hidenavigation=1&theme=dark"
+        className="w-full h-[600px] rounded-xl"
+        title="green-leaf-usev4d"
         allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       ></iframe>
