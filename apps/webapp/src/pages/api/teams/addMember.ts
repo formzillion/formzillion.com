@@ -22,24 +22,24 @@ export default async function handler(
         .json({ success: false, message: "Please upgrade plan" });
     }
 
-    let currentMemebersCount = await prisma.plan_metering.findFirst({
+    let currentMembersCount = await prisma.plan_metering.findFirst({
       where: { teamSlug },
     });
 
-    if (isEmpty(currentMemebersCount)) {
-      currentMemebersCount = await prisma.plan_metering.create({
+    if (isEmpty(currentMembersCount)) {
+      currentMembersCount = await prisma.plan_metering.create({
         data: {
           teamId: teamSlug,
           planId: plan,
           planName: plan || "free",
           teamSlug: teamSlug,
-          memeberCounter: 1,
+          memberCounter: 1,
         },
       });
     }
 
     const limit = planMemberLimit[lowerCase(plan)];
-    const isAllowed = currentMemebersCount.memeberCounter < limit;
+    const isAllowed = currentMembersCount.memberCounter < limit;
 
     if (!isAllowed) {
       return res
@@ -127,7 +127,7 @@ export default async function handler(
         teamId: updatedTeam.id,
       },
       update: {
-        memeberCounter: {
+        memberCounter: {
           increment: emails.length,
         },
       },
@@ -136,7 +136,7 @@ export default async function handler(
         planId: updatedTeam.planId,
         planName: updatedTeam.planName || "free",
         teamId: updatedTeam.id,
-        memeberCounter: emails.length,
+        memberCounter: emails.length,
       },
     });
     return res.status(201).json({ success: true, data: updatedTeam });

@@ -60,7 +60,7 @@ export async function POST(
       teamSlug: formData?.team?.slug,
       submissionCounter: 1,
       formCounter: 1,
-      memeberCounter: 1,
+      memberCounter: 1,
     },
     select: {
       planName: true,
