@@ -30,7 +30,7 @@ export const platforms = [
     ],
   },
   {
-    category: "Static",
+    category: "SSG Frameworks",
     list: [
       {
         title: "11ty",
@@ -45,7 +45,7 @@ export const platforms = [
     ],
   },
   {
-    category: "Jamstack",
+    category: "JAMStack Frameworks",
     list: [
       {
         title: "Gatsby",

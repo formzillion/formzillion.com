@@ -37,7 +37,7 @@ export default function Example() {
               key={idx}
               className={({ selected }) =>
                 classNames(
-                  "w-full p-2 text-base font-medium text-gray-300 focus-visible:border focus-visible:border-gray-900 text-start rounded",
+                  "w-full p-2 text-sm font-medium text-gray-300 focus-visible:border focus-visible:border-gray-900 text-start rounded",
                   selected
                     ? "rounded bg-gray-900/20 border border-gray-900 hover:border-gray-900 text-orange-500 focus-visible:border focus-visible:border-gray-900 outline-0"
                     : "text-blue-100 hover:bg-gray-900/40"
