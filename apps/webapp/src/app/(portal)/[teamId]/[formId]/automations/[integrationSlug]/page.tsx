@@ -1,7 +1,6 @@
 import { PageProps } from "@/types/PageProps";
-import Integrations, { IIntegration } from "./integrations";
-import integrationMap from "./integrations/integrationMap";
-import Workflows from "./workflows";
+import Integrations, { IIntegration } from "../integrations";
+import integrationMap from "../integrations/integrationMap";
 
 export default async function ({ params }: PageProps) {
   const { teamId: teamSlug, formId } = params;
@@ -16,9 +15,7 @@ export default async function ({ params }: PageProps) {
           formId={formId}
         />
       </div>
-      <div className="col-span-4 pl-4">
-        <Workflows teamSlug={teamSlug} formId={formId} />
-      </div>
+      <div className="col-span-4 pl-4"></div>
     </div>
   );
 }

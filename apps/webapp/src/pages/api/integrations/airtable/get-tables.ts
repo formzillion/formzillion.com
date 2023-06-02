@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import qs from "querystring";
 
 const clientId = process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_ID || "";
@@ -16,17 +16,21 @@ export default async function handler(
 ) {
   try {
     if (req.method === "POST") {
-      const { connectionId } = req.body;
-      const getConn = (await prisma.connections.findUnique({
-        where: {
-          id: parseInt(connectionId),
-        },
+      const { connectionId, teamId } = req.body;
+
+      const whereQuery = !isEmpty(connectionId)
+        ? { id: parseInt(connectionId) }
+        : { team: { slug: teamId }, appSlug: "airtable" };
+
+      const connection = (await prisma.connections.findFirst({
+        where: whereQuery,
         select: {
           apiKeys: true,
+          id: true,
         },
       })) as any;
 
-      let accessToken = getConn?.apiKeys?.accessToken;
+      let accessToken = connection?.apiKeys?.accessToken;
       const getAirtableBase = await fetch(
         `https://api.airtable.com/v0/meta/bases`,
         {
@@ -41,8 +45,8 @@ export default async function handler(
 
       if (errorType === "UNAUTHORIZED") {
         accessToken = await getAccessToken(
-          getConn.apiKeys.refreshToken,
-          connectionId
+          connection.apiKeys.refreshToken,
+          connectionId || connection.id
         );
       }
 
