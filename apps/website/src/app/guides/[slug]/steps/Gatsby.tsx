@@ -10,6 +10,13 @@ import thankYou from "public/guides/default-thank-you.png";
 export default function Gatsby() {
   return (
     <>
+      <h1 className="text-2xl sm:text-4xl my-3 font-normal">
+        Building forms with{" "}
+        <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+          Gatsby
+        </span>{" "}
+        and Formzillion
+      </h1>
       <h2>
         Gatsby is a modern web development framework that enables the creation
         of fast, optimized, and content-rich websites.
@@ -19,6 +26,7 @@ export default function Gatsby() {
         to your Gatsby project and connecting it to Formzillion for submission
         handling.
       </p>
+      <p className="heading">How to create a Gatsby Contact Form</p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name{" "}
