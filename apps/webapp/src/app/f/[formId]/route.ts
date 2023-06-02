@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { isEmpty } from "lodash";
+import { isEmpty, lowerCase } from "lodash";
 import prisma from "@/lib/prisma";
 import { planSubmissionLimit } from "@/utils/plans.constants";
 import { validateSpam } from "./spam";
@@ -70,7 +70,7 @@ export async function POST(
 
   const { planName, submissionCounter } = updatedCounter || {};
   const isAllowed =
-    submissionCounter < planSubmissionLimit[planName.toLowerCase()];
+    submissionCounter < planSubmissionLimit[lowerCase(planName)];
 
   if (isAllowed) {
     const spamProvider = formData?.spamProvider;

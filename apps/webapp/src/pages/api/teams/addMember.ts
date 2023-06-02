@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { isEmpty } from "lodash";
+import { isEmpty, lowerCase } from "lodash";
 import prisma from "@/lib/prisma";
 import { sendEmail } from "@/lib/sendEmail";
 import { getToken } from "@/utils/tokenService";
@@ -38,7 +38,7 @@ export default async function handler(
       });
     }
 
-    const limit = planMemberLimit[plan?.toLowerCase()];
+    const limit = planMemberLimit[lowerCase(plan)];
     const isAllowed = currentMemebersCount.memeberCounter < limit;
 
     if (!isAllowed) {
