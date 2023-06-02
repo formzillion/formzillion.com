@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { isEmpty, lowerCase } from "lodash";
+import { isEmpty, snakeCase } from "lodash";
 import prisma from "@/lib/prisma";
 import { planSubmissionLimit } from "@/utils/plans.constants";
 import { validateSpam } from "./spam";
@@ -56,7 +56,7 @@ export async function POST(
     create: {
       teamId: formData?.teamId,
       planId: formData?.team?.planId,
-      planName: formData?.team?.planName || "free",
+      planName: snakeCase(formData?.team?.planName) || "free",
       teamSlug: formData?.team?.slug,
       submissionCounter: 1,
       formCounter: 1,
@@ -70,7 +70,7 @@ export async function POST(
 
   const { planName, submissionCounter } = updatedCounter || {};
   const isAllowed =
-    submissionCounter < planSubmissionLimit[lowerCase(planName)];
+    submissionCounter < planSubmissionLimit[snakeCase(planName)];
 
   if (isAllowed) {
     const spamProvider = formData?.spamProvider;

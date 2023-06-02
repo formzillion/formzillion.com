@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { isEmpty, kebabCase } from "lodash";
+import { isEmpty, kebabCase, snakeCase } from "lodash";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
 import { createBillingUserAndSubscription } from "../auth/register";
@@ -42,13 +42,13 @@ export default async function handler(
         email: currentUser?.email,
         fullName: `${name}-${currentUser.fullName}`,
       });
-
+    const formattedPlanName = snakeCase(plan);
     const team = await prisma.teams.create({
       data: {
         name,
         slug: kebabCase(name),
         billingCustomerId: customerId,
-        planName: planName || "free",
+        planName: formattedPlanName || "free",
         planId,
         users: {
           connect: [
@@ -111,7 +111,7 @@ export default async function handler(
         teamId: team.id,
         teamSlug: team.slug,
         planId: planId,
-        planName: planName || "free",
+        planName: formattedPlanName || "free",
         memeberCounter: emails.length,
       },
     });
