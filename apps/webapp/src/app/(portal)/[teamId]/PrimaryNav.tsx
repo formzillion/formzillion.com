@@ -20,7 +20,7 @@ export default function PrimaryNav({ tabs, team, formId }: any) {
             <h1 className="text-xl font-normal flex items-center">
               {teamName}&nbsp;
               <span className="bg-orange-200 dark:text-black text-xs px-3 py-[2px] rounded-full ">
-                {teamType === "default" ? "Team" : "Personal Account"}
+                {teamType === "default" ? "Team" : "Personal"}
               </span>
             </h1>
             <nav
