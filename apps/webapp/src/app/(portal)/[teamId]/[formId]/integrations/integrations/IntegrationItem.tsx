@@ -78,7 +78,7 @@ export default function IntegrationItem({
 
   return (
     <div className="grid grid-cols-1 grid-flow-col items-center justify-between w-full">
-      <Link href={`/${teamSlug}/${formId}/automations/${slug}`}>
+      <Link href={`/${teamSlug}/${formId}/integrations/${slug}`}>
         <div className="flex items-center space-x-2">
           <div className="flex justify-center">
             <Image

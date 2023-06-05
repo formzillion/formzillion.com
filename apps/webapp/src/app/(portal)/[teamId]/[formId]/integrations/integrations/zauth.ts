@@ -37,7 +37,7 @@ const auth = async (provider: string, options: any, router: any) => {
     `height=600,width=600,left=${x},top=${y}`
   );
 
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${options.teamSlug}/${options.formId}/automations/integrations/${provider}`;
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${options.teamSlug}/${options.formId}/integrations/${provider}`;
   // Checking for the auth window to close
   const checkForAuthWindow = setInterval(() => {
     if (authWindow.closed) {
