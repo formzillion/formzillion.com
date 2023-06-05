@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { isEmpty, startCase } from "lodash";
+import { get, isEmpty, startCase } from "lodash";
 import {
   Select,
   SelectContent,
@@ -9,36 +9,47 @@ import {
   SelectTrigger,
 } from "@/ui/Select";
 import { Button } from "@/ui/Buttons/SButton";
+import { integrationsConfig } from "@/utils/integrations.constants";
 import getTables from "@/app/fetch/integrations/airtable/getTables";
+import createTask from "@/app/fetch/tasks/createTask";
 
-// TODO: Remove this after confirming the data is correct
-const mockData = {
-  tables: [
-    {
-      label: "Table Name",
-      value: "tableIdxxx",
-      baseId: "baseIdxxx",
-    },
-  ],
-  tableId: "tableIdxxx",
-};
+const appSlug = "airtable";
+const config = integrationsConfig[appSlug];
 
-export default function ({ teamSlug, formId }: { teamSlug: string, formId: string }) {
-  console.log("teamSlug: ", teamSlug);
-  const [tables, setTables] = useState<any>(mockData.tables);
-  const [template, setTemplate] = useState(mockData);
+export default function Content({
+  teamSlug,
+  formId,
+}: {
+  teamSlug: string;
+  formId: string;
+}) {
+  const [tables, setTables] = useState<any>([]);
+  const [template, setTemplate] = useState<any>(config.template);
   const isTablesEmpty = isEmpty(tables);
 
   const fetchTables = useCallback(async () => {
     const tablesResp = await getTables({ teamSlug });
     setTables(tablesResp);
-  }, []);
+  }, [teamSlug]);
 
-  // useEffect(() => {
-  //   fetchTables();
-  // }, [fetchTables]);
+  useEffect(() => {
+    if (!isTablesEmpty) {
+      fetchTables();
+    }
+  }, [fetchTables]);
 
-  const handleOnSave = async () => {};
+  const handleOnSave = async () => {
+    if (!isTablesEmpty) {
+      // const taskResp = await createTask({
+      //   teamSlug,
+      //   formId,
+      //   template,
+      //   appSlug,
+      //   taskSlug: get(config, "actions.0", ""),
+      // });
+      // console.log("taskResp: ", taskResp);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -62,7 +73,7 @@ export default function ({ teamSlug, formId }: { teamSlug: string, formId: strin
           the submissions.
         </p>
         <br />
-        Click on "Connect Airtable" to connect your Airtable account.
+        Click on &quot;Connect Airtable&quot; to connect your Airtable account.
       </div>
       {!isEmpty(tables) && (
         <div>
@@ -89,7 +100,10 @@ export default function ({ teamSlug, formId }: { teamSlug: string, formId: strin
               </Select>
             </div>
           </div>
-          <Button className="float-right mt-4 bg-orange-600 text-white rounded-none">
+          <Button
+            className="float-right mt-4 bg-orange-600 text-white rounded-none"
+            onClick={handleOnSave}
+          >
             Save
           </Button>
         </div>
