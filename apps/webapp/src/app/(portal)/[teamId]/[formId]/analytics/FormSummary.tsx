@@ -19,7 +19,7 @@ export default function FormSummary({
   }, []);
 
   const fetchSummaryData = async () => {
-    const response = await fetch(`/api/form-submission/summary`, {
+    const response = await fetch(`/api/form-submission/analytics`, {
       method: "POST",
       headers:{
         "Content-Type": "application/json"
