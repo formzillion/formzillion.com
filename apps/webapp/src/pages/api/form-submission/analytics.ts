@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { get } from "lodash";
 
-export default async function handler(
+export default async function analytics(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
