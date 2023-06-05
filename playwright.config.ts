@@ -10,12 +10,14 @@ dotenv.config();
  * https://github.com/motdotla/dotenv
  */
 // require('dotenv').config();
+const DEFAULT_NAVIGATION_TIMEOUT = process.env.CI ? 15000 : 50000;
+const DEFAULT_EXPECT_TIMEOUT = process.env.CI ? 15000 : 50000;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./tests",
+  testDir: "./apps/webapp/playwright",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -30,7 +32,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     // baseURL: 'http://127.0.0.1:3000',
-
+    locale: "en-US",
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
   },
@@ -38,10 +40,18 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "@formzillion/apps",
+      testDir: "./apps/webapp/playwright",
+      testMatch: /.*\.ts?/,
+      expect: {
+        timeout: DEFAULT_EXPECT_TIMEOUT,
+      },
+      use: { 
+        ...devices["Desktop Chrome"] ,
+        navigationTimeout: DEFAULT_NAVIGATION_TIMEOUT,
     },
-
+  },
+   /* 
     {
       name: "firefox",
       use: { ...devices["Desktop Firefox"] },
@@ -51,7 +61,7 @@ export default defineConfig({
       name: "webkit",
       use: { ...devices["Desktop Safari"] },
     },
-
+ */
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
