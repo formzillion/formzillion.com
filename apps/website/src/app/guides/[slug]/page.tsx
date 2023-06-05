@@ -4,6 +4,7 @@ import Link from "next/link";
 import AppsLogo from "@/app/integrations/[slug]/AppsLogo";
 import "./steps/steps.css";
 import { platformsData } from "./platformsData";
+import NotFound from "@/app/not-found";
 
 export async function generateMetadata({ params }: any) {
   const { slug } = params;
@@ -22,7 +23,9 @@ export default function Banner({ params }: { params: { slug: string } }) {
   const pageContent = platformsData.find(
     (content) => content.slug === params?.slug
   );
-
+  if (!pageContent) {
+    return <NotFound />;
+  }
   return (
     <>
       <section className="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-3xl mx-auto ">
