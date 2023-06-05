@@ -3,6 +3,7 @@ import { startCase, toLower } from "lodash";
 import HeroSection from "./HeroSection";
 import CompareSection from "./CompareSection";
 import Demo from "./Demo";
+import NotFound from "@/app/not-found";
 
 export async function generateMetadata({ params }: any) {
   const { slug } = params;
@@ -45,7 +46,7 @@ export default function page({ params }: { params: { slug: string } }) {
     (content) => toLower(content.slug) === params.slug
   );
   if (!dynamicContent) {
-    return <div>Invalid slug</div>;
+    return <NotFound />;
   }
   return (
     <div>

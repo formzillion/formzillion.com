@@ -6,6 +6,7 @@ import AppsLogo from "./AppsLogo";
 import { heroSection } from "./content/heroSection";
 import { startCase } from "lodash";
 import PopularUseCases from "./PopularUseCases";
+import NotFound from "@/app/not-found";
 
 export async function generateMetadata({ params }: any) {
   const { slug } = params;
@@ -23,7 +24,9 @@ export async function generateMetadata({ params }: any) {
 export default function page({ params }: { params: { slug: string } }) {
   const slug = params?.slug;
   const pageContent = heroSection.find((content: any) => content.slug === slug);
-
+  if (!pageContent) {
+    return <NotFound />;
+  }
   return (
     <div className="container max-w-5xl mt-8 sm:mt-10">
       <div className="p-3 flex items-center justify-center space-x-2">
@@ -31,7 +34,7 @@ export default function page({ params }: { params: { slug: string } }) {
           <p className="text-base text-yellow-600">All Integrations</p>
         </Link>
         <p className="text-gray-400">/</p>
-        <p className="text-base text-gray-400">{pageContent.title}</p>
+        <p className="text-base text-gray-400">{pageContent?.title}</p>
       </div>
       <AppsLogo pageContent={pageContent} />
       <div className="text-center">
