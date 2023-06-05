@@ -41,7 +41,7 @@
         "REDIS_URI",
         "REDIS_PORT",
         "NEXT_PUBLIC_DOCS_URL",
-        "SLACK_ACTIVITY"
+        "SLACK_ACTIVITY_URL"
       ]
     },
     "db:generate": {

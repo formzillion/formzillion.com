@@ -7,7 +7,7 @@ export const notifyOnSlack = async (userName: string, textToSend: any) => {
       text: slackMessage,
     };
 
-    const url: any = process.env.SLACK_ACTIVITY || "";
+    const url: any = process.env.SLACK_ACTIVITY_URL || "";
 
     try {
       fetch(url, {
