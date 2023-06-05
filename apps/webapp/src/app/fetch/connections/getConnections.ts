@@ -6,11 +6,14 @@
 const list = async ({
   appSlug = "",
   teamSlug,
+  fetchSingle = false,
 }: {
   appSlug?: string;
   teamSlug: string;
+  fetchSingle?: boolean;
 }) => {
-  const response = await fetch("/api/connections/list", {
+  const url = `/api/connections/${fetchSingle ? "get-connection" : "list"}`;
+  const response = await fetch(url, {
     method: "POST",
     cache: "no-cache",
     headers: {
