@@ -7,7 +7,7 @@ import { platforms } from "./content";
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
-const allList: { title: string; image: string; url: string }[] = [];
+const allList: { title: string; image: string; url: string, comingSoon: boolean }[] = [];
 platforms.map((item: any) => {
   allList.push(...item?.list);
 });
@@ -27,7 +27,7 @@ if (allCategoryIndex === -1) {
   platforms;
 }
 
-export default function Example() {
+export default function GuidesCategory() {
   return (
     <div className="px-2 pt-16 sm:px-0 flex space-x-6 relative">
       <Tab.Group vertical={true}>
@@ -52,24 +52,52 @@ export default function Example() {
           {platforms?.map((items: any, idx) => (
             <Tab.Panel
               key={idx}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 place-content-center justify-center"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 place-content-center justify-center"
             >
-              {items?.list?.map((app: any, index: number) => (
-                <Link href={app?.url} key={index}>
-                  <div className="rounded bg-gray-900/20 border border-gray-900 hover:border-gray-700 flex flex-col items-center py-8 space-y-4">
-                    <div className="h-16 w-16">
-                      <Image
-                        src={app.image}
-                        alt={app.title}
-                        height={80}
-                        width={80}
-                        className="object-contain"
-                      />
+              {items?.list?.map(
+                (app: any, index: number) =>
+                  app?.comingSoon === false && (
+                    <Link href={app?.url} key={index}>
+                      <div className="rounded bg-gray-900/20 border border-gray-900 hover:border-gray-700 flex flex-col items-center py-8 space-y-4">
+                        <div className="h-16 w-16">
+                          <Image
+                            src={app.image}
+                            alt={app.title}
+                            height={80}
+                            width={80}
+                            className="object-contain"
+                          />
+                        </div>
+                        <p className="text-2xl">{app.title}</p>
+                      </div>
+                    </Link>
+                  )
+              )}
+
+              {/* Coming Soon Apps */}
+              {items?.list?.map(
+                (app: any, index: number) =>
+                  app?.comingSoon === true && (
+                    <div
+                      key={index}
+                      className="rounded relative bg-gray-900/20 border border-gray-900 flex flex-col items-center py-8 space-y-4"
+                    >
+                      <div className="h-16 w-16">
+                        <Image
+                          src={app.image}
+                          alt={app.title}
+                          height={80}
+                          width={80}
+                          className="object-contain"
+                        />
+                      </div>
+                      <p className="text-2xl pb-2">{app.title}</p>
+                      <div className="absolute bottom-0 bg-gray-950 border-t text-gray-500 rounded border-gray-900 w-full text-center text-sm p-1">
+                        Coming Soon
+                      </div>
                     </div>
-                    <p className="text-2xl">{app.title}</p>
-                  </div>
-                </Link>
-              ))}
+                  )
+              )}
             </Tab.Panel>
           ))}
         </Tab.Panels>
