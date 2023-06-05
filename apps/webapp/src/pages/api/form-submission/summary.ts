@@ -1,22 +1,15 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getUserDetails } from "@/lib/getUserDetails";
 import { get } from "lodash";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const {
-    skip = 0,
-    limit = 10,
-    type,
-    formId,
-    groupBy = "createdAt",
-  } = JSON.parse(req.body);
+  const { type, formId, groupBy = "createdAt" } = JSON.parse(req.body);
 
   let summaryData: any;
 
-  const dates: any = {
+  const dateFilter: any = {
     daily: 1,
     weekly: 7,
     monthly: 30,
@@ -37,7 +30,9 @@ export default async function handler(
       by: ["formId"],
       where: {
         createdAt: {
-          gte: new Date(new Date().setDate(new Date().getDate() - dates[type])),
+          gte: new Date(
+            new Date().setDate(new Date().getDate() - dateFilter[type])
+          ),
           lte: new Date(),
         },
         formId,
