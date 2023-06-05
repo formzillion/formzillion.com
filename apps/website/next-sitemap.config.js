@@ -16,6 +16,12 @@ const routes = [
   "guides/gatsby",
   "guides/nextjs",
   "guides/webflow",
+  "guides/eleventy",
+  "guides/nuxt",
+  "guides/react",
+  "guides/svelte",
+  "guides/vuejs",
+  "guides/ghost"
 ];
 
 module.exports = {
