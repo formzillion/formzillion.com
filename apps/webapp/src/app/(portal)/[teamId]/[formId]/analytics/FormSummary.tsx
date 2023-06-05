@@ -2,6 +2,7 @@
 import { Card, Title, BarChart, Subtitle } from "@tremor/react";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { get } from "lodash";
 
 export default function FormSummary({
   formId,
@@ -11,7 +12,7 @@ export default function FormSummary({
   subTitle,
 }: any) {
   const router = useRouter();
-  const [summaryData, setSummaryData] = useState([]);
+  const [summaryData, setSummaryData] = useState<any>([]);
 
   useEffect(() => {
     fetchSummaryData();
@@ -33,13 +34,20 @@ export default function FormSummary({
     router.refresh();
   };
 
+  const formattedData: any = [
+    {
+      _id: get(summaryData, "_count.formId", ""),
+      totalSubmissions: get(summaryData, "_count.formId", ""),
+    },
+  ];
+
   return (
     <Card className="dark:bg-black dark:border-gray-900 dark:ring-gray-800">
       <Title className="dark:text-gray-200">{title}</Title>
       <Subtitle className="dark:text-gray-200">{subTitle}</Subtitle>
       <BarChart
         className="h-72 mt-4 dark:text-gray-200"
-        data={summaryData}
+        data={formattedData}
         index="_id"
         categories={["totalSubmissions"]}
         colors={["orange"]}
