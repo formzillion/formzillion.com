@@ -19,7 +19,7 @@ export default function PrimaryNav({ tabs, team, formId }: any) {
           <div className="flex items-center justify-between py-4">
             <h1 className="text-xl font-normal flex items-center">
               {teamName}&nbsp;
-              <span className="bg-orange-200 text-xs px-3 py-[2px] rounded-full ">
+              <span className="bg-orange-200 dark:text-black text-xs px-3 py-[2px] rounded-full ">
                 {teamType === "default" ? "Team" : "Personal Account"}
               </span>
             </h1>
