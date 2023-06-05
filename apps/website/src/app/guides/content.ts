@@ -6,7 +6,7 @@ export const platforms = [
         title: "Ghost",
         image: "/guides/ghost-l.png",
         url: "guides/ghost",
-        comingSoon: true,
+        comingSoon: false,
       },
       {
         title: "Nuxt",

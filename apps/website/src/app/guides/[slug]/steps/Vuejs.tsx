@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import CodeBlock from "@/ui/Code";
 import Image from "next/image";
 
@@ -17,7 +17,11 @@ export default function Vuejs() {
         and Formzillion
       </h1>
       <h2>
-        Vue.js is a JavaScript framework for building dynamic and interactive user interfaces with a component-based architecture and reactive data binding. It provides developers with an effortless and intuitive development experience, enabling the creation of scalable and maintainable web applications.
+        Vue.js is a JavaScript framework for building dynamic and interactive
+        user interfaces with a component-based architecture and reactive data
+        binding. It provides developers with an effortless and intuitive
+        development experience, enabling the creation of scalable and
+        maintainable web applications.
       </h2>
       <p className="para">
         This guide will demonstrate the quick process of adding a contact form
@@ -34,13 +38,8 @@ export default function Vuejs() {
       <h4> Step 2 — Create a new VueJS project</h4>
       <p className="para">
         {`To initiate the project setup, let's follow the instructions provided in
-        the Vue.j`}
-        s{" "}
-        <a
-          href="https://vuejs.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
+        the Vue.js`}{" "}
+        <a href="https://vuejs.org/" target="_blank" rel="noreferrer">
           Getting Started
           <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />
         </a>{" "}
@@ -63,8 +62,10 @@ export default function Vuejs() {
       <p className="para">
         {`If you're uncertain about an option, you can simply press Enter to choose the default, which is usually "No" for now. After successfully creating the project, refer to the provided instructions to install the necessary dependencies and initiate the development server.`}
       </p>
-      <CodeBlock content={`cd <your-project-name>
-npm install`} />
+      <CodeBlock
+        content={`cd <your-project-name>
+npm install`}
+      />
       <p className="para">Run the development server</p>
       <CodeBlock content={`npm run dev`} />
       <p className="para">
@@ -94,7 +95,8 @@ npm install`} />
       />
       <p className="para">
         To incorporate a contact form into your Vue.js site, you can either add
-        it to the existing <span className="bg-highlight">src/App.vue</span> file.
+        it to the existing <span className="bg-highlight">src/App.vue</span>{" "}
+        file.
       </p>
       <iframe
         src="https://codesandbox.io/embed/formzillion-basic-vue-form-ilixsd?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"
@@ -104,9 +106,10 @@ npm install`} />
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       ></iframe>
       <p className="para">
-        {`To successfully submit your form to Formzillion, ensure that you include
-        the 'FORM_ID' in the provided form code. This 'FORM_ID' should
-        correspond to the ID assigned to your specific Formzillion form.`}
+        To successfully submit your form to Formzillion, ensure that you include
+        the <span className="bg-highlight">{`'FORM_ID'`}</span> in the provided
+        form code. This <span className="bg-highlight">{`'FORM_ID'`}</span>{" "}
+        should correspond to the ID assigned to your specific Formzillion form.
       </p>
       <p className="para">
         And there you have it! Once you fill out and submit the form, you will
@@ -119,7 +122,6 @@ npm install`} />
         Congratulations! Your Vue.js site now has the contact form powered by
         Formzillion!
       </p>
-
     </div>
-  )
+  );
 }
