@@ -84,7 +84,7 @@ export async function POST(
     let isSpam = false;
     const customSpamWords = formData?.customSpamWords;
     const customHoneypot = formData?.customHoneypot;
-    let redirectURl = formData.redirectUrl;
+    let redirectUrl = formData.redirectUrl;
 
     if (!isEmpty(customSpamWords)) {
       isSpam = await validateSpam(formFields, customSpamWords, "customWords");
@@ -99,7 +99,7 @@ export async function POST(
       isSpam = await honeypot(formFields);
     }
     if ("_redirect" in formFields) {
-      redirectURl = formFields["_redirect"];
+      redirectUrl = formFields["_redirect"];
     }
 
     const formSubmission = await prisma.form_submissions.create({
@@ -139,13 +139,13 @@ export async function POST(
     }
 
     try {
-      if (isEmpty(redirectURl)) {
+      if (isEmpty(redirectUrl)) {
         return NextResponse.redirect(
           `${process.env.NEXT_PUBLIC_APP_URL}/thank-you?formSubmission=${formSubmission.id}&status=OK&referer=${referer}&formId=${formId}`
         );
       } else {
         return NextResponse.redirect(
-          `${redirectURl}?formSubmission=${formSubmission.id}&status=OK&referer=${referer}`
+          `${redirectUrl}?formSubmission=${formSubmission.id}&status=OK&referer=${referer}`
         );
       }
     } catch (e) {
