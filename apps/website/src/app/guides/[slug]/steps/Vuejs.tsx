@@ -75,7 +75,7 @@ npm install`} />
       <div className="flex justify-center my-6">
         <Image
           src={vuejsSite}
-          alt="nextjs site"
+          alt="vuejs site"
           className=" w-[80%] object-contain"
         />
       </div>
@@ -94,7 +94,7 @@ npm install`} />
       />
       <p className="para">
         To incorporate a contact form into your Vue.js site, you can either add
-        it to the existing <b>src/App.vue</b> file.
+        it to the existing <span className="bg-highlight">src/App.vue</span> file.
       </p>
       <iframe
         src="https://codesandbox.io/embed/formzillion-basic-vue-form-ilixsd?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"

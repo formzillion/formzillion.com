@@ -6,7 +6,7 @@ import Vuejs from "./steps/Vuejs";
 import React from "./steps/React";
 import Ghost from "./steps/Ghost";
 import Shopfiy from "./steps/Shopfiy";
-import Nuxtjs from "./steps/Nuxtjs";
+import Nuxt from "./steps/Nuxt";
 import Svelte from "./steps/Svelte";
 import Eleventy from "./steps/Eleventy";
 import Gridsome from "./steps/Gridsome";
@@ -67,10 +67,10 @@ export const platformsData = [
     steps: <Svelte />,
   },
   {
-    slug: "nuxtjs",
+    slug: "nuxt",
     image: "/guides/nuxtjs.svg",
-    title: "Nuxtjs.js",
-    steps: <Nuxtjs />,
+    title: "Nuxt",
+    steps: <Nuxt />,
   },
   {
     slug: "eleventy",
