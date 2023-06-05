@@ -4,7 +4,6 @@ import integrationMap from "./integrationMap";
 import Workflows from "./workflows";
 
 export default async function ({ params }: PageProps) {
-  console.log("params: ", params);
   const { teamId: teamSlug, formId } = params;
   const finalIntegrations: IIntegration[] = await integrationMap({ teamSlug });
 
