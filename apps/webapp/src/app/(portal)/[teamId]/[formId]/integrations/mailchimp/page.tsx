@@ -1,10 +1,9 @@
 import { PageProps } from "@/types/PageProps";
-import Integrations, { IIntegration } from "./Integrations";
-import integrationMap from "./integrationMap";
-import Workflows from "./workflows";
+import Integrations, { IIntegration } from "../Integrations";
+import integrationMap from "../integrationMap";
+import Content from "./Content";
 
 export default async function ({ params }: PageProps) {
-  console.log("params: ", params);
   const { teamId: teamSlug, formId } = params;
   const finalIntegrations: IIntegration[] = await integrationMap({ teamSlug });
 
@@ -18,7 +17,12 @@ export default async function ({ params }: PageProps) {
         />
       </div>
       <div className="col-span-4 pl-4">
-        <Workflows teamSlug={teamSlug} formId={formId} />
+        <Content
+          slug={"mailchimp"}
+          teamSlug={teamSlug}
+          formId={formId}
+          allIntegrations={finalIntegrations}
+        />
       </div>
     </div>
   );

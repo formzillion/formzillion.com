@@ -14,7 +14,12 @@ export default function DisconnectConnectionModal({
   handleDisconnect,
   appName,
   isLoading,
-}: any) {
+}: {
+  closeModal: any;
+  handleDisconnect: any;
+  appName: string;
+  isLoading: boolean;
+}) {
   return (
     <Dialog open={closeModal} onOpenChange={closeModal}>
       <DialogContent>

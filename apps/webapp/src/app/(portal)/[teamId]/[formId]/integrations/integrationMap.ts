@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { integrations } from "./constants";
+import { integrations } from "@/utils/integrations.constants";
 
 interface IIntegrationMap {
   teamSlug: string;
@@ -19,6 +19,8 @@ export default async function integrationMap({ teamSlug }: IIntegrationMap) {
         appSlug: true,
         appId: true,
         status: true,
+        apiKeys: true,
+        id: true,
       },
     });
 
@@ -26,6 +28,7 @@ export default async function integrationMap({ teamSlug }: IIntegrationMap) {
       integrationConnectionMap[integration.slug] = {
         ...integration,
         status: "not_connected",
+        connectionData: {},
       };
     });
 
@@ -34,6 +37,7 @@ export default async function integrationMap({ teamSlug }: IIntegrationMap) {
       integrationConnectionMap[conn.appSlug] = {
         ...integrations.find((i: any) => i.slug === conn.appSlug),
         status: conn.status || "not_connected",
+        connectionData: conn,
       };
     });
 
