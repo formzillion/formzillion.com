@@ -17,7 +17,7 @@ export default async function handler(
 
   if (groupBy === "country") {
     summaryData = await prisma.form_submissions.groupBy({
-      by: [groupBy],
+      by: ["country"],
       where: {
         formId,
       },
