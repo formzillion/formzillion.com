@@ -101,6 +101,7 @@ export async function POST(
     if ("_redirect" in formFields) {
       redirectURl = formFields["_redirect"];
     }
+
     const formSubmission = await prisma.form_submissions.create({
       data: { fields: formFields, formId, isSpam: isSpam, ip, country },
     });
