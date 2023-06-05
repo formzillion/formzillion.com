@@ -8,10 +8,20 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 export default function React() {
   return (
     <div>
+      <h1 className="text-2xl sm:text-4xl my-3 font-normal">
+        Building forms with{" "}
+        <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+          React
+        </span>{" "}
+        and Formzillion
+      </h1>
       <h2>
-        React.js is a JavaScript library for building dynamic and interactive user interfaces with a component-based architecture, efficient virtual DOM, and unidirectional data flow. It enables developers to create scalable and maintainable web applications with ease.
+        React.js is a JavaScript library for building dynamic and interactive
+        user interfaces with a component-based architecture, efficient virtual
+        DOM, and unidirectional data flow. It enables developers to create
+        scalable and maintainable web applications with ease.
       </h2>
-
+      <p className="heading">How to create a React Contact Form</p>
       <p className="para">
         This guide will demonstrate the quick process of adding a contact form
         to your React.js project and connecting it to Formzillion for submission
@@ -56,7 +66,7 @@ export default function React() {
       <div className="flex justify-center my-6">
         <Image
           src={reactjsSite}
-          alt="nextjs site"
+          alt="reactjs site"
           className=" w-[80%] object-contain"
         />
       </div>
@@ -74,9 +84,9 @@ export default function React() {
 </form>`}
       />
       <p className="para">
-        To incorporate a contact form into your React.js site, you can either add
-        it to the existing <b>src/index.js</b> file or create a new page called{" "}
-        <b>app/contact.js</b>. Then, simply insert the given code block
+        To incorporate a contact form into your React.js site, you can either
+        add it to the existing <span className="bg-highlight">src/index.js</span> file or create a new page
+        called <span className="bg-highlight">app/contact.js</span>. Then, simply insert the given code block
         into the chosen file:
       </p>
       <iframe
@@ -103,6 +113,5 @@ export default function React() {
         Formzillion!
       </p>
     </div>
-  )
+  );
 }
-

@@ -2,7 +2,7 @@ import { buffer } from "micro";
 import Cors from "micro-cors";
 import { NextApiRequest, NextApiResponse } from "next";
 import Stripe from "stripe";
-import { get } from "lodash";
+import { get, snakeCase } from "lodash";
 import prisma from "@/lib/prisma";
 import stripeApi from "@/lib/stripe/stripe-api";
 import { fromUnixTime } from "date-fns";
@@ -64,7 +64,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     } else if (event.type === "customer.subscription.deleted") {
       //cancled subscription
       const paymentIntent: any = event.data.object as Stripe.PaymentIntent;
-      const data = await prisma.teams.update({
+      const updatedTeam = await prisma.teams.update({
         where: {
           billingCustomerId: paymentIntent?.customer,
         },
@@ -73,7 +73,15 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           planName: null,
         },
       });
-    } else if (event.type === "customer.subscription.updated") {
+
+      await prisma.plan_metering.update({
+        where: { teamId: updatedTeam.id },
+        data: { planId: "", planName: "free" },
+      });
+    } else if (
+      event.type === "customer.subscription.updated" ||
+      "customer.subscription.created"
+    ) {
       //update plan
       const paymentIntent: any = event.data.object as Stripe.PaymentIntent;
 
@@ -81,36 +89,30 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const productId = get(paymentIntent, "items.data.0.plan.product", "");
       const productdetails = await stripeApi.productDetail({ productId });
       const planName = get(productdetails, "name", "");
-      const data = await prisma.teams.update({
+      const formattedPlanName = snakeCase(planName);
+      const updatedTeam = await prisma.teams.update({
         where: {
           billingCustomerId: paymentIntent.customer,
         },
         data: {
           planId: planId,
-          planName,
+          planName: formattedPlanName,
         },
       });
-    } else if (event.type === "customer.subscription.created") {
-      //create subscription
-      const paymentIntent: any = event.data.object as Stripe.PaymentIntent;
-      const planId = get(paymentIntent, "plan.id", "");
-      const productId = get(paymentIntent, "plan.product", "");
 
-      const productdetails = await stripeApi.productDetail({ productId });
-
-      const planName = get(productdetails, "name", "");
-
-      const data = await prisma.teams.update({
-        where: {
-          billingCustomerId: paymentIntent.customer,
-        },
-        data: {
-          planId: planId,
-          planName: planName,
+      // Insert or Updating the Plan Metering
+      await prisma.plan_metering.upsert({
+        where: { teamId: updatedTeam.id },
+        update: { planId: planId, planName: formattedPlanName },
+        create: {
+          planId,
+          planName: formattedPlanName,
+          teamId: updatedTeam.id,
+          teamSlug: updatedTeam.slug,
+          memberCounter: 1,
         },
       });
     } else if (event.type === "invoice.created") {
-      //cancled subscription
       const invoiceDetails: any = event.data.object as Stripe.PaymentIntent;
       let invoiceStatus = "";
 

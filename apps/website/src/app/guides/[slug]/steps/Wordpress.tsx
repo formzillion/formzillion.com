@@ -2,7 +2,6 @@ import Image from "next/image";
 
 import dashboard from "public/guides/wordpress-dashboard.png";
 import wordpressPage from "public/guides/wordpress-page.png";
-import contactPage from "public/guides/contact-page.png";
 import customHtml from "public/guides/custom-html.png";
 import wpContactForm from "public/guides/wp-contact-form.png";
 import thankYou from "public/guides/default-thank-you.png";
@@ -10,6 +9,13 @@ import thankYou from "public/guides/default-thank-you.png";
 export default function WordPress() {
   return (
     <>
+      <h1 className="text-2xl sm:text-4xl my-3 font-normal">
+        Building forms with{" "}
+        <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+          WordPress
+        </span>{" "}
+        and Formzillion
+      </h1>
       <h2>
         WordPress is a widely-used content management system that simplifies
         website creation and management, offering a user-friendly interface and
@@ -20,6 +26,7 @@ export default function WordPress() {
         to your WordPress project and connecting it to Formzillion for
         submission handling.
       </p>
+      <p className="heading">How to create a WordPress Contact Form</p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name{" "}
@@ -42,7 +49,7 @@ export default function WordPress() {
         Follow the simple steps for adding an HTML form code on a WordPress
         page:
       </h4>
-      <ol className="list-decimal list-inside">
+      <ol>
         <li>
           {`Sign in to your WordPress dashboard, navigate to the "Pages" section, and click on "Add New" to create a new page.`}
           <div className="flex justify-center my-6">
@@ -75,18 +82,20 @@ export default function WordPress() {
           </div>
         </li>
       </ol>
-      <h4>
-        Step 3 — Publishing Your Website and Testing the Form
-      </h4>
-      <ol className="list-decimal list-inside space-y-2 my-8">
+      <h4>Step 3 — Publishing Your Website and Testing the Form</h4>
+      <ol className="my-8">
         <li>
-          Publish your WordPress website to make the changes live. Ensure that all modifications, including the newly added contact form, are included in the published version.
+          Publish your WordPress website to make the changes live. Ensure that
+          all modifications, including the newly added contact form, are
+          included in the published version.
         </li>
         <li>
-          Visit the specific page on your website where the contact form is located.
+          Visit the specific page on your website where the contact form is
+          located.
         </li>
         <li>
-          Kindly fill out the form with test data, submit the form to verify its proper functionality.
+          Kindly fill out the form with test data, submit the form to verify its
+          proper functionality.
         </li>
       </ol>
       <p className="para">

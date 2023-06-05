@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
-import { NextResponse } from "next/server";
-import { isEmpty, snakeCase } from "lodash";
+import { NextResponse, NextRequest } from "next/server";
+import { get, isEmpty, snakeCase } from "lodash";
 import prisma from "@/lib/prisma";
 import { planSubmissionLimit } from "@/utils/plans.constants";
 import { validateSpam } from "./spam";
@@ -19,7 +19,7 @@ type FormDataType = {
 };
 
 export async function POST(
-  req: Request,
+  req: NextRequest,
   {
     params,
   }: {
@@ -29,6 +29,8 @@ export async function POST(
   const reqBody: FormData = await req.formData();
   const formFields: any = {};
   reqBody.forEach((value, key) => (formFields[key] = value));
+  const ip = get(req, "ip", "");
+  const country = get(req, "geo.country", "");
   const formId = params.formId;
   const referer = headers().get("referer");
 
@@ -64,7 +66,7 @@ export async function POST(
       teamSlug: formData?.team?.slug,
       submissionCounter: 1,
       formCounter: 1,
-      memeberCounter: 1,
+      memberCounter: 1,
     },
     select: {
       planName: true,
@@ -100,7 +102,7 @@ export async function POST(
       redirectURl = formFields["_redirect"];
     }
     const formSubmission = await prisma.form_submissions.create({
-      data: { fields: formFields, formId, isSpam: isSpam },
+      data: { fields: formFields, formId, isSpam: isSpam, ip, country },
     });
 
     if (isSpam) {

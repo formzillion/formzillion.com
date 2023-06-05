@@ -1,9 +1,7 @@
 import React from "react";
-import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from "next";
 
-import { platforms } from "./content";
+import GuidesCategory from "./GuidesCategory";
 
 export const metadata: Metadata = {
   title: "Guides - Formzillion",
@@ -29,25 +27,7 @@ export default function page() {
           employ Formzillion with various frameworks.
         </p>
       </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-16 place-content-center justify-center sm:px-16">
-        {platforms.map((app: any, idx: number) => (
-          <Link href={app.url} key={idx}>
-            <div className="rounded bg-gray-900/20 border border-gray-900 hover:border-gray-700 flex flex-col items-center py-8 space-y-4">
-              <div className="h-16 w-16">
-                <Image
-                  src={app.image}
-                  alt={app.name}
-                  height={80}
-                  width={80}
-                  className="object-contain"
-                />
-              </div>
-              <p className="text-2xl">{app.title}</p>
-            </div>
-          </Link>
-        ))}
-      </div>
+      <GuidesCategory  />
     </div>
   );
 }

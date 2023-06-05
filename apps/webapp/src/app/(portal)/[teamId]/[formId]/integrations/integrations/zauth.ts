@@ -17,6 +17,7 @@ const getAuthUrl = async (provider: string, options: any) => {
       body: JSON.stringify({
         teamSlug: options?.teamSlug,
         email: options?.email,
+        formId: options?.formId,
       }),
     });
     const response = await getAuthUrl.json();
@@ -36,9 +37,13 @@ const auth = async (provider: string, options: any, router: any) => {
     `height=600,width=600,left=${x},top=${y}`
   );
 
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${options.teamSlug}/${options.formId}/integrations/${provider}`;
   // Checking for the auth window to close
   const checkForAuthWindow = setInterval(() => {
     if (authWindow.closed) {
+      if (provider === "airtable") {
+        return router.replace(redirectUrl);
+      }
       router.refresh();
       clearInterval(checkForAuthWindow);
     }

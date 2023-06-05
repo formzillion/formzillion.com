@@ -9,15 +9,22 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 export default function Vuejs() {
   return (
     <div>
+      <h1 className="text-2xl sm:text-4xl my-3 font-normal">
+        Building forms with{" "}
+        <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+          Vue.js
+        </span>{" "}
+        and Formzillion
+      </h1>
       <h2>
         Vue.js is a JavaScript framework for building dynamic and interactive user interfaces with a component-based architecture and reactive data binding. It provides developers with an effortless and intuitive development experience, enabling the creation of scalable and maintainable web applications.
       </h2>
-
       <p className="para">
         This guide will demonstrate the quick process of adding a contact form
         to your Vue.js project and connecting it to Formzillion for submission
         handling.
       </p>
+      <p className="heading">How to create a Vue.js Contact Form</p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name{" "}
@@ -68,7 +75,7 @@ npm install`} />
       <div className="flex justify-center my-6">
         <Image
           src={vuejsSite}
-          alt="nextjs site"
+          alt="vuejs site"
           className=" w-[80%] object-contain"
         />
       </div>
@@ -87,7 +94,7 @@ npm install`} />
       />
       <p className="para">
         To incorporate a contact form into your Vue.js site, you can either add
-        it to the existing <b>src/App.vue</b> file.
+        it to the existing <span className="bg-highlight">src/App.vue</span> file.
       </p>
       <iframe
         src="https://codesandbox.io/embed/formzillion-basic-vue-form-ilixsd?fontsize=14&hidenavigation=1&module=%2Fsrc%2FApp.vue&theme=dark"

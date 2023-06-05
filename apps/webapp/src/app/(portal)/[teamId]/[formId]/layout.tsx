@@ -17,9 +17,9 @@ const tabs = [
     targetSegment: "setup",
   },
   {
-    name: "Automations",
-    path: "automations",
-    targetSegment: "automations",
+    name: "Integrations",
+    path: "integrations",
+    targetSegment: "integrations",
   },
   {
     name: "Settings",
@@ -49,7 +49,10 @@ export default async function FormDetailLayout({
       <div className="border-b border-gray-200 dark:border-gray-800">
         <div className="flex justify-between items-center py-4">
           <h1 className="text-xl font-light flex items-center">
-            {startCase(formDetail.name)}&nbsp;<span className="bg-orange-200 text-xs px-3 py-[2px] rounded-full ">Form</span>
+            {startCase(formDetail.name)}&nbsp;
+            <span className="bg-orange-200 text-xs dark:text-black px-3 py-[2px] rounded-full ">
+              Form
+            </span>
           </h1>
           <nav
             className="-mb-2 flex space-x-3 max-w-[70%] overflow-x-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent"

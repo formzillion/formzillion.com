@@ -1,9 +1,10 @@
 import IntegrationItem from "./IntegrationItem";
 
-interface IIntegationsProps {
+interface IIntegrationsProps {
   integrations: IIntegration[];
   teamSlug: string;
   formId: string;
+  [key: string]: any;
 }
 
 export interface IIntegration {
@@ -17,7 +18,8 @@ export interface IIntegration {
   isAvailable: boolean;
 }
 
-export default function Integrations({ teamSlug, integrations, formId }: IIntegationsProps) {
+export default function Integrations(data: IIntegrationsProps) {
+  const { integrations, teamSlug, formId } = data;
   return (
     <div>
       <h2>Integrations</h2>

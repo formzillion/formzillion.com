@@ -12,6 +12,7 @@ import ActionMenu from "./ActionMenu";
 import AddApiConfigModal from "./AddApiConfigModal";
 import zauth from "./zauth";
 import DisconnectConnectionModal from "./DisconnectConnectionModal";
+import Link from "next/link";
 
 interface IButtonProps {
   status: string;
@@ -55,7 +56,7 @@ export default function IntegrationItem({
 
   const handleConnect = async () => {
     if (authType === "oauth") {
-      await zauth.auth(slug, { ...userInfo, teamSlug }, router);
+      await zauth.auth(slug, { ...userInfo, teamSlug, formId }, router);
     } else {
       toggleShowApiKeyModal();
     }
@@ -77,23 +78,25 @@ export default function IntegrationItem({
 
   return (
     <div className="grid grid-cols-1 grid-flow-col items-center justify-between w-full">
-      <div className="flex items-center space-x-2">
-        <div className="flex justify-center">
-          <Image
-            src={icon}
-            alt={name}
-            className="w-12 h-12 object-contain rounded p-3 text-white"
-            width={100}
-            height={100}
+      <Link href={`/${teamSlug}/${formId}/integrations/${slug}`}>
+        <div className="flex items-center space-x-2">
+          <div className="flex justify-center">
+            <Image
+              src={icon}
+              alt={name}
+              className="w-12 h-12 object-contain rounded p-3 text-white"
+              width={100}
+              height={100}
+            />
+          </div>
+          <h3>{name}</h3>
+          <ReconnectButton
+            status={status}
+            slug={slug}
+            onClickApp={handleConnect}
           />
         </div>
-        <h3>{name}</h3>
-        <ReconnectButton
-          status={status}
-          slug={slug}
-          onClickApp={handleConnect}
-        />
-      </div>
+      </Link>
       <ActionMenu
         items={[
           ...(status === "connected"

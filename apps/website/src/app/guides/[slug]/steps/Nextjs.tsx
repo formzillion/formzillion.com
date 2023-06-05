@@ -9,17 +9,24 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 export default function Nextjs() {
   return (
     <>
+      <h1 className="text-2xl sm:text-4xl my-3 font-normal">
+        Building forms with{" "}
+        <span className="bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 bg-clip-text text-transparent">
+          Next.js
+        </span>{" "}
+        and Formzillion
+      </h1>
       <h2>
         Next.js is a powerful framework for building server-rendered React
         applications with seamless routing and server-side rendering
         capabilities.
       </h2>
-
       <p className="para">
         This guide will demonstrate the quick process of adding a contact form
         to your Next.js project and connecting it to Formzillion for submission
         handling.
       </p>
+      <p className="heading">How to create a Next.js Contact Form</p>
       <h4>Step 1 — Create new form endpoint on Formzillion</h4>
       <p className="para">
         Sign in to your Formzillion account and create a new form with name{" "}
@@ -88,8 +95,8 @@ export default function Nextjs() {
       />
       <p className="para">
         To incorporate a contact form into your Next.js site, you can either add
-        it to the existing <b>app/pages.tsx</b> file or create a new page called{" "}
-        <b>app/contact/page.tsx</b>. Then, simply insert the given code block
+        it to the existing <span className="bg-highlight">app/pages.tsx</span> file or create a new page called{" "}
+        <span className="bg-highlight">app/contact/page.tsx</span>. Then, simply insert the given code block
         into the chosen file:
       </p>
       <iframe
