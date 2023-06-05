@@ -5,7 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { type, formId, groupBy = "createdAt" } = JSON.parse(req.body);
+  const { type, formId, groupBy = "createdAt" } = req.body;
 
   let summaryData: any;
 

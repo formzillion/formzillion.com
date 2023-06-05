@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { get, snakeCase } from "lodash";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 export default async function handler(
   req: NextApiRequest,
@@ -19,6 +20,14 @@ export default async function handler(
   //Using this if the user already has a session
   if (type === "hasSession") {
     const { teamSlug, avatar, planName }: any = await getTeams(loginEmail);
+    notifyOnSlack(
+      "Login",
+      ":moneybag:",
+      `*User logged In*\n
+          Email ID: ${loginEmail}\n
+          `,
+      true
+    );
     return res.status(200).json({ url: teamSlug, avatar, planName });
   }
 
@@ -33,6 +42,14 @@ export default async function handler(
     if (data) {
       const { teamSlug, avatar, planName, userDetail }: any = await getTeams(
         email
+      );
+      notifyOnSlack(
+        "plan-added",
+        ":moneybag:",
+        `*User added plan*\n
+            Email ID: ${email}\n
+            `,
+        true
       );
       return res
         .status(200)
