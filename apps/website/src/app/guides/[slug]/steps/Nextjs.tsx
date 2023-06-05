@@ -95,8 +95,8 @@ export default function Nextjs() {
       />
       <p className="para">
         To incorporate a contact form into your Next.js site, you can either add
-        it to the existing <b>app/pages.tsx</b> file or create a new page called{" "}
-        <b>app/contact/page.tsx</b>. Then, simply insert the given code block
+        it to the existing <span className="bg-highlight">app/pages.tsx</span> file or create a new page called{" "}
+        <span className="bg-highlight">app/contact/page.tsx</span>. Then, simply insert the given code block
         into the chosen file:
       </p>
       <iframe

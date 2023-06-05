@@ -66,7 +66,7 @@ export default function React() {
       <div className="flex justify-center my-6">
         <Image
           src={reactjsSite}
-          alt="nextjs site"
+          alt="reactjs site"
           className=" w-[80%] object-contain"
         />
       </div>
@@ -85,8 +85,8 @@ export default function React() {
       />
       <p className="para">
         To incorporate a contact form into your React.js site, you can either
-        add it to the existing <b>src/index.js</b> file or create a new page
-        called <b>app/contact.js</b>. Then, simply insert the given code block
+        add it to the existing <span className="bg-highlight">src/index.js</span> file or create a new page
+        called <span className="bg-highlight">app/contact.js</span>. Then, simply insert the given code block
         into the chosen file:
       </p>
       <iframe

@@ -84,8 +84,8 @@ export default function Gatsby() {
       <h4>Step 4 — Create a Contact Form</h4>
       <p className="para">
         To incorporate a contact form into your Gatsby site, you can either add
-        it to the existing <b>src/pages/index.js</b> file or create a new file
-        called <b>contact.js</b> within the <b>src/pages</b> directory. Then,
+        it to the existing <span className="bg-highlight">src/pages/index.js</span> file or create a new file
+        called <span className="bg-highlight">contact.js</span> within the <span className="bg-highlight">src/pages</span> directory. Then,
         simply insert the given code block into the chosen file
       </p>
       <iframe

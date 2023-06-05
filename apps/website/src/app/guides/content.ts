@@ -9,10 +9,10 @@ export const platforms = [
         comingSoon: true,
       },
       {
-        title: "Nuxtjs",
+        title: "Nuxt",
         image: "/guides/nuxtjs.svg",
-        url: "guides/nuxtjs",
-        comingSoon: true,
+        url: "guides/nuxt",
+        comingSoon: false,
       },
       {
         title: "Shopify",
@@ -61,7 +61,7 @@ export const platforms = [
         comingSoon: false,
       },
       {
-        title: "Nextjs",
+        title: "NextJS",
         image: "/guides/nextjs.png",
         url: "guides/nextjs",
         comingSoon: false,
@@ -79,7 +79,7 @@ export const platforms = [
         comingSoon: false,
       },
       {
-        title: "Vuejs",
+        title: "VueJS",
         image: "/guides/vuejs.svg",
         url: "guides/vuejs",
         comingSoon: false,

@@ -54,8 +54,8 @@ export default function Svelte() {
       </p>
       <CodeBlock content={`cd <project-name>`} />
       <p className="para">Run the development server:</p>
-      <CodeBlock content={`npm run dev
-npm install`} />
+      <CodeBlock content={`npm install
+npm run dev`} />
       <p className="para">
         You can now access the site in your browser by visiting
         https://localhost:5173. Below observe the sample site displayed on the
@@ -64,7 +64,7 @@ npm install`} />
       <div className="flex justify-center my-6">
         <Image
           src={svelteSite}
-          alt="nextjs site"
+          alt="svelte site"
           className=" w-[80%] object-contain"
         />
       </div>
