@@ -20,12 +20,15 @@
     "changeset:normal": "changeset pre exit"
   },
   "dependencies": {
-    "@changesets/cli": "^2.26.1"
+    "@changesets/cli": "^2.26.1",
+    "dotenv": "^16.0.3"
   },
   "devDependencies": {
     "dotenv-cli": "^7.2.1",
     "eslint-config-custom": "workspace:0.0.0",
     "prettier": "latest",
+    "@deploysentinel/playwright": "^0.3.3",
+    "@playwright/test": "^1.34.3",
     "turbo": "^1.9.3"
   },
   "engines": {
