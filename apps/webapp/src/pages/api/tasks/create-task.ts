@@ -13,6 +13,7 @@ export default async function handler(
     teamSlug = "",
     taskSlug = "",
   } = req.body;
+  console.log("req.body: ", req.body);
 
   try {
     const workflow: any = await prisma.workflows.findFirst({

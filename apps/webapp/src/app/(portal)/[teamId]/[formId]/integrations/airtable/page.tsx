@@ -1,6 +1,6 @@
 import { PageProps } from "@/types/PageProps";
-import Integrations, { IIntegration } from "../integrations";
-import integrationMap from "../integrations/integrationMap";
+import Integrations, { IIntegration } from "../Integrations";
+import integrationMap from "../integrationMap";
 import Content from "./Content";
 
 export default async function ({ params }: PageProps) {
@@ -17,7 +17,11 @@ export default async function ({ params }: PageProps) {
         />
       </div>
       <div className="col-span-4 pl-4">
-        <Content teamSlug={teamSlug} formId={formId} />
+        <Content
+          teamSlug={teamSlug}
+          formId={formId}
+          allIntegrations={finalIntegrations}
+        />
       </div>
     </div>
   );

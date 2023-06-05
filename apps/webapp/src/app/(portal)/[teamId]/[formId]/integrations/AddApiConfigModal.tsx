@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { startCase } from "lodash";
+import { isEmpty, startCase } from "lodash";
 
 import {
   Dialog,
@@ -16,12 +16,7 @@ import { Input } from "@/ui/Input/SimpleInput";
 import Button from "@/ui/Buttons";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import addConnection from "@/app/fetch/connections/addConnection";
-
-const appConfigFields = {
-  webhooks: ["connectionName", "webhooksEndpoint"],
-  freshdesk: ["connectionName", "freshdeskSubDomain", "apiKey", "ccEmails"],
-  convertkit: ["connectionName", "apiKey", "apiSecret"],
-} as { [key: string]: string[] };
+import { integrations } from "@/utils/integrations.constants";
 
 export default function AddApiConfigModal({
   closeModal,
@@ -29,17 +24,23 @@ export default function AddApiConfigModal({
   appName,
   appSlug,
   formId,
-}: any) {
-  const configFields: any = {};
-  const currentConfig = appConfigFields[appSlug] || [
-    "connectionName",
-    "apiKey",
-  ];
-  currentConfig.forEach((field) => (configFields[field] = ""));
-  const [connectionConfig, setConnectionConfig] = useState(configFields);
-
+}: {
+  closeModal: any;
+  teamSlug: string;
+  appName: string;
+  appSlug: string;
+  formId: string;
+}) {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const configFields: any = {};
+  const [connectionConfig, setConnectionConfig] = useState(configFields);
+  const apiConfig = integrations.find((i) => i.slug === appSlug)?.config
+    .apiConfig;
+  const currentConfig: any = !isEmpty(apiConfig)
+    ? apiConfig
+    : ["connectionName", "apiKey"];
+  currentConfig.forEach((field: string) => (configFields[field] = ""));
 
   const handleOnSubmit = async () => {
     const allFieldsFilled = Object.values(connectionConfig).every(
@@ -80,7 +81,7 @@ export default function AddApiConfigModal({
             These details helps us to perform actions for {appName}
           </DialogDescription>
         </DialogHeader>
-        {currentConfig?.map((field) => (
+        {currentConfig?.map((field: string) => (
           <div className="space-y-4 py-2 pb-4" key={field}>
             <div className="space-y-2">
               <label htmlFor={field}>

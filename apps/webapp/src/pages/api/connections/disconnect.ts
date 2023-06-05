@@ -6,30 +6,36 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { teamSlug, slug } = JSON.parse(req.body);
-
+  const { teamSlug, slug, connectionId = "" } = JSON.parse(req.body);
+  let connId: any = parseInt(connectionId);
   try {
-    const findConn = await prisma.connections.findFirst({
-      where: {
-        appSlug: slug,
-        team: {
-          slug: teamSlug,
-        },
-      },
-      select: {
-        id: true,
-      },
-    });
-
-    if (!isEmpty(findConn)) {
-      await prisma.connections.delete({
+    if (Number.isNaN(connId)) {
+      const findConn = await prisma.connections.findFirst({
         where: {
-          id: findConn.id,
+          appSlug: slug,
+          team: {
+            slug: teamSlug,
+          },
+        },
+        select: {
+          id: true,
         },
       });
+
+      connId = findConn?.id;
     }
 
-    res.status(201).json({ success: true, data: "Disconnected" });
+    if (typeof connId === "number") {
+      const deletedConn = await prisma.connections.delete({
+        where: {
+          id: connId,
+        },
+      });
+
+      return res.status(200).json({ success: true, data: deletedConn });
+    }
+
+    return res.status(200).json({ success: false, data: "Failed to disconnect" });
   } catch (error: any) {
     console.log("Error in connection disconnection", error.message);
 

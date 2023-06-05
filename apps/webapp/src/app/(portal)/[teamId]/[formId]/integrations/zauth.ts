@@ -1,5 +1,5 @@
-import slackAuthUrl from "./slack";
-import mailchimpAuthUrl from "./mailchimp";
+import slackAuthUrl from "./slack/getAuthUrl";
+import mailchimpAuthUrl from "./mailchimp/getAuthUrl";
 
 const getAuthUrl = async (provider: string, options: any) => {
   let authUrl: any = "";
@@ -37,7 +37,7 @@ const auth = async (provider: string, options: any, router: any) => {
     `height=600,width=600,left=${x},top=${y}`
   );
 
-  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${options.teamSlug}/${options.formId}/integrations/${provider}`;
+  const redirectUrl = `${process.env.NEXT_PUBLIC_APP_URL}/${options.teamSlug}/${options.formId}/integrations/${provider}?status=connected`;
   // Checking for the auth window to close
   const checkForAuthWindow = setInterval(() => {
     if (authWindow.closed) {

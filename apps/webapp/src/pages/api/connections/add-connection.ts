@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { get, isEmpty, startCase } from "lodash";
-import { integrationsConfig } from "@/utils/integrations.constants";
+import { integrations } from "@/utils/integrations.constants";
 
 export default async function handler(
   req: NextApiRequest,
@@ -104,7 +104,9 @@ const createTask = async (
   try {
     const { appSlug, appId } = connectionData;
 
-    const integrationConfig = integrationsConfig[appSlug];
+    const integrationConfig = integrations.find((i) => i.slug === appSlug) as {
+      [key: string]: any;
+    };
     const isTemplateRequired = !isEmpty(integrationConfig.template);
     if (isTemplateRequired) return {};
 
