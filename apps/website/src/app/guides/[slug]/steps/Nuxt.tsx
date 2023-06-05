@@ -207,9 +207,10 @@ npm run dev`} />
         <Image src={nuxtjs} alt="Thank you" className="object-contain w-[50%]" />
       </div>
       <p className="para">
-        {`To successfully submit your form to Formzillion, ensure that you include
-        the 'FORM_ID' in the provided form code. This 'FORM_ID' should
-        correspond to the ID assigned to your specific Formzillion form.`}
+        To successfully submit your form to Formzillion, ensure that you include
+        the <span className="bg-highlight">{`'FORM_ID'`}</span> in the provided
+        form code. This <span className="bg-highlight">{`'FORM_ID'`}</span>{" "}
+        should correspond to the ID assigned to your specific Formzillion form.
       </p>
       <p className="para">
         And there you have it! Once you fill out and submit the form, you will

@@ -17,7 +17,10 @@ export default function Svelte() {
         and Formzillion
       </h1>
       <h2>
-        Svelte is a JavaScript framework that enables developers to build dynamic and interactive user interfaces with a compiler-based approach. It eliminates the need for a virtual DOM and provides scoped CSS for component-based styling.
+        Svelte is a JavaScript framework that enables developers to build
+        dynamic and interactive user interfaces with a compiler-based approach.
+        It eliminates the need for a virtual DOM and provides scoped CSS for
+        component-based styling.
       </h2>
 
       <p className="para">
@@ -35,13 +38,8 @@ export default function Svelte() {
       <h4> Step 2 — Create a new Svelte project</h4>
       <p className="para">
         {`To initiate the project setup, let's follow the instructions provided in
-        the Svelte`}
-        {" "}
-        <a
-          href="https://svelte.dev/docs"
-          target="_blank"
-          rel="noreferrer"
-        >
+        the Svelte`}{" "}
+        <a href="https://svelte.dev/docs" target="_blank" rel="noreferrer">
           Getting Started
           <ArrowTopRightOnSquareIcon className="h-4 w-4 inline" />
         </a>{" "}
@@ -54,8 +52,10 @@ export default function Svelte() {
       </p>
       <CodeBlock content={`cd <project-name>`} />
       <p className="para">Run the development server:</p>
-      <CodeBlock content={`npm install
-npm run dev`} />
+      <CodeBlock
+        content={`npm install
+npm run dev`}
+      />
       <p className="para">
         You can now access the site in your browser by visiting
         https://localhost:5173. Below observe the sample site displayed on the
@@ -78,16 +78,24 @@ npm run dev`} />
       </p>
       <ol>
         <li>
-          Within the <span className="bg-highlight">src/routes</span> directory of your project, create a new folder called <span className="bg-highlight">contact</span>.
+          Within the <span className="bg-highlight">src/routes</span> directory
+          of your project, create a new folder called{" "}
+          <span className="bg-highlight">contact</span>.
         </li>
         <li>
-          Inside the <span className="bg-highlight">contact</span> folder, create a <span className="bg-highlight"> +page.svelte</span > file to serve as the component defining the <span className="bg-highlight">contact</span> page in your app.
+          Inside the <span className="bg-highlight">contact</span> folder,
+          create a <span className="bg-highlight"> +page.svelte</span> file to
+          serve as the component defining the{" "}
+          <span className="bg-highlight">contact</span> page in your app.
         </li>
         <li>
-          Insert the provided code block below into the <span className="bg-highlight">+page.svelte</span> file locaed at <span className="bg-highlight">src/routes/contact/+page.svelte</span>.
+          Insert the provided code block below into the{" "}
+          <span className="bg-highlight">+page.svelte</span> file locaed at{" "}
+          <span className="bg-highlight">src/routes/contact/+page.svelte</span>.
         </li>
       </ol>
-      <CodeBlock content={`<svelte:head>
+      <CodeBlock
+        content={`<svelte:head>
   <title>Home</title>
   <meta name="description" content="Svelte demo app" />
 </svelte:head>
@@ -119,9 +127,13 @@ npm run dev`} />
 </section> `}
       />
       <p className="para">
-        To enhance the appearance of the form, you can apply custom CSS. Add the following code snippet to the bottom of the <span className="bg-highlight">+page.svelte</span> file located in <span className="bg-highlight">src/routes/contact/</span>:
+        To enhance the appearance of the form, you can apply custom CSS. Add the
+        following code snippet to the bottom of the{" "}
+        <span className="bg-highlight">+page.svelte</span> file located in{" "}
+        <span className="bg-highlight">src/routes/contact/</span>:
       </p>
-      <CodeBlock content={`<style>
+      <CodeBlock
+        content={`<style>
   .header {
     display: flex;
     justify-content: center;
@@ -194,16 +206,24 @@ npm run dev`} />
   label {
     font-size: large;
   }
-</style>`} />
+</style>`}
+      />
       <p className="para">
-        Now, with the applied styling, the form has an appealing visual design that appears as follows:</p>
+        Now, with the applied styling, the form has an appealing visual design
+        that appears as follows:
+      </p>
       <div className="flex justify-center my-6">
-        <Image src={svelte} alt="Thank you" className="object-contain w-[50%]" />
+        <Image
+          src={svelte}
+          alt="Thank you"
+          className="object-contain w-[50%]"
+        />
       </div>
       <p className="para">
-        {`To successfully submit your form to Formzillion, ensure that you include
-        the 'FORM_ID' in the provided form code. This 'FORM_ID' should
-        correspond to the ID assigned to your specific Formzillion form.`}
+        To successfully submit your form to Formzillion, ensure that you include
+        the <span className="bg-highlight">{`'FORM_ID'`}</span> in the provided
+        form code. This <span className="bg-highlight">{`'FORM_ID'`}</span>{" "}
+        should correspond to the ID assigned to your specific Formzillion form.
       </p>
       <p className="para">
         And there you have it! Once you fill out and submit the form, you will
@@ -217,5 +237,5 @@ npm run dev`} />
         Formzillion!
       </p>
     </div>
-  )
+  );
 }

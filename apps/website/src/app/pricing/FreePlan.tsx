@@ -5,7 +5,7 @@ import React from "react";
 const features = [
   "1 Form creation",
   "Default thank-you page redirection",
-  "Up to 50 submissions",
+  "Up to 100 submissions",
   "Community support via slack.",
 ];
 export default function FreePlan() {

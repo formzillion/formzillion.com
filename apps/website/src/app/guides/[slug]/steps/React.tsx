@@ -85,9 +85,10 @@ export default function React() {
       />
       <p className="para">
         To incorporate a contact form into your React.js site, you can either
-        add it to the existing <span className="bg-highlight">src/index.js</span> file or create a new page
-        called <span className="bg-highlight">app/contact.js</span>. Then, simply insert the given code block
-        into the chosen file:
+        add it to the existing{" "}
+        <span className="bg-highlight">src/index.js</span> file or create a new
+        page called <span className="bg-highlight">app/contact.js</span>. Then,
+        simply insert the given code block into the chosen file:
       </p>
       <iframe
         src="https://codesandbox.io/embed/green-leaf-usev4d?fontsize=14&hidenavigation=1&theme=dark"
@@ -97,9 +98,10 @@ export default function React() {
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       ></iframe>
       <p className="para">
-        {`To successfully submit your form to Formzillion, ensure that you include
-        the 'FORM_ID' in the provided form code. This 'FORM_ID' should
-        correspond to the ID assigned to your specific Formzillion form.`}
+        To successfully submit your form to Formzillion, ensure that you include
+        the <span className="bg-highlight">{`'FORM_ID'`}</span> in the provided
+        form code. This <span className="bg-highlight">{`'FORM_ID'`}</span>{" "}
+        should correspond to the ID assigned to your specific Formzillion form.
       </p>
       <p className="para">
         And there you have it! Once you fill out and submit the form, you will

@@ -35,9 +35,8 @@ export default function Nextjs() {
       </p>
       <h4> Step 2 — Create a new NextJS project</h4>
       <p className="para">
-        {`To initiate the project setup, let's follow the instructions provided in
-        the Next.j`}
-        s{" "}
+        To initiate the project setup, let’s follow the instructions provided in
+        the Next.js
         <a
           href="https://nextjs.org/docs/getting-started/installation"
           target="_blank"
@@ -95,9 +94,10 @@ export default function Nextjs() {
       />
       <p className="para">
         To incorporate a contact form into your Next.js site, you can either add
-        it to the existing <span className="bg-highlight">app/pages.tsx</span> file or create a new page called{" "}
-        <span className="bg-highlight">app/contact/page.tsx</span>. Then, simply insert the given code block
-        into the chosen file:
+        it to the existing <span className="bg-highlight">app/pages.tsx</span>{" "}
+        file or create a new page called{" "}
+        <span className="bg-highlight">app/contact/page.tsx</span>. Then, simply
+        insert the given code block into the chosen file:
       </p>
       <iframe
         className="w-full my-10 h-[600px] rounded-xl scroll-m-1 overflow-scroll max-h-screen scrollbar-thin scrollbar-track-rounded-full scrollbar-thumb-rounded-md scrollbar-h-[1px] scrollbar-thumb-gray-700"
@@ -106,9 +106,10 @@ export default function Nextjs() {
         sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
       ></iframe>
       <p className="para">
-        {`To successfully submit your form to Formzillion, ensure that you include
-        the 'FORM_ID' in the provided form code. This 'FORM_ID' should
-        correspond to the ID assigned to your specific Formzillion form.`}
+        To successfully submit your form to Formzillion, ensure that you include
+        the <span className="bg-highlight">{`'FORM_ID'`}</span> in the provided
+        form code. This <span className="bg-highlight">{`'FORM_ID'`}</span>{" "}
+        should correspond to the ID assigned to your specific Formzillion form.
       </p>
       <p className="para">
         And there you have it! Once you fill out and submit the form, you will
