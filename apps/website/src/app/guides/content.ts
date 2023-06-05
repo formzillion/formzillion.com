@@ -41,7 +41,7 @@ export const platforms = [
         title: "11ty",
         image: "/guides/11ty-l.png",
         url: "guides/eleventy",
-        comingSoon: true,
+        comingSoon: false,
       },
       {
         title: "Gridsome",
