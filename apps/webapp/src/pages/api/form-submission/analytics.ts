@@ -43,7 +43,7 @@ export default async function analytics(
     });
   }
 
-  summaryData = get(summaryData, "0", []);
+  summaryData = get(summaryData, "0", []); 
 
   return res.status(201).json({ success: true, data: summaryData });
 }
