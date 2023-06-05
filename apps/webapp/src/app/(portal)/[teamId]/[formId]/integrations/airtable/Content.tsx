@@ -40,14 +40,14 @@ export default function Content({
 
   const handleOnSave = async () => {
     if (!isTablesEmpty) {
-      const taskResp = await createTask({
-        teamSlug,
-        formId,
-        template,
-        appSlug,
-        taskSlug: get(config, "actions.0", ""),
-      });
-      console.log("taskResp: ", taskResp);
+      // const taskResp = await createTask({
+      //   teamSlug,
+      //   formId,
+      //   template,
+      //   appSlug,
+      //   taskSlug: get(config, "actions.0", ""),
+      // });
+      // console.log("taskResp: ", taskResp);
     }
   };
 
@@ -73,7 +73,7 @@ export default function Content({
           the submissions.
         </p>
         <br />
-        Click on "Connect Airtable" to connect your Airtable account.
+        Click on &quot;Connect Airtable&quot; to connect your Airtable account.
       </div>
       {!isEmpty(tables) && (
         <div>

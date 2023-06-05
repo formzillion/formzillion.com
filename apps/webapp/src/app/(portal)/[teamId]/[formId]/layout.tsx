@@ -17,9 +17,9 @@ const tabs = [
     targetSegment: "setup",
   },
   {
-    name: "Automations",
-    path: "automations",
-    targetSegment: "automations",
+    name: "Integrations",
+    path: "integrations",
+    targetSegment: "integrations",
   },
   {
     name: "Settings",
