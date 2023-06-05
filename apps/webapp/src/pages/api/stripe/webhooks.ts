@@ -6,6 +6,8 @@ import { get, snakeCase } from "lodash";
 import prisma from "@/lib/prisma";
 import stripeApi from "@/lib/stripe/stripe-api";
 import { fromUnixTime } from "date-fns";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
+import { getTeamDetails } from "@/utils/getTeamDetails";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2022-11-15",
@@ -73,6 +75,15 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           planName: null,
         },
       });
+      const { teamSlug, teamType, plan } = getTeamDetails(updatedTeam);
+
+      notifyOnSlack(
+        "Cancelled Plan",
+        `*User Cancelled Plan*\n
+            Type: ${teamType}\n
+            plan: ${plan}\n
+            teamSlug: ${teamSlug}\n`
+      );
 
       await prisma.plan_metering.update({
         where: { teamId: updatedTeam.id },
@@ -90,6 +101,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const productdetails = await stripeApi.productDetail({ productId });
       const planName = get(productdetails, "name", "");
       const formattedPlanName = snakeCase(planName);
+
       const updatedTeam = await prisma.teams.update({
         where: {
           billingCustomerId: paymentIntent.customer,
@@ -99,6 +111,17 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
           planName: formattedPlanName,
         },
       });
+
+      const { teamSlug, teamType } = getTeamDetails(updatedTeam);
+
+      notifyOnSlack(
+        "Plan Updated",
+        `*User Updated Plan*\n
+            Type: ${teamType}\n
+            plan: ${formattedPlanName}\n
+            planId: ${planId}\n
+            teamSlug: ${teamSlug}\n`
+      );
 
       // Insert or Updating the Plan Metering
       await prisma.plan_metering.upsert({

@@ -4,6 +4,7 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import { showErrorToast } from "@/ui/Toast/Toast";
 import { planFormLimit } from "@/utils/plans.constants";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 export default async function handler(
   req: NextApiRequest,
@@ -109,6 +110,14 @@ export default async function handler(
         status: "active",
       },
     });
+
+    notifyOnSlack(
+      "Form Creation",
+      `*New Form Created*\n
+          Form Name: ${name}\n
+          Created By: ${email}\n
+          teamSlug: ${teamSlug}`
+    );
 
     res
       .status(201)

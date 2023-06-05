@@ -40,7 +40,8 @@
         "NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID",
         "REDIS_URI",
         "REDIS_PORT",
-        "NEXT_PUBLIC_DOCS_URL"
+        "NEXT_PUBLIC_DOCS_URL",
+        "SLACK_ACTIVITY_URL"
       ]
     },
     "db:generate": {
