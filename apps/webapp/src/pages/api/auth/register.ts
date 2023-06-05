@@ -4,6 +4,7 @@ import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import stripeApi from "@/lib/stripe/stripe-api";
 import { PLAN_ID } from "@/utils/stripe.constants";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,11 +12,7 @@ export default async function handler(
 ) {
   // Create authenticated Supabase Client
   const supabase = createServerSupabaseClient({ req, res });
-  // Check if we have a session
-  const {
-    data: { session },
-  }: any = await supabase.auth.getSession();
-  const loginEmail: any = session?.user?.email;
+
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -120,6 +117,13 @@ async function postRegisterActions({ email }: any) {
       email,
       fullName,
     });
+
+  notifyOnSlack(
+    "Login",
+    `*New User Registered*\n
+        Email ID: ${email}\n`,
+  );
+
   return { customerId, planName, planId, fullName };
 }
 

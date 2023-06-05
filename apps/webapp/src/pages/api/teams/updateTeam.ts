@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "@/lib/prisma";
 import getUserSession from "../userSession/getUserSession";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 enum Role {
   ADMIN = "ADMIN",
@@ -27,7 +28,7 @@ export default async function handler(
         updatedTeam = await leaveTeam(teamSlug, currentUser.id);
         break;
       case "deleteTeam":
-        updatedTeam = await deleteTeam(teamSlug);
+        updatedTeam = await deleteTeam(teamSlug, currentUser.email);
         break;
       case "removeMember":
         updatedTeam = await removeMember(teamSlug, teamName);
@@ -88,7 +89,7 @@ async function leaveTeam(teamSlug: string, userId: string) {
   });
 }
 
-async function deleteTeam(teamSlug: string) {
+async function deleteTeam(teamSlug: string, userEmail: string) {
   const team: any = await prisma.teams.findUnique({
     where: {
       slug: teamSlug,
@@ -104,6 +105,15 @@ async function deleteTeam(teamSlug: string) {
       },
     });
   }
+
+  notifyOnSlack(
+    "Deleted Team",
+    `*User Deleted Team*\n
+        User Email: ${userEmail}\n
+        Team Slug: ${team.slug}\n
+        Plan Name: ${team.planName}\n`
+  );
+
   return await prisma.teams.delete({
     where: {
       slug: teamSlug,

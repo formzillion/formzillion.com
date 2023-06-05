@@ -6,6 +6,7 @@ import { createBillingUserAndSubscription } from "../auth/register";
 import { sendEmail } from "@/lib/sendEmail";
 import { invitationEmail } from "./invitationEmail";
 import { getToken } from "@/utils/tokenService";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 export default async function handler(
   req: NextApiRequest,
@@ -67,6 +68,14 @@ export default async function handler(
         role: "OWNER",
       },
     });
+
+    notifyOnSlack(
+      "Created Team",
+      `*User Created Team*\n
+          User Email: ${currentUserEmail}\n
+          Team Slug: ${kebabCase(name)}\n`
+    );
+
     for (const user of existingUsers) {
       if (user.id !== currentUser.id) {
         await prisma.memberships.create({
