@@ -39,10 +39,7 @@ export const getTeamDetails = (teams: any) => {
   const teamName = get(teams, "name", "");
   const teamAvatar = get(teams, "avatar", "");
   let plan = get(teams, "planName", "free");
-
-  if (plan === null) {
-    plan = "free";
-  }
+  plan === null ? "free" : plan;
 
   const formattedPlanName = snakeCase(plan);
   const teamType = get(teams, "type", "");
