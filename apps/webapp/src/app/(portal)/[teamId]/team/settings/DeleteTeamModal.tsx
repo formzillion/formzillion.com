@@ -16,6 +16,8 @@ import { Input } from "@/ui/Input/SimpleInput";
 import { showErrorToast, showSuccessToast } from "@/ui/Toast/Toast";
 import { get, snakeCase } from "lodash";
 import { setItem } from "@/utils/sessionStorage";
+import { getTeamDetails } from "@/utils/getTeamDetails";
+import Link from "next/link";
 
 export default function DeleteTeamModal({
   closeModal,
@@ -26,14 +28,31 @@ export default function DeleteTeamModal({
   const [isConfirmed, setIsConfirmed] = useState("");
   const userAcc: any = JSON.parse(personalAccount);
   const storageData = get(userAcc, "0", {});
+
+  const {
+    teamName,
+    teamSlug: slug,
+    teamType,
+    teamAvatar,
+    plan,
+  } = getTeamDetails(storageData);
+
+  const {
+    teamName: accName,
+    teamSlug: accSlug,
+    plan: accPlan,
+    disabled,
+  } = getTeamDetails(teamSlug);
+
   const userSlug = get(userAcc, "0.slug", "");
   const [loading, setLoading] = useState(false);
+
   const onClickDeleteTeam = async () => {
     if (isConfirmed === teamSlug.name) {
       setLoading(true);
       const res = await updateTeam({
-        teamName: teamSlug.name,
-        teamSlug: teamSlug.slug,
+        teamName: accName,
+        teamSlug: accSlug,
         type: "deleteTeam",
       });
       if (res) {
@@ -43,11 +62,11 @@ export default function DeleteTeamModal({
         setItem({
           name: "teamData",
           value: {
-            label: storageData.name || "",
-            value: storageData.slug || "",
-            type: storageData.type || "",
-            planName: snakeCase(storageData.planName) || "",
-            avatar: storageData.avatar || "",
+            label: teamName || "",
+            value: slug || "",
+            type: teamType || "",
+            planName: snakeCase(plan) || "",
+            avatar: teamAvatar || "",
           },
         });
         router.push(`/${userSlug}`);
@@ -70,11 +89,37 @@ export default function DeleteTeamModal({
         <DialogHeader>
           <DialogTitle>Confirm Delete Team</DialogTitle>
           <DialogDescription className="text-gray-600">
-            Once you dalete your team, you will no longer be able to access it.
+            Once you delete your team, you will no longer be able to access it.
           </DialogDescription>
         </DialogHeader>
         <div>
           <div className="space-y-4 py-2 pb-4">
+            {accPlan === "free" ? (
+              <div
+                className="bg-red-100 dark:bg-red-600 dark:text-red-50 shadow border border-red-600 text-red-700 px-4 py-2 rounded relative"
+                role="alert"
+              >
+                <strong className="font-bold text-sm">Warning! </strong>
+                <span className="block sm:inline text-sm">
+                  Please be aware that this action is irreversible. Please
+                  ensure that you are certain before proceeding.
+                </span>
+              </div>
+            ) : (
+              <div
+                className="bg-red-100 dark:bg-red-600 dark:text-red-50 shadow border border-red-600 text-red-700 px-4 py-2 rounded relative"
+                role="alert"
+              >
+                <strong className="font-bold text-sm">Note: </strong>
+                <span className="block sm:inline text-sm">
+                  You are currently under paid plan for this team. Please cancel
+                  the plan before you proceed to delete the team.{" "}
+                  <Link href={"settings/billing"} target="_black">
+                    go to billing
+                  </Link>
+                </span>
+              </div>
+            )}
             <div className="space-y-2">
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 {`Please type-in `}
@@ -96,6 +141,7 @@ export default function DeleteTeamModal({
             className="bg-red-600  text-white rounded-none"
             onClick={onClickDeleteTeam}
             type="submit"
+            disabled={disabled ? false : true}
           >
             Delete team
           </Button>

@@ -64,7 +64,7 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       const charge = event.data.object as Stripe.Charge;
       console.log(`Charge id: ${charge.id}`);
     } else if (event.type === "customer.subscription.deleted") {
-      //cancled subscription
+      //cancelled subscription
       const paymentIntent: any = event.data.object as Stripe.PaymentIntent;
       const updatedTeam = await prisma.teams.update({
         where: {
@@ -98,8 +98,8 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const planId = get(paymentIntent, "items.data.0.plan.id", "");
       const productId = get(paymentIntent, "items.data.0.plan.product", "");
-      const productdetails = await stripeApi.productDetail({ productId });
-      const planName = get(productdetails, "name", "");
+      const productDetails = await stripeApi.productDetail({ productId });
+      const planName = get(productDetails, "name", "");
       const formattedPlanName = snakeCase(planName);
 
       const updatedTeam = await prisma.teams.update({
@@ -151,8 +151,8 @@ const webhookHandler = async (req: NextApiRequest, res: NextApiResponse) => {
         invoiceDetails.period_start
       ).toString();
 
-      const productdetails = await stripeApi.productDetail({ productId });
-      const planName = get(productdetails, "name", "");
+      const productDetails = await stripeApi.productDetail({ productId });
+      const planName = get(productDetails, "name", "");
 
       const data = await prisma.invoices.create({
         data: {

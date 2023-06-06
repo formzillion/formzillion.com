@@ -38,23 +38,30 @@ export const getTeamDetails = (teams: any) => {
   const teamId = get(teams, "id", "");
   const teamName = get(teams, "name", "");
   const teamAvatar = get(teams, "avatar", "");
-  const plan = get(teams, "planName", "");
-  const formatedPlanName = snakeCase(plan);
+  let plan = get(teams, "planName", "free");
+
+  if (plan === null) {
+    plan = "free";
+  }
+
+  const formattedPlanName = snakeCase(plan);
   const teamType = get(teams, "type", "");
   const url =
     teamType === "default"
       ? `/${teamSlug}/team/settings/billing`
       : `/${teamSlug}/settings/billing`;
-  const disabled = formatedPlanName === "free" ? true : false;
+  const disabled = formattedPlanName === "free" ? true : false;
+  const isPersonalAccount = teamType === "personal" ? true : false;
 
   return {
     teamSlug,
     teamId,
     teamName,
     teamAvatar,
-    plan: formatedPlanName,
+    plan: formattedPlanName,
     url,
     disabled,
     teamType,
+    isPersonalAccount,
   };
 };
