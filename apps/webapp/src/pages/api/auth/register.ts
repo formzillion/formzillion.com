@@ -121,7 +121,7 @@ async function postRegisterActions({ email }: any) {
   notifyOnSlack(
     "Login",
     `*New User Registered*\n
-        Email ID: ${email}\n`,
+        Email ID: ${email}\n`
   );
 
   return { customerId, planName, planId, fullName };
@@ -144,8 +144,10 @@ export async function createBillingUserAndSubscription({
   //Step 3: Get the plan name from Stripe
   const productId = get(subscription, "plan.product", "").toString();
   const productDetails = await stripeApi.productDetail({ productId });
-  const planName = get(productDetails, "name", "free");
+  let planName = get(productDetails, "name", "free");
   const formattedPlanName = snakeCase(planName);
+  planName === null ? "free" : planName;
+
   return {
     customerId: stripeCustomer?.id,
     planName: formattedPlanName,
