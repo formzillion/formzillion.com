@@ -85,7 +85,7 @@ export const integrations: IIntegrationType[] = [
       "You will be receiving the event data to the following webhook endpoint : {webhooksEndpoint}",
     config: {
       actions: ["postToWebhookEnpoint"],
-      apiConfig: ["connectionName", "webhooksEndpoint"],
+      apiConfig: ["webhooksEndpoint"],
       template: {},
     },
   },
@@ -144,7 +144,7 @@ export const integrations: IIntegrationType[] = [
     additionalInfo: "",
     config: {
       actions: ["createTicket"],
-      apiConfig: ["connectionName", "freshdeskSubDomain", "apiKey", "ccEmails"],
+      apiConfig: ["freshdeskSubDomain", "apiKey", "ccEmails"],
       template: {},
     },
   },
@@ -164,7 +164,7 @@ export const integrations: IIntegrationType[] = [
     additionalInfo: "",
     config: {
       actions: ["addSubscriberToAForm"],
-      apiConfig: ["connectionName", "apiKey", "apiSecret"],
+      apiConfig: ["apiKey", "apiSecret"],
       template: { tag: [] },
     },
   },
