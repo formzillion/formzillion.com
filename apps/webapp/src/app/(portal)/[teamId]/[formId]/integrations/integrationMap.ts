@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma";
+import { getTeamDetails } from "@/utils/getTeamDetails";
 import { integrations } from "@/utils/integrations.constants";
+import { get } from "lodash";
 
 interface IIntegrationMap {
   teamSlug: string;
@@ -43,7 +45,20 @@ export default async function integrationMap({ teamSlug }: IIntegrationMap) {
 
     const finalIntegrations = Object.values(integrationConnectionMap);
 
-    return finalIntegrations;
+    const teams = await prisma.teams.findUnique({
+      where: {
+        slug: teamSlug,
+      },
+      select: {
+        slug: true,
+        name: true,
+        planName: true,
+        type: true,
+      },
+    });
+    const { plan, url } = getTeamDetails(get(teams, "0", {}));
+
+    return { finalIntegrations, plan, url };
   } catch (e) {
     console.log("Error in integrationMap", e);
     return integrations;
