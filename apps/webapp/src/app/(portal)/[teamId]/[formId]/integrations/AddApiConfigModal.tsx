@@ -37,10 +37,9 @@ export default function AddApiConfigModal({
   const [connectionConfig, setConnectionConfig] = useState(configFields);
   const apiConfig = integrations.find((i) => i.slug === appSlug)?.config
     .apiConfig;
-  const currentConfig: any = !isEmpty(apiConfig)
-    ? apiConfig
-    : ["connectionName", "apiKey"];
+  const currentConfig: any = !isEmpty(apiConfig) ? apiConfig : ["apiKey"];
   currentConfig.forEach((field: string) => (configFields[field] = ""));
+  connectionConfig.connectionName = teamSlug;
 
   const handleOnSubmit = async () => {
     const allFieldsFilled = Object.values(connectionConfig).every(
