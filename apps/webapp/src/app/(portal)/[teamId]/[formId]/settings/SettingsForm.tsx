@@ -34,9 +34,11 @@ export default function SettingsForm({ formDetail, formSubmissions }: any) {
           [name]: value,
         }),
       });
-      const jsonResponse = response.json();
+      const jsonResponse = await response.json();
+      if (jsonResponse.success) {
+        showSuccessToast("Form Updated Successfully!");
+      }
       setLoading(false);
-      showSuccessToast("Test form submitted!");
       router.refresh();
     } catch (e) {
       showErrorToast("Error while testing form");

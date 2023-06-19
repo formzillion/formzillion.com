@@ -1,6 +1,6 @@
-import AppLogo from "@/ui/AppLogo";
 import Link from "next/link";
 import { FiGithub, FiLinkedin, FiSlack } from "react-icons/fi";
+import AppIcon from "@/ui/AppIcon";
 
 const footerLinks = [
   {
@@ -13,7 +13,7 @@ const footerLinks = [
       },
       {
         label: "Documentation",
-        href: "https://docs.formzillion.com",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}`,
         target: "_blank",
       },
       {
@@ -34,26 +34,37 @@ const footerLinks = [
     ],
   },
   {
-    title: "Platforms",
+    title: "Guides",
+    href: "/guides",
     list: [
       {
-        label: "Wordpress",
-        href: "/platforms/wordpress",
-        target: "_self",
-      },
-      {
         label: "Gatsby",
-        href: "/platforms/gatsby",
+        href: "/guides/gatsby",
         target: "_self",
       },
       {
         label: "Nextjs",
-        href: "/platforms/nextjs",
+        href: "/guides/nextjs",
         target: "_self",
       },
       {
         label: "Webflow",
-        href: "/platforms/webflow",
+        href: "/guides/webflow",
+        target: "_self",
+      },
+      {
+        label: "Wordpress",
+        href: "/guides/wordpress",
+        target: "_self",
+      },
+      {
+        label: "Ghost",
+        href: "/guides/ghost",
+        target: "_self",
+      },
+      {
+        label: "More...",
+        href: "/guides",
         target: "_self",
       },
     ],
@@ -99,33 +110,63 @@ const footerLinks = [
     list: [
       {
         label: "Spam Filtering",
-        href: "https://docs.formzillion.com/features/spam-filtering",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/spam-filtering`,
         target: "_blank",
       },
       {
         label: "Redirects",
-        href: "https://docs.formzillion.com/features/redirects",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/redirects`,
         target: "_blank",
       },
       {
         label: "Collaboration",
-        href: "https://docs.formzillion.com/features/collaboration",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/collaboration`,
         target: "_blank",
       },
       {
         label: "Exports",
-        href: "https://docs.formzillion.com/features/exports",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/exports`,
         target: "_blank",
       },
       {
         label: "Email Notifications",
-        href: "https://docs.formzillion.com/features/email-notifications",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/email-notifications`,
         target: "_blank",
       },
       {
         label: "Autoresponders",
-        href: "https://docs.formzillion.com/features/autoresponders",
+        href: `${process.env.NEXT_PUBLIC_DOCS_URL}/features/autoresponders`,
         target: "_blank",
+      },
+    ],
+  },
+  {
+    title: "Compare",
+    list: [
+      {
+        label: "Formspree",
+        href: "/compare/formspree",
+        target: "_self",
+      },
+      {
+        label: "getform",
+        href: "/compare/getform",
+        target: "_self",
+      },
+      {
+        label: "Basin",
+        href: "/compare/basin",
+        target: "_self",
+      },
+      {
+        label: "Formspark",
+        href: "/compare/formspark",
+        target: "_self",
+      },
+      {
+        label: "Formcarry",
+        href: "/compare/formcarry",
+        target: "_self",
       },
     ],
   },
@@ -153,14 +194,15 @@ export default function Footer() {
   return (
     <div className="relative border-t border-gray-800 bg-gray-900/20">
       <div className="mx-auto max-w-7xl px-4 lg:px-2">
-        <div className="grid grid-cols-2 md:grid-cols-4 mt-8 text-white justify-between">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex mt-8 text-white justify-between">
           {footerLinks.map((data: any, idx: number) => (
             <div key={idx} className="mt-4 md:mt-0">
               {data.href ? (
-                <Link href={data.href}>
-                  <p className="text-gray-300 text-base font-medium hover:text-gray-100">
-                    {data.title}
-                  </p>
+                <Link
+                  href={data.href}
+                  className="text-gray-300 text-base font-medium hover:text-gray-100"
+                >
+                  {data.title}
                 </Link>
               ) : (
                 <p className="text-gray-300 text-base font-medium">
@@ -197,16 +239,24 @@ export default function Footer() {
             </a>
           ))}
         </div>
-        <div className="flex flex-col items-center space-y-2 sm:flex-row justify-center sm:justify-between w-full text-white py-3 mt-4 lg:mt-8 mb-8">
-          <AppLogo />
-          <p className="text-gray-300 leading-normal md:text-end text-sm sm::text-base">
-            Copyright © 2023 Zillionstack Inc. All rights reserved.
-          </p>
-          <div className="flex space-x-2">
-            <Link href={"/privacy"} className="underline text-gray-300 text-sm">
+        <div className="flex items-center w-full text-white py-3 mt-4 lg:mt-8 mb-8">
+          <div className="hidden sm:block">
+            <AppIcon src={"/logos/favicon.svg"} />
+          </div>
+          <div className="divide-x divide-gray-800 flex items-center space-x-4">
+            <p className="text-gray-300 leading-normal md:text-end text-sm sm::text-base pl-2 w-full">
+              Copyright © 2023 Zillionstack Inc. All rights reserved.{" "}
+            </p>
+            <Link
+              href={"/privacy"}
+              className="hover:underline text-gray-300 text-sm pl-4"
+            >
               Privacy
             </Link>
-            <Link href={"/terms"} className="underline text-gray-300 text-sm">
+            <Link
+              href={"/terms"}
+              className="hover:underline text-gray-300 text-sm pl-4"
+            >
               Terms
             </Link>
           </div>

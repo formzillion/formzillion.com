@@ -47,7 +47,7 @@ export const getAccessToken = async (code: any) => {
     const result = await response.json();
     return result || {};
   } catch (error) {
-    console.log("error", error);
+    console.log("Error from Slack sdk", error);
     return {};
   }
 };

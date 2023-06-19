@@ -23,36 +23,26 @@ export default async function TeamLayout({ children, params }: any) {
     notFound();
   }
 
-  const team = user?.teams?.filter((team: any) => team.slug === finalTeamId);
-  const teamType = get(team, "0.type", "");
+  const team = user?.teams?.find((team: any) => team.slug === finalTeamId);
+
+  const teamType = get(team, "type", "");
   const tabs = [
     { name: "Forms", path: `/`, targetSegment: null },
-    {
-      name: "Apps",
-      path: "apps",
-      targetSegment: "apps",
-    },
-    {
-      name: "Usage",
-      path: "usage",
-      targetSegment: "usage",
-    },
-    {
-      name: "Activity",
-      path: "activity",
-      targetSegment: "activity",
-    },
     {
       name: "Settings",
       path: teamType === "personal" ? `settings` : `team/settings`,
       targetSegment: teamType === "personal" ? `settings` : `team`,
     },
   ];
- 
+
   return (
-    <>
-      <PrimaryNav tabs={tabs} finalTeamId={finalTeamId} formId={formId} />
+    <div className="mx-auto max-w-7xl">
+      <PrimaryNav
+        tabs={tabs}
+        team={team}
+        formId={formId}
+      />
       {children}
-    </>
+    </div>
   );
 }

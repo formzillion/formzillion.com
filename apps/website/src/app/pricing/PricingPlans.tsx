@@ -85,11 +85,11 @@ export default function PricingPlans() {
       <div className="bg-black py-8 sm:py-16 text-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-4xl text-center">
-            <p className="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            <h1 className="text-2xl sm:text-3xl lg:text-5xl mb-2 font-normal lg:leading-snug">
               Plans and Pricing
-            </p>
+            </h1>
           </div>
-          <p className="mx-auto mt-6 max-w-2xl text-center text-lg leading-8 text-white">
+          <p className="text-base lg:text-xl text-gray-400 text-center">
             {`Whether you're building a personal portfolio website or managing
           client projects, Formzillion has an affordable plans to meet your
           needs.`}

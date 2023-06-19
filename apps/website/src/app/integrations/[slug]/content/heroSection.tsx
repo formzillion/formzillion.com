@@ -23,8 +23,7 @@ export const heroSection: any = [
       "Integrate Slack with your daily apps on Formzillion, empowering team collaboration for faster goal achievement.",
     image: "/brands/slack.png",
     videoUrl: "slack.webm",
-    docsLink:
-      "https://docs.formzillion.com/integrations/automate-slack-notifications-for-form-submissions",
+    docsLink: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/automate-slack-notifications-for-form-submissions`,
     steps: [
       {
         icon: (
@@ -54,8 +53,7 @@ export const heroSection: any = [
       "Submit your form data to specific URL endpoints by utilizing POST requests.",
     image: "/brands/webhooks.png",
     videoUrl: "webhooks.webm",
-    docsLink:
-      "https://docs.formzillion.com/integrations/automate-the-transfer-of-form-data-to-webhooks-endpoint",
+    docsLink: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/automate-the-transfer-of-form-data-to-webhooks-endpoint`,
     steps: [
       {
         icon: <LinkIcon className="inline w-6 h-6 mr-1 text-orange-500" />,
@@ -85,8 +83,7 @@ export const heroSection: any = [
       "Seamlessly integrate SendGrid into Formzillion for efficient email delivery and enhanced communication capabilities.",
     image: "/brands/sendgrid.png",
     videoUrl: "sendgrid.webm",
-    docsLink:
-      "https://docs.formzillion.com/integrations/automate-sendgrid-to-send-emails",
+    docsLink: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/automate-sendgrid-to-send-emails`,
     steps: [
       {
         icon: (
@@ -116,8 +113,7 @@ export const heroSection: any = [
       "Effortlessly integrate MailerLite into Formzillion for streamlined email marketing and enhanced communication.",
     image: "/brands/mailerlite.png",
     videoUrl: "mailerlite.webm",
-    docsLink:
-      "https://docs.formzillion.com/integrations/automate-subscriber-addition-to-mailerlite",
+    docsLink: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/automate-subscriber-addition-to-mailerlite`,
     steps: [
       {
         icon: <SparklesIcon className="inline w-6 h-6 mr-1 text-orange-500" />,
@@ -140,26 +136,26 @@ export const heroSection: any = [
       "Integrate Airtable into Formzillion for seamless data management and streamlined workflow automation.",
     image: "/brands/airtable.png",
     videoUrl: "airtable.webm",
-    docsLink:
-      "https://docs.formzillion.com/integrations/automate-record-creation-in-airtable",
+    docsLink: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/automate-record-creation-in-airtable`,
     steps: [
       {
-        icon: (
-          <LinkIcon className="inline w-6 h-6 mr-1 text-orange-500" />
-        ),
-        description: "Connect forms to Airtable, a flexible cloud-based database tool.",
+        icon: <LinkIcon className="inline w-6 h-6 mr-1 text-orange-500" />,
+        description:
+          "Connect forms to Airtable, a flexible cloud-based database tool.",
       },
       {
         icon: (
           <ArrowPathRoundedSquareIcon className="inline w-6 h-6 mr-1 text-orange-500" />
         ),
-        description: "Automate the creation of new records in Airtable based on form submissions.",
+        description:
+          "Automate the creation of new records in Airtable based on form submissions.",
       },
       {
         icon: (
           <Square3Stack3DIcon className="inline w-6 h-6 mr-1 text-orange-500" />
         ),
-        description: "Efficiently organize and manage data in Airtable for streamlined workflows.",
+        description:
+          "Efficiently organize and manage data in Airtable for streamlined workflows.",
       },
     ],
   },
@@ -170,26 +166,26 @@ export const heroSection: any = [
       "Integrate Freshdesk into Formzillion for enhanced customer support and streamlined ticket management.",
     image: "/brands/freshdesk.png",
     videoUrl: "freshdesk.webm",
-    docsLink:
-      "https://docs.formzillion.com/integrations/automate-ticket-creation-in-freshdesk",
+    docsLink: `${process.env.NEXT_PUBLIC_DOCS_URL}/integrations/automate-ticket-creation-in-freshdesk`,
     steps: [
       {
         icon: (
           <PencilSquareIcon className="inline w-6 h-6 mr-1 text-orange-500" />
         ),
-        description: "Integrate forms with Freshdesk, a popular customer support software",
+        description:
+          "Integrate forms with Freshdesk, a popular customer support software",
       },
       {
-        icon: (
-          <BoltIcon className="inline w-6 h-6 mr-1 text-orange-500" />
-        ),
-        description: "Automate support ticket creation and trigger actions based on form submissions",
+        icon: <BoltIcon className="inline w-6 h-6 mr-1 text-orange-500" />,
+        description:
+          "Automate support ticket creation and trigger actions based on form submissions",
       },
       {
         icon: (
           <Bars3CenterLeftIcon className="inline w-6 h-6 mr-1 text-orange-500" />
         ),
-        description: "Streamline support processes for efficient handling of customer inquiries.",
+        description:
+          "Streamline support processes for efficient handling of customer inquiries.",
       },
     ],
   },

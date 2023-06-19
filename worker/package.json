@@ -10,9 +10,11 @@
     "build": "rimraf ./build && tsc"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.22.0",
     "axios": "^1.4.0",
     "bullmq": "^3.13.4",
     "dotenv": "^16.0.3",
+    "json2csv": "^6.0.0-alpha.2",
     "knex": "^2.4.2",
     "lodash": "^4.17.21",
     "moment": "^2.29.4",

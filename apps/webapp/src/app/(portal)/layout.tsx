@@ -31,7 +31,7 @@ export default async function PortalLayout({ children }: IProps) {
           <DisclosureNav teams={serializedTeams} user={user} />
           <Suspense fallback={<FzLoader />}>
             <div className="flex flex-col">
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 px-4 sm:px-6 py-3">{children}</main>
             </div>
           </Suspense>
         </div>

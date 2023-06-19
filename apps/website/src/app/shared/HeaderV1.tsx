@@ -30,7 +30,9 @@ export function Header() {
                     Templates
                   </Link> */}
                   <Link
-                    href="https://docs.formzillion.com"
+                    href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
+                    target="_blank"
+                    rel="noreferrer"
                     className="text-lg font-[satoshi] font-medium text-gray-200 hover:text-orange-500"
                   >
                     Docs

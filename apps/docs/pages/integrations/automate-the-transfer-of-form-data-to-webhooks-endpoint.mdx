@@ -1,8 +1,10 @@
 ---
 title: Automate the Transfer of Form Data to Webhooks Endpoint
-description: Utilize webhooks to establish real-time communication between your forms and other systems or applications. Integrate with custom-built solutions, databases, CRMs, and external services for seamless data synchronization. Experience the power of open-source integrations through Formzillion for automating data transfer and ensuring a seamless flow of information.
+description: Achieve seamless information flow with Formzillion's open-source integrations and automated data transfer. Effortlessly connect forms, systems, databases, CRMs, and external services using webhooks for instant communication.
 tags: webhooks, Form Data, endpoint, forms, submission, automate, backend, opensource, integrations, formzillion
 ---
+
+import { Callout } from "nextra/components";
 
 # Automate the Transfer of Form Data to Webhooks Endpoint
 
@@ -22,7 +24,7 @@ To add the new workflow action for form submissions to send the emails to your f
 3.  Log in to your dashboard and navigate to the “**Apps**” Tab.
 4.  Click on Webhooks “**Connect**”. This will bring an window for you to add the name of the connection and Webhooks Endpoint
 
-![](/integrations/webhooks/connection.png)
+![image](/integrations/webhooks/connection.png)
 
 5.  Please enter the “**Connection Name**” and “**Webhooks Endpoint**” and click “**Add**”
 6.  Now navigate to the “**Forms**” tab and select the form for which you want to set up Webhooks workflow.
@@ -30,9 +32,13 @@ To add the new workflow action for form submissions to send the emails to your f
 8.  Under the workflows click on the “**Actions**” and select “**Add action**” this will bring up a new window.
 9.  Here select the App as “**Webhooks**” and Connection which was connected previously.
 
-![](/integrations/webhooks/task.png)
+![image](/integrations/webhooks/task.png)
 
 10. After Selecting all the options click on “**Add**” and test the Webhooks workflow action by submitting a test form on your website and verifying the webhook payload recived on your webhooks endpoint.
+
+<Callout type="info" emoji="ℹ️">
+  **Note**: You can generate the instant webhook endpoint using [Beecepter](https://beeceptor.com/)
+</Callout>
 
 ## Toggling the Webhooks Workflow
 
@@ -69,3 +75,7 @@ If you encounter any issues with Webhooks workflow, such as not sending the payl
   }
 }
 ```
+
+<Callout type="info" emoji="ℹ️">
+  **Info**: Webhooks Integration feature starts from [Basic plan.](https://formzillion.com/pricing)
+</Callout>

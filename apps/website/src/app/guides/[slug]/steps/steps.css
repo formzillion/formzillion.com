@@ -1,0 +1,65 @@
+.steps .para {
+  line-height: 25px;
+  margin-bottom: 24px;
+  color: #9ca3af;
+  font-size: 16px;
+}
+.steps h4 {
+  font-size: 18px !important;
+  margin-bottom: 13px !important;
+  margin-top: 20px !important;
+  font-weight: 500;
+  color: #d1d5db;
+}
+
+.steps .code {
+  width: 100%;
+  background-color: rgb(30, 30, 30);
+  padding: 6px 14px;
+  border-radius: 4px;
+}
+
+.steps h2{
+  font-size: 18px;
+  margin-bottom: 32px;
+  font-weight: 400;
+  color: #9ca3af;
+}
+
+.steps{
+  text-align: justify;
+}
+
+.heading{
+  font-size: 32px;
+  font-weight: 400;
+}
+
+ol{
+  list-style-type: decimal;
+  color: #9ca3af;
+  list-style-position: inside;
+}
+
+li{
+  padding: 4px 0px;
+}
+
+li::marker{
+  color: #d1d5db;
+}
+
+.steps a{
+  color: #f97316;
+}
+
+.steps a:hover{
+  color: #ea580c;
+}
+
+.bg-highlight{
+  background-color: #fd93181a;
+  color:#ea580c;
+  border-radius: 4px;
+  padding: 0px 4px 3px 4px;
+}

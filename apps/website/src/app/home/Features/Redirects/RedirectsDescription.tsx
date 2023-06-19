@@ -3,12 +3,8 @@ export default function RedirectsDescription() {
     <div
       className={`flex justify-center items-center text-white text-left h-full`}
     >
-      <div
-        className={`relative flex items-start w-full h-full`}
-      >
-        <div
-          className={`relative gap-6 flex flex-col items-start`}
-        >
+      <div className={`relative flex items-start w-full h-full`}>
+        <div className={`relative gap-6 flex flex-col items-start`}>
           <p
             className={`font-bold m-0 font-['Space_Grotesk'] text-4xl leading-[normal]`}
           >
@@ -22,7 +18,9 @@ export default function RedirectsDescription() {
             }
           </p>
           <a
-            href="https://docs.formzillion.com/docs/features/redirects"
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}/docs/features/redirects`}
+            target="_blank"
+            rel="noreferrer"
             className="flex justify-center items-center text-white text-left font-bold w-[210px] h-[59px] bg-orange-600 font-['Satoshi'] hover:bg-orange-800"
           >
             Learn More

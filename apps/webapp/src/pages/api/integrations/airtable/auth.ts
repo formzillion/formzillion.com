@@ -9,12 +9,8 @@ import callBackHelper from "@/lib/integrationsCallbackHelper";
 const appSlug = "airtable";
 const baseUri = "https://www.airtable.com";
 const redirectUri = `${process.env.NEXT_PUBLIC_APP_URL}/api/integrations/airtable/auth`;
-const clientId =
-  process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_ID ||
-  "9f9bb6e4-6608-437d-b17e-47b54c9e68b2";
-const clientSecret =
-  process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID ||
-  "c1d670e8f180e3876369238cf7e076c06f9bebb6b335a3be77607fff08a6e848";
+const clientId = process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_ID || "";
+const clientSecret = process.env.NEXT_PUBLIC_AIRTABLE_CLIENT_SECRET_ID || "";
 const scopes =
   "data.records:read data.records:write schema.bases:read schema.bases:write";
 

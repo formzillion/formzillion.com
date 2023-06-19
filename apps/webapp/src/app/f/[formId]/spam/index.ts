@@ -28,7 +28,7 @@ export async function validateSpam(
   } else if (provider === "honeypot") {
     isSpam = await honeypot(reqBody);
   } else if (provider === "customWords") {
-    isSpam = await customWords(reqBody);
+    isSpam = await customWords(reqBody, spamConfig);
   }
 
   return !isSpam;

@@ -17,15 +17,15 @@ export default async function handler(
 
 async function updateForm(req: NextApiRequest, res: NextApiResponse) {
   const { formId }: any = req.query;
-  const { emailNotifications, submissionArchive, formEnabled } = JSON.parse(
-    req.body
-  );
+  const { name, emailNotifications, submissionArchive, formEnabled } =
+    JSON.parse(req.body);
 
   const form = await prisma.forms.update({
     where: {
       id: formId,
     },
     data: {
+      name,
       emailNotifications,
       submissionArchive,
       formEnabled,

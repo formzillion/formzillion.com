@@ -1,7 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
-import { get } from "lodash";
+import { get, snakeCase } from "lodash";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 export default async function handler(
   req: NextApiRequest,
@@ -34,6 +35,13 @@ export default async function handler(
       const { teamSlug, avatar, planName, userDetail }: any = await getTeams(
         email
       );
+
+      notifyOnSlack(
+        "Login",
+        `*User logged In*\n
+            Email ID: ${email}\n`
+      );
+      
       return res
         .status(200)
         .json({ url: teamSlug, avatar, planName, userDetail });
@@ -67,7 +75,7 @@ const getTeams = async (email: string) => {
       console.log("Personal Slug", teamSlug);
     }
 
-    return { teamSlug, avatar, planName };
+    return { teamSlug, avatar, planName: snakeCase(planName) };
   } else {
     return "dashboard";
   }

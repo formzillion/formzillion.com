@@ -1,3 +1,9 @@
+---
+title: Fetch
+description: Fetch API call of Formzillion
+tags: fetch api call, basic setup, form, submission, automate, backend, open-source, integrations, Formzillion
+---
+
 # Forms Using Fetch
 
 If you don't want to redirect your form submitters after a submission, FetchAPI is another option we support. Fetch API is similar to XMLHttpRequest but this new API provides powerful features.
@@ -34,7 +40,7 @@ Let's make a simple request to submit above HTML formData using FetchAPI:
            document.querySelector('input[name="email"]').value
        )
 
-       fetch("https://formzillion.com/f/your-form-id",
+       fetch("https://app.formzillion.com/f/your-form-id",
        {
            method: "POST",
            body: formData,

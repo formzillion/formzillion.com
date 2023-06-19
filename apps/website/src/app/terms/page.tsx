@@ -83,7 +83,7 @@ export default function page() {
             3. Account contested by 2 or more parties
           </h2>
           In the case of an account being contested by 2 or more parties,
-          Getform will determine whom to grant ownership of the account to in
+          Formzillion will determine whom to grant ownership of the account to in
           the following way:
           <ul className="list-disc space-y-3 p-5">
             <li>

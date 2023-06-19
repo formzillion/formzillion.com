@@ -10,10 +10,12 @@ const addConnection = async ({
   teamSlug,
   appSlug,
   connectionConfig,
+  formId,
 }: {
   teamSlug: string;
   appSlug: string;
   connectionConfig: any;
+  formId: string;
 }) => {
   const response = await fetch("/api/connections/add-connection", {
     method: "POST",
@@ -21,7 +23,7 @@ const addConnection = async ({
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ teamSlug, appSlug, connectionConfig }),
+    body: JSON.stringify({ teamSlug, appSlug, connectionConfig, formId }),
   });
 
   const connectionAdded = await response.json();

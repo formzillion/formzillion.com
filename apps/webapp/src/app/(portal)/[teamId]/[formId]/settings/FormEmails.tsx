@@ -13,6 +13,8 @@ import { SwitchButton } from "./SwitchGroup";
 import Header from "@/ui/Header";
 import Heading from "../../settings/Heading";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { getTeamDetails } from "@/utils/getTeamDetails";
+import UpgradePlan from "@/components/UpgradePlan";
 
 export default function FormEmails({ formDetail }: any) {
   const { sendToEmail, id: formId, emailNotifications } = formDetail;
@@ -21,6 +23,7 @@ export default function FormEmails({ formDetail }: any) {
   const [emails, setEmails] = useState(currentEmail || "");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { plan, url, disabled } = getTeamDetails(formDetail.team);
 
   const handleEmailUpdate = async (e: any) => {
     setLoading(true);
@@ -47,6 +50,7 @@ export default function FormEmails({ formDetail }: any) {
     const response = await toggleEmailNotifications({
       formId,
       isEnable: value,
+      plan,
     });
 
     if (response.success) {
@@ -80,7 +84,8 @@ export default function FormEmails({ formDetail }: any) {
               <Heading
                 title="Emails"
                 description="Get notification to these emails when new form submission is
-                recived (Enter multiple email addresses separated by commas)."
+                received (Enter multiple email addresses separated by commas)."
+                plan={plan === "free" && <UpgradePlan url={url} />}
               />
             </Label>
             <Input
@@ -89,6 +94,7 @@ export default function FormEmails({ formDetail }: any) {
               id="formEmails"
               value={emails}
               onChange={(e) => setEmails(e.target.value)}
+              disabled={disabled}
             ></Input>
           </div>
         )}
@@ -111,6 +117,7 @@ export default function FormEmails({ formDetail }: any) {
             loading={loading}
             onClick={handleEmailUpdate}
             className="flex justify-end rounded-none min-w-[80px] h-[30px]"
+            disabled={disabled}
           >
             Save
           </Button>

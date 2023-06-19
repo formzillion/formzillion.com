@@ -5,6 +5,7 @@ import {
   BanknotesIcon,
   Bars3Icon,
   BookOpenIcon,
+  ChatBubbleBottomCenterTextIcon,
   MapIcon,
   PuzzlePieceIcon,
   WrenchScrewdriverIcon,
@@ -20,34 +21,40 @@ const navigation = [
     icon: <BanknotesIcon className="inline h-4 w-4 text-gray-300" />,
   },
   {
-    name: "Docs",
-    href: "https://docs.formzillion.com",
+    name: "Integrations",
+    href: `/integrations`,
     current: true,
-    icon: <BookOpenIcon className="inline h-4 w-4 text-gray-300" />,
+    icon: <PuzzlePieceIcon className="inline h-4 w-4 text-gray-400" />,
+  },
+  {
+    name: "Blog",
+    href: `/blog`,
+    current: true,
+    icon: <ChatBubbleBottomCenterTextIcon className="inline h-4 w-4 text-gray-400" />,
+  },
+  {
+    name: "Docs",
+    href: `${process.env.NEXT_PUBLIC_DOCS_URL}/`,
+    current: true,
+    icon: <BookOpenIcon className="inline h-4 w-4 text-gray-400" />,
   },
   {
     name: "Community Slack",
     href: "https://formzillion.slack.com/join/shared_invite/zt-1urntbbmb-o0d6Qzdl~GzfePoZE7JTYw",
     current: true,
-    icon: <FiSlack className="inline h-4 w-4 text-gray-300" />,
+    icon: <FiSlack className="inline h-4 w-4 text-gray-500" />,
   },
   {
     name: "Roadmap",
     href: `https://github.com/orgs/formzillion/projects/1`,
     current: true,
-    icon: <MapIcon className="inline h-4 w-4 text-gray-300" />,
+    icon: <MapIcon className="inline h-4 w-4 text-gray-500" />,
   },
   {
     name: "Setup Formzillion",
-    href: `https://docs.formzillion.com/setup`,
+    href: `${process.env.NEXT_PUBLIC_DOCS_URL}/setup`,
     current: true,
-    icon: <WrenchScrewdriverIcon className="inline h-4 w-4 text-gray-300" />,
-  },
-  {
-    name: "Integrations",
-    href: `https://docs.formzillion.com/integrations`,
-    current: true,
-    icon: <PuzzlePieceIcon className="inline h-4 w-4 text-gray-300" />,
+    icon: <WrenchScrewdriverIcon className="inline h-4 w-4 text-gray-400" />,
   },
 ];
 
@@ -59,7 +66,7 @@ export default function DisclosureNav() {
   return (
     <Disclosure
       as="header"
-      className="shadow text-white sticky z-[200] top-0 sm:hidden bg-gradient-to-r from-black via-gray-950 to-black"
+      className="shadow text-white sticky z-[200] top-0 lg:hidden bg-gradient-to-r from-black via-gray-950 to-black"
     >
       {({ open }) => (
         <>

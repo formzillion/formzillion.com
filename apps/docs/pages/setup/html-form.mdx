@@ -1,3 +1,9 @@
+---
+title: HTML Native Form
+description: HTML Native Form of Formzillion
+tags: HTML Native Form, basic setup, form, submission, automate, backend, open-source, integrations, Formzillion
+---
+
 # HTML Native Form
 
 If you have a static website that requires a form backend, Formzillion can be an ideal choice for you as it seamlessly operates wherever HTML forms can be displayed.
@@ -15,7 +21,7 @@ To start using Formzillion for your web forms, you'll require the following:
 1. Set your HTML form's action attribute to your form's action URL.Your form's unique action URL looks something like this:
 
 ```html copy
-https://formzillion.com/f/your-form-id.
+https://app.formzillion.com/f/your-form-id.
 ```
 
 2. Ensure all input, select and textarea elements inside your form have a name attribute, otherwise you will not receive the data filled in these fields.
@@ -34,24 +40,13 @@ https://formzillion.com/f/your-form-id.
     <title>FormZillion - Native Form Submit Example</title>
   </head>
   <body>
-    <form action="https://formzillion.com/f/your-form-id" method="post">
+    <form action="https://app.formzillion.com/f/your-form-id" method="post">
       <label for="name">Name</label>
       <input type="text" id="name" name="name" placeholder="Name" required="" />
       <label for="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="Email"
-        required=""
-      />
+      <input type="email" id="email" name="email" placeholder="Email" required="" />
       <label for="message">Message</label>
-      <textarea
-        id="message"
-        name="message"
-        placeholder="Message"
-        required=""
-      ></textarea>
+      <textarea id="message" name="message" placeholder="Message" required=""></textarea>
       <button type="submit">Send</button>
     </form>
   </body>

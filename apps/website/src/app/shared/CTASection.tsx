@@ -3,7 +3,7 @@ import AppIcon from "@/ui/AppIcon";
 
 export default function CTASection() {
   return (
-    <div className="mx-auto max-w-md sm:max-w-xl md:max-w-3xl flex flex-col items-center text-center p-10 text-white bg-gray-400/10 rounded-2xl lg:max-w-5xl m-10 mb-6 my-28 md:my-40">
+    <div className="mx-auto max-w-md sm:max-w-xl md:max-w-3xl flex flex-col items-center text-center p-10 text-white bg-gray-400/10 rounded-2xl lg:max-w-5xl m-10 my-28 md:my-36">
       <div className="space-y-4 pb-4">
         <h3 className="text-2xl sm:text-3xl font-normal">
           Ready to send your first form submission?
@@ -38,7 +38,7 @@ export default function CTASection() {
             forms data.
           </p>
           <a
-            href="https://docs.formzillion.com/"
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
             target="_blank"
             rel="noreferrer"
           >

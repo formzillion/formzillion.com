@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { get, kebabCase } from "lodash";
+import { get, kebabCase, snakeCase } from "lodash";
 import { createServerSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import prisma from "@/lib/prisma";
 import stripeApi from "@/lib/stripe/stripe-api";
 import { PLAN_ID } from "@/utils/stripe.constants";
+import { notifyOnSlack } from "@/utils/notifyOnSlack";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,11 +12,7 @@ export default async function handler(
 ) {
   // Create authenticated Supabase Client
   const supabase = createServerSupabaseClient({ req, res });
-  // Check if we have a session
-  const {
-    data: { session },
-  }: any = await supabase.auth.getSession();
-  const loginEmail: any = session?.user?.email;
+
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -60,11 +57,13 @@ export default async function handler(
       await postRegisterActions({
         email,
       });
+
+    const formattedPlanName = snakeCase(planName);
     const user = await prisma.users.create({
       data: {
         email,
         billingCustomerId: customerId,
-        planName,
+        planName: formattedPlanName,
         planId,
         fullName,
         // Create a new team entry and associate it with the user
@@ -74,7 +73,7 @@ export default async function handler(
             type: "personal",
             slug: kebabCase(splittedEmail),
             billingCustomerId: customerId,
-            planName,
+            planName: formattedPlanName || "free",
             planId,
           },
         },
@@ -83,7 +82,7 @@ export default async function handler(
         teams: true,
       },
     });
-    const teamId = get(user, "teams[0].id", "");
+    const teamId = get(user, "teams.0.id", "");
     if (teamId) {
       await prisma.memberships.create({
         data: {
@@ -91,6 +90,17 @@ export default async function handler(
           userId: user.id,
           accepted: true,
           role: "OWNER",
+        },
+      });
+
+      // Initial entry for plan metering
+      const teamSlug = get(user, "teams.0.slug", "");
+      await prisma.plan_metering.create({
+        data: {
+          teamId: teamId,
+          teamSlug: teamSlug,
+          planId: planId,
+          planName: formattedPlanName || "free",
         },
       });
     }
@@ -107,6 +117,13 @@ async function postRegisterActions({ email }: any) {
       email,
       fullName,
     });
+
+  notifyOnSlack(
+    "Login",
+    `*New User Registered*\n
+        Email ID: ${email}\n`
+  );
+
   return { customerId, planName, planId, fullName };
 }
 
@@ -124,9 +141,16 @@ export async function createBillingUserAndSubscription({
     customerId: stripeCustomer?.id,
     priceId: PLAN_ID,
   });
+  //Step 3: Get the plan name from Stripe
+  const productId = get(subscription, "plan.product", "").toString();
+  const productDetails = await stripeApi.productDetail({ productId });
+  let planName = get(productDetails, "name", "free");
+  const formattedPlanName = snakeCase(planName);
+  planName === null ? "free" : planName;
+
   return {
     customerId: stripeCustomer?.id,
-    planName: subscription?.plan?.nickname,
+    planName: formattedPlanName,
     planId: subscription?.plan.id,
   };
 }

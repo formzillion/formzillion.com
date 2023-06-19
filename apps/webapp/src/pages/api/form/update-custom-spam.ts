@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { isEmpty } from "lodash";
 import prisma from "@/lib/prisma";
+import checkPlan from "@/utils/checkPlan";
 
 export default async function handler(
   req: NextApiRequest,
@@ -11,8 +13,19 @@ export default async function handler(
   }
 
   const reqBody = JSON.parse(req.body);
-  const { customHoneypot, customSpamWords, formId } = reqBody;
-  const customSpamArray = customSpamWords.split(",")
+  const { customHoneypot, customSpamWords, formId, plan } = reqBody;
+
+  const toProceed = checkPlan(plan);
+
+  if (!toProceed) {
+    return res
+      .status(400)
+      .json({ success: false, message: "Please upgrade plan" });
+  }
+  let customSpamArray;
+  if (!isEmpty(customSpamWords)) {
+    customSpamArray = customSpamWords?.split(",");
+  }
 
   const response = await prisma.forms.update({
     where: {

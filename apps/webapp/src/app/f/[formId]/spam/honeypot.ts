@@ -3,8 +3,8 @@ export default async function honeypot(reqBody: any) {
 
   if (!_honeypot) {
     console.log("Form submission success!");
-    return true;
+    return false;
   }
   console.log("Form submission failed");
-  return false;
+  return true;
 }

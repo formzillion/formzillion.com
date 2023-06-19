@@ -1,8 +1,10 @@
 ---
 title: Automate Slack Notifications for Form Submissions
-description: Utilize Slack to receive notifications whenever a user submits a form on your website. Stay informed about new submissions and respond quickly using this powerful messaging app for businesses. Discover the power of open-source integrations with Formzillion to automate Slack notifications and streamline your form management process.
+description: Use Slack for form notifications. Stay informed and respond quickly with this powerful messaging app. Try Formzillion for open-source integrations and automate Slack notifications for streamlined form management.
 tags: Slack, forms, automate, backend, open-source, integrations, Channel, notify, notifications, Formzillion
 ---
+
+import { Callout } from "nextra/components";
 
 # Automate Slack Notifications for Form Submissions
 
@@ -22,14 +24,14 @@ To add the new workflow action for form submissions to receive slack notificatio
 3.  Click on Slack “**Connect**”. This will bring an authorising window for you to authorise Slack. Here login into the Slack workspace if not already logged in.
 4.  Select all the required option while connecting to slack account and click “**Allow**”
 
-![](/integrations/slack/auth.png)
+![image](/integrations/slack/auth.png)
 
 5.  Now navigate to the “**Forms**” tab and select the form for which you want to set up slack notification for.
 6.  Under the selected form page navigate to the “**Workflows**” Tab
 7.  Under the workflows click on the “**Actions**” and select “**Add action**” this will bring up a new window.
 8.  Here select the App as “**Slack**” and Connection which was connected previously.
 
-![](/integrations/slack/task.png)
+![image](/integrations/slack/task.png)
 
 9.  After Selecting all the options click on “**Add**” and test the slack workflow action by submitting a test form on your website and verifying that the new submission notification is received on the configured slack workspace.
 
@@ -47,3 +49,7 @@ If you encounter any issues with slack workflow, such as not receiving notificat
 - Verify the connected slack workspace while authorising the connection.
 - Reconnecting the slack connection by clicking the the reconnect button under the “**Apps**” tab and reconfigure the options according to your preference.
 - Test the workflow by submitting the test submission on the form.
+
+<Callout type="info" emoji="ℹ️">
+  **Info**: Slack Integration feature starts from [Basic plan.](https://formzillion.com/pricing)
+</Callout>

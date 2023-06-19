@@ -110,7 +110,7 @@ model teams {
   theme             String?
   billingCustomerId String?            @unique @map("billing_customer_id")
   planId            String?            @map("plan_id")
-  planName          String?            @map("plan_name")
+  planName          String?            @default("free") @map("plan_name")
   connections       connections[]
   forms             forms[]
   members           memberships[]
@@ -118,6 +118,7 @@ model teams {
   workflows         workflows[]
   users             users[]            @relation("teamsTousers")
   avatar            String?
+  plan_metering     plan_metering[]
 
   @@index([slug])
   @@map("teams")
@@ -247,6 +248,21 @@ model tokens {
   email     String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+}
+
+model plan_metering {
+  id                Int    @id @default(autoincrement())
+  submissionCounter Int    @default(0) @map("submission_counter")
+  memberCounter     Int    @default(0) @map("member_counter")
+  formCounter       Int    @default(0) @map("form_counter")
+  planId            String
+  planName          String
+  teamSlug          String @unique
+  teamId            String @unique
+  team              teams  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([teamId])
+  @@map("plan_metering")
 }
 
 enum membershipRole {

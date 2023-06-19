@@ -1,60 +1,45 @@
+---
+title: Custom Spam Words
+description: The "Custom Spam Words" feature allows users to prevent the submission of forms that contain specific words. By configuring this feature in the form settings, users can define a list of up to 100 words separated by commas, which will trigger the blocking mechanism. This customization provides an effective way to combat spam and filter out unwanted content from form submissions.
+tags: custom spam words, block submissions, specific words, form, submission, automate, backend, open-source, integrations, Formzillion
+---
+
+import { Callout } from "nextra/components";
+
 # Custom Spam Words
 
 Custom spam words let you block submissions that contain specific words.
-
 You can specify a comma-separated list of (up to a 100) words in your form's settings, under `custom spam words`
 
-Steps
+To integrate Google Custom Spam Words into your form endpoint, follow these steps:
 
-1. Goto [formzillion.com](https://formzillion.com/)
-2. Create a form
-3. Go to form setting -> add the custom spam words
+1. Login to [Formzillion App](https://app.formzillion.com/)
+2. Create a form or select a form to which you want to add custom spam words.
+3. Navigate to form's settings, select Spam Filtering in the sidebar.
+4. Add custom spam words in the below input field.
+
 
 Example
 
-```html copy
-<!DOCTYPE html>
+```html copy {11}
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FormZillion - Honeypot Spam Words Form Submit Example</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-
-<body>
-  <div class="mx-auto flex h-[100vh] max-w-7xl items-center justify-center">
-    <div class="w-[600px] border border-gray-100 px-10 py-8 shadow">
-      <div class="flex justify-center">
-      </div>
-      <h1 class="text-center text-3xl text-gray-700 font-bold ">Form Zillion</h1>
-      <h4 class="text-center text-base text-gray-500 mt-4">Formzillion.com HTML Form with Google invisible reCaptcha(v3)
-        </h4>
-      <form id="form" class="my-6" action="http://localhost:3000/f/clgqj0fyo0003v56wz5vtkjcp" method="POST">
-        <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress">
-          Email Address
-        </label>
-        <input
-          class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-          id="emailaddress" type="emailaddress" placeholder="Enter Email Address" required name="emailaddress" />
-        <label class="mb-2 block text-sm font-bold text-gray-500" for="emailaddress">
-          Full Name
-        </label>
-        <input
-          class="focus:shadow-outline mb-4 w-full appearance-none rounded border px-3 py-2 leading-tight text-gray-700 shadow focus:outline-none"
-          id="fullname" type="fullname" placeholder="Enter your Fullname" required name="fullname" />
-        <input type="checkbox" name="Paste your custom honeypot here" style="display:none" tabindex="-1" autocomplete="off" />
-        <div class="w-full">
-          <button id="button" class="mt-4 w-full rounded bg-orange-500 px-4 py-2 font-bold text-white" type="submit">
-            Submit
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</body>
-
+  <head>
+    <title>FormZillion - Custom Spam Words</title>
+  </head>
+  <body>
+    <form id="form" action="http://app.formzilliom.com/f/{form_id}" method="POST" >
+      <label for="email">Enter your email</label>
+      <input id="email" type="email" placeholder="Enter Email Address" name="email" />
+      <label for="name">Full Name</label>
+      <input id="name" type="text" placeholder="Enter your FullName" name="name" />
+      <input type="checkbox" name="Paste your custom honeypot here" style="display:none" autocomplete="off"/>
+      <button id="button" type="submit" >Submit</button>
+    </form>
+  </body>
 </html>
 ```
+
+<Callout type="info" emoji="ℹ️">
+  **Info**: Custom Spam Words is available on [Basic, Standard, Premium and Agency
+  plans.](https://formzillion.com/pricing)
+</Callout>

@@ -33,6 +33,8 @@ export default async function handler(
     // Getting auth data querying the "code" from Slack
     const accessParams = await getAccessToken(code);
 
+    console.log("Slack callback accessParams: ", accessParams);
+
     if (isEmpty(accessParams)) {
       return res.status(400).json({
         success: false,
@@ -47,6 +49,8 @@ export default async function handler(
       teamSlug,
       appSlug,
     });
+
+    console.log("Slack connection requiredData: ", requiredData);
 
     if (!requiredData.success) {
       return res.status(400).json(requiredData);
@@ -68,16 +72,20 @@ export default async function handler(
       },
     };
 
+    let connection = {};
+
     if (requiredData.connectionId) {
-      await prisma.connections.update({
+      connection = await prisma.connections.update({
         where: { id: requiredData.connectionId },
         data: connectionData,
       });
     } else {
-      await prisma.connections.create({
+      connection = await prisma.connections.create({
         data: connectionData,
       });
     }
+
+    console.log("Slack connection Data: ", connection);
 
     return res.send("<script>window.close();</script>");
   } catch (error) {

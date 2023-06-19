@@ -17,3 +17,12 @@ Run the following to publish a new version:
 ```bash
 npm run release
 ```
+
+## Commands
+
+```
+formzillion deploy
+formzillion forms list
+formzillion forms create --name "Contact Us"
+formzillion forms delete --formId 12345
+```

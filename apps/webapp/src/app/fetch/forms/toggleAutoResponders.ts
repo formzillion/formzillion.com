@@ -7,9 +7,11 @@
 const toggleAutoResponders = async ({
   formId,
   isEnable,
+  plan,
 }: {
   formId: string;
   isEnable: boolean;
+  plan: string;
 }) => {
   const response = await fetch("/api/form/toggle-auto-responders", {
     method: "POST",
@@ -18,6 +20,7 @@ const toggleAutoResponders = async ({
     body: JSON.stringify({
       formId,
       isEnable,
+      plan,
     }),
   });
 

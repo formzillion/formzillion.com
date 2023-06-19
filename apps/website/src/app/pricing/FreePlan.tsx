@@ -5,14 +5,14 @@ import React from "react";
 const features = [
   "1 Form creation",
   "Default thank-you page redirection",
-  "Up to 50 submissions",
+  "Up to 100 submissions",
   "Community support via slack.",
 ];
 export default function FreePlan() {
   return (
     <div className="max-w-sm sm:max-w-xl md:max-w-2xl lg:max-w-4xl mx-auto py-8 lg:py-16">
-      <div className="p-10 bg-gray-400/10 grid grid-cols-5  rounded-xl">
-        <div className="space-y-5 col-span-3 flex justify-center flex-col">
+      <div className="p-10 bg-gray-400/10 flex flex-col-reverse items-center md:grid md:grid-cols-5  rounded-xl">
+        <div className="space-y-5 md:col-span-3 flex justify-center flex-col">
           {features.map((feature) => (
             <div className="flex space-x-3">
               <CheckIcon
@@ -23,7 +23,7 @@ export default function FreePlan() {
             </div>
           ))}
         </div>
-        <div className="text-center col-span-2">
+        <div className="text-center mb-5 md:mb-0 md:col-span-2">
           <p className="text-lg text-gray-400 mb-2">
             <span className="text-8xl text-orange-600">$0</span>/month
           </p>

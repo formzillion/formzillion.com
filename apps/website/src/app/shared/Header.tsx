@@ -1,8 +1,15 @@
 import React from "react";
 import Link from "next/link";
+import {
+  ArrowTopRightOnSquareIcon,
+  BoltIcon,
+  ChevronDownIcon,
+  MapIcon,
+  WrenchScrewdriverIcon,
+} from "@heroicons/react/24/outline";
+import { FiSlack } from "react-icons/fi";
 
 import AppLogo from "@/ui/AppLogo";
-import GithubStar from "./GithubStar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,15 +17,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/ui/DropdownMenu";
-import {
-  ArrowTopRightOnSquareIcon,
-  BoltIcon,
-  ChevronDownIcon,
-  MapIcon,
-  PuzzlePieceIcon,
-  WrenchScrewdriverIcon,
-} from "@heroicons/react/24/outline";
-import { FiSlack } from "react-icons/fi";
+import GithubStar from "./GithubStar";
+
 interface navProps {
   url: string;
   title: string;
@@ -63,43 +63,27 @@ const MenuList = [
   },
   {
     title: "Setup Formzillion",
-    url: "https://docs.formzillion.com/setup",
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/setup`,
     icon: <WrenchScrewdriverIcon className="h-4 w-4 mr-2" />,
   },
   {
     title: "Features",
-    url: "https://docs.formzillion.com/features",
+    url: `${process.env.NEXT_PUBLIC_DOCS_URL}/features`,
     icon: <BoltIcon className="h-4 w-4 mr-2" />,
-  },
-  {
-    title: "Integrations",
-    url: "https://docs.formzillion.com/integrations",
-    icon: <PuzzlePieceIcon className="h-4 w-4 mr-2" />,
   },
 ];
 
 export default function Header() {
   return (
-    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 sm:block hidden border-b border-gray-800">
+    <div className="shadow text-white sticky bg-gray-950 bg-opacity-70 backdrop-blur-2xl z-[200] top-0 lg:block hidden border-b border-gray-800">
       <div className="mx-auto max-w-7xl px-4 lg:px-2 xl:py-2.5 flex justify-between py-2 h-[60px] xl:h-[65px]">
         <div className="flex items-center space-x-8">
           <div>
             <AppLogo />
           </div>
-        </div>
-        <div className="flex items-center space-x-4">
           <NavLink url={"/pricing"} title={"Pricing"} />
-          <div className="border-r py-4 border-gray-800"></div>
-          <a
-            href={"https://docs.formzillion.com"}
-            rel="noreferrer"
-            target="_blank"
-            className="flex items-center py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200"
-          >
-            Docs
-            <ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
-          </a>
-          <div className="border-r py-4 border-gray-800"></div>
+          <NavLink url={"/integrations"} title={"Integrations"} />
+          <NavLink url={"/guides"} title={"Guides"} />
           <DropdownMenu>
             <DropdownMenuTrigger asChild className="border-0">
               <div className="py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200 flex items-center">
@@ -120,6 +104,17 @@ export default function Header() {
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
+        <div className="flex items-center space-x-4">
+          <a
+            href={`${process.env.NEXT_PUBLIC_DOCS_URL}`}
+            rel="noreferrer"
+            target="_blank"
+            className="flex items-center py-5 border-b-2 border-transparent hover:border-orange-600 hover:text-orange-200"
+          >
+            Docs
+            <ArrowTopRightOnSquareIcon className="ml-1 w-4 h-4" />
+          </a>
           <GithubStar />
           <a
             href={`${process.env.NEXT_PUBLIC_APP_URL}/login`}
